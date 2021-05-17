@@ -18,6 +18,8 @@
 .*
 *~
 
+!.github
+
 config.h
 *.log
 build.conf
