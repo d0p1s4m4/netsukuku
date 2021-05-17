@@ -44,9 +44,9 @@ Help("""
 *** General options
 """ + opts.GenerateHelpText(env))
 
-print "===================================================="
-print "Compiling Netsukuku for " + env['platform']
-print "===================================================="
+print("====================================================")
+print("Compiling Netsukuku for " + env['platform'])
+print("====================================================")
 
 Export("env")
 
