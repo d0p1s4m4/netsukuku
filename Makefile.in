@@ -22,7 +22,7 @@ CFLAGS	+= %(CFLAGS) -Wall -Wextra
 LDFLAGS	+= 	-lgmp -lpthread -lcrypto -lz
 
 SRCS_COMMON	= xmalloc.c log.c misc.c buffer.c endianness.c
-SRCS_QSPN	= qspn-empiric.c $(SRCS_COMMON)
+SRCS_QSPN	= qspn-empiric.c
 SRCS_NETSUKUKU	= accept.c llist.c ipv6-gmp.c inet.c request.c map.c gmap.c \
 					bmap.c pkts.c radar.c hook.c rehook.c tracer.c qspn.c \
 					hash.c daemon.c crypto.c snsd_cache.c andna_cache.c \
@@ -30,36 +30,48 @@ SRCS_NETSUKUKU	= accept.c llist.c ipv6-gmp.c inet.c request.c map.c gmap.c \
 					andns_net.c andns_snsd.c ll_map.c libnetlink.c if.c \
 					krnl_route.c krnl_rule.c iptunnel.c route.c conf.c \
 					dns_wrapper.c igs.c mark.c libiptc/libip4tc.c libping.c \
-					ntk-console-server.c netsukuku.c $(SRCS_COMMON)
+					ntk-console-server.c netsukuku.c
 SRCS_NTKRESOLV	= andns_lib.c andns_net.c crypto.c snsd_cache.c inet.c \
-					ll_map.c libnetlink.c err_errno.c ntkresolv.c $(SRCS_COMMON)
+					ll_map.c libnetlink.c err_errno.c ntkresolv.c
 SRCS_NTKCONSOLE	= ntk-console.c
+SRCS_TEST		= test_common.c test_buffer.c
 
+OBJS_COMMON	= $(addprefix src/, $(SRCS_COMMON:.c=.o))
 OBJS_QSPN	= $(addprefix src/, $(SRCS_QSPN:.c=.o))
 OBJS_NETSUKUKU	= $(addprefix src/, $(SRCS_NETSUKUKU:.c=.o))
 OBJS_NTKRESOLV	= $(addprefix src/, $(SRCS_NTKRESOLV:.c=.o))
 OBJS_NTKCONSOLE	= $(addprefix src/, $(SRCS_NTKCONSOLE:.c=.o))
-OBJS	= $(OBJS_QSPN) $(OBJS_NETSUKUKU) $(OBJS_NTKCONSOLE) $(OBJS_NTKRESOLV)
+OBJS_TEST		= $(addprefix test/, $(SRCS_TEST:.c=.o))
+OBJS	= $(OBJS_QSPN) $(OBJS_NETSUKUKU) $(OBJS_NTKCONSOLE) $(OBJS_NTKRESOLV) \
+			$(OBJS_COMMON) $(OBJS_TEST)
+
+test: CFLAGS	+= --coverage
+test: LDFLAGS	+= -lcmocka --coverage
+test: CC		:= gcc
 
 all: ntkd ntkresolv ntkconsole qspn-empiric
 
-ntkd: $(OBJS_NETSUKUKU)
+ntkd: $(OBJS_NETSUKUKU) $(OBJS_COMMON)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-ntkresolv: $(OBJS_NTKRESOLV)
+ntkresolv: $(OBJS_NTKRESOLV) $(OBJS_COMMON)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 ntkconsole: $(OBJS_NTKCONSOLE)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-qspn-empiric: $(OBJS_QSPN)
+qspn-empiric: $(OBJS_QSPN) $(OBJS_COMMON)
 	$(CC) -o $@ $^ $(LDFLAGS)
+
+test: $(OBJS_TEST) $(OBJS_COMMON)
+	$(CC) -o unittest $^ $(LDFLAGS)
+	@./unittest
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) ntkd ntkresolv ntkconsole qspn
+	$(RM) ntkd ntkresolv ntkconsole qspn unittest
 	$(RM) $(OBJS)
 	$(RM) $(OBJS:.o=.gcda)
 	$(RM) $(OBJS:.o=.gcno)

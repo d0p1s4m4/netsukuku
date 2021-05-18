@@ -33,3 +33,8 @@ ntk-console
 ntk-resolv
 ntkd
 qspn-empiric
+unittest
+
+# coverage
+*.gcno
+*.gcda
