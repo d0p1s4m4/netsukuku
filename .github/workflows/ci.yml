@@ -17,4 +17,6 @@ jobs:
         sudo apt-get install libpth-dev scons
         sudo apt-get install clang
     - name: Build with ${{ matrix.cc }}
-      run: CC=${{ matrix.cc }}  scons
+      run: |
+        ./configure
+        CC=${{ matrix.cc }} make

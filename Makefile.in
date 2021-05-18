@@ -1,0 +1,94 @@
+# This file is part of Netsukuku
+# (c) Copyright 2021 d0p1 <contact@d0p1.eu>
+#
+# This source code is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Public License as published 
+# by the Free Software Foundation; either version 2 of the License,
+# or (at your option) any later version.
+#
+# This source code is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# Please refer to the GNU Public License for more details.
+#
+# You should have received a copy of the GNU Public License along with
+# this source code; if not, write to:
+# Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+CC	?= gcc
+RM	= rm -f
+
+CFLAGS	+= %(CFLAGS) -Wall -Wextra
+LDFLAGS	+= 	-lgmp -lpthread -lcrypto -lz
+
+SRCS_COMMON	= xmalloc.c log.c misc.c buffer.c endianness.c
+SRCS_QSPN	= qspn-empiric.c $(SRCS_COMMON)
+SRCS_NETSUKUKU	= accept.c llist.c ipv6-gmp.c inet.c request.c map.c gmap.c \
+					bmap.c pkts.c radar.c hook.c rehook.c tracer.c qspn.c \
+					hash.c daemon.c crypto.c snsd_cache.c andna_cache.c \
+					andna.c andns_lib.c err_errno.c dnslib.c andns.c \
+					andns_net.c andns_snsd.c ll_map.c libnetlink.c if.c \
+					krnl_route.c krnl_rule.c iptunnel.c route.c conf.c \
+					dns_wrapper.c igs.c mark.c libiptc/libip4tc.c libping.c \
+					ntk-console-server.c netsukuku.c $(SRCS_COMMON)
+SRCS_NTKRESOLV	= andns_lib.c andns_net.c crypto.c snsd_cache.c inet.c \
+					ll_map.c libnetlink.c err_errno.c ntkresolv.c $(SRCS_COMMON)
+SRCS_NTKCONSOLE	= ntk-console.c
+
+OBJS_QSPN	= $(addprefix src/, $(SRCS_QSPN:.c=.o))
+OBJS_NETSUKUKU	= $(addprefix src/, $(SRCS_NETSUKUKU:.c=.o))
+OBJS_NTKRESOLV	= $(addprefix src/, $(SRCS_NTKRESOLV:.c=.o))
+OBJS_NTKCONSOLE	= $(addprefix src/, $(SRCS_NTKCONSOLE:.c=.o))
+OBJS	= $(OBJS_QSPN) $(OBJS_NETSUKUKU) $(OBJS_NTKCONSOLE) $(OBJS_NTKRESOLV)
+
+all: ntkd ntkresolv ntkconsole qspn-empiric
+
+ntkd: $(OBJS_NETSUKUKU)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+ntkresolv: $(OBJS_NTKRESOLV)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+ntkconsole: $(OBJS_NTKCONSOLE)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+qspn-empiric: $(OBJS_QSPN)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+	$(RM) ntkd ntkresolv ntkconsole qspn
+	$(RM) $(OBJS)
+	$(RM) $(OBJS:.o=.gcda)
+	$(RM) $(OBJS:.o=.gcno)
+
+re: clean all
+
+install:
+	install -d %(SYSROOT)%(DATA_DIR)
+
+	install -d %(SYSROOT)%(CONF_DIR)
+	install src/conf/netsukuku.conf %(SYSROOT)%(CONF_DIR)
+	install src/conf/andna_hostnames %(SYSROOT)%(CONF_DIR)
+	install src/conf/snsd_nodes %(SYSROOT)%(CONF_DIR)
+	install src/scripts/ip_masquerade.sh %(SYSROOT)%(CONF_DIR)
+	install src/scripts/rc.ntk %(SYSROOT)%(CONF_DIR)
+	install src/scripts/tc_shaper.sh %(SYSROOT)%(CONF_DIR)
+
+	install -d %(SYSROOT)%(MAN_DIR)/main8
+	install -d %(SYSROOT)%(MAN_DIR)/main4
+	install src/man/ntkd.8 %(SYSROOT)%(MAN_DIR)/man8
+	install src/man/ntk-wifi.8 %(SYSROOT)%(MAN_DIR)/man8
+	install src/man/ntk-resolv.8 %(SYSROOT)%(MAN_DIR)/man8
+	install src/man/andna.8 %(SYSROOT)%(MAN_DIR)/man8
+	install src/man/netsukuku.conf.5 %(SYSROOT)%(MAN_DIR)/man5
+
+	install -d %(SYSROOT)%(BIN_DIR)
+	install src/scripts/ntk-wifi %(SYSROOT)%(BIN_DIR)
+	install ntkd %(SYSROOT)%(BIN_DIR)
+	install ntkresolv %(SYSROOT)%(BIN_DIR)
+	install ntkconsole %(SYSROOT)%(BIN_DIR)
+
+.PHONY: all test clean re install

@@ -1,0 +1,125 @@
+#!/usr/bin/env perl
+# This file is part of Netsukuku
+# (c) Copyright 2021 d0p1 <contact@d0p1.eu>
+#
+# This source code is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Public License as published 
+# by the Free Software Foundation; either version 2 of the License,
+# or (at your option) any later version.
+#
+# This source code is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# Please refer to the GNU Public License for more details.
+#
+# You should have received a copy of the GNU Public License along with
+# this source code; if not, write to:
+# Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+use strict;
+use warnings;
+use Getopt::Long;
+use Pod::Usage;
+
+my $VERSION = `git describe --tags --abbrev=0`;
+chomp($VERSION);
+
+my $debug = 0;
+my $help = 0;
+my %env = (
+    CONF_DIR => '/etc/netsukuku',
+    DATA_DIR => '/usr/share/netsukuku',
+    MAN_DIR => '/usr/man',
+    BIN_DIR => '/usr/bin',
+    PID_DIR => '/var/run',
+    SYSROOT => '',
+    CFLAGS => '',
+    VERSION => $VERSION
+);
+
+my %files_map = (
+    'src/conf/netsukuku.conf.in' => 'src/conf/netsukuku.conf',
+    'src/config.h.in' => 'src/config.h',
+    'Makefile.in' => 'Makefile'
+);
+
+if (@ARGV and $ARGV[0] eq 'clean') {
+    print "cleaning project\n";
+    system "make clean 2>/dev/null";
+    for my $gen_file (values %files_map) {
+        unlink $gen_file;
+    }
+    exit 0;
+}
+
+
+sub opt_handler {
+    my ($opt_name, $opt_value) = @_;
+    $opt_name = uc($opt_name);
+    $env{$opt_name} = $opt_value;
+}
+
+GetOptions(
+    'conf_dir=s' => \&opt_handler,
+    'data_dir=s' => \&opt_handler,
+    'man_dir=s' => \&opt_handler,
+    'bin_dir=s' => \&opt_handler,
+    'pid_dir=s' => \&opt_handler,
+    'sysroot=s' => \&opt_handler,
+    'debug' => \$debug,
+    'help|?' => \$help) or pod2usage(1);
+
+pod2usage(0) if $help;
+
+if ($debug) {
+    $env{'CFLAGS'} = "-DDEBUG -ggdb $env{'CFLAGS'}";
+} else {
+    $env{'CFLAGS'} = "-DNDEBUG";
+}
+
+if ("$^O" =~ /linux/) {
+    $env{'CFLAGS'} = "-DGNU_LINUX $env{'CFLAGS'}";
+} elsif ("$^O" =~ /MacOS/) {
+    $env{'CFLAGS'} = "-DDARWIN $env{'CFLAGS'}";
+} elsif ("$^O" =~ /sunos/) {
+    $env{'CFLAGS'} = "-DSUNOS $env{'CFLAGS'}";
+} elsif ("$^O" =~ /openbsd/) {
+    $env{'CFLAGS'} = "-DOPEN_BSD $env{'CFLAGS'}";
+} elsif ("$^O" =~ /irix/) {
+    $env{'CFLAGS'} = "-DIRIX $env{'CFLAGS'}";
+}
+
+for my $src_file (keys %files_map) {
+    print "$src_file -> $files_map{$src_file}\n";
+
+    open(my $fd, "<", $src_file);
+    my @lines = <$fd>;
+    close($fd);
+
+    open($fd, ">", $files_map{$src_file});
+    foreach my $line (@lines) {
+        foreach my $key (keys %env) {
+            $line =~ s/\%\($key\)/$env{$key}/g;
+        }
+        print $fd $line;
+    }
+    close($fd);
+}
+
+__END__
+ 
+=head1 SYNOPSIS
+
+configure [options]
+ 
+ Options:
+    clean       Clean generated files
+    --conf_fir  Directory where the Netsukuku configuration files will be installed (default: '/etc/netsukuku')
+    --data_dir  Directory to install data files (default: '/usr/share/netsukuku')
+    --man_dir   Where the manuals will be installed (default: '/usr/man')
+    --bin_dir   Directory to install the binaries (default: '/usr/bin')
+    --pid_dir   Specify location of ntkd.pid file (default: '/var/run')
+    --sysroot   Makefile will copy all the files under sysroot during installation (default: '')
+    --debug     build the debug code
+
+=cut
