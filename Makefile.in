@@ -34,7 +34,7 @@ SRCS_NETSUKUKU	= accept.c llist.c ipv6-gmp.c inet.c request.c map.c gmap.c \
 SRCS_NTKRESOLV	= andns_lib.c andns_net.c crypto.c snsd_cache.c inet.c \
 					ll_map.c libnetlink.c err_errno.c ntkresolv.c
 SRCS_NTKCONSOLE	= ntk-console.c
-SRCS_TEST		= test_common.c test_buffer.c
+SRCS_TEST		= test_common.c test_buffer.c test_misc.c
 
 OBJS_COMMON	= $(addprefix src/, $(SRCS_COMMON:.c=.o))
 OBJS_QSPN	= $(addprefix src/, $(SRCS_QSPN:.c=.o))

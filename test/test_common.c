@@ -17,6 +17,7 @@
  */
 
 int group_tests_buffer(void);
+int group_tests_misc(void);
 
 int
 main(void)
@@ -25,6 +26,7 @@ main(void)
 
 	result = 0;
 	result |= group_tests_buffer();
+	result |= group_tests_misc();
 
 	return result;
 }
