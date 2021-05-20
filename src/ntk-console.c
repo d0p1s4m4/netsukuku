@@ -16,10 +16,6 @@
  *
  */
 
-
-#include "ntk-console.h"
-#include "console.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,55 +24,43 @@
 #include <time.h>
 #include <unistd.h>
 
+#include "console.h"
+#include "ntk-console.h"
 
-const struct supported_commands {
-	command_t id;
-	const char *command;
-	const char *help;
-	int arguments;
-} kSupportedCommands[] = {
-	{
-	COMMAND_HELP, "help", "Shows console help", 0}, {
-	COMMAND_UPTIME, "uptime",
-			"Returns the time when ntkd finished the hooking", 0}, {
-	COMMAND_KILL, "kill",
-			"Kills the running instance of netsukuku with SIGINT", 0}, {
-	COMMAND_VERSION, "version",
-			"Shows the running version of the ntk-console, and ntkd.", 0},
-	{
-	COMMAND_INETCONN, "inet_connected",
-			"Query if Ntkd is connected to the internet", 0}, {
-	COMMAND_CURIFS, "cur_ifs",
-			"Lists all of the interfaces in cur_ifs", 0}, {
-	COMMAND_CURIFSCT, "cur_ifs_n",
-			"Lists the number of interfaces present in `cur_ifs`", 0}, {
-	COMMAND_CURQSPNID, "cur_qspn_id",
-			"The current qspn_id we are processing. It is cur_qspn_id[levels] big",
-			0}, {
-	COMMAND_CURIP, "cur_ip", "Current IP address", 0}, {
-	COMMAND_CURNODE, "cur_node", "Current node", 0}, {
-	COMMAND_IFS, "ifs", "List all the interfaces in server_opt.ifs", 0}, {
-	COMMAND_IFSCT, "ifs_n",
+static struct supported_commands commands[] = {
+	{COMMAND_HELP, "help", "Shows console help", 0},
+	{COMMAND_UPTIME, "uptime",
+		"Returns the time when ntkd finished the hooking", 0},
+	{COMMAND_KILL, "kill",
+		"Kills the running instance of netsukuku with SIGINT", 0},
+	{COMMAND_VERSION, "version",
+		"Shows the running version of the ntk-console, and ntkd.", 0},
+	{COMMAND_INETCONN, "inet_connected",
+		"Query if Ntkd is connected to the internet", 0},
+	{COMMAND_CURIFS, "cur_ifs", "Lists all of the interfaces in cur_ifs", 0},
+	{COMMAND_CURIFSCT, "cur_ifs_n",
+		"Lists the number of interfaces present in `cur_ifs`", 0},
+	{COMMAND_CURQSPNID, "cur_qspn_id",
+		"The current qspn_id we are processing. It is cur_qspn_id[levels] big", 0},
+	{COMMAND_CURIP, "cur_ip", "Current IP address", 0},
+	{COMMAND_CURNODE, "cur_node", "Current node", 0},
+	{COMMAND_IFS, "ifs", "List all the interfaces in server_opt.ifs", 0},
+	{COMMAND_IFSCT, "ifs_n",
 			"List the number of interfaces present in server_opt.ifs", 0},
-	{
-	COMMAND_QUIT, "quit", "Exit the console", 0}, {
-COMMAND_CONSUPTIME, "console_uptime",
-			"Get the uptime of this console", 0},};
+	{COMMAND_QUIT, "quit", "Exit the console", 0},
+	{COMMAND_CONSUPTIME, "console_uptime", "Get the uptime of this console", 0}
+};
 
+static struct tm start_timeinfo;
 
-command_t
+static command_t
 command_parse(char *request)
 {
-	if (strlen(request) > CONSOLE_BUFFER_LENGTH) {
-		printf("Error: Command longer than 250 bytes.\n");
-		return -1;
-	}
+	size_t i;
 
-	for (int i = 0; i < sizeof(kSupportedCommands)
-		 / sizeof(kSupportedCommands[0]); i++) {
-		if (strncmp(request, kSupportedCommands[i].command,
-					(int) strlen(request) - 1) == 0) {
-			return kSupportedCommands[i].id;
+	for (i = 0; i < sizeof(commands) / sizeof(commands[0]); i++) {
+		if (strncmp(request, commands[i].command, strlen(request) - 1) == 0) {
+			return commands[i].id;
 		}
 	}
 
@@ -84,35 +68,30 @@ command_parse(char *request)
 	return -1;
 }
 
-
-static int
-request_receive(int sock, char message[], int max)
+static void
+request_receive(int sockfd)
 {
-	int total = 0;
-	const int bsize = 1024;
-	char buffer[bsize + 1];
-	int read = bsize;
+	char buffer[BUFFSIZE];
+	int read;
 
-	message[0] = 0;				// initialize for strcat()
-
-	while (read == bsize) {
-		read = recv(sock, buffer, bsize, 0);
-		if (read < 0)
-			return -1;			// error, bail out
-		total += read;
-		if (total > max)
-			return -2;			// overflow
+	while ((read = recv(sockfd, buffer, BUFFSIZE - 1, 0)) > 0) {
 		buffer[read] = 0;
-		strcat(message, buffer);
+		printf("%s", buffer);
 	}
+	putchar('\n');
 
-	return total;
+	if (read < 0) {
+		perror("recv() failed");
+		exit(-1);
+	}
 }
 
-
-int
+static int
 opensocket(void)
 {
+	int sockfd;
+	struct sockaddr_un serveraddr;
+
 	sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
 	if (sockfd < 0) {
 		perror("socket creation failed");
@@ -123,18 +102,16 @@ opensocket(void)
 	serveraddr.sun_family = AF_UNIX;
 	strcpy(serveraddr.sun_path, CONSOLE_SOCKET_PATH);
 
-	rc = connect(sockfd, (struct sockaddr *) &serveraddr,
-				 sizeof(serveraddr));
-	if (rc < 0) {
+	if (connect(sockfd, (struct sockaddr *) &serveraddr,
+				 sizeof(serveraddr)) < 0) {
 		perror("connect() failed");
 		return -1;
 	}
-	return 0;
+	return sockfd;
 }
 
-
-void
-closesocket(void)
+static void
+closesocket(int sockfd)
 {
 	const int optVal = 1;
 	const socklen_t optLen = sizeof(optVal);
@@ -145,122 +122,98 @@ closesocket(void)
 		close(sockfd);
 }
 
-
 /* Sends and receives to ntkd */
-void
+static void
 ntkd_request(command_t command)
 {
-	if (opensocket() < 0) {
+	int sockfd;
+	cmd_packet_t packetOut;
+
+	if ((sockfd = opensocket()) < 0) {
 		printf("Unable to connect to ntk daemon console.\n");
 		return;
 	}
 
-	cmd_packet_t packetOut;
 	packetOut.command = command;
 
-	rc = send(sockfd, &packetOut, sizeof(packetOut), 0);
-	if (rc < sizeof(packetOut)) {
+	if (send(sockfd, &packetOut, sizeof(packetOut), 0) < 0) {
 		perror("send() failed");
 		exit(-1);
 	}
 
-	char *response = (char *) malloc(CONSOLE_BUFFER_LENGTH);
-	request_receive(sockfd, response, CONSOLE_BUFFER_LENGTH);
-	if (rc < 0) {
-		perror("recv() failed");
-		exit(-1);
-	}
+	request_receive(sockfd);
 
-	printf("%s\n", response);
-	free(response);
-	closesocket();
+	closesocket(sockfd);
 }
-
-
-void console_uptime(void) {
-    
-    unsigned int uptime_sec1;
-    unsigned int uptime_min1;
-    unsigned int uptime_hour1;
-    
-    unsigned int uptime_day1;
-    unsigned int uptime_month1;
-    unsigned int uptime_year1;
-    
-    time(&rawtime);
-    
-    timeinfo = localtime(&rawtime);
-    
-    uptime_sec1 = timeinfo->tm_sec;
-    uptime_min1 = timeinfo->tm_min;
-    uptime_hour1 = timeinfo->tm_hour;
-    
-    uptime_day1 = timeinfo->tm_mday;
-    uptime_month1 = timeinfo->tm_mon;
-    uptime_year1 = timeinfo->tm_year;
-    
-    uptime_sec1 -= uptime_sec;
-    uptime_min1 -= uptime_min;
-    uptime_hour1 -= uptime_hour;
-    
-    uptime_day1 -= uptime_day;
-    uptime_month1 -= uptime_month;
-    uptime_year1 -= uptime_year;
-    /* Checks if the date/time is negative,
-     * And makes it positive.
-     * e.g -11 is 1 because this is a signed variable
-     * at a modulus of 12. Thus after 12, It is -12
-     * which is zero, Every number after this is counting up
-     * to 12 again, Which is going to be 0 in this instance.
-     * -12 to 12 is 24 actual months.
-     * So -11 + 12 is 1, As it should be, And -12 + 12 is zero
-     * as it should be. The only difference is the modulus number,
-     * i.e: 12, 24, etc. */
-    if(uptime_month1 < 0)
-        uptime_month1 + 12;
-    if(uptime_day1 < 0)
-        uptime_day1 + 365;
-    if(uptime_hour1 < 0)
-        uptime_hour1 + 24;
-    if(uptime_min1 < 0)
-        uptime_min1 + 60;
-    if(uptime_sec1 < 0)
-        uptime_sec1 + 60;
-    /* Checks if the date/time is the modulus, And resets it to zero.
-     * e.g: 12 months is a year, Listing 12 months and one year
-     * is confusing,
-     * And implies that it has been two years. */
-    if(uptime_month1 == 12)
-        uptime_month1 = 0;
-    if(uptime_day1 == 365)
-        uptime_day1 = 0;
-    if(uptime_hour1 == 24)
-        uptime_hour1 = 0;
-    if(uptime_min1 == 60)
-        uptime_min1 = 0;
-    if(uptime_sec1 == 60)
-        uptime_sec1 = 0;
-    
-    printf("Total Uptime is: %i Year(s), %i Month(s), %i Day(s), %i Hour(s), %i Minute(s), %i Second(s)\n",uptime_year1, uptime_month1, uptime_day1, uptime_hour1, uptime_min1, uptime_sec1);
-    
-}
-
 
 static void
-millisleep(unsigned ms)
-{
-	usleep(1000 * ms);
+console_uptime(void) {
+	time_t rawtime;
+	struct tm *current_timeinfo;
+
+	time(&rawtime);
+	current_timeinfo = localtime(&rawtime);
+	current_timeinfo->tm_sec -= start_timeinfo.tm_sec;
+	current_timeinfo->tm_min -= start_timeinfo.tm_min;
+	current_timeinfo->tm_hour -= start_timeinfo.tm_hour;
+	current_timeinfo->tm_mday -= start_timeinfo.tm_mday;
+	current_timeinfo->tm_mon -= start_timeinfo.tm_mon;
+	current_timeinfo->tm_year -= start_timeinfo.tm_year;
+	
+	/* Checks if the date/time is negative,
+	 * And makes it positive.
+	 * e.g -11 is 1 because this is a signed variable
+	 * at a modulus of 12. Thus after 12, It is -12
+	 * which is zero, Every number after this is counting up
+	 * to 12 again, Which is going to be 0 in this instance.
+	 * -12 to 12 is 24 actual months.
+	 * So -11 + 12 is 1, As it should be, And -12 + 12 is zero
+	 * as it should be. The only difference is the modulus number,
+	 * i.e: 12, 24, etc. */
+	if(current_timeinfo->tm_mon < 0)
+		current_timeinfo->tm_mon += 12;
+	if(current_timeinfo->tm_mday < 0)
+		current_timeinfo->tm_mday += 365;
+	if(current_timeinfo->tm_hour < 0)
+		current_timeinfo->tm_hour += 24;
+	if(current_timeinfo->tm_min < 0)
+		current_timeinfo->tm_min += 60;
+	if(current_timeinfo->tm_sec < 0)
+		current_timeinfo->tm_sec += 60;
+
+	current_timeinfo->tm_mon %= 12;
+	current_timeinfo->tm_mday %= 365;
+	current_timeinfo->tm_hour %= 24;
+	current_timeinfo->tm_min %= 60;
+	current_timeinfo->tm_sec %= 60;
+
+	printf("Total Uptime is: %i Year(s), %i Month(s), %i Day(s), "
+		"%i Hour(s), %i Minute(s), %i Second(s)\n",
+		current_timeinfo->tm_year, current_timeinfo->tm_mon,
+		current_timeinfo->tm_mday, current_timeinfo->tm_hour,
+		current_timeinfo->tm_min, current_timeinfo->tm_sec);
 }
 
+void
+usage(void)
+{
+	size_t i;
+
+	printf("Usage:\n");
+	for (i = 0; i < sizeof(commands) / sizeof(commands[0]); i++) {
+		printf("  %16s - %s\n", commands[i].command, commands[i].help);
+	}
+}
 
 void
 console(char *request)
 {
-	command_t commandID = command_parse(request);
+	command_t commandID;
+	
+	commandID = command_parse(request);
 
 	switch (commandID) {
 	case COMMAND_QUIT:
-		closesocket();
 		exit(0);
 		break;
 	case COMMAND_UPTIME:
@@ -273,7 +226,6 @@ console(char *request)
 	case COMMAND_IFS:
 	case COMMAND_IFSCT:
 		ntkd_request(commandID);
-		millisleep(200);
 		break;
 	case COMMAND_VERSION:
 		printf("ntk-console version: %d.%d\n",
@@ -284,7 +236,6 @@ console(char *request)
 		console_uptime();
 		break;
 	case COMMAND_KILL:
-		closesocket();
 		system("ntkd -k");
 		break;
 	case COMMAND_HELP:
@@ -293,43 +244,30 @@ console(char *request)
 	}
 }
 
-
 int
 main(void)
 {
+	time_t rawtime;
+	struct tm *temp_timeinfo;
+	char *request;
+
 	time(&rawtime);
+	temp_timeinfo = localtime(&rawtime);
+	memcpy(&start_timeinfo, temp_timeinfo, sizeof(struct tm));
 
-	timeinfo = localtime(&rawtime);
-
-	uptime_sec = timeinfo->tm_sec;
-	uptime_min = timeinfo->tm_min;
-	uptime_hour = timeinfo->tm_hour;
-	uptime_day = timeinfo->tm_mday;
-	uptime_month = timeinfo->tm_mon;
-	uptime_year = timeinfo->tm_year;
-
-	printf
-		("This is the Netsukuku Console. Please type 'help' for more information.\n");
+	printf("This is the Netsukuku Console. Please type 'help' for more information.\n");
 	for (;;) {
-		char *request = (char *) malloc(CONSOLE_BUFFER_LENGTH);
+		request = (char *) malloc(CONSOLE_BUFFER_LENGTH);
 		printf("\n> ");
-		fgets(request, 16, stdin);
+		if (fgets(request, 16, stdin) == NULL)
+		{
+			free(request);
+			return 0;
+		}
 		fflush(stdin);
 		console(request);
 		free(request);
-		closesocket();
 	}
 
 	return 0;
-}
-
-void
-usage(void)
-{
-	printf("Usage:\n");
-	for (int i = 0; i < sizeof(kSupportedCommands)
-		 / sizeof(kSupportedCommands[0]); i++) {
-		printf("  %16s - %s\n", kSupportedCommands[i].command,
-			   kSupportedCommands[i].help);
-	}
 }

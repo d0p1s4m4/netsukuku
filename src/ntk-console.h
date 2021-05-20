@@ -18,33 +18,13 @@
 #ifndef NETSUKUKUCONSOLE_H
 #define NETSUKUKUCONSOLE_H
 
+#define BUFFSIZE 1024
 
-#include <time.h>
-
-#include "console.h"
-
-
-int sockfd = -1, sockfd1 = -1;
-struct sockaddr_un serveraddr;
-int rc, bytesReceived;
-
-time_t rawtime;
-struct tm *timeinfo;
-
-unsigned int uptime_sec;
-unsigned int uptime_min;
-unsigned int uptime_hour;
-unsigned int uptime_day;
-unsigned int uptime_month;
-unsigned int uptime_year;
-
-int i;
-
-void usage();
-void clean_up();
-
-int opensocket();
-void closesocket();
-
+struct supported_commands {
+	command_t id;
+	const char *command;
+	const char *help;
+	int arguments;
+};
 
 #endif							/*NETSUKUKUCONSOLE_H */
