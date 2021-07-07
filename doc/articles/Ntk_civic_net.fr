@@ -1,68 +1,68 @@
-==== Netsukuku et les Réseaux citoyens ====
+==== Netsukuku et les RÃ©seaux citoyens ====
 
 {{{
 
-Les Institutions montrent  un intérêt croissant pour des projets visant a' 
+Les Institutions montrent  un intÃ©rÃªt croissant pour des projets visant a' 
 fournir des services en ligne aux citoyens par l'Internet.
 
 Par exemple les services suivants sont disponibles:  
 
-	- services pour l'école (inscriptions, projets culturel et
-	  éducatif),
+	- services pour l'Ã©cole (inscriptions, projets culturel et
+	  Ã©ducatif),
 	- information,  live web cam, radio locaux 
-	- guides pour expositions et événements culturelle et touristiques 
+	- guides pour expositions et Ã©vÃ©nements culturelle et touristiques 
 	- forum de discussion, sociales et culturelles
 	
-Cependant, les citoyens n'ont pas libre accès  aux  services en ligne des
-institutions, bien que les activités éducatives, administratives, commerciales
+Cependant, les citoyens n'ont pas libre accÃ¨s  aux  services en ligne des
+institutions, bien que les activitÃ©s Ã©ducatives, administratives, commerciales
 et sociales aient besoin d'une constante  dialogue avec le public.
-En fait, la diffusion et l'accès à l'Internet n'est pas encore a' la porté de
-tous: l'ADSL n'est pas disponible dans beaucoup de région et les fournisseurs
-d'accès imposent des prix trop hauts pour accorder la connectivité.
-Le logiciel Open Source NETSUKUKU permet  aux Institutions d'ériger un réseau
-dans lequel les gens peuvent surfer sans besoin de supporter aucun coût ni de
-s'abonner aux fournisseur d'accès.
-Son but est la réalisation d'un réseau global, complètement indépendant de
+En fait, la diffusion et l'accÃ¨s Ã  l'Internet n'est pas encore a' la portÃ© de
+tous: l'ADSL n'est pas disponible dans beaucoup de rÃ©gion et les fournisseurs
+d'accÃ¨s imposent des prix trop hauts pour accorder la connectivitÃ©.
+Le logiciel Open Source NETSUKUKU permet  aux Institutions d'Ã©riger un rÃ©seau
+dans lequel les gens peuvent surfer sans besoin de supporter aucun coÃ»t ni de
+s'abonner aux fournisseur d'accÃ¨s.
+Son but est la rÃ©alisation d'un rÃ©seau global, complÃ¨tement indÃ©pendant de
 l'Internet, dans lequel les ordinateurs, communiquant entre eux (par les
-fréquences radio), deviennent automatiquement les noeuds du Réseau, donnent
-leur contribution pour le maintenir et, en même temps, pour en permettre
-l'expansion, exactement comme dans un schème à fractal.
-Avec le système de cheminement  NETSUKUKU, chaque utilisateur:
+frÃ©quences radio), deviennent automatiquement les noeuds du RÃ©seau, donnent
+leur contribution pour le maintenir et, en mÃªme temps, pour en permettre
+l'expansion, exactement comme dans un schÃ¨me Ã  fractal.
+Avec le systÃ¨me de cheminement  NETSUKUKU, chaque utilisateur:
 
-- navigue dans le réseau de sa ville, et également dans ceux situés dans
-  toutes les autres villes qui, une fois reliées, créent un réseau global,
-  parallèles à l'Internet, qui peut indéfiniment augmenter, complètement sans
+- navigue dans le rÃ©seau de sa ville, et Ã©galement dans ceux situÃ©s dans
+  toutes les autres villes qui, une fois reliÃ©es, crÃ©ent un rÃ©seau global,
+  parallÃ¨les Ã  l'Internet, qui peut indÃ©finiment augmenter, complÃ¨tement sans
   l'appui de fournisseur; 
-- peut enregistrer jusqu'à un maximum de 256 hostnames, qu'il contient dans
+- peut enregistrer jusqu'Ã  un maximum de 256 hostnames, qu'il contient dans
   son ordinateu. 
   
-Sur le réseau Netsukuku tout ceux qui souhaitent offrir contenus/informations
-numériques, pourront les partager simplement avec leurs ordinateurs.  Plus
-d'acteurs seront représentés dans le système est plus large seront le
-dialogue, la circulation des différentes idées, la participation au processus
-démocratique et le droit de citoyenneté à l'intérieur de la société
+Sur le rÃ©seau Netsukuku tout ceux qui souhaitent offrir contenus/informations
+numÃ©riques, pourront les partager simplement avec leurs ordinateurs.  Plus
+d'acteurs seront reprÃ©sentÃ©s dans le systÃ¨me est plus large seront le
+dialogue, la circulation des diffÃ©rentes idÃ©es, la participation au processus
+dÃ©mocratique et le droit de citoyennetÃ© Ã  l'intÃ©rieur de la sociÃ©tÃ©
 d'information.
   
-Enfin, les utilisateurs du réseau Netsukuku auront la chance d'accèder à
-Internet exempt de coût:  en fait n'importe tous les noeuds peuvent partager
-avec le réseau Netsukuku leur connectivité à Internet et obtenir des autres
+Enfin, les utilisateurs du rÃ©seau Netsukuku auront la chance d'accÃ¨der Ã 
+Internet exempt de coÃ»t:  en fait n'importe tous les noeuds peuvent partager
+avec le rÃ©seau Netsukuku leur connectivitÃ© Ã  Internet et obtenir des autres
 utilisateurs la largeur de bande qu'ils n'utilisent pas pour le moment.
 
-=== Comment réaliser un réseau sans fil Netsukuku === 
+=== Comment rÃ©aliser un rÃ©seau sans fil Netsukuku === 
 
-Netsukuku est une architecture de réseau flexible et qui crée de façon
-autonome un réseau wireless, efficace entre les ordinateur équipés de
+Netsukuku est une architecture de rÃ©seau flexible et qui crÃ©e de faÃ§on
+autonome un rÃ©seau wireless, efficace entre les ordinateur Ã©quipÃ©s de
 dispositifs radio de raccordement.
-La manière la plus simple de créer ou de s'unir à un réseau Netsukuku est
+La maniÃ¨re la plus simple de crÃ©er ou de s'unir Ã  un rÃ©seau Netsukuku est
 d'installer une commune carte wi-fi dans votre ordinateur et de lancer le
-programme de Netsukuku, librement téléchargeable de l'Internet.
-Le flux des données atteindra la destination souhaitée, passant par les noeuds
-(les ordinateurs ou les points d'accès dans lesquels Netsukuku est installé à
-l'intérieur), reliés ensemble entre eux.
-Évidemment une plus grande diffusion du réseau consacré à Netsukuku peut être
-réalisée par la couverture wi-fi de secteurs urbains et ruraux:  sur le marché
-il y a de nombreux et différents dispositifs sans fil, tous valides et à bon
-marché ( access point, antennes omnidirectionnelles).
-Pour plus d'information ou n'importe quelle demande d'aide, la communauté de
+programme de Netsukuku, librement tÃ©lÃ©chargeable de l'Internet.
+Le flux des donnÃ©es atteindra la destination souhaitÃ©e, passant par les noeuds
+(les ordinateurs ou les points d'accÃ¨s dans lesquels Netsukuku est installÃ© Ã 
+l'intÃ©rieur), reliÃ©s ensemble entre eux.
+Ã‰videmment une plus grande diffusion du rÃ©seau consacrÃ© Ã  Netsukuku peut Ãªtre
+rÃ©alisÃ©e par la couverture wi-fi de secteurs urbains et ruraux:  sur le marchÃ©
+il y a de nombreux et diffÃ©rents dispositifs sans fil, tous valides et Ã  bon
+marchÃ© ( access point, antennes omnidirectionnelles).
+Pour plus d'information ou n'importe quelle demande d'aide, la communautÃ© de
 Netsukuku est disponible sur Internet a' l'adresse suivante:
 http://netsukuku.freaknet.org
