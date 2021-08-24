@@ -818,7 +818,7 @@ int
 main(int argc, char **argv)
 {
 	struct udp_daemon_argv ud_argv;
-	u_short *port;
+	u_short port;
 	pthread_t daemon_tcp_thread, daemon_udp_thread, andna_thread;
 	pthread_t ping_igw_thread;
 	pthread_attr_t t_attr;
@@ -864,7 +864,6 @@ main(int argc, char **argv)
 	pthread_attr_init(&t_attr);
 	pthread_attr_setdetachstate(&t_attr, PTHREAD_CREATE_DETACHED);
 	setzero(&ud_argv, sizeof(struct udp_daemon_argv));
-	port = xmalloc(sizeof(u_short));
 
 	/*
 	 * These are the daemons, the main threads that keeps NetsukukuD
@@ -884,9 +883,9 @@ main(int argc, char **argv)
 	pthread_mutex_unlock(&udp_daemon_lock);
 
 	debug(DBG_SOFT, "Evoking the netsukuku tcp daemon.");
-	*port = NTK_TCP_PORT;
+	port = NTK_TCP_PORT;
 	pthread_mutex_lock(&tcp_daemon_lock);
-	pthread_create(&daemon_tcp_thread, &t_attr, tcp_daemon, (void *) port);
+	pthread_create(&daemon_tcp_thread, &t_attr, tcp_daemon, (void *) &port);
 	pthread_mutex_lock(&tcp_daemon_lock);
 	pthread_mutex_unlock(&tcp_daemon_lock);
 
@@ -899,8 +898,6 @@ main(int argc, char **argv)
 	 */
 	if (!server_opt.disable_andna)
 		pthread_create(&andna_thread, &t_attr, andna_main, 0);
-
-	xfree(port);
 
 	if (restricted_mode && (server_opt.share_internet ||
 							server_opt.use_shared_inet)) {

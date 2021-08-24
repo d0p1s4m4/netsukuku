@@ -2537,7 +2537,7 @@ void *
 andna_main(void *null)
 {
 	struct udp_daemon_argv ud_argv;
-	u_short *port;
+	u_short port;
 	pthread_t thread;
 	pthread_attr_t t_attr;
 
@@ -2545,7 +2545,6 @@ andna_main(void *null)
 	pthread_attr_setdetachstate(&t_attr, PTHREAD_CREATE_DETACHED);
 
 	setzero(&ud_argv, sizeof(struct udp_daemon_argv));
-	port = xmalloc(sizeof(u_short));
 
 	pthread_mutex_init(&udp_daemon_lock, 0);
 	pthread_mutex_init(&tcp_daemon_lock, 0);
@@ -2559,9 +2558,9 @@ andna_main(void *null)
 	pthread_mutex_unlock(&udp_daemon_lock);
 
 	debug(DBG_SOFT, "Evoking the andna tcp daemon.");
-	*port = ANDNA_TCP_PORT;
+	port = ANDNA_TCP_PORT;
 	pthread_mutex_lock(&tcp_daemon_lock);
-	pthread_create(&thread, &t_attr, tcp_daemon, (void *) port);
+	pthread_create(&thread, &t_attr, tcp_daemon, (void *) &port);
 	pthread_mutex_lock(&tcp_daemon_lock);
 	pthread_mutex_unlock(&tcp_daemon_lock);
 
@@ -2581,6 +2580,5 @@ andna_main(void *null)
 	 */
 	andna_maintain_hnames_active(0);
 
-	xfree(port);
 	return 0;
 }
