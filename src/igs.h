@@ -26,9 +26,9 @@
  * The IGS_MULTI_GW feature relies heavily on netfilter and the linux advanced
  * routing.
  */
-#ifdef GNU_LINUX
+#ifdef __linux__
 #define IGS_MULTI_GW
-#endif
+#endif /* !__linux__ */
 
 /*\
  *		 	* Bandwidth notes *

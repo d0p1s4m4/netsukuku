@@ -77,18 +77,6 @@ if ($debug) {
     $env{'CFLAGS'} = "-DNDEBUG";
 }
 
-if ("$^O" =~ /linux/) {
-    $env{'CFLAGS'} = "-DGNU_LINUX $env{'CFLAGS'}";
-} elsif ("$^O" =~ /MacOS/) {
-    $env{'CFLAGS'} = "-DDARWIN $env{'CFLAGS'}";
-} elsif ("$^O" =~ /sunos/) {
-    $env{'CFLAGS'} = "-DSUNOS $env{'CFLAGS'}";
-} elsif ("$^O" =~ /openbsd/) {
-    $env{'CFLAGS'} = "-DOPEN_BSD $env{'CFLAGS'}";
-} elsif ("$^O" =~ /irix/) {
-    $env{'CFLAGS'} = "-DIRIX $env{'CFLAGS'}";
-}
-
 for my $src_file (keys %files_map) {
     print "$src_file -> $files_map{$src_file}\n";
 
