@@ -195,7 +195,7 @@ put_free_nodes(PACKET rq_pkt)
 
 	setzero(&pkt, sizeof(PACKET));
 	pkt_addto(&pkt, &rq_pkt.from);
-	pkt_addport(&pkt, ntk_tcp_port);
+	pkt_addport(&pkt, NTK_TCP_PORT);
 	pkt_addsk(&pkt, my_family, rq_pkt.sk, rq_pkt.sk_type);
 	pkt_add_dev(&pkt, rq_pkt.dev, 1);
 	pkt_addcompress(&pkt);
@@ -402,7 +402,7 @@ put_qspn_round(PACKET rq_pkt)
 
 	setzero(&pkt, sizeof(PACKET));
 	pkt_addto(&pkt, &rq_pkt.from);
-	pkt_addport(&pkt, ntk_tcp_port);
+	pkt_addport(&pkt, NTK_TCP_PORT);
 	pkt_addsk(&pkt, my_family, rq_pkt.sk, rq_pkt.sk_type);
 	pkt_add_dev(&pkt, rq_pkt.dev, 1);
 	pkt_addcompress(&pkt);
@@ -986,18 +986,18 @@ int
 hook_init(void)
 {
 	/* register the hook's ops in the pkt_op_table */
-	add_pkt_op(GET_FREE_NODES, SKT_TCP, ntk_tcp_port, put_free_nodes);
-	add_pkt_op(PUT_FREE_NODES, SKT_TCP, ntk_tcp_port, 0);
-	add_pkt_op(GET_QSPN_ROUND, SKT_TCP, ntk_tcp_port, put_qspn_round);
-	add_pkt_op(PUT_QSPN_ROUND, SKT_TCP, ntk_tcp_port, 0);
-	add_pkt_op(GET_INT_MAP, SKT_TCP, ntk_tcp_port, put_int_map);
-	add_pkt_op(PUT_INT_MAP, SKT_TCP, ntk_tcp_port, 0);
-	add_pkt_op(GET_EXT_MAP, SKT_TCP, ntk_tcp_port, put_ext_map);
-	add_pkt_op(PUT_EXT_MAP, SKT_TCP, ntk_tcp_port, 0);
-	add_pkt_op(GET_BNODE_MAP, SKT_TCP, ntk_tcp_port, put_bnode_map);
-	add_pkt_op(PUT_BNODE_MAP, SKT_TCP, ntk_tcp_port, 0);
-	add_pkt_op(GET_INTERNET_GWS, SKT_TCP, ntk_tcp_port, put_internet_gws);
-	add_pkt_op(PUT_INTERNET_GWS, SKT_TCP, ntk_tcp_port, 0);
+	add_pkt_op(GET_FREE_NODES, SKT_TCP, NTK_TCP_PORT, put_free_nodes);
+	add_pkt_op(PUT_FREE_NODES, SKT_TCP, NTK_TCP_PORT, 0);
+	add_pkt_op(GET_QSPN_ROUND, SKT_TCP, NTK_TCP_PORT, put_qspn_round);
+	add_pkt_op(PUT_QSPN_ROUND, SKT_TCP, NTK_TCP_PORT, 0);
+	add_pkt_op(GET_INT_MAP, SKT_TCP, NTK_TCP_PORT, put_int_map);
+	add_pkt_op(PUT_INT_MAP, SKT_TCP, NTK_TCP_PORT, 0);
+	add_pkt_op(GET_EXT_MAP, SKT_TCP, NTK_TCP_PORT, put_ext_map);
+	add_pkt_op(PUT_EXT_MAP, SKT_TCP, NTK_TCP_PORT, 0);
+	add_pkt_op(GET_BNODE_MAP, SKT_TCP, NTK_TCP_PORT, put_bnode_map);
+	add_pkt_op(PUT_BNODE_MAP, SKT_TCP, NTK_TCP_PORT, 0);
+	add_pkt_op(GET_INTERNET_GWS, SKT_TCP, NTK_TCP_PORT, put_internet_gws);
+	add_pkt_op(PUT_INTERNET_GWS, SKT_TCP, NTK_TCP_PORT, 0);
 
 	total_hooks = 0;
 	we_are_rehooking = 0;

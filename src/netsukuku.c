@@ -626,7 +626,7 @@ check_conflicting_options(void)
 }
 
 void
-init_netsukuku(char **argv)
+init_netsukuku(void)
 {
 	xsrand();
 
@@ -844,7 +844,7 @@ main(int argc, char **argv)
 	check_conflicting_options();
 
 	/* Initialize the whole netsukuku source code */
-	init_netsukuku(argv);
+	init_netsukuku();
 
 	signal(SIGALRM, sigalrm_handler);
 	signal(SIGHUP, sighup_handler);
@@ -876,7 +876,7 @@ main(int argc, char **argv)
 	pthread_mutex_init(&tcp_daemon_lock, 0);
 
 	debug(DBG_SOFT, "Evoking the netsukuku udp radar daemon.");
-	ud_argv.port = ntk_udp_radar_port;
+	ud_argv.port = NTK_UDP_RADAR_PORT;
 	pthread_mutex_lock(&udp_daemon_lock);
 	pthread_create(&daemon_udp_thread, &t_attr, udp_daemon,
 				   (void *) &ud_argv);
@@ -884,7 +884,7 @@ main(int argc, char **argv)
 	pthread_mutex_unlock(&udp_daemon_lock);
 
 	debug(DBG_SOFT, "Evoking the netsukuku tcp daemon.");
-	*port = ntk_tcp_port;
+	*port = NTK_TCP_PORT;
 	pthread_mutex_lock(&tcp_daemon_lock);
 	pthread_create(&daemon_tcp_thread, &t_attr, tcp_daemon, (void *) port);
 	pthread_mutex_lock(&tcp_daemon_lock);
@@ -917,5 +917,5 @@ main(int argc, char **argv)
 	pthread_attr_destroy(&t_attr);
 	destroy_netsukuku();
 
-	exit(0);
+	return (EXIT_SUCCESS);
 }

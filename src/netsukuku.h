@@ -105,13 +105,9 @@ struct current_globals {
 #define NTK_TCP_PORT		269
 #define NTK_UDP_RADAR_PORT	269
 
-#define ANDNA_UDP_PORT 	   	277
+#define ANDNA_UDP_PORT		277
 #define ANDNA_TCP_PORT		277
 
-const static u_short ntk_udp_radar_port = NTK_UDP_RADAR_PORT,
-	ntk_tcp_port = NTK_TCP_PORT;
-const static u_short andna_udp_port = ANDNA_UDP_PORT,
-	andna_tcp_port = ANDNA_TCP_PORT;
 
 #define NTK_CONFIG_FILE		CONF_DIR "/netsukuku.conf"
 #define NTK_PID_FILE		PID_DIR  "/ntkd.pid"

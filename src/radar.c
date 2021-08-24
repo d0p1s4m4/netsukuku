@@ -53,8 +53,8 @@ first_init_radar(void)
 								PTHREAD_CREATE_DETACHED);
 
 	/* register the radar's ops in the pkt_op_table */
-	add_pkt_op(ECHO_ME, SKT_BCAST, ntk_udp_radar_port, radard);
-	add_pkt_op(ECHO_REPLY, SKT_UDP, ntk_udp_radar_port, radar_recv_reply);
+	add_pkt_op(ECHO_ME, SKT_BCAST, NTK_UDP_RADAR_PORT, radard);
+	add_pkt_op(ECHO_REPLY, SKT_UDP, NTK_UDP_RADAR_PORT, radar_recv_reply);
 
 	rlist = (struct rnode_list *) clist_init(&rlist_counter);
 	alwd_rnodes =
@@ -406,7 +406,7 @@ rnl_get_rand_dev(struct rnode_list * rnlist, map_node * node)
  *
  * It returns the tcp socket associated to rnode `node'.
  * If the socket is set to zero, it tries to create a tcp connection to 
- * `node' to the `ntk_tcp_port' port.
+ * `node' to the `NTK_TCP_PORT' port.
  *
  * On error -1 is returned.
  */
@@ -439,7 +439,7 @@ rnl_get_sk(struct rnode_list *rnlist, map_node * node)
 		/* Try to connect using the `i'th device. If it fails, try
 		 * another device */
 		for (i = 0; i < rnl->dev_n && rnl->tcp_sk <= 0; i++)
-			rnl->tcp_sk = pkt_tcp_connect(&to, ntk_tcp_port, rnl->dev[i]);
+			rnl->tcp_sk = pkt_tcp_connect(&to, NTK_TCP_PORT, rnl->dev[i]);
 
 		/* If the socket is connected, set it to keepalive */
 		if ((rnl->tcp_sk = (rnl->tcp_sk <= 0) ? 0 : rnl->tcp_sk))

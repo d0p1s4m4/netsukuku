@@ -86,7 +86,7 @@ typedef struct {
 } int_info;
 
 /* Useful to declare constant static int_info structs in .h files */
-#define INT_INFO const static int_info
+#define INT_INFO static const int_info
 
 #if BYTE_ORDER == LITTLE_ENDIAN
 #include <linux/byteorder/little_endian.h>

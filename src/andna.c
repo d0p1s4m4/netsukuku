@@ -162,25 +162,25 @@ void
 andna_init(void)
 {
 	/* register the andna's ops in the pkt_op_table */
-	add_pkt_op(ANDNA_REGISTER_HNAME, SKT_TCP, andna_tcp_port,
+	add_pkt_op(ANDNA_REGISTER_HNAME, SKT_TCP, ANDNA_TCP_PORT,
 			   andna_recv_reg_rq);
-	add_pkt_op(ANDNA_CHECK_COUNTER, SKT_TCP, andna_tcp_port,
+	add_pkt_op(ANDNA_CHECK_COUNTER, SKT_TCP, ANDNA_TCP_PORT,
 			   andna_recv_check_counter);
-	add_pkt_op(ANDNA_RESOLVE_HNAME, SKT_UDP, andna_udp_port,
+	add_pkt_op(ANDNA_RESOLVE_HNAME, SKT_UDP, ANDNA_UDP_PORT,
 			   andna_recv_resolve_rq);
-	add_pkt_op(ANDNA_RESOLVE_REPLY, SKT_UDP, andna_udp_port, 0);
-	add_pkt_op(ANDNA_RESOLVE_IP, SKT_TCP, andna_tcp_port,
+	add_pkt_op(ANDNA_RESOLVE_REPLY, SKT_UDP, ANDNA_UDP_PORT, 0);
+	add_pkt_op(ANDNA_RESOLVE_IP, SKT_TCP, ANDNA_TCP_PORT,
 			   andna_recv_rev_resolve_rq);
-	add_pkt_op(ANDNA_REV_RESOLVE_REPLY, SKT_TCP, andna_tcp_port, 0);
-	add_pkt_op(ANDNA_GET_ANDNA_CACHE, SKT_TCP, andna_tcp_port,
+	add_pkt_op(ANDNA_REV_RESOLVE_REPLY, SKT_TCP, ANDNA_TCP_PORT, 0);
+	add_pkt_op(ANDNA_GET_ANDNA_CACHE, SKT_TCP, ANDNA_TCP_PORT,
 			   put_andna_cache);
-	add_pkt_op(ANDNA_PUT_ANDNA_CACHE, SKT_TCP, andna_tcp_port, 0);
-	add_pkt_op(ANDNA_GET_COUNT_CACHE, SKT_TCP, andna_tcp_port,
+	add_pkt_op(ANDNA_PUT_ANDNA_CACHE, SKT_TCP, ANDNA_TCP_PORT, 0);
+	add_pkt_op(ANDNA_GET_COUNT_CACHE, SKT_TCP, ANDNA_TCP_PORT,
 			   put_counter_cache);
-	add_pkt_op(ANDNA_PUT_COUNT_CACHE, SKT_TCP, andna_tcp_port, 0);
-	add_pkt_op(ANDNA_GET_SINGLE_ACACHE, SKT_UDP, andna_udp_port,
+	add_pkt_op(ANDNA_PUT_COUNT_CACHE, SKT_TCP, ANDNA_TCP_PORT, 0);
+	add_pkt_op(ANDNA_GET_SINGLE_ACACHE, SKT_UDP, ANDNA_UDP_PORT,
 			   put_single_acache);
-	add_pkt_op(ANDNA_SPREAD_SACACHE, SKT_UDP, andna_udp_port,
+	add_pkt_op(ANDNA_SPREAD_SACACHE, SKT_UDP, ANDNA_UDP_PORT,
 			   recv_spread_single_acache);
 
 
@@ -2551,7 +2551,7 @@ andna_main(void *null)
 	pthread_mutex_init(&tcp_daemon_lock, 0);
 
 	debug(DBG_SOFT, "Evoking the andna udp daemon.");
-	ud_argv.port = andna_udp_port;
+	ud_argv.port = ANDNA_UDP_PORT;
 	ud_argv.flags |= UDP_THREAD_FOR_EACH_PKT;
 	pthread_mutex_lock(&udp_daemon_lock);
 	pthread_create(&thread, &t_attr, udp_daemon, (void *) &ud_argv);
@@ -2559,7 +2559,7 @@ andna_main(void *null)
 	pthread_mutex_unlock(&udp_daemon_lock);
 
 	debug(DBG_SOFT, "Evoking the andna tcp daemon.");
-	*port = andna_tcp_port;
+	*port = ANDNA_TCP_PORT;
 	pthread_mutex_lock(&tcp_daemon_lock);
 	pthread_create(&thread, &t_attr, tcp_daemon, (void *) port);
 	pthread_mutex_lock(&tcp_daemon_lock);

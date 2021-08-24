@@ -106,10 +106,10 @@ void
 qspn_init(u_char levels)
 {
 	/* register the qspn/tracer's ops in the pkt_op_table */
-	add_pkt_op(TRACER_PKT, SKT_TCP, ntk_tcp_port, tracer_pkt_recv);
-	add_pkt_op(TRACER_PKT_CONNECT, SKT_TCP, ntk_tcp_port, tracer_pkt_recv);
-	add_pkt_op(QSPN_CLOSE, SKT_TCP, ntk_tcp_port, qspn_close);
-	add_pkt_op(QSPN_OPEN, SKT_TCP, ntk_tcp_port, qspn_open);
+	add_pkt_op(TRACER_PKT, SKT_TCP, NTK_TCP_PORT, tracer_pkt_recv);
+	add_pkt_op(TRACER_PKT_CONNECT, SKT_TCP, NTK_TCP_PORT, tracer_pkt_recv);
+	add_pkt_op(QSPN_CLOSE, SKT_TCP, NTK_TCP_PORT, qspn_close);
+	add_pkt_op(QSPN_OPEN, SKT_TCP, NTK_TCP_PORT, qspn_open);
 
 	/* 
 	 * Alloc the qspn stuff 
