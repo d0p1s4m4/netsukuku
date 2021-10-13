@@ -19,4 +19,22 @@ struct ipt_connmark_info {
 	u_int8_t invert;
 };
 
+enum {
+	IPT_CONNMARK_SET = 0,
+	IPT_CONNMARK_SAVE,
+	IPT_CONNMARK_RESTORE
+};
+
+struct ipt_connmark_target_info {
+#ifdef KERNEL_64_USERSPACE_32
+	unsigned long long mark;
+	unsigned long long mask;
+#else
+	unsigned long mark;
+	unsigned long mask;
+#endif
+	u_int8_t mode;
+};
+
+
 #endif /*_IPT_CONNMARK_H*/
