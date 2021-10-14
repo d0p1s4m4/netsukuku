@@ -36,3 +36,18 @@ jobs:
           make test
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
+
+  qspn-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install test dependencies
+        run: |
+          sudo apt-get update 
+          sudo apt-get install build-essential libcmocka-dev zlibc libgmp-dev
+          sudo apt-get install openssl libssl-dev libpth-dev perl
+      - name: Build and run qspn-empiric
+        run: |
+          ./configure --debug
+          make qspn-empiric
+          ./qspn-empiric

@@ -71,7 +71,7 @@ test: $(OBJS_TEST) $(OBJS_COMMON)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) ntkd ntkresolv ntkconsole qspn unittest
+	$(RM) ntkd ntkresolv ntkconsole qspn-empiric unittest
 	$(RM) $(OBJS)
 	$(RM) $(OBJS:.o=.gcda)
 	$(RM) $(OBJS:.o=.gcno)

@@ -29,11 +29,13 @@ config.h
 netsukuku.conf
 
 # build result
-ntk-console
-ntk-resolv
+ntkconsole
+ntkresolv
 ntkd
 qspn-empiric
 unittest
+QSPN-map*
+QSPN1
 
 # coverage
 *.gcno
