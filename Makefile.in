@@ -82,20 +82,20 @@ install:
 	install -d %(SYSROOT)%(DATA_DIR)
 
 	install -d %(SYSROOT)%(CONF_DIR)
-	install src/conf/netsukuku.conf %(SYSROOT)%(CONF_DIR)
-	install src/conf/andna_hostnames %(SYSROOT)%(CONF_DIR)
-	install src/conf/snsd_nodes %(SYSROOT)%(CONF_DIR)
-	install src/scripts/ip_masquerade.sh %(SYSROOT)%(CONF_DIR)
-	install src/scripts/rc.ntk %(SYSROOT)%(CONF_DIR)
-	install src/scripts/tc_shaper.sh %(SYSROOT)%(CONF_DIR)
+	install meta/conf/netsukuku.conf %(SYSROOT)%(CONF_DIR)
+	install meta/conf/andna_hostnames %(SYSROOT)%(CONF_DIR)
+	install meta/conf/snsd_nodes %(SYSROOT)%(CONF_DIR)
+	install meta/scripts/ip_masquerade.sh %(SYSROOT)%(CONF_DIR)
+	install meta/scripts/rc.ntk %(SYSROOT)%(CONF_DIR)
+	install meta/scripts/tc_shaper.sh %(SYSROOT)%(CONF_DIR)
 
 	install -d %(SYSROOT)%(MAN_DIR)/main8
 	install -d %(SYSROOT)%(MAN_DIR)/main4
-	install src/man/ntkd.8 %(SYSROOT)%(MAN_DIR)/man8
-	install src/man/ntk-wifi.8 %(SYSROOT)%(MAN_DIR)/man8
-	install src/man/ntk-resolv.8 %(SYSROOT)%(MAN_DIR)/man8
-	install src/man/andna.8 %(SYSROOT)%(MAN_DIR)/man8
-	install src/man/netsukuku.conf.5 %(SYSROOT)%(MAN_DIR)/man5
+	install meta/man/ntkd.8 %(SYSROOT)%(MAN_DIR)/man8
+	install meta/man/ntk-wifi.8 %(SYSROOT)%(MAN_DIR)/man8
+	install meta/man/ntk-resolv.8 %(SYSROOT)%(MAN_DIR)/man8
+	install meta/man/andna.8 %(SYSROOT)%(MAN_DIR)/man8
+	install meta/man/netsukuku.conf.5 %(SYSROOT)%(MAN_DIR)/man5
 
 	install -d %(SYSROOT)%(BIN_DIR)
 	install src/scripts/ntk-wifi %(SYSROOT)%(BIN_DIR)
