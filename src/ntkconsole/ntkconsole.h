@@ -1,4 +1,5 @@
 /* This file is part of Netsukuku
+ * Copyright (c) 2022 d0p1
  *
  * This source code is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as published
@@ -15,16 +16,31 @@
  * Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
-#ifndef NETSUKUKUCONSOLE_H
-#define NETSUKUKUCONSOLE_H
 
-#define BUFFSIZE 1024
+#ifndef NTKCONSOLE_H
+# define NTKCONSOLE_H
 
-struct supported_commands {
-	command_t id;
-	const char *command;
-	const char *help;
-	int arguments;
-};
+# include <json-c/json_object.h>
+# include <time.h>
 
-#endif							/*NETSUKUKUCONSOLE_H */
+# define CONSOLE_VERSION_MAJOR 0
+# define CONSOLE_VERSION_MINOR 3
+
+typedef struct {
+	char *socket_path;
+} ConsoleContext;
+
+typedef void (*Callback)(ConsoleContext *);
+
+typedef struct {
+	char *cmd;
+	char *help;
+	Callback cb;
+} Command;
+
+json_object *request_send(ConsoleContext *, char const *);
+void console_context_destroy(ConsoleContext *ctx);
+
+extern const Command COMMANDS[];
+
+#endif /* !NTKCONSOLE_H */

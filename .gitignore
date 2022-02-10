@@ -29,10 +29,10 @@ config.h
 netsukuku.conf
 
 # build result
-ntkconsole
-ntkresolv
-ntkd
-qspn-empiric
+./ntkconsole
+./ntkresolv
+./ntkd
+./qspn-empiric
 unittest
 QSPN-map*
 QSPN1

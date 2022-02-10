@@ -33,7 +33,7 @@ SRCS_NETSUKUKU	= accept.c llist.c ipv6-gmp.c inet.c request.c map.c gmap.c \
 					ntk-console-server.c netsukuku.c
 SRCS_NTKRESOLV	= andns_lib.c andns_net.c crypto.c snsd_cache.c inet.c \
 					ll_map.c libnetlink.c err_errno.c ntkresolv.c
-SRCS_NTKCONSOLE	= ntk-console.c
+SRCS_NTKCONSOLE	= ntkconsole/main.c ntkconsole/cmd.c ntkconsole/request.c
 SRCS_TEST		= test_common.c test_buffer.c test_misc.c
 
 OBJS_COMMON	= $(addprefix src/, $(SRCS_COMMON:.c=.o))
@@ -58,7 +58,7 @@ ntkresolv: $(OBJS_NTKRESOLV) $(OBJS_COMMON)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 ntkconsole: $(OBJS_NTKCONSOLE)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	$(CC) -o $@ $^ $(LDFLAGS) -lreadline -ljson-c
 
 qspn-empiric: $(OBJS_QSPN) $(OBJS_COMMON)
 	$(CC) -o $@ $^ $(LDFLAGS)
