@@ -1281,7 +1281,6 @@ qspn_open(PACKET rpkt)
 				 * go to finish;
 				 */
 				debug(DBG_INSANE, "Propagating the last qspn_open");
-				do_nothing();
 			} else
 				goto finish;
 		}

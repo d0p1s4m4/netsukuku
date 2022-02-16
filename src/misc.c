@@ -397,11 +397,3 @@ exec_root_script(char *script, char *argv)
 
 	return 0;
 }
-
-
-/* This is the most important function */
-void
-do_nothing(void)
-{
-	return;
-}
