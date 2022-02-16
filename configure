@@ -34,11 +34,12 @@ my %env = (
     PID_DIR => '/var/run',
     SYSROOT => '',
     CFLAGS => '',
+    LDFLAGS => '',
     VERSION => $VERSION
 );
 
 my %files_map = (
-    'src/conf/netsukuku.conf.in' => 'src/conf/netsukuku.conf',
+    'meta/conf/netsukuku.conf.in' => 'meta/conf/netsukuku.conf',
     'src/config.h.in' => 'src/config.h',
     'Makefile.in' => 'Makefile'
 );
@@ -72,7 +73,8 @@ GetOptions(
 pod2usage(0) if $help;
 
 if ($debug) {
-    $env{'CFLAGS'} = "-DDEBUG -ggdb $env{'CFLAGS'}";
+    $env{'CFLAGS'} = "-DDEBUG -ggdb -fsanitize=address -fsanitize=undefined $env{'CFLAGS'}";
+    $env{'LDFLAGS'} = "-lasan -lubsan $env{'LDFLAGS'}"
 } else {
     $env{'CFLAGS'} = "-DNDEBUG";
 }
