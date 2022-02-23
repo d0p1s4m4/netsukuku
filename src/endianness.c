@@ -33,7 +33,7 @@
 #define IS_DYNAMIC(i) 							\
 ({									\
 	if((i) == IINFO_DYNAMIC_VALUE)					\
-	  fatal("%s:%d: IINFO_DYNAMIC_VALUE encountered", ERROR_POS);	\
+	  fatal$("IINFO_DYNAMIC_VALUE encountered");	\
 })
 
 #else

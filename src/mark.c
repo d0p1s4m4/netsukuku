@@ -56,9 +56,9 @@ int
 table_init(const char *table, iptc_handle_t * t)
 {
 	*t = iptc_init(table);
-	error("In table_int, t: %s and errno %d", table, errno);
+	error$("In table_int, t: %s and errno %d", table, errno);
 	if (!(*t)) {
-		error("In table_init, table %s: -> %s", table,
+		error$("In table_init, table %s: -> %s", table,
 			  iptc_strerror(errno));
 		err_ret(ERR_NETFIL, -1);
 	}
@@ -79,11 +79,10 @@ insert_rule(const char *rule, iptc_handle_t * t, const char *chain,
 {
 	int res;
 	res = iptc_insert_entry(chain, (struct ipt_entry *) rule, 0, t);
-	error
-		("res is: %d rule is: %p chain is: %s pos is: %d t is: %p",
+	error$("res is: %d rule is: %p chain is: %s pos is: %d t is: %p",
 		 res, *rule, chain, pos, t);
 	if (!res) {
-		error("In insert_rule: %s.", iptc_strerror(errno));
+		error$("In insert_rule: %s.", iptc_strerror(errno));
 		err_ret(ERR_NETRUL, -1);
 	}
 	return 0;
@@ -100,10 +99,10 @@ append_rule(const char *rule, iptc_handle_t * t, const char *chain)
 {
 	int res;
 	res = iptc_append_entry(chain, (struct ipt_entry *) rule, t);
-	error("res is: %d, chain: %s, rule: %s, t: %s, Errno is: %d", res,
+	error$("res is: %d, chain: %s, rule: %s, t: %s, Errno is: %d", res,
 		  chain, rule, t, errno);
 	if (!res) {
-		error("In append_rule: %s.", iptc_strerror(errno));
+		error$("In append_rule: %s.", iptc_strerror(errno));
 		err_ret(ERR_NETRUL, -1);
 	}
 	return 0;
@@ -120,11 +119,10 @@ commit_rules(iptc_handle_t * t)
 {
 	int res;
 	res = iptc_commit(t);
-	error
-		("This is the value of res: %i This is the value of t is: %p errno is: %d",
+	error$("This is the value of res: %i This is the value of t is: %p errno is: %d",
 		 res, t, errno);
 	if (!res) {
-		error("In commit_rules: %s.", iptc_strerror(errno));
+		error$("In commit_rules: %s.", iptc_strerror(errno));
 		err_ret(ERR_NETCOM, -1);
 	}
 	return 0;
@@ -299,7 +297,7 @@ ntk_mark_chain_init(iptc_handle_t * t)
 	int res;
 	res = iptc_is_chain(NTK_MARK_CHAIN, *t);
 	if (res) {
-		debug(DBG_NORMAL, "In mark_init: bizarre, ntk mangle"
+		debug$("In mark_init: bizarre, ntk mangle"
 			  "chain is present yet. it will be flushed.");
 		res = iptc_flush_entries(NTK_MARK_CHAIN, t);
 		if (!res)
@@ -311,7 +309,7 @@ ntk_mark_chain_init(iptc_handle_t * t)
 	}
 	return 0;
   dontwork:
-	error("In ntk_mark_chain_init: -> %s", iptc_strerror(errno));
+	error$("In ntk_mark_chain_init: -> %s", iptc_strerror(errno));
 	err_ret(ERR_NETCHA, -1)
 }
 
@@ -333,7 +331,7 @@ store_rules()
 
 	res = table_init(MANGLE_TABLE, &t);
 	if (res) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_NETSTO, -1);
 	}
 	r = (struct ipt_entry *) iptc_first_rule(CHAIN_OUTPUT, &t);
@@ -351,15 +349,15 @@ store_rules()
 			dr.sz = IGW_FILTER_RULE_SZ;
 			memcpy(dr.e, d, dr.sz);
 			dr.chain = CHAIN_PREROUTING;
-			error("This is store_rules, And the value of t is: %p", t);
+			error$("This is store_rules, And the value of t is: %p", t);
 			commit_rules(&t);
 			return 0;
 		} else {
 
-			error("This is store_rules else, And the value of t is: %p",
+			error$("This is store_rules else, And the value of t is: %p",
 				  t);
 			commit_rules(&t);
-			error("In store_rules: %s.", iptc_strerror(errno));
+			error$("In store_rules: %s.", iptc_strerror(errno));
 			err_ret(ERR_NETSTO, -1);
 		}
 	}
@@ -386,7 +384,7 @@ dump_rules()
 	fd = open(DATA_DIR "/mark_rules", O_CREAT | O_WRONLY | O_TRUNC, 0540);
 	if (fd == -1) {
 		dumped = 0;
-		error("Storing rules to fs: %s.", strerror(errno));
+		error$("Storing rules to fs: %s.", strerror(errno));
 		return -1;
 	}
 	write(fd, &rr, sizeof(rule_store));
@@ -412,11 +410,11 @@ load_dump_rules()
 	read(fd, &d_dr, sizeof(rule_store));
 	close(fd);
 	if (memcmp(&rr, &d_rr, sizeof(rule_store)))
-		error("Stored rule rr differs from original.");
+		error$("Stored rule rr differs from original.");
 	if (memcmp(&fr, &d_fr, sizeof(rule_store)))
-		error("Stored rule fr differs from original.");
+		error$("Stored rule fr differs from original.");
 	if (memcmp(&dr, &d_dr, sizeof(rule_store)))
-		error("Stored rule dr differs from original.");
+		error$("Stored rule dr differs from original.");
 	return 0;
 }
 
@@ -443,41 +441,41 @@ mark_init(int igw)
 
 	/*res=inet_aton(NTK_NET_STR,&inet_dst);
 	   if (!res) {
-	   error("Can not convert str to addr.");
+	   error$("Can not convert str to addr.");
 	   goto cannot_init;
 	   }
 	   res=inet_aton(NTK_NET_MASK_STR,&inet_dst_mask);
 	   if (!res) {
-	   error("Can not convert str to addr.");
+	   error$("Can not convert str to addr.");
 	   goto cannot_init;
 	   } */
 
 	res = table_init(MANGLE_TABLE, &t);
 	if (res) {
-		error(err_str);
+		error$(err_str);
 		goto cannot_init;
 	}
 	res = ntk_mark_chain_init(&t);
 	if (res) {
-		error(err_str);
-		error("Unable to create netfilter ntk_mark_chain.");
+		error$(err_str);
+		error$("Unable to create netfilter ntk_mark_chain.");
 		goto cannot_init;
 	}
 	restore_output_rule_init(rule);
         
-        error("Rule in mark_init: %s", *rule);
+        error$("Rule in mark_init: %s", *rule);
         
 	res = insert_rule(rule, &t, CHAIN_OUTPUT, 0);
 	if (res) {
-		error(err_str);
-		error("Unable to create netfilter restore-marking rule.");
+		error$(err_str);
+		error$("Unable to create netfilter restore-marking rule.");
 		goto cannot_init;
 	}
 	ntk_forward_rule_init(rule);
 	res = insert_rule(rule, &t, CHAIN_POSTROUTING, 0);
 	if (res) {
-		error(err_str);
-		error("Unable to create netfilter forwarding rule.");
+		error$(err_str);
+		error$("Unable to create netfilter forwarding rule.");
 		goto cannot_init;
 	}
 	if (igw) {
@@ -485,8 +483,8 @@ mark_init(int igw)
 		igw_mark_rule_init(rule);
 		res = insert_rule(rule, &t, CHAIN_PREROUTING, 0);
 		if (res) {
-			error(err_str);
-			error("Unable to create netfilter igw death loop rule.");
+			error$(err_str);
+			error$("Unable to create netfilter igw death loop rule.");
 			death_loop_rule = 0;
 			goto cannot_init;
 		}
@@ -495,28 +493,25 @@ mark_init(int igw)
 
 	res = commit_rules(&t);
 	if (res) {
-		error(err_str);
-		error("Netfilter mangle table was not altered!");
+		error$(err_str);
+		error$("Netfilter mangle table was not altered!");
 		goto cannot_init;
 	}
 	res = store_rules();
 	if (res) {
-		error(err_str);
-		error
-			("Rules storing failed: autocleaning netfilter on exit disable.");
+		error$(err_str);
+		error$("Rules storing failed: autocleaning netfilter on exit disable.");
 		clean_on_exit = 0;
 	} else
 		clean_on_exit = 1;
 	dump_rules();
-	debug(DBG_NORMAL, "Netfilter chain ntk_mark_chain created (mangle).");
-	debug(DBG_NORMAL,
-		  "Netfilter restoring rule created (mangle->output).");
-	debug(DBG_NORMAL,
-		  "Netfilter forwarding rule created (mangle->postrouting).");
+	debug$("Netfilter chain ntk_mark_chain created (mangle).");
+	debug$("Netfilter restoring rule created (mangle->output).");
+	debug$("Netfilter forwarding rule created (mangle->postrouting).");
 	if (igw)
-		debug(DBG_NORMAL, "Netfilter death loop igw rule created.");
-	debug(DBG_NORMAL, "mark_init(), netfilter mangle table initialized.");
-	loginfo("Netfilter mangle table modified.");
+		debug$("Netfilter death loop igw rule created.");
+	debug$("mark_init(), netfilter mangle table initialized.");
+	info$("Netfilter mangle table modified.");
 	return 0;
   cannot_init:
 	err_ret(ERR_MRKINI, -1);
@@ -571,32 +566,32 @@ create_mark_rules(int n)
 
 	res = table_init(MANGLE_TABLE, &t);
 	if (res) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_NETRUL, -1);
 	}
 	nchain = count_ntk_mark_chain(&t);
 	if (nchain == -1) {
-		error("In create_mark_rules: can not read ntk_mark_chain.");
+		error$("In create_mark_rules: can not read ntk_mark_chain.");
 		err_ret(ERR_NETRUL, -1);
 	}
 	if (nchain >= n) {
-		debug(DBG_NORMAL, "In create_mark_rules: rules present yet.");
+		debug$("In create_mark_rules: rules present yet.");
 		return 0;
 	}
 	for (i = nchain; i < n; i++) {
 		mark_rule_init(rule, NTK_TUNL_PREFIX, i);
 		res = append_rule(rule, &t, NTK_MARK_CHAIN);
 		if (res) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_NETRUL, -1);
 		}
 	}
 	res = commit_rules(&t);
 	if (res) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_NETRUL, -1);
 	}
-	debug(DBG_NORMAL, "Created %d marking rules.", n - nchain);
+	debug$("Created %d marking rules.", n - nchain);
 	return 0;
 }
 
@@ -625,7 +620,7 @@ delete_ntk_forward_chain(iptc_handle_t * t)
 	return 0;
 
   cannot_delete:
-	error("In delete_ntk_forward_chain: -> %s", iptc_strerror(errno));
+	error$("In delete_ntk_forward_chain: -> %s", iptc_strerror(errno));
 	err_ret(ERR_NETDEL, -1);
 }
 
@@ -646,7 +641,7 @@ delete_first_rule(iptc_handle_t * t, const char *chain)
 		goto cannot_delete;
 	return 0;
   cannot_delete:
-	error("In delete_first_rule: -> %s", iptc_strerror(errno));
+	error$("In delete_first_rule: -> %s", iptc_strerror(errno));
 	err_ret(ERR_NETDEL, -1);
 }
 
@@ -689,12 +684,12 @@ delete_rule(rule_store * rule, iptc_handle_t * t)
 	int pos, res;
 	pos = rule_position(rule, t);
 	if (pos == -1) {
-		debug(DBG_NORMAL, "No rule in %s to be deleted.", rule->chain);
+		debug$("No rule in %s to be deleted.", rule->chain);
 		return 0;
 	}
 	res = iptc_delete_num_entry(rule->chain, pos, t);
 	if (!res) {
-		debug(DBG_NORMAL, "Unable to delete rule in chain %s.",
+		debug$("Unable to delete rule in chain %s.",
 			  rule->chain);
 		err_ret(ERR_NETDEL, -1);
 	}
@@ -717,7 +712,7 @@ mark_close()
 	int res;
 
 	if (!clean_on_exit) {
-		debug(DBG_NORMAL, "mark_close: cleaning is not my task.");
+		debug$("mark_close: cleaning is not my task.");
 		return 0;
 	}
 	load_dump_rules();
@@ -728,8 +723,7 @@ mark_close()
 	res += delete_rule(&rr, &t);
 	res += delete_rule(&fr, &t);
 	if (death_loop_rule) {
-		debug(DBG_INSANE,
-			  "In mark_close: I'm an IGW: deleting death loop rule.");
+		debug$("In mark_close: I'm an IGW: deleting death loop rule.");
 		res += delete_rule(&dr, &t);
 	}
 	if (res)
@@ -740,11 +734,11 @@ mark_close()
 	res = commit_rules(&t);
 	if (res)
 		goto reset_error;
-	debug(DBG_NORMAL, "Netfilter completely restored.");
+	debug$("Netfilter completely restored.");
 	return 0;
   reset_error:
-	error(err_str);
-	loginfo("Netfilter was not restored. To clean, run:\n"
+	error$(err_str);
+	info$("Netfilter was not restored. To clean, run:\n"
 			"\tiptables -t mangle -F\n"
 			"\tiptables -t mangle -X %s", NTK_MARK_CHAIN);
 	err_ret(ERR_NETRST, -1);

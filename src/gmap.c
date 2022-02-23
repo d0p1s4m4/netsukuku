@@ -488,8 +488,7 @@ increment_gids(quadro_group * qg, int level, map_gnode ** ext_map,
 				 * Ignore this absurd and mark it as full -_-
 				 */
 				ext_map[_EL(level + 1)][g].flags |= GMAP_FULL;
-				debug(DBG_NORMAL, ERROR_MSG "logical "
-					  "contradiction detected", ERROR_POS);
+				debug$("logical  contradiction detected");
 			}
 
 			/*
@@ -870,8 +869,7 @@ erc_reorder_rnodepos(ext_rnode_cache ** erc, u_int * erc_counter,
 			p->rnode_pos = rnode_find(root_node, &p->e->node);
 
 			if (p->rnode_pos < 0) {
-				debug(DBG_NOISE,
-					  "erc_reorder_rnodepos: Warning erc 0x%x delete. "
+				debug$("erc_reorder_rnodepos: Warning erc 0x%x delete. "
 					  "Something strange is happening", p);
 				e_rnode_del(erc, erc_counter, p);
 			}
@@ -1467,7 +1465,7 @@ unpack_extmap(char *package, quadro_group * quadg)
 	maxgroupnode = emap_hdr->ext_map_sz / (MAP_GNODE_PACK_SZ * levels);
 
 	if (verify_ext_map_hdr(emap_hdr, quadg)) {
-		error("Malformed ext_map_hdr. Aborting unpack_map().");
+		error$("Malformed ext_map_hdr. Aborting unpack_map().");
 		return 0;
 	}
 
@@ -1487,7 +1485,7 @@ unpack_extmap(char *package, quadro_group * quadg)
 		err = extmap_store_rblock(ext_map, levels, maxgroupnode, rblock,
 								  emap_hdr->rblock_sz);
 		if (err != levels) {
-			error("unpack_extmap(): It was not possible to restore"
+			error$("unpack_extmap(): It was not possible to restore"
 				  " all the rnodes in the ext_map");
 			free_extmap(ext_map, quadg->levels, maxgroupnode);
 			return 0;
@@ -1516,7 +1514,7 @@ save_extmap(map_gnode ** ext_map, int maxgroupnode, quadro_group * quadg,
 		return 0;
 
 	if ((fd = fopen(file, "w")) == NULL) {
-		error("Cannot save the map in %s: %s", file, strerror(errno));
+		error$("Cannot save the map in %s: %s", file, strerror(errno));
 		return -1;
 	}
 	/*Write! */
@@ -1537,7 +1535,7 @@ load_extmap(char *file, quadro_group * quadg)
 	char *pack;
 
 	if ((fd = fopen(file, "r")) == NULL) {
-		error("Cannot load the map from %s: %s", file, strerror(errno));
+		error$("Cannot load the map from %s: %s", file, strerror(errno));
 		return 0;
 	}
 
@@ -1558,13 +1556,13 @@ load_extmap(char *file, quadro_group * quadg)
 
 	ext_map = unpack_extmap(pack, quadg);
 	if (!ext_map)
-		error("Cannot unpack the ext_map!");
+		error$("Cannot unpack the ext_map!");
 
 	xfree(pack);
 	fclose(fd);
 	return ext_map;
   error:
 	fclose(fd);
-	error("Malformed ext_map file. Aborting load_extmap().");
+	error$("Malformed ext_map file. Aborting load_extmap().");
 	return 0;
 }

@@ -109,7 +109,7 @@ store_ns(char *ns)
         printf("store_ns getaddrinfo nameserver: %s "
                 "res: %i: %s",ns ,res, gai_strerror(errno));
 	if (res) {
-		debug(DBG_NORMAL, "In store_ns(): gai `%s' -> %s", ns,
+		debug$("In store_ns(): gai `%s' -> %s", ns,
 			  gai_strerror(errno));
 		return -1;
 	}
@@ -132,7 +132,7 @@ collect_resolv_conf(char *resolve_conf)
 	char buf[512], *crow;
 
 	if (!(erc = fopen(resolve_conf, "r"))) {
-		error("In collect_resolv_conf: " "error -> %s.", strerror(errno));
+		error$("In collect_resolv_conf: " "error -> %s.", strerror(errno));
 		err_ret(ERR_RSLERC, -1);
 	}
 	while ((crow = fgets(buf, 512, erc))
@@ -155,7 +155,7 @@ collect_resolv_conf(char *resolve_conf)
 		store_ns(crow);			/* finally store nameserver */
 	}
 	if (fclose(erc) != 0) {
-		error("In collect_resolv_conf: closing "
+		error$("In collect_resolv_conf: closing "
 			  "resolv.conf -> %s", strerror(errno));
 		err_ret(ERR_RSLERC, -1);
 	}
@@ -203,17 +203,17 @@ andns_init(int restricted, char *resolv_conf, int family)
 if (_default_realm_ == NTK_REALM) {
 		/* We are in NTK realm, every IP is assigned to Netsukuku,
 		 * therefore dns forwarding is meaningless */
-                loginfo("We are in the ntk realm %s\n", strerror(errno));
+                info$("We are in the ntk realm %s", strerror(errno));
 		_dns_forwarding_ = 0;
 		return 0;
 	}
 
 	res = collect_resolv_conf(resolv_conf);
 	if (res <= 0) {
-                loginfo("Some kind of error occurred in collecting the dns nameservers"
+                info$("Some kind of error occurred in collecting the dns nameservers"
                         " %s\n", strerror(errno));
 		_dns_forwarding_ = 0;
-		debug(DBG_NORMAL, err_str);
+		debug$(err_str);
 		err_ret(ERR_RSLAIE, -1);
 	}
 
@@ -228,10 +228,10 @@ if (_default_realm_ == NTK_REALM) {
 			strncat(msg, buf, INET_ADDRSTRLEN);
 			strncat(msg, i == _andns_ns_count_ - 1 ? ". " : ", ", 2);
 		} else
-			error("In andns_init: error "
+			error$("In andns_init: error "
 				  "converting sockaddr -> %s.", strerror(errno));
 	}
-	loginfo("Inet DNS queries will be forwarded to: %s", msg);
+	info$("Inet DNS queries will be forwarded to: %s", msg);
 
 	_dns_forwarding_ = 1;
 	return 0;
@@ -503,12 +503,12 @@ apqsttodpqst(andns_pkt * ap, dns_pkt ** dpsrc)
 		else
 			goto incomp_err;
 		if (!inet_ntop(family, ap->qstdata, temp, DNS_MAX_HNAME_LEN)) {
-			debug(DBG_INSANE, err_str);
+			debug$(err_str);
 			goto incomp_err;
 		}
 		res = swapped_straddr_pref(temp, dpq->qname, family);
 		if (res == -1) {
-			debug(DBG_INSANE, err_str);
+			debug$(err_str);
 			goto incomp_err;
 		}
 	} else
@@ -561,7 +561,7 @@ dpanswtoapansw(dns_pkt * dp, andns_pkt * ap)
 			h = gethostbyname(dpa->rdata + 2);
 			if (!h || !(h->h_length)) {
 				andns_del_answ(ap);
-				debug(DBG_INSANE, "MX Ip Record not found.");
+				debug$("MX Ip Record not found.");
 				continue;
 			}
 			apd->rdlength = h->h_addrtype == AF_INET ? 4 : 16;
@@ -577,7 +577,7 @@ dpanswtoapansw(dns_pkt * dp, andns_pkt * ap)
 		dpa = dpa->next;
 	}
 	if (i != ancount || nan != ancount)
-		debug(DBG_INSANE, "In dpanswtoapansw: "
+		debug$("In dpanswtoapansw: "
 			  "ancount=%d, andns answers=%d", DNS_GET_ANCOUNT(dp), i);
 	ap->ancount = nan;
 
@@ -621,15 +621,15 @@ andns_gethostbyname(char *hname, inet_prefix * ip)
 	memset(msg, 0, DNS_MAX_SZ);
 	memset(answ, 0, DNS_MAX_SZ);
 	if ((res = d_p(dp, msg)) == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_RSLRSL, -1);
 	}
 	if ((res = ns_general_send(msg, res, answ, DNS_MAX_SZ)) == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_RSLRSL, -1);
 	}
 	if ((res = d_u(answ, res, &dp)) == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_RSLRSL, -1);
 	}
 	fprintf(stderr, "Addr is %p, rdata is %p rawr %p hai %p\n",
@@ -641,7 +641,7 @@ andns_gethostbyname(char *hname, inet_prefix * ip)
 	memcpy(&addr, dp->pkt_answ->rdata, sizeof(uint32_t));
 	addr = ntohl(addr);
 	if ((res = inet_setip_raw(ip, &addr, AF_INET)) == -1) {
-		error("In andns_gethostbyname: can not fill inet_prefix.");
+		error$("In andns_gethostbyname: can not fill inet_prefix.");
 		err_ret(ERR_RSLRSL, -1);
 	}
 	destroy_dns_pkt(dp);
@@ -667,14 +667,14 @@ dns_forward(dns_pkt * dp, char *msg, int msglen, char *answer)
 	int res;
 
 	if (!_dns_forwarding_) {
-		error("In rslv: dns forwarding is disabled.");
+		error$("In rslv: dns forwarding is disabled.");
 		goto safe_failing;
 	}
-	debug(DBG_INSANE, "Forwarding dns query to inet nameservers...");
+	debug$("Forwarding dns query to inet nameservers...");
 	if (!is_prefixed(dp)) {
 		if ((res =
 			 ns_general_send(msg, msglen, answer, ANDNS_MAX_SZ)) == -1) {
-			error(err_str);
+			error$(err_str);
 			goto safe_failing;
 		}
 		destroy_dns_pkt(dp);
@@ -684,17 +684,17 @@ dns_forward(dns_pkt * dp, char *msg, int msglen, char *answer)
 	dp_forward = dpktcpy_rm_pref(dp);
 	memset(fwdbuf, 0, DNS_MAX_SZ);
 	if ((res = d_p(dp_forward, fwdbuf)) == -1) {	/* dp_foward is destroyed */
-		error(err_str);
+		error$(err_str);
 		goto safe_failing;
 	}
 	res = ns_general_send(fwdbuf, res, answer, ANDNS_MAX_SZ);
 	if (res == -1) {
-		error(err_str);
+		error$(err_str);
 		goto safe_failing;
 	}
 	res = d_u(answer, res, &dp_forward);
 	if (res <= 0) {
-		error(err_str);
+		error$(err_str);
 		goto safe_failing;
 	}
 	dpktacpy(dp, dp_forward, INET_REALM_PREFIX);
@@ -702,7 +702,7 @@ dns_forward(dns_pkt * dp, char *msg, int msglen, char *answer)
 	DNS_SET_NSCOUNT(dp, 0);
 	DNS_SET_ARCOUNT(dp, 0);
 	if ((res = d_p(dp, answer)) == -1) {
-		error(err_str);
+		error$(err_str);
 		goto failing;
 	}
 	return res;
@@ -925,7 +925,7 @@ nk_forward(andns_pkt * ap, char *msg, int msglen, char *answer)
 	}
 	return res;
   safe_return_rcode:
-	debug(DBG_INSANE, err_str);
+	debug$(err_str);
 	destroy_andns_pkt(ap);
 	memcpy(answer, msg, msglen);
 	ANDNS_SET_QR(answer);
@@ -963,7 +963,7 @@ andns_rslv(char *msg, int msglen, char *answer, int *answ_len)
 	else if (proto == NK_INET || proto == NK_NTK)
 		res = a_u(msg, msglen, &ap);
 	else {
-		debug(DBG_INSANE, "andns_rslv(): "
+		debug$("andns_rslv(): "
 			  "Which language are you speaking?");
 		return NULL;
 	}
@@ -985,10 +985,10 @@ andns_rslv(char *msg, int msglen, char *answer, int *answ_len)
 	*answ_len = res;
 	return answer;
   discard:
-	debug(DBG_INSANE, err_str);
+	debug$(err_str);
 	err_ret(ERR_RSLAQD, NULL);
   intrprt:
-	debug(DBG_INSANE, err_str);
+	debug$(err_str);
 	memcpy(answer, msg, msglen);
 	ANDNS_SET_RCODE(answer, 1);
 	//ANDNS_SET_RCODE(answer,RCODE_EINTRPRT);

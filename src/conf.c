@@ -46,8 +46,8 @@ clear_config_env(void)
  * parse_config_line: it reads the `line' string and sees if it has a valid
  * option assignment that is in the form of "option = value".
  * On success it stores the option name with its value in the environment.
- * On failure fatal() is called, so it will never return ;)
- * `file' and `pos' are used by fatal() to tell where the corrupted `line' was.
+ * On failure fatal$() is called, so it will never return ;)
+ * `file' and `pos' are used by fatal$() to tell where the corrupted `line' was.
  */
 void
 parse_config_line(char *file, int pos, char *line)
@@ -56,7 +56,7 @@ parse_config_line(char *file, int pos, char *line)
 	char *value;
 
 	if (!(value = strchr(line, '=')))
-		fatal("The line %s:%d is invalid, it does not contain the '=' "
+		fatal$("The line %s:%d is invalid, it does not contain the '=' "
 			  "character. Aborting.", file, pos);
 
 	for (i = 0; config_str[i][0]; i++)
@@ -65,7 +65,7 @@ parse_config_line(char *file, int pos, char *line)
 			break;
 		}
 	if (!e)
-		fatal("The line %s:%d does not contain a valid option. Aborting.",
+		fatal$("The line %s:%d does not contain a valid option. Aborting.",
 			  file, pos);
 
 	value++;
@@ -73,7 +73,7 @@ parse_config_line(char *file, int pos, char *line)
 		value++;
 
 	if (setenv(config_str[i], value, 1))
-		fatal("Error in line %s:%d: %s. Aborting.", file, pos,
+		fatal$("Error in line %s:%d: %s. Aborting.", file, pos,
 			  strerror(errno));
 }
 
@@ -82,7 +82,7 @@ parse_config_line(char *file, int pos, char *line)
  * load_config_file: loads from `file' all the options that are written in it
  * and stores them in the environment. See parse_config_line() above.
  * If `file' cannot be opened -1 is returned, but if it is read and
- * parse_config_line() detects a corrupted line, fatal() is directly called.
+ * parse_config_line() detects a corrupted line, fatal$() is directly called.
  * On success 0 is returned.
  */
 int
@@ -94,7 +94,7 @@ load_config_file(char *file)
 	int i = 0, e = 0;
 
 	if (!(fd = fopen(file, "r"))) {
-		fatal("Cannot load the configuration file from %s: %s\n"
+		fatal$("Cannot load the configuration file from %s: %s\n"
 			  "  Maybe you want to use the -c option ?",
 			  file, strerror(errno));
 		return -1;

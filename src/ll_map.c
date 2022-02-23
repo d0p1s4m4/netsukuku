@@ -176,7 +176,7 @@ ll_nth_up_if(int n)
 	unsigned flags;
 
 	if (n <= 0)
-		fatal("%s:%d: Bad argument given", ERROR_POS);
+		fatal$("Bad argument given");
 
 	for (found = 0, i = 1; i <= 16; i++) {
 		flags = ll_index_to_flags(i);
@@ -201,11 +201,11 @@ int
 ll_init_map(struct rtnl_handle *rth)
 {
 	if (rtnl_wilddump_request(rth, AF_UNSPEC, RTM_GETLINK) < 0)
-		fatal("%s:%d: Cannot send dump request", ERROR_POS);
+		fatal$("Cannot send dump request");
 
 	if (rtnl_dump_filter
 		(rth, (rtnl_filter_t) ll_remember_index, &idxmap, NULL, NULL) < 0)
-		fatal(ERROR_MSG "Dump terminated", ERROR_POS);
+		fatal$("Dump terminated");
 
 	return 0;
 }

@@ -67,7 +67,7 @@ dns_exec_pkt(void *passed_argv)
 	pthread_mutex_unlock(&dns_exec_lock);
 
 	if (argv.rpkt_sz < MIN_PKT_SZ) {
-		debug(DBG_NORMAL, "Received malformed DNS packet");
+		debug$("Received malformed DNS packet");
 		return 0;
 	}
 
@@ -80,13 +80,11 @@ dns_exec_pkt(void *passed_argv)
 	/* Send the DNS reply */
 	bytes_sent = inet_sendto(argv.sk, answer_buffer, answer_length, 0,
 							 &argv.from, argv.from_len);
-	error
-		("bytes_sent is: %d argv.sk is: %d answer_buffer is: %s answer_length is: %d argv.from is: %p agrv.from_len is: %p",
+	error$("bytes_sent is: %d argv.sk is: %d answer_buffer is: %s answer_length is: %d argv.from is: %p agrv.from_len is: %p",
 		 bytes_sent, argv.sk, answer_buffer, answer_length, argv.from,
 		 argv.from_len);
 	if (bytes_sent != answer_length)
-		debug(DBG_SOFT, ERROR_MSG "inet_sendto error: %s", ERROR_POS,
-			  strerror(errno));
+		debug$("inet_sendto error: %s", strerror(errno));
 
 	return 0;
 }
@@ -116,16 +114,16 @@ dns_wrapper_daemon(u_short port)
 	pthread_attr_setdetachstate(&t_attr, PTHREAD_CREATE_DETACHED);
 	pthread_mutex_init(&dns_exec_lock, 0);
 
-	debug(DBG_SOFT, "Preparing the dns_udp listening socket on port %d",
+	debug$("Preparing the dns_udp listening socket on port %d",
 		  port);
 	sk = prepare_listen_socket(my_family, SOCK_DGRAM, port, 0);
 	if (sk == -1)
 		return;
 
-	debug(DBG_NORMAL, "DNS wrapper daemon on port %d up & running", port);
+	debug$("DNS wrapper daemon on port %d up & running", port);
 	for (;;) {
 		if (!sk)
-			fatal("The dns_wrapper_daemon socket got corrupted");
+			fatal$("The dns_wrapper_daemon socket got corrupted");
 
 		FD_ZERO(&fdset);
 		FD_SET(sk, &fdset);
@@ -140,7 +138,7 @@ dns_wrapper_daemon(u_short port)
 				break;
 			select_errors++;
 #endif
-			error("dns_wrapper_daemonp: select error: %s",
+			error$("dns_wrapper_daemonp: select error: %s",
 				  strerror(errno));
 			continue;
 		}
@@ -158,7 +156,7 @@ dns_wrapper_daemon(u_short port)
 		err = inet_recvfrom(sk, buf, MAX_DNS_PKT_SZ, MSG_WAITALL,
 							&exec_pkt_argv.from, &exec_pkt_argv.from_len);
 		if (err < 0) {
-			debug(DBG_NOISE, "dns_wrapper_daemonp: recv of the dns"
+			debug$("dns_wrapper_daemonp: recv of the dns"
 				  " query pkt aborted!");
 			continue;
 		}

@@ -73,7 +73,7 @@ void
 lcl_new_keyring(lcl_cache_keyring * keyring)
 {
 	setzero(keyring, sizeof(lcl_cache_keyring));
-	loginfo("Generating a new ANDNA keyring");
+	info$("Generating a new ANDNA keyring");
 
 	/* Generate the new key pair for the first time */
 	keyring->priv_rsa = genrsa(ANDNA_PRIVKEY_BITS, &keyring->pubkey,
@@ -753,7 +753,7 @@ unpack_lcl_keyring(lcl_cache_keyring * keyring, char *pack, size_t pack_sz)
 	keyring->skey_len = hdr->skey_len;
 	keyring->pkey_len = hdr->pkey_len;
 	if (keyring->skey_len > ANDNA_SKEY_MAX_LEN) {
-		error(ERROR_MSG "Invalid keyring header", ERROR_FUNC);
+		error$("Invalid keyring header");
 		return -1;
 	}
 
@@ -770,8 +770,8 @@ unpack_lcl_keyring(lcl_cache_keyring * keyring, char *pack, size_t pack_sz)
 	pk = keyring->privkey;
 	if (!(keyring->priv_rsa = get_rsa_priv((const u_char **) &pk,
 										   keyring->skey_len))) {
-		error(ERROR_MSG "Cannot unpack the priv key from the"
-			  " lcl_pack: %s", ERROR_POS, ssl_strerr());
+		error$("Cannot unpack the priv key from the"
+			  " lcl_pack: %s", ssl_strerr());
 		return -1;
 	}
 
@@ -854,19 +854,27 @@ unpack_lcl_cache(char *pack, size_t pack_sz, int *counter)
 	*counter = 0;
 
 	if (hdr->tot_caches > ANDNA_MAX_HOSTNAMES)
-		ERROR_FINISH(*counter, -1, finish);
+	{
+		*counter = -1;
+		goto finish;
+	}
 
 	*counter = 0;
 	if (hdr->tot_caches) {
 		for (i = 0; i < hdr->tot_caches; i++) {
 			unpacked_sz += LCL_CACHE_BODY_PACK_SZ(0);
 			if (unpacked_sz > pack_sz)
-				ERROR_FINISH(*counter, -1, finish);
+			{
+				*counter = -1;
+				goto finish;
+			}
 
 			slen = strlen(buf + sizeof(u_short) + sizeof(time_t)) + 1;
-			if (slen > ANDNA_MAX_HNAME_LEN ||
-				(unpacked_sz += slen) > pack_sz)
-				ERROR_FINISH(*counter, -1, finish);
+			if (slen > ANDNA_MAX_HNAME_LEN || (unpacked_sz += slen) > pack_sz)
+			{
+				*counter = -1;
+				goto finish;
+			}
 
 			ints_network_to_host(buf, lcl_cache_pkt_body_iinfo);
 
@@ -1065,9 +1073,9 @@ unpack_acq_llist(char *pack, size_t pack_sz, size_t * unpacked_sz,
 		acq->service = snsd_unpack_all_service(buf, pack_sz, unpacked_sz,
 											   &snsd_counter);
 		if (acq->snsd_counter != snsd_counter) {
-			debug(DBG_SOFT, ERROR_MSG "unpack_acq:"
+			debug$("unpack_acq:"
 				  "snsd_counter (%h) != snsd_counter (%h)",
-				  ERROR_POS, acq->snsd_counter, snsd_counter);
+				  acq->snsd_counter, snsd_counter);
 			xfree(acq);
 			list_destroy(ac->acq);
 			return 0;
@@ -1106,7 +1114,10 @@ unpack_andna_cache(char *pack, size_t pack_sz, int *counter, int pack_type)
 	*counter = 0;
 
 	if (!hdr->tot_caches)
-		ERROR_FINISH(err, 1, finish);
+	{
+		err = 1;
+		goto finish;
+	}
 
 	buf = pack + sizeof(struct andna_cache_pkt_hdr);
 	sz = sizeof(struct andna_cache_pkt_hdr);
@@ -1114,7 +1125,10 @@ unpack_andna_cache(char *pack, size_t pack_sz, int *counter, int pack_type)
 	for (i = 0; i < hdr->tot_caches; i++) {
 		sz += ACACHE_BODY_PACK_SZ;
 		if (sz > pack_sz)
-			ERROR_FINISH(err, 1, finish);	/* overflow */
+		{
+			err = 1;
+			goto finish;	/* overflow */
+		}
 
 		ac = xzalloc(sizeof(andna_cache));
 
@@ -1126,7 +1140,10 @@ unpack_andna_cache(char *pack, size_t pack_sz, int *counter, int pack_type)
 
 		sz += ACQ_PACK_SZ(0) * ac->queue_counter;
 		if (sz > pack_sz)
-			ERROR_FINISH(err, 1, finish);	/* overflow */
+		{
+			err = 1;
+			goto finish;	/* overflow */
+		}
 
 		unpacked_sz += ACACHE_BODY_PACK_SZ;
 
@@ -1239,8 +1256,11 @@ unpack_counter_cache(char *pack, size_t pack_sz, int *counter)
 		for (i = 0; i < hdr->tot_caches; i++) {
 			sz += COUNTER_CACHE_BODY_PACK_SZ;
 			if (sz > pack_sz)
+			{
 				/* We don't want to overflow */
-				ERROR_FINISH(*counter, -1, finish);
+				*counter = -1;
+				goto finish;
+			}
 
 			cc = xzalloc(sizeof(counter_c));
 
@@ -1253,8 +1273,11 @@ unpack_counter_cache(char *pack, size_t pack_sz, int *counter)
 
 			sz += COUNTER_CACHE_HASHES_PACK_SZ * cc->hashes;
 			if (sz > pack_sz)
+			{
 				/* bleah */
-				ERROR_FINISH(*counter, -1, finish);
+				*counter = -1;
+				goto finish;
+			}
 
 			for (e = 0; e < cc->hashes; e++) {
 				cch = xzalloc(sizeof(counter_c_hashes));
@@ -1359,7 +1382,10 @@ unpack_rh_cache(char *pack, size_t pack_sz, int *counter)
 	*counter = 0;
 
 	if (hdr->tot_caches > ANDNA_MAX_RHC_HNAMES)
-		ERROR_FINISH(*counter, -1, finish);
+	{
+		*counter = -1;
+		goto finish;
+	}
 
 	*counter = 0;
 	if (hdr->tot_caches) {
@@ -1369,7 +1395,10 @@ unpack_rh_cache(char *pack, size_t pack_sz, int *counter)
 		for (i = 0; i < hdr->tot_caches; i++) {
 			unpacked_sz += RH_CACHE_BODY_PACK_SZ(0);
 			if (unpacked_sz > pack_sz)
-				ERROR_FINISH(*counter, -1, finish);
+			{
+				*counter = -1;
+				goto finish;
+			}
 
 			ints_network_to_host(buf, rh_cache_pkt_body_iinfo);
 
@@ -1413,7 +1442,7 @@ save_lcl_keyring(lcl_cache_keyring * keyring, char *file)
 		return 0;
 
 	if ((fd = fopen(file, "w")) == NULL) {
-		error("Cannot save the lcl_keyring in %s: %s", file,
+		error$("Cannot save the lcl_keyring in %s: %s", file,
 			  strerror(errno));
 		return -1;
 	}
@@ -1442,7 +1471,7 @@ load_lcl_keyring(lcl_cache_keyring * keyring, char *file)
 	int ret = 0;
 
 	if (!(fd = fopen(file, "r"))) {
-		error("Cannot load the lcl_keyring from %s: %s", file,
+		error$("Cannot load the lcl_keyring from %s: %s", file,
 			  strerror(errno));
 		return -1;
 	}
@@ -1453,7 +1482,10 @@ load_lcl_keyring(lcl_cache_keyring * keyring, char *file)
 
 	pack = xmalloc(pack_sz);
 	if (!fread(pack, pack_sz, 1, fd))
-		ERROR_FINISH(ret, -1, finish);
+	{
+		ret = -1;
+		goto finish;
+	}
 
 	ret = unpack_lcl_keyring(keyring, pack, pack_sz);
 
@@ -1463,7 +1495,7 @@ load_lcl_keyring(lcl_cache_keyring * keyring, char *file)
 	fclose(fd);
 
 	if (ret < 0)
-		debug(DBG_NORMAL, "Malformed or empty lcl_keyring file. "
+		debug$("Malformed or empty lcl_keyring file. "
 			  "Aborting load_lcl_keyring().");
 	return ret;
 }
@@ -1485,7 +1517,7 @@ save_lcl_cache(lcl_cache * lcl, char *file)
 		return 0;
 
 	if ((fd = fopen(file, "w")) == NULL) {
-		error("Cannot save the lcl_cache in %s: %s", file,
+		error$("Cannot save the lcl_cache in %s: %s", file,
 			  strerror(errno));
 		return -1;
 	}
@@ -1513,7 +1545,7 @@ load_lcl_cache(char *file, int *counter)
 	size_t pack_sz;
 
 	if (!(fd = fopen(file, "r"))) {
-		error("Cannot load the lcl_cache from %s: %s", file,
+		error$("Cannot load the lcl_cache from %s: %s", file,
 			  strerror(errno));
 		return 0;
 	}
@@ -1533,7 +1565,7 @@ load_lcl_cache(char *file, int *counter)
 		xfree(pack);
 	fclose(fd);
 	if (!lcl && counter < 0)
-		error("Malformed lcl_cache file (%s)"
+		error$("Malformed lcl_cache file (%s)"
 			  "Aborting load_lcl_cache().", file);
 	return lcl;
 }
@@ -1555,7 +1587,7 @@ save_andna_cache(andna_cache * acache, char *file)
 		return 0;
 
 	if ((fd = fopen(file, "w")) == NULL) {
-		error("Cannot save the andna_cache in %s: %s", file,
+		error$("Cannot save the andna_cache in %s: %s", file,
 			  strerror(errno));
 		return -1;
 	}
@@ -1583,7 +1615,7 @@ load_andna_cache(char *file, int *counter)
 	size_t pack_sz;
 
 	if ((fd = fopen(file, "r")) == NULL) {
-		error("Cannot load the andna_cache from %s: %s", file,
+		error$("Cannot load the andna_cache from %s: %s", file,
 			  strerror(errno));
 		return 0;
 	}
@@ -1603,10 +1635,10 @@ load_andna_cache(char *file, int *counter)
 		xfree(pack);
 	fclose(fd);
 	if (!acache && counter < 0)
-		error("Malformed andna_cache file."
+		error$("Malformed andna_cache file."
 			  " Aborting load_andna_cache().");
 	else if (!acache)
-		debug(DBG_NORMAL, "Empty andna_cache file.");
+		debug$("Empty andna_cache file.");
 
 	return acache;
 }
@@ -1628,7 +1660,7 @@ save_counter_c(counter_c * countercache, char *file)
 		return 0;
 
 	if ((fd = fopen(file, "w")) == NULL) {
-		error("Cannot save the counter_c in %s: %s", file,
+		error$("Cannot save the counter_c in %s: %s", file,
 			  strerror(errno));
 		return -1;
 	}
@@ -1656,7 +1688,7 @@ load_counter_c(char *file, int *counter)
 	size_t pack_sz;
 
 	if ((fd = fopen(file, "r")) == NULL) {
-		error("Cannot load the counter_c from %s: %s", file,
+		error$("Cannot load the counter_c from %s: %s", file,
 			  strerror(errno));
 		return 0;
 	}
@@ -1676,7 +1708,7 @@ load_counter_c(char *file, int *counter)
 		xfree(pack);
 	fclose(fd);
 	if (!countercache && counter < 0)
-		debug(DBG_NORMAL, "Malformed counter_c file (%s). "
+		debug$("Malformed counter_c file (%s). "
 			  "Aborting load_counter_c().", file);
 	return countercache;
 }
@@ -1699,7 +1731,7 @@ save_rh_cache(rh_cache * rh, char *file)
 		return 0;
 
 	if (!(fd = fopen(file, "w"))) {
-		error("Cannot save the rh_cache in %s: %s", file, strerror(errno));
+		error$("Cannot save the rh_cache in %s: %s", file, strerror(errno));
 		return -1;
 	}
 
@@ -1726,7 +1758,7 @@ load_rh_cache(char *file, int *counter)
 	size_t pack_sz;
 
 	if ((fd = fopen(file, "r")) == NULL) {
-		error("Cannot load the rh_cache from %s: %s", file,
+		error$("Cannot load the rh_cache from %s: %s", file,
 			  strerror(errno));
 		return 0;
 	}
@@ -1746,7 +1778,7 @@ load_rh_cache(char *file, int *counter)
 		xfree(pack);
 	fclose(fd);
 	if (!rh && counter < 0)
-		error("Malformed rh_cache file (%s). "
+		error$("Malformed rh_cache file (%s). "
 			  "Aborting load_rh_cache().", file);
 	return rh;
 }
@@ -1786,7 +1818,7 @@ load_hostnames(char *file, lcl_cache ** old_alcl_head,
 	int new_alcl_counter = 0;
 
 	if ((fd = fopen(file, "r")) == NULL) {
-		error("Cannot load any hostnames from %s: %s", file,
+		error$("Cannot load any hostnames from %s: %s", file,
 			  strerror(errno));
 		return -1;
 	}
@@ -1884,7 +1916,7 @@ load_snsd(char *file, lcl_cache * alcl_head)
 		snsd_service_llist_del(&alcl->service);
 
 	if ((fd = fopen(file, "r")) == NULL) {
-		error("Cannot open the snsd_nodes file from %s: %s",
+		error$("Cannot open the snsd_nodes file from %s: %s",
 			  file, strerror(errno));
 		return -1;
 	}
@@ -1911,14 +1943,15 @@ load_snsd(char *file, lcl_cache * alcl_head)
 			records = split_string(buf, ":", &fields, MAX_SNSD_FIELDS,
 								   ANDNA_MAX_HNAME_LEN * 2);
 			if (fields < MIN_SNSD_FIELDS) {
-				error("%s: Syntax error in line %d.\n"
+				error$("%s: Syntax error in line %d.\n"
 					  "  The correct syntax is:\n"
 					  "  \thostname:snsd_hostname:service:"
 					  "priority:weight[:pub_key_file]\n"
 					  "  or\n"
 					  "  \thostname:snsd_ip:service:"
 					  "priority:weight[:pub_key_file]", file, line);
-				ERROR_FINISH(abort, 1, skip_line);
+				abort = 1;
+				goto skip_line;
 			}
 
 			/* 
@@ -1926,11 +1959,12 @@ load_snsd(char *file, lcl_cache * alcl_head)
 			 */
 			alcl = lcl_cache_find_hname(alcl_head, records[0]);
 			if (!alcl) {
-				error("%s: line %d: The hostname \"%s\" doesn't"
+				error$("%s: line %d: The hostname \"%s\" doesn't"
 					  " exist in your local cache.\n"
 					  "  Register it in the `andna_hostnames' file",
 					  file, line, records[0]);
-				ERROR_FINISH(abort, 1, skip_line);
+				abort = 1;
+				goto skip_line;
 			}
 
 			/* 
@@ -1954,13 +1988,16 @@ load_snsd(char *file, lcl_cache * alcl_head)
 			 */
 			err = str_to_snsd_service(records[2], &service, &proto);
 			if (err == -1)
-				error("%s: error in line %d: \"%s\""
+				error$("%s: error in line %d: \"%s\""
 					  " isn't a valid protocol\n", file, line, records[2]);
 			else if (err == -2)
-				error("%s: error in line %d: \"%s\""
+				error$("%s: error in line %d: \"%s\""
 					  " isn't a valid service\n", file, line, records[2]);
 			if (err < 0)
-				ERROR_FINISH(abort, 1, skip_line);
+			{
+				abort = 1;
+				goto skip_line;
+			}
 			 /**/
 				/* Store service and protocol */
 				sns = snsd_add_service(&alcl->service, service, proto);
@@ -1969,11 +2006,12 @@ load_snsd(char *file, lcl_cache * alcl_head)
 			snp = snsd_add_prio(&sns->prio, atoi(records[3]));
 			nodes = snsd_count_prio_nodes(sns->prio);
 			if (nodes >= SNSD_MAX_REC_SERV - 1) {
-				error("%s: The maximum number of records for"
+				error$("%s: The maximum number of records for"
 					  " the service \"%s\" has been reached.\n"
 					  "  The maximum is %d records per service",
 					  file, service, SNSD_MAX_REC_SERV);
-				ERROR_FINISH(abort, 1, skip_line);
+				abort = 1;
+				goto skip_line;
 			}
 
 			/* node and weight */
@@ -1993,7 +2031,10 @@ load_snsd(char *file, lcl_cache * alcl_head)
 			for (e = 0; e < fields; e++)
 				xfree(records[e]);
 			if (abort)
-				ERROR_FINISH(ret, -2, finish);
+			{
+				ret = -2;
+				goto finish;
+			}
 		}
 		line++;
 	}
@@ -2035,9 +2076,10 @@ add_resolv_conf(char *hname, char *file)
 	 */
 
 	if (!(fin = fopen(file, "r"))) {
-		error("add_resolv_conf: cannot load %s: %s", file,
+		error$("add_resolv_conf: cannot load %s: %s", file,
 			  strerror(errno));
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 
 	/* Prepare the name of the backup file */
@@ -2053,9 +2095,10 @@ add_resolv_conf(char *hname, char *file)
 
 	buf = xmalloc(buf_sz);
 	if (!fread(buf, buf_sz, 1, fin)) {
-		error("add_resolv_conf: it wasn't possible to read the %s file",
+		error$("add_resolv_conf: it wasn't possible to read the %s file",
 			  file);
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 
 	/* 
@@ -2071,7 +2114,7 @@ add_resolv_conf(char *hname, char *file)
 			goto finish;
 		}
 
-		debug(DBG_NORMAL, "add_resolv_conf: Reading %s instead", file_bk);
+		debug$("add_resolv_conf: Reading %s instead", file_bk);
 		if (!(fin_bak = fopen(file_bk, "r")))
 			goto finish;
 
@@ -2085,10 +2128,10 @@ add_resolv_conf(char *hname, char *file)
 	 * Backup `file' in `file'.bak
 	 */
 	if (!(fout_back = fopen(file_bk, "w"))) {
-		error
-			("add_resolv_conf: cannot create a backup copy of %s in %s: %s",
-			 file, file_bk, strerror(errno));
-		ERROR_FINISH(ret, -1, finish);
+		error$("add_resolv_conf: cannot create a backup copy of %s in %s: %s",
+				file, file_bk, strerror(errno));
+		ret = -1;
+		goto finish;
 	}
 	fwrite(buf, buf_sz, 1, fout_back);
 
@@ -2103,9 +2146,10 @@ add_resolv_conf(char *hname, char *file)
 	 * Add as a first line `hname' in `file'
 	 */
 	if (!(fout = fopen(file, "w"))) {
-		error("add_resolv_conf: cannot reopen %s to overwrite it: %s",
+		error$("add_resolv_conf: cannot reopen %s to overwrite it: %s",
 			  file, strerror(errno));
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 	fprintf(fout, "%s\n", hname);
 	p = buf;
@@ -2164,8 +2208,9 @@ del_resolv_conf(char *hname, char *file)
 	strcpy(file_bk, file);
 	strcat(file_bk, ".bak");
 	if (!(fin = fopen(file_bk, "r"))) {
-		/*error("del_resolv_conf: cannot load %s: %s", file_bk, strerror(errno)); */
-		ERROR_FINISH(ret, -1, finish);
+		/*error$("del_resolv_conf: cannot load %s: %s", file_bk, strerror(errno)); */
+		ret = -1;
+		goto finish;
 	}
 
 	fseek(fin, 0, SEEK_END);
@@ -2175,7 +2220,8 @@ del_resolv_conf(char *hname, char *file)
 	if (!buf_sz) {
 		/* `file_bk' is empty, delete it */
 		unlink(file_bk);
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 
 	buf = xzalloc(buf_sz);
@@ -2196,9 +2242,10 @@ del_resolv_conf(char *hname, char *file)
 	 */
 
 	if (!(fout = fopen(file, "w"))) {
-		error("del_resolv_conf: cannot copy %s in %s: %s", file_bk,
+		error$("del_resolv_conf: cannot copy %s in %s: %s", file_bk,
 			  file, strerror(errno));
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 	fprintf(fout, "%s", buf);
 

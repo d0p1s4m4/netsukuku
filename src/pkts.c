@@ -217,8 +217,7 @@ pkt_compress(PACKET * pkt, pkt_hdr * newhdr, char *dst_msg)
 	ret = compress2(dst, &bound_sz, (u_char *) pkt->msg, pkt->hdr.sz,
 					PKT_COMPRESS_LEVEL);
 	if (ret != Z_OK) {
-		error(RED(ERROR_MSG) "cannot compress the pkt. "
-			  "It will be sent uncompressed.", ERROR_FUNC);
+		error$("cannot compress the pkt. It will be sent uncompressed.");
 		return -1;
 	}
 
@@ -300,7 +299,10 @@ pkt_uncompress(PACKET * pkt)
 
 	ret = uncompress(dst, &dstlen, (u_char *) pkt->msg, pkt->hdr.sz);
 	if (ret != Z_OK)
-		ERROR_FINISH(ret, -1, finish);
+	{
+		ret = -1;
+		goto finish;
+	}
 	else
 		ret = 0;
 
@@ -362,9 +364,9 @@ pkt_send(PACKET * pkt)
 		socklen_t tolen;
 
 		if (inet_to_sockaddr(&pkt->to, pkt->port, to, &tolen) < 0) {
-			debug(DBG_NOISE, "Cannot pkt_send(): %d "
-				  "Family not supported", pkt->to.family);
-			ERROR_FINISH(ret, -1, finish);
+			debug$("Cannot pkt_send(): %d Family not supported", pkt->to.family);
+			ret = -1;
+			goto finish;
 		}
 
 		if (pkt->pkt_flags & PKT_SEND_TIMEOUT)
@@ -383,7 +385,7 @@ pkt_send(PACKET * pkt)
 			ret = inet_send(pkt->sk, buf, PACKET_SZ(pkt->hdr.sz),
 							pkt->flags);
 	} else
-		fatal("Unkown socket_type. Something's very wrong!! Be aware");
+		fatal$("Unkown socket_type. Something's very wrong!! Be aware");
 
   finish:
 	if (buf)
@@ -407,7 +409,7 @@ pkt_recv_udp(PACKET * pkt)
 	else if (pkt->family == AF_INET6)
 		fromlen = sizeof(struct sockaddr_in6);
 	else {
-		error("pkt_recv udp: family not set");
+		error$("pkt_recv udp: family not set");
 		return -1;
 	}
 
@@ -421,7 +423,7 @@ pkt_recv_udp(PACKET * pkt)
 							pkt->flags, &from, &fromlen);
 
 	if (err < sizeof(pkt_hdr)) {
-		debug(DBG_NOISE, "inet_recvfrom() of the hdr aborted!");
+		debug$("inet_recvfrom() of the hdr aborted!");
 		return -1;
 	}
 
@@ -430,12 +432,12 @@ pkt_recv_udp(PACKET * pkt)
 	/* network -> host order */
 	ints_network_to_host(&pkt->hdr, pkt_hdr_iinfo);
 	if (pkt_verify_hdr(*pkt) || pkt->hdr.sz + sizeof(pkt_hdr) > err) {
-		debug(DBG_NOISE, RED(ERROR_MSG) "Malformed header", ERROR_POS);
+		debug$("Malformed header");
 		return -1;
 	}
 
 	if (sockaddr_to_inet(&from, &pkt->from, 0) < 0) {
-		debug(DBG_NOISE, "Cannot pkt_recv(): %d"
+		debug$("Cannot pkt_recv(): %d"
 			  " Family not supported", from.sa_family);
 		return -1;
 	}
@@ -467,7 +469,7 @@ pkt_recv_tcp(PACKET * pkt)
 	/* ...and verify it */
 	ints_network_to_host(&pkt->hdr, pkt_hdr_iinfo);
 	if (pkt_verify_hdr(*pkt)) {
-		debug(DBG_NOISE, RED(ERROR_MSG) "Malformed header", ERROR_POS);
+		debug$("Malformed header");
 		return -1;
 	}
 
@@ -483,8 +485,8 @@ pkt_recv_tcp(PACKET * pkt)
 			err = inet_recv(pkt->sk, pkt->msg, pkt->hdr.sz, pkt->flags);
 
 		if (err != pkt->hdr.sz) {
-			debug(DBG_NOISE, RED(ERROR_MSG) "Cannot recv the "
-				  "pkt's body", ERROR_FUNC);
+			debug$("Cannot recv the "
+				  "pkt's body");
 			return -1;
 		}
 	}
@@ -508,7 +510,7 @@ pkt_recv(PACKET * pkt)
 		break;
 
 	default:
-		fatal("Unkown socket_type. Something's very wrong!! Be aware");
+		fatal$("Unkown socket_type. Something's very wrong!! Be aware");
 		break;
 	}
 
@@ -542,9 +544,10 @@ pkt_tcp_connect(inet_prefix * host, short port, interface * dev)
 	pkt_addport(&pkt, port);
 
 	if ((err = pkt_recv(&pkt)) < 0) {
-		error("Connection to %s failed: it wasn't possible to receive "
+		error$("Connection to %s failed: it wasn't possible to receive "
 			  "the ACK", ntop);
-		ERROR_FINISH(sk, -1, finish);
+		sk = -1;
+		goto finish;
 	}
 
 	/* ...Last famous words */
@@ -552,8 +555,8 @@ pkt_tcp_connect(inet_prefix * host, short port, interface * dev)
 		u_char err;
 
 		memcpy(&err, pkt.msg, pkt.hdr.sz);
-		error("Cannot connect to %s:%d: %s", ntop, port, rq_strerror(err));
-		ERROR_FINISH(sk, -1, finish);
+		error$("Cannot connect to %s:%d: %s", ntop, port, rq_strerror(err));
+		sk = -1;
 	}
 
   finish:
@@ -635,13 +638,13 @@ send_rq(PACKET * pkt, int pkt_flags, u_char rq, int rq_id, u_char re,
 
 
 	if (op_verify(rq)) {
-		error("\"%s\" request/reply is not valid!", rq_str);
-		return SEND_RQ_ERR_RQ;
+		error$("\"%s\" request/reply is not valid!", rq_str);
+		return (SEND_RQ_ERR_RQ);
 	}
 	rq_str = !re_verify(rq) ? re_to_str(rq) : rq_to_str(rq);
 	if (re && re_verify(re)) {
-		error("\"%s\" reply is not valid!", re_str);
-		return SEND_RQ_ERR_RE;
+		error$("\"%s\" reply is not valid!", re_str);
+		return (SEND_RQ_ERR_RE);
 	}
 
 	ntop = inet_to_str(pkt->to);
@@ -656,9 +659,9 @@ send_rq(PACKET * pkt, int pkt_flags, u_char rq, int rq_id, u_char re,
 
 	if (!pkt->port) {
 		if (!pkt_op_tbl[rq].port && !pkt->sk) {
-			error("send_rq: The rq %s doesn't have an associated "
+			error$("send_rq: The rq %s doesn't have an associated "
 				  "port.", rq_str);
-			ERROR_FINISH(ret, SEND_RQ_ERR_PORT, finish);
+			return (SEND_RQ_ERR_PORT);
 		}
 		pkt_addport(pkt, pkt_op_tbl[rq].port);
 	}
@@ -671,8 +674,8 @@ send_rq(PACKET * pkt, int pkt_flags, u_char rq, int rq_id, u_char re,
 
 	if (!pkt->sk) {
 		if (!pkt->to.family || !pkt->to.len) {
-			error("pkt->to isn't set. I can't create the new connection");
-			ERROR_FINISH(ret, SEND_RQ_ERR_TO, finish);
+			error$("pkt->to isn't set. I can't create the new connection");
+			return (SEND_RQ_ERR_TO);
 		}
 
 		if (pkt->sk_type == SKT_TCP)
@@ -682,17 +685,17 @@ send_rq(PACKET * pkt, int pkt_flags, u_char rq, int rq_id, u_char re,
 				new_udp_conn(&pkt->to, pkt->port, pkt->dev->dev_name);
 		else if (pkt->sk_type == SKT_BCAST) {
 			if (!pkt->dev)
-				fatal(RED(ERROR_MSG) "cannot broadcast the packet: "
-					  "device not specified", ERROR_FUNC);
+				fatal$("cannot broadcast the packet: "
+					  "device not specified");
 			pkt->sk =
 				new_bcast_conn(&pkt->to, pkt->port, pkt->dev->dev_idx);
 		} else
-			fatal("Unkown socket_type. Something's very wrong!! Be aware");
+			fatal$("Unkown socket_type. Something's very wrong!! Be aware");
 
 		if (pkt->sk == -1) {
-			error("Couldn't connect to %s to launch the %s request", ntop,
+			error$("Couldn't connect to %s to launch the %s request", ntop,
 				  rq_str);
-			ERROR_FINISH(ret, SEND_RQ_ERR_CONNECT, finish);
+			return (SEND_RQ_ERR_CONNECT);
 		}
 	}
 
@@ -706,9 +709,9 @@ send_rq(PACKET * pkt, int pkt_flags, u_char rq, int rq_id, u_char re,
 	/*Let's send the request */
 	err = pkt_send(pkt);
 	if (err == -1) {
-		error("Cannot send the %s request to %s:%d.", rq_str, ntop,
+		error$("Cannot send the %s request to %s:%d.", rq_str, ntop,
 			  pkt->port);
-		ERROR_FINISH(ret, SEND_RQ_ERR_SEND, finish);
+		return (SEND_RQ_ERR_SEND);
 	}
 
 	/*
@@ -730,7 +733,7 @@ send_rq(PACKET * pkt, int pkt_flags, u_char rq, int rq_id, u_char re,
 		if (pkt->pkt_flags & PKT_COMPRESSED)
 			pkt_addcompress(rpkt);
 
-		debug(DBG_NOISE, "Receiving reply for the %s request"
+		debug$("Receiving reply for the %s request"
 			  " (id 0x%x)", rq_str, pkt->hdr.id);
 
 		if (pkt->hdr.flags & ASYNC_REPLY) {
@@ -749,32 +752,30 @@ send_rq(PACKET * pkt, int pkt_flags, u_char rq, int rq_id, u_char re,
 		}
 
 		if (err == -1) {
-			error("Error while receving the reply for the %s request"
+			error$("Error while receving the reply for the %s request"
 				  " from %s.", rq_str, ntop);
-			ERROR_FINISH(ret, SEND_RQ_ERR_RECV, finish);
+			return (SEND_RQ_ERR_RECV);
 		}
 
 		if ((rpkt->hdr.op == ACK_NEGATIVE) && check_ack) {
 			u_char err_ack;
 			memcpy(&err_ack, rpkt->msg, sizeof(u_char));
-			error("%s failed. The node %s replied: %s", rq_str, ntop,
+			error$("%s failed. The node %s replied: %s", rq_str, ntop,
 				  rq_strerror(err_ack));
-			ERROR_FINISH(ret, SEND_RQ_ERR_REPLY, finish);
+			return (SEND_RQ_ERR_REPLY);
 		} else if (rpkt->hdr.op != re && check_ack) {
-			error("The node %s replied %s but we asked %s!", ntop,
+			error$("The node %s replied %s but we asked %s!", ntop,
 				  re_to_str(rpkt->hdr.op), re_str);
-			ERROR_FINISH(ret, SEND_RQ_ERR_RECVOP, finish);
+			return (SEND_RQ_ERR_RECVOP);
 		}
 
 		if (check_ack && rpkt->hdr.id != pkt->hdr.id) {
-			error("The id (0x%x) of the reply (%s) doesn't match the"
+			error$("The id (0x%x) of the reply (%s) doesn't match the"
 				  " id of our request (0x%x)", rpkt->hdr.id,
 				  re_str, pkt->hdr.id);
-			ERROR_FINISH(ret, SEND_RQ_ERR_RECVID, finish);
+			return (SEND_RQ_ERR_RECVID);
 		}
 	}
-
-  finish:
 	return ret;
 }
 
@@ -854,14 +855,14 @@ pkt_exec(PACKET pkt, int acpt_idx)
 	else if (!rq_verify(pkt.hdr.op))
 		op_str = rq_to_str(pkt.hdr.op);
 	else {
-		debug(DBG_SOFT, "Dropped pkt from %s: bad op value",
+		debug$("Dropped pkt from %s: bad op value",
 			  inet_to_str(pkt.from));
 		return -1;				/* bad op */
 	}
 
 	if ((err = add_rq(pkt.hdr.op, &accept_tbl[acpt_idx].rqtbl))) {
 		ntop = inet_to_str(pkt.from);
-		error("From %s: Cannot process the %s request: %s", ntop,
+		error$("From %s: Cannot process the %s request: %s", ntop,
 			  op_str, rq_strerror(err));
 		pkt_err(pkt, err, 1);
 		return -1;
@@ -871,7 +872,7 @@ pkt_exec(PACKET pkt, int acpt_idx)
 		/* Drop the pkt, `pkt.hdr.op' has been filtered */
 #ifdef DEBUG
 		ntop = inet_to_str(pkt.from);
-		debug(DBG_INSANE, "FILTERED %s from %s, id 0x%x", op_str, ntop,
+		debug$("FILTERED %s from %s, id 0x%x", op_str, ntop,
 			  pkt.hdr.id);
 #endif
 		return err;
@@ -882,7 +883,7 @@ pkt_exec(PACKET pkt, int acpt_idx)
 #ifdef DEBUG
 	if (pkt.hdr.op != ECHO_ME && pkt.hdr.op != ECHO_REPLY) {
 		ntop = inet_to_str(pkt.from);
-		debug(DBG_INSANE, "Received %s from %s, id 0x%x", op_str, ntop,
+		debug$("Received %s from %s, id 0x%x", op_str, ntop,
 			  pkt.hdr.id);
 	}
 #endif
@@ -890,7 +891,7 @@ pkt_exec(PACKET pkt, int acpt_idx)
 	if (exec_f)
 		err = (*exec_f) (pkt);
 	else if (pkt_q_counter) {
-		debug(DBG_INSANE, "pkt_exec: %s Async reply, id 0x%x", op_str,
+		debug$("pkt_exec: %s Async reply, id 0x%x", op_str,
 			  pkt.hdr.id);
 		/* 
 		 * There isn't a function to handle this pkt, so maybe it is
@@ -957,7 +958,7 @@ wait_and_unlock(void *m)
 		pthread_mutex_trylock(&pq->mtx) != EBUSY)
 		goto finish;
 
-	debug(DBG_INSANE, "pq->pkt.hdr.id: 0x%x Timeoutted. mtx: 0x%X",
+	debug$("pq->pkt.hdr.id: 0x%x Timeoutted. mtx: 0x%X",
 		  pq->pkt.hdr.id, &pq->mtx);
 	pthread_mutex_unlock(&pq->mtx);
 	pq->flags |= PKT_Q_TIMEOUT;
@@ -1001,7 +1002,7 @@ pkt_q_wait_recv(int id, inet_prefix * from, PACKET * rpkt,
 
 	pq->pkt.hdr.id = id;
 	if (from) {
-		debug(DBG_INSANE, "0x%x wanted_rfrom %s activated", id,
+		debug$("0x%x wanted_rfrom %s activated", id,
 			  inet_to_str(*from));
 		inet_copy(&pq->pkt.from, from);
 		pq->flags |= PKT_Q_CHECK_FROM;
@@ -1014,14 +1015,14 @@ pkt_q_wait_recv(int id, inet_prefix * from, PACKET * rpkt,
 				   (void *) pq_ptr);
 
 	if (pq->flags & PKT_Q_MTX_LOCKED) {
-		debug(DBG_INSANE, "pkt_q_wait_recv: Locking 0x%x!", &pq->mtx);
+		debug$("pkt_q_wait_recv: Locking 0x%x!", &pq->mtx);
 
 		/* Freeze! */
 		pthread_mutex_lock(&pq->mtx);
 		pthread_mutex_lock(&pq->mtx);
 	}
 
-	debug(DBG_INSANE, "We've been unlocked: timeout %d",
+	debug$("We've been unlocked: timeout %d",
 		  (pq->flags & PKT_Q_TIMEOUT));
 	if (pq->flags & PKT_Q_TIMEOUT)
 		return -1;
@@ -1047,7 +1048,7 @@ pkt_q_add_pkt(PACKET pkt)
 	int ret = -1;
 
 	list_safe_for(pq, next) {
-		debug(DBG_INSANE,
+		debug$(
 			  "pkt_q_add_pkt: %d == %d. data[0]: %d, async replied: %d",
 			  pq->pkt.hdr.id, pkt.hdr.id, pq->pkt.from.data[0],
 			  (pkt.hdr.flags & ASYNC_REPLIED));
@@ -1065,7 +1066,7 @@ pkt_q_add_pkt(PACKET pkt)
 			 * pkt_q_wait_recv() is now hot again */
 			while (pthread_mutex_trylock(&pq->mtx) != EBUSY)
 				usleep(5000);
-			debug(DBG_INSANE, "pkt_q_add_pkt: Unlocking 0x%X ", &pq->mtx);
+			debug$("pkt_q_add_pkt: Unlocking 0x%X ", &pq->mtx);
 			pq->flags &= ~PKT_Q_MTX_LOCKED & ~PKT_Q_TIMEOUT;
 			pq->flags |= PKT_Q_PKT_RECEIVED;
 			pthread_mutex_unlock(&pq->mtx);

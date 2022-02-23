@@ -71,7 +71,7 @@ get_gw_bnode_recurse(map_node * int_map, map_gnode ** ext_map,
 		map_find_bnode_rnode(bnode_map[i - 1], bmap_nodes[i - 1],
 							 (void *) node_gw);
 	if (bpos == -1) {
-		/*debug(DBG_INSANE, "get_gw: l=%d, node_gw=%x not found in bmap lvl %d", 
+		/*debug$("get_gw: l=%d, node_gw=%x not found in bmap lvl %d", 
 		   i, node_gw, i-1); */
 		return -1;
 	}
@@ -89,7 +89,7 @@ get_gw_bnode_recurse(map_node * int_map, map_gnode ** ext_map,
 		qspn_set_map_vars(i - 1, 0, &root_node, 0, 0);
 		if (me.cur_node->flags & MAP_BNODE &&
 			gnode == (map_gnode *) root_node) {
-			/* debug(DBG_INSANE, "get_gw: bmap searching ernode for gnode 0x%x",node_gw); */
+			/* debug$("get_gw: bmap searching ernode for gnode 0x%x",node_gw); */
 
 			erc = erc_find_gnode(me.cur_erc, gnode_gw, i);
 			if (erc) {
@@ -99,7 +99,7 @@ get_gw_bnode_recurse(map_node * int_map, map_gnode ** ext_map,
 		}
 	}
 
-	/* debug(DBG_INSANE, "get_gw: bmap found = %x", node); */
+	/* debug$("get_gw: bmap found = %x", node); */
 
 	/* Descend in the lower level */
 	if ((--i) >= gw_level)
@@ -129,7 +129,7 @@ get_gw_gnode_recurse(map_node * int_map, map_gnode ** ext_map,
 	map_node *node_gw;
 	int i, pos, routes, sub_routes, e, ret;
 
-	/*debug(DBG_INSANE, "get_gw: find_gnode=%x", find_gnode); */
+	/*debug$("get_gw: find_gnode=%x", find_gnode); */
 	i = gnode_level;
 
 	if (node->flags & MAP_RNODE) {
@@ -140,7 +140,7 @@ get_gw_gnode_recurse(map_node * int_map, map_gnode ** ext_map,
 		 */
 		gnode_gw = (void *) node;
 		node_gw = (map_node *) gnode_gw;
-		/*debug(DBG_INSANE, "get_gw: l=%d, node & MAP_RNODE. node_gw=node=%x",
+		/*debug$("get_gw: l=%d, node & MAP_RNODE. node_gw=node=%x",
 		   i, node); */
 	} else if (node->flags & MAP_ME) {
 		/* 
@@ -150,7 +150,7 @@ get_gw_gnode_recurse(map_node * int_map, map_gnode ** ext_map,
 		 */
 		gnode_gw = (void *) find_gnode;
 		node_gw = (map_node *) gnode_gw;
-		/*debug(DBG_INSANE, "get_gw: l=%d, node & MAP_ME. find_gnode: %x",
+		/*debug$("get_gw: l=%d, node & MAP_ME. find_gnode: %x",
 		   i, find_gnode); */
 	} else {
 
@@ -193,7 +193,7 @@ get_gw_gnode_recurse(map_node * int_map, map_gnode ** ext_map,
 
 			if (node_gw->flags & MAP_RNODE)
 				find_gnode = (map_gnode *) node_gw;
-			/*debug(DBG_INSANE, "get_gw: l=%d, e %d node_gw=rnode[%d].r_node=%x,"
+			/*debug$("get_gw: l=%d, e %d node_gw=rnode[%d].r_node=%x,"
 			   " find_gnode=%x", i, e, pos, node_gw, find_gnode); */
 
 			ret +=
@@ -596,7 +596,7 @@ rt_update_node(inet_prefix * dst_ip, void *dst_node,
 	else
 		nh = rt_build_nexthop_gw(node, gnode, level, MAX_MULTIPATH_ROUTES);
 	if (!nh) {
-		debug(DBG_NORMAL, "Cannot get the gateway for "
+		debug$("Cannot get the gateway for "
 			  "the (g)node: %d of level: %d, ip:"
 			  "%s", node_pos, level, to_ip);
 		goto finish;
@@ -613,8 +613,7 @@ rt_update_node(inet_prefix * dst_ip, void *dst_node,
 	}
 	if (node->flags & MAP_VOID)
 		strcpy(gw_ip, "deleted");
-	debug(DBG_INSANE,
-		  "rt_update_node: to " PURPLE("%s/%d") " via " RED("%s"), to_ip,
+	debug$("rt_update_node: to %s/%d via %s", to_ip,
 		  to.bits, gw_ip);
 
 #endif
@@ -625,11 +624,11 @@ rt_update_node(inet_prefix * dst_ip, void *dst_node,
 	if (node->flags & MAP_VOID) {
 		/* Ok, let's delete it */
 		if (route_del(RTN_UNICAST, 0, 0, &to, 0, 0, 0))
-			error("WARNING: Cannot delete the route entry for the"
+			error$("WARNING: Cannot delete the route entry for the"
 				  "%snode %d lvl %d!", !level ? " " : " g",
 				  node_pos, level);
 	} else if (route_replace(0, route_scope, 0, &to, nh, 0, 0))
-		error("WARNING: Cannot update the route entry for the"
+		error$("WARNING: Cannot update the route entry for the"
 			  "%snode %d lvl %d", !level ? " " : " g", node_pos, level);
   finish:
 #ifdef DEBUG
@@ -810,7 +809,7 @@ rt_replace_def_gw(char *dev, inet_prefix gw, u_char table)
 	inet_prefix to;
 
 	if (inet_setip_anyaddr(&to, my_family)) {
-		error("rt_replace_def_gw(): Cannot use INADRR_ANY for the %d "
+		error$("rt_replace_def_gw(): Cannot use INADRR_ANY for the %d "
 			  "family", to.family);
 		return -1;
 	}
@@ -825,7 +824,7 @@ rt_delete_def_gw(u_char table)
 	inet_prefix to;
 
 	if (inet_setip_anyaddr(&to, my_family)) {
-		error("rt_delete_def_gw(): Cannot use INADRR_ANY for the %d "
+		error$("rt_delete_def_gw(): Cannot use INADRR_ANY for the %d "
 			  "family", to.family);
 		return -1;
 	}
@@ -892,7 +891,7 @@ rt_append_subnet_src(inet_prefix * src, char *dev)
 	inet_prefix to, src_htonl;
 
 	if (src->family == AF_INET6)
-		fatal(ERROR_MSG "Family not supported", ERROR_POS);
+		fatal$("Family not supported");
 
 	inet_copy(&src_htonl, src);
 	inet_htonl(src_htonl.data, src->family);

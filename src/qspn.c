@@ -333,7 +333,7 @@ qspn_inc_gcount(u_int * gcount, int level, int inc)
 		gcount[i] += inc;
 
 #ifdef DEBUG
-	debug(DBG_INSANE, "Gnode_count incremented to: %d %d %d %d",
+	debug$("Gnode_count incremented to: %d %d %d %d",
 		  gcount[0], gcount[1], gcount[2], gcount[3]);
 #endif
 }
@@ -353,7 +353,7 @@ qspn_dec_gcount(u_int * gcount, int level, int dec)
 	for (i = _EL(level); i < GCOUNT_LEVELS; i++)
 		gcount[i] -= dec;
 #ifdef DEBUG
-	debug(DBG_INSANE, "Gnode_count decremented to: %d %d %d %d",
+	debug$("Gnode_count decremented to: %d %d %d %d",
 		  gcount[0], gcount[1], gcount[2], gcount[3]);
 #endif
 }
@@ -369,7 +369,7 @@ qspn_reset_gcount(u_int * gcount, int level, int value)
 	for (i = 0; i < level; i++)
 		gcount[i] = value;
 #ifdef DEBUG
-	debug(DBG_INSANE, "Gnode_count set to: %d %d %d %d",
+	debug$("Gnode_count set to: %d %d %d %d",
 		  gcount[0], gcount[1], gcount[2], gcount[3]);
 #endif
 }
@@ -471,11 +471,11 @@ qspn_remove_deads(u_char level)
 			}
 
 			if (!level) {
-				debug(DBG_NORMAL, "qspn: The node %d is dead", i);
+				debug$("qspn: The node %d is dead", i);
 				map_node_del(node);
 				qspn_dec_gcount((int *) qspn_gnode_count, level + 1, 1);
 			} else {
-				debug(DBG_NORMAL, "The groupnode %d of level %d"
+				debug$("The groupnode %d of level %d"
 					  " is dead", i, level);
 				qspn_dec_gcount((int *) qspn_gnode_count, level + 1,
 								gnode->gcount);
@@ -649,7 +649,7 @@ qspn_send(u_char level)
 	 * new one.
 	 */
 	while ((round_ms = qspn_round_left(level)) > 0) {
-		debug(DBG_INSANE, "Waiting %dms to send a new qspn_round, lvl:"
+		debug$("Waiting %dms to send a new qspn_round, lvl:"
 			  " %d", round_ms, level);
 		usleep(round_ms * 1000);
 		update_qspn_time(level, 0);
@@ -672,7 +672,7 @@ qspn_send(u_char level)
 							   0, 0, 0,	/*bnode_block */
 							   &pkt);	/*Where the pkt is built */
 	if (ret_err) {
-		debug(DBG_NOISE, "Cannot send the new qspn_round: "
+		debug$("Cannot send the new qspn_round: "
 			  "tracer_pkt build failed.");
 		ret = -1;
 		goto finish;
@@ -682,7 +682,7 @@ qspn_send(u_char level)
 	flood_pkt_send(exclude_from_and_glevel_and_closed, upper_level, -1,
 				   -1, pkt);
 
-	debug(DBG_INSANE, "Qspn_round lvl: %d id: 0x%x sent", level,
+	debug$("Qspn_round lvl: %d id: 0x%x sent", level,
 		  me.cur_qspn_id[level]);
 
   finish:
@@ -711,7 +711,7 @@ qspn_open_start(int from_rpos, PACKET pkt_to_all, int qspn_id,
 
 	upper_level = level + 1;
 
-	debug(DBG_INSANE, "Fwd %s(0x%x) lvl %d, to broadcast",
+	debug$("Fwd %s(0x%x) lvl %d, to broadcast",
 		  rq_to_str(QSPN_OPEN), qspn_id, level);
 
 	/* 
@@ -723,7 +723,7 @@ qspn_open_start(int from_rpos, PACKET pkt_to_all, int qspn_id,
 		tracer_pkt_build(QSPN_OPEN, qspn_id, root_node_pos, gid, level, 0,
 						 0, 0, 0, 0, 0, &pkt_to_from);
 	if (ret_err)
-		debug(DBG_NOISE, "Cannot send the new qspn_open: "
+		debug$("Cannot send the new qspn_open: "
 			  "pkt build failed.");
 	else
 		/* Send the pkt to `from' */
@@ -779,18 +779,17 @@ qspn_unpack_pkt(PACKET rpkt, brdcast_hdr ** new_bcast_hdr,
 	const char *ntop;
 	char do_real_qspn_action = 0, just_forward_it = 0;
 
-	if (server_opt.dbg_lvl) {
-		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "%s(0x%x) from %s", rq_to_str(rpkt.hdr.op),
+	ntop = inet_to_str(rpkt.from);
+	debug$("%s(0x%x) from %s", rq_to_str(rpkt.hdr.op),
 			  rpkt.hdr.id, ntop);
-	}
+	
 
 	ret_err =
 		tracer_unpack_pkt(rpkt, &bcast_hdr, &trcr_hdr, &tracer, &bhdr,
 						  &bblock_sz, rip_quadg, &real_from_rpos);
 	if (ret_err) {
 		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "qspn_unpack_pkt(): The %s node sent an "
+		debug$("qspn_unpack_pkt(): The %s node sent an "
 			  "invalid %s (0x%x) pkt here.", ntop,
 			  rq_to_str(rpkt.hdr.op), rpkt.hdr.id);
 		return -1;
@@ -912,8 +911,7 @@ qspn_close(PACKET rpkt)
 		goto finish;
 	}
 #ifdef DEBUG
-	debug(DBG_INSANE,
-		  "QSPN_CLOSE(0x%x, lvl %d): node[0]: %d, node[1]: %d, hops: %d",
+	debug$("QSPN_CLOSE(0x%x, lvl %d): node[0]: %d, node[1]: %d, hops: %d",
 		  rpkt.hdr.id, level, tracer[0].node,
 		  trcr_hdr->hops > 1 ? tracer[1].node : -1, trcr_hdr->hops);
 #endif
@@ -928,7 +926,7 @@ qspn_close(PACKET rpkt)
 					(root_node->flags & QSPN_STARTER)))
 		&& tracer_starter == root_node) {
 		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "qspn_close(0x%x): Dropped qspn_close from "
+		debug$("qspn_close(0x%x): Dropped qspn_close from "
 			  "%s: we are the qspn_starter of that pkt!"
 			  " (hops: %d)", rpkt.hdr.id, ntop, trcr_hdr->hops);
 		ret = -1;
@@ -941,14 +939,14 @@ qspn_close(PACKET rpkt)
 	if (rpkt.hdr.id >= me.cur_qspn_id[level] + 1) {
 		/* Happy new round */
 		tracer_get_trtt(real_from_rpos, trcr_hdr, tracer, &trtt);
-		debug(DBG_NOISE, "New qspn_round 0x%x lvl %d received,"
+		debug$("New qspn_round 0x%x lvl %d received,"
 			  " new qspn_time: %dms", rpkt.hdr.id, level, trtt);
 		qspn_new_round(level, rpkt.hdr.id, trtt);
 
 	} else if (rpkt.hdr.id < me.cur_qspn_id[level]) {
 		/* Reject it, it's old */
 		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "qspn_close(): %s sent a qspn_close"
+		debug$("qspn_close(): %s sent a qspn_close"
 			  " with a wrong qspn_id(0x%x,lvl %d)"
 			  "qid 0x%x", ntop, rpkt.hdr.id, level, me.cur_qspn_id[level]);
 		ret = -1;
@@ -979,7 +977,7 @@ qspn_close(PACKET rpkt)
 	if (hops > 1 && !int_qspn_starter && (root_node->flags & QSPN_STARTER)
 		&& !(from->flags & QSPN_STARTER)) {
 		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "qspn_close(): Dropped qspn_close from %s: we"
+		debug$("qspn_close(): Dropped qspn_close from %s: we"
 			  " are a qspn_starter, the pkts has (hops=%d)>1"
 			  " and was forwarded by a non qspn_starter", ntop, hops);
 		goto finish;
@@ -1016,7 +1014,7 @@ qspn_close(PACKET rpkt)
 				pos = !level ? pos_from_node(node, me.int_map) :
 					pos_from_gnode((map_gnode *) node,
 								   me.ext_map[_EL(level)]);
-				debug(DBG_INSANE, "Closing %d [g]node, lvl %d",
+				debug$("Closing %d [g]node, lvl %d",
 					  pos, level);
 #endif
 				node->flags |= QSPN_CLOSED;
@@ -1055,7 +1053,7 @@ qspn_close(PACKET rpkt)
 								   old_bblocks_found, old_bblock, old_bblock_sz,	/*bnode_block */
 								   &pkt);	/*Where the pkt is built */
 		if (ret_err) {
-			debug(DBG_NOISE, "Cannot forward the qspn_close: "
+			debug$("Cannot forward the qspn_close: "
 				  "pkt build failed.");
 			ret = -1;
 			goto finish;
@@ -1066,10 +1064,10 @@ qspn_close(PACKET rpkt)
 		 * Increment the rtt of the last gnode chunk, because we
 		 * aren't adding any entry, but we are just forwarding it.
 		 */
-		debug(DBG_INSANE, "qspn_close: Incrementing the last hops rtt.");
+		debug$("qspn_close: Incrementing the last hops rtt.");
 		ret_err = tracer_add_rtt(real_from_rpos, tracer, hops - 1);
 		if (ret_err < 0)
-			debug(DBG_NOISE, "tracer_add_rtt(0x%x) hop %d failed",
+			debug$("tracer_add_rtt(0x%x) hop %d failed",
 				  rpkt.hdr.id, hops - 1);
 
 		/* the pkt we're sending is a copy of the received one */
@@ -1094,7 +1092,7 @@ qspn_close(PACKET rpkt)
 		/* We send a normal tracer_pkt limited to the qspn_starter nodes */
 		pkt.hdr.op = TRACER_PKT;
 		pkt.hdr.id = ++root_node->brdcast;
-		debug(DBG_INSANE, "Fwd %s(0x%x) lvl %d to the qspn starters",
+		debug$("Fwd %s(0x%x) lvl %d to the qspn starters",
 			  rq_to_str(pkt.hdr.op), pkt.hdr.id, level);
 
 		flood_pkt_send(exclude_from_and_glevel, upper_level, -1,
@@ -1104,7 +1102,7 @@ qspn_close(PACKET rpkt)
 		 * Forward the qspn_close to all our r_nodes which are not 
 		 * closed!
 		 */
-		debug(DBG_INSANE, "Fwd %s(0x%x) lvl %d to broadcast",
+		debug$("Fwd %s(0x%x) lvl %d to broadcast",
 			  rq_to_str(pkt.hdr.op), pkt.hdr.id, level);
 		flood_pkt_send(exclude_from_and_glevel_and_closed,
 					   upper_level, -1, real_from_rpos, pkt);
@@ -1157,8 +1155,7 @@ qspn_open(PACKET rpkt)
 		goto finish;
 	}
 #ifdef DEBUG
-	debug(DBG_INSANE,
-		  "QSPN_OPEN(0x%x, lvl %d): node[0]: %d, node[1]: %d, hops: %d",
+	debug$("QSPN_OPEN(0x%x, lvl %d): node[0]: %d, node[1]: %d, hops: %d",
 		  rpkt.hdr.id, level, tracer[0].node,
 		  trcr_hdr->hops > 1 ? tracer[1].node : -1, trcr_hdr->hops);
 #endif
@@ -1172,7 +1169,7 @@ qspn_open(PACKET rpkt)
 					(root_node->flags & QSPN_OPENER)))
 		&& sub_id == root_node_pos) {
 		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "qspn_open(0x%x): Dropped qspn_open from "
+		debug$("qspn_open(0x%x): Dropped qspn_open from "
 			  "%s: we are the qspn_starter of that pkt!"
 			  " (hops: %d)", rpkt.hdr.id, ntop, trcr_hdr->hops);
 		ret = -1;
@@ -1181,7 +1178,7 @@ qspn_open(PACKET rpkt)
 
 	if (rpkt.hdr.id < me.cur_qspn_id[level]) {
 		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "qspn_open(): %s sent a qspn_open"
+		debug$("qspn_open(): %s sent a qspn_open"
 			  " with a wrong qspn_id (0x%x), cur_id: 0x%x",
 			  ntop, rpkt.hdr.id, me.cur_qspn_id[level]);
 		ret = -1;
@@ -1234,7 +1231,7 @@ qspn_open(PACKET rpkt)
 		 */
 		qb = qspn_b[level];
 		if (!qb) {
-			debug(DBG_NOISE, "There isn't qspn_buffer information"
+			debug$("There isn't qspn_buffer information"
 				  " for the %d level", level);
 
 
@@ -1269,7 +1266,7 @@ qspn_open(PACKET rpkt)
 
 		/*Fokke, we've all the links opened. let's take a rest. */
 		if (!not_opened && all_bnodes_are_opened) {
-			debug(DBG_NOISE, "qspn_open(0x%x, sub_id: %d) lvl %d: "
+			debug$("qspn_open(0x%x, sub_id: %d) lvl %d: "
 				  "The qspn_open phase is finished",
 				  rpkt.hdr.id, sub_id, level);
 			if (level && !(me.bmap_nodes[blevel] - 1)) {
@@ -1280,7 +1277,7 @@ qspn_open(PACKET rpkt)
 				 * store the qspn_open's entries. So don't
 				 * go to finish;
 				 */
-				debug(DBG_INSANE, "Propagating the last qspn_open");
+				debug$("Propagating the last qspn_open");
 			} else
 				goto finish;
 		}
@@ -1291,7 +1288,7 @@ qspn_open(PACKET rpkt)
 								   old_bblocks_found, old_bblock, old_bblock_sz,	/*bnode_block */
 								   &pkt);	/*Where the pkt is built */
 		if (ret_err) {
-			debug(DBG_NOISE, "Cannot forward the qspn_open(0x%x) "
+			debug$("Cannot forward the qspn_open(0x%x) "
 				  "lvl %d sub_id: %d: Pkt build failed.",
 				  rpkt.hdr.id, level, sub_id);
 			ret = -1;
@@ -1302,10 +1299,10 @@ qspn_open(PACKET rpkt)
 		 * Increment the rtt of the last gnode chunk, because we
 		 * aren't adding any entry, but we are just forwarding it.
 		 */
-		debug(DBG_INSANE, "qspn_close: Incrementing the last hops rtt.");
+		debug$("qspn_close: Incrementing the last hops rtt.");
 		ret_err = tracer_add_rtt(real_from_rpos, tracer, hops - 1);
 		if (ret_err < 0)
-			debug(DBG_NOISE, "tracer_add_rtt(0x%x) hop %d failed",
+			debug$("tracer_add_rtt(0x%x) hop %d failed",
 				  rpkt.hdr.id, hops - 1);
 
 		/* the pkt we're sending is a copy of the received one */
@@ -1318,7 +1315,7 @@ qspn_open(PACKET rpkt)
 	 * * Forward the new pkt * *
 	 */
 
-	debug(DBG_INSANE, "%s(0x%x) lvl %d to broadcast",
+	debug$("%s(0x%x) lvl %d to broadcast",
 		  rq_to_str(pkt.hdr.op), pkt.hdr.id, level);
 
 	if (do_real_qspn_action && !int_qspn_opener) {

@@ -316,12 +316,12 @@ check_and_create_dir(char *dir)
 		if (errno == ENOENT) {
 			/* The directory doesn't exist, try to create it */
 			if (mkdir(dir, S_IRUSR | S_IWUSR | S_IXUSR) < 0) {
-				error("Cannot create the %d directory: %s", dir,
+				error$("Cannot create the %d directory: %s", dir,
 					  strerror(errno));
 				return -1;
 			}
 		} else {
-			error("Cannot access to the %s directory: %s", dir,
+			error$("Cannot access to the %s directory: %s", dir,
 				  strerror(errno));
 			return -1;
 		}
@@ -365,7 +365,7 @@ exec_root_script(char *script, char *argv)
 	char command[strlen(script) + strlen(argv) + 2];
 
 	if (stat(script, &sh_stat)) {
-		error("Couldn't stat %s: %s", strerror(errno));
+		error$("Couldn't stat %s: %s", strerror(errno));
 		return -1;
 	}
 
@@ -373,7 +373,7 @@ exec_root_script(char *script, char *argv)
 		sh_stat.st_mode & S_ISGID ||
 		(sh_stat.st_gid != 0 && sh_stat.st_mode & S_IWGRP) ||
 		sh_stat.st_mode & S_IWOTH) {
-		error("Please adjust the permissions of %s and be sure it "
+		error$("Please adjust the permissions of %s and be sure it "
 			  "hasn't been modified.\n"
 			  "  Use this command:\n"
 			  "  chmod 744 %s; chown root:root %s",
@@ -382,16 +382,16 @@ exec_root_script(char *script, char *argv)
 	}
 
 	sprintf(command, "%s %s", script, argv);
-	loginfo("Executing \"%s\"", command);
+	info$("Executing \"%s\"", command);
 
 	ret = system(command);
 	if (ret == -1) {
-		error("Couldn't execute %s: %s", script, strerror(errno));
+		error$("Couldn't execute %s: %s", script, strerror(errno));
 		return -1;
 	}
 
 	if (!WIFEXITED(ret) || (WIFEXITED(ret) && WEXITSTATUS(ret) != 0)) {
-		error("\"%s\" didn't terminate correctly", command);
+		error$("\"%s\" didn't terminate correctly", command);
 		return -1;
 	}
 

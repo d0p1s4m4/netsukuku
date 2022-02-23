@@ -496,8 +496,8 @@ rnl_fill_rq(map_node * rnode, PACKET * pkt)
 
   retry:
 	if (!pkt->sk && (pkt->sk = rnl_get_sk(rlist, rnode)) <= 0) {
-		error(ERROR_MSG "Couldn't get the socket associated "
-			  "to dst_rnode", ERROR_FUNC);
+		error$("Couldn't get the socket associated "
+			  "to dst_rnode");
 		return -1;
 	}
 
@@ -596,8 +596,7 @@ new_rnode_allowed(struct allowed_rnode **alr, int *alr_counter,
 	memcpy(&new_alr->gid[min_lvl], &gid[min_lvl],
 		   sizeof(int) * (tot_lvl - min_lvl));
 
-	debug(DBG_SOFT,
-		  "new_rnode_allowed: %d, %d, %d, %d. min_lvl: %d, tot_lvl: %d",
+	debug$("new_rnode_allowed: %d, %d, %d, %d. min_lvl: %d, tot_lvl: %d",
 		  gid[0], gid[1], gid[2], gid[3], min_lvl, tot_lvl);
 
 	clist_add(alr, alr_counter, new_alr);
@@ -691,7 +690,7 @@ radar_remove_old_rnodes(char *rnode_deleted)
 	int i, e, node_pos, bm, rnode_pos, bnode_rnode_pos, root_node_pos;
 	int broot_node_pos;
 	int level, blevel, external_node, total_levels, first_level;
-	void *void_map, *void_gnode;
+	void *void_gnode;
 
 	if (!me.cur_node->links)
 		return 0;
@@ -728,11 +727,10 @@ radar_remove_old_rnodes(char *rnode_deleted)
 			 */
 
 			if (!level && !external_node) {
-				void_map = me.int_map;
 				node_pos = pos_from_node(node, me.int_map);
 				rnode_pos = i;
 
-				debug(DBG_NORMAL, "radar: The node %d is dead", node_pos);
+				debug$("radar: The node %d is dead", node_pos);
 
 				/* delete it from the int_map and update the gcount */
 				map_node_del(node);
@@ -743,7 +741,6 @@ radar_remove_old_rnodes(char *rnode_deleted)
 
 				send_qspn_now[level] = 1;
 			} else {
-				void_map = me.ext_map;
 				gnode = e_rnode->quadg.gnode[_EL(level)];
 
 				/** delete the direct route to the ext_node */
@@ -757,8 +754,8 @@ radar_remove_old_rnodes(char *rnode_deleted)
 				node_pos = pos_from_gnode(gnode, me.ext_map[_EL(level)]);
 				rnode_pos = g_rnode_find((map_gnode *) root_node, gnode);
 
-				debug(DBG_NORMAL, "The ext_node (gid %d, lvl %d) is"
-					  " dead", e_rnode->quadg.gid[level], level);
+				debug$("The ext_node (gid %d, lvl %d) is dead",
+						e_rnode->quadg.gid[level], level);
 
 				/* bnode_map update */
 				for (e = 0; blevel >= 0; blevel--) {
@@ -871,13 +868,11 @@ radar_update_bmap(struct radar_queue *rq, int level, int gnode_level)
 	map_node *root_node;
 	map_rnode *rnode, rn;
 	int bm, rnode_pos, root_node_pos;
-	void *void_map;
 
 	if (level == me.cur_quadg.levels - 1)
 		return;
 
 	qspn_set_map_vars(level, 0, &root_node, &root_node_pos, 0);
-	void_map = me.ext_map;
 	gnode = rq->quadg.gnode[_EL(gnode_level + 1)];
 
 	bm = map_find_bnode(me.bnode_map[level], me.bmap_nodes[level],
@@ -923,7 +918,6 @@ radar_update_map(void)
 	int i, diff, rnode_pos;
 	u_char rnode_added[MAX_LEVELS / 8], rnode_deleted[MAX_LEVELS / 8];
 	int level, external_node, total_levels, root_node_pos, node_update;
-	void *void_map;
 	const char *ntop;
 	char updated_rnodes, routes_update, devs_update;
 
@@ -963,7 +957,6 @@ radar_update_map(void)
 			node_update = devs_update = 0;
 
 			if (!level) {
-				void_map = me.int_map;
 				node = rq->node;
 			} else {
 				/* Skip the levels where the ext_rnode belongs
@@ -985,7 +978,6 @@ radar_update_map(void)
 				root_node->flags |= MAP_BNODE;
 				me.cur_node->flags |= MAP_BNODE;
 
-				void_map = me.ext_map;
 				gnode = rq->quadg.gnode[_EL(level)];
 				node = &gnode->g;
 			}
@@ -1007,7 +999,7 @@ radar_update_map(void)
 
 				ntop = inet_to_str(rq->quadg.ipstart[level]);
 				if (server_opt.dbg_lvl || !level)
-					loginfo
+					info$
 						("Radar: New node found: %s, ext: %d, level: %d",
 						 ntop, external_node, level);
 
@@ -1095,7 +1087,7 @@ radar_update_map(void)
 					if (diff >= RTT_DELTA) {
 						node_update = 1;
 						send_qspn_now[level] = 1;
-						debug(DBG_NOISE, "node %s rtt changed, diff: %d",
+						debug$("node %s rtt changed, diff: %d",
 							  inet_to_str(rq->ip), diff);
 					}
 				}
@@ -1296,7 +1288,7 @@ radar_exec_reply(PACKET pkt)
 
 	dev_pos = ifs_get_pos(me.cur_ifs, me.cur_ifs_n, pkt.dev);
 	if (dev_pos < 0)
-		debug(DBG_NORMAL, "The 0x%x ECHO_REPLY pkt was received by a non "
+		debug$("The 0x%x ECHO_REPLY pkt was received by a non "
 			  "existent interface", pkt.hdr.id);
 
 	if (me.cur_node->flags & MAP_HNODE) {
@@ -1345,7 +1337,7 @@ radar_recv_reply(PACKET pkt)
 		return -1;
 
 	if (pkt.hdr.id != my_echo_id) {
-		debug(DBG_NORMAL, "I received an ECHO_REPLY with id: 0x%x, but "
+		debug$("I received an ECHO_REPLY with id: 0x%x, but "
 			  "my current ECHO_ME is 0x%x", pkt.hdr.id, my_echo_id);
 		return -1;
 	}
@@ -1355,7 +1347,7 @@ radar_recv_reply(PACKET pkt)
 	 * `pkt.from' is an allowed rnode, otherwise drop this pkt 
 	 */
 	if (alwd_rnodes_counter && !is_rnode_allowed(pkt.from, alwd_rnodes)) {
-		debug(DBG_INSANE, "Filtering 0x%x ECHO_REPLY", pkt.hdr.id);
+		debug$("Filtering 0x%x ECHO_REPLY", pkt.hdr.id);
 		return -1;
 	}
 
@@ -1439,7 +1431,7 @@ radar_scan(int activate_qspn)
 		pkt.hdr.sz = sizeof(u_char);
 		pkt.hdr.flags |= HOOK_PKT | BCAST_PKT;
 		pkt.msg = xmalloc(pkt.hdr.sz);
-		debug(DBG_INSANE, "Radar scan 0x%x activated", my_echo_id);
+		debug$("Radar scan 0x%x activated", my_echo_id);
 	} else
 		total_radars++;
 
@@ -1466,14 +1458,13 @@ radar_scan(int activate_qspn)
 					 * The me.cur_ifs[d] device doesn't
 					 * exist anymore. Delete it.
 					 */
-					fatal("The device \"%s\" has been removed",
+					fatal$("The device \"%s\" has been removed",
 						  me.cur_ifs[d].dev_name);
 					ifs_del(me.cur_ifs, &me.cur_ifs_n, d);
 					d--;
 				} else
-					error(ERROR_MSG "Error while sending the"
-						  " scan 0x%x... skipping",
-						  ERROR_FUNC, my_echo_id);
+					error$("Error while sending the scan 0x%x... skipping",
+							my_echo_id);
 				break;
 			}
 			radar_scans[d]++;
@@ -1481,7 +1472,7 @@ radar_scan(int activate_qspn)
 		}
 
 		if (!radar_scans[d])
-			error("radar_scan(): The scan 0x%x on the %s interface failed."
+			error$("radar_scan(): The scan 0x%x on the %s interface failed."
 				  " Not a single scan was sent", my_echo_id,
 				  pkt.dev->dev_name);
 
@@ -1492,7 +1483,7 @@ radar_scan(int activate_qspn)
 	pkt_free(&pkt, 1);
 
 	if (!total_radar_scans) {
-		error("radar_scan(): The scan 0x%x failed. It wasn't possible "
+		error$("radar_scan(): The scan 0x%x failed. It wasn't possible "
 			  "to send a single scan", my_echo_id);
 		return -1;
 	}
@@ -1537,7 +1528,7 @@ radard(PACKET rpkt)
 	u_char echo_scans_count;
 
 	if (alwd_rnodes_counter && !is_rnode_allowed(rpkt.from, alwd_rnodes)) {
-		debug(DBG_INSANE, "Filtering 0x%x ECHO_ME", rpkt.hdr.id);
+		debug$("Filtering 0x%x ECHO_ME", rpkt.hdr.id);
 		return -1;
 	}
 
@@ -1547,7 +1538,7 @@ radard(PACKET rpkt)
 
 	dev_pos = ifs_get_pos(me.cur_ifs, me.cur_ifs_n, rpkt.dev);
 	if (dev_pos < 0)
-		debug(DBG_NORMAL, "The 0x%x ECHO_ME pkt was received by a non "
+		debug$("The 0x%x ECHO_ME pkt was received by a non "
 			  "existent interface", rpkt.hdr.id);
 
 	/* If we are hooking we reply only to others hooking nodes */
@@ -1610,7 +1601,7 @@ radard(PACKET rpkt)
 	err = send_rq(&pkt, 0, ECHO_REPLY, rpkt.hdr.id, 0, 0, 0);
 	pkt_free(&pkt, 0);
 	if (err < 0) {
-		error("radard(): Cannot send back the ECHO_REPLY to %s.", ntop);
+		error$("radard(): Cannot send back the ECHO_REPLY to %s.", ntop);
 		return -1;
 	}
 
@@ -1623,10 +1614,10 @@ radard(PACKET rpkt)
 		rq->pings++;
 
 #ifdef DEBUG
-		if (server_opt.dbg_lvl && rq->pings == 1 &&
+		if (rq->pings == 1 &&
 			me.cur_node->flags & MAP_HNODE) {
 			ntop = inet_to_str(pkt.to);
-			debug(DBG_INSANE, "%s(0x%x) to %s", rq_to_str(ECHO_REPLY),
+			debug$("%s(0x%x) to %s", rq_to_str(ECHO_REPLY),
 				  rpkt.hdr.id, ntop);
 		}
 #endif
@@ -1688,7 +1679,7 @@ radar_daemon(void *null)
 	 * It will restart when it becomes again 1 */
 	radar_daemon_ctl = 1;
 
-	debug(DBG_NORMAL, "Radar daemon up & running");
+	debug$("Radar daemon up & running");
 	for (;;) {
 		while (!radar_daemon_ctl)
 			sleep(1);

@@ -107,7 +107,6 @@ tracer_verify_pkt(tracer_chunk * tracer, u_short hops, inet_prefix rip,
 	 * here?
 	 */
 	if (quadg_gids_cmp(*quadg, me.cur_quadg, level + 1)) {
-		debug(DBG_INSANE, "%s:%d", ERROR_POS);
 		return -1;
 	}
 
@@ -141,7 +140,6 @@ tracer_verify_pkt(tracer_chunk * tracer, u_short hops, inet_prefix rip,
 		from = (map_node *) gnode_from_pos(tracer[hops - 1].node,
 										   me.ext_map[_EL(level)]);
 		if (!from || (real_gfrom && real_gfrom != from)) {
-			debug(DBG_INSANE, "%s:%d", ERROR_POS);
 			return -1;
 		}
 
@@ -149,8 +147,7 @@ tracer_verify_pkt(tracer_chunk * tracer, u_short hops, inet_prefix rip,
 			g_rnode_find(me.cur_quadg.gnode[_EL(level)],
 						 (map_gnode *) from);
 		if (ret == -1) {
-			debug(DBG_INSANE, "%s:%d gnode: %d, level: %d",
-				  ERROR_POS, tracer[hops - 1].node, level);
+			debug$("gnode: %d, level: %d", tracer[hops - 1].node, level);
 			return -1;
 		}
 	}
@@ -205,8 +202,7 @@ tracer_add_entry(void *void_map, void *void_node, tracer_chunk * tracer,
 
 			/* check if `from' is in our rnodes */
 			if ((pos = rnode_find(me.cur_node, from)) == -1) {
-				debug(DBG_INSANE, "%s:%d lvl: %d last_entry_node: %d",
-					  ERROR_POS, level, last_entry_node);
+				debug$("lvl: %d last_entry_node: %d", level, last_entry_node);
 				return 0;
 			}
 
@@ -218,8 +214,7 @@ tracer_add_entry(void *void_map, void *void_node, tracer_chunk * tracer,
 			/* check if `from' is in our rnodes */
 			if ((pos = g_rnode_find(me.cur_quadg.gnode[_EL(level)],
 									(map_gnode *) from) == -1)) {
-				debug(DBG_INSANE, "%s:%d lvl: %d last_entry_node: %d",
-					  ERROR_POS, level, last_entry_node);
+				debug$("lvl: %d last_entry_node: %d", level, last_entry_node);
 				return 0;
 			}
 
@@ -389,7 +384,7 @@ tracer_build_bentry(void *void_map, void *void_node,
 
 		bhdr->links++;
 
-		debug(DBG_INSANE, "tracer_build_bentry: lvl %d bchunk[%d].gnode:"
+		debug$("tracer_build_bentry: lvl %d bchunk[%d].gnode:"
 			  " %d", level, i, bchunk[i].gnode);
 	}
 
@@ -501,7 +496,7 @@ tracer_pkt_build(u_char rq, int rq_id, int bcast_sub_id,
 	new_tracer = tracer_add_entry(void_map, void_node, tracer, &hops,
 								  gnode_level);
 	if (!new_tracer) {
-		debug(DBG_NOISE, "tracer_pkt_build: Cannot add the new"
+		debug$("tracer_pkt_build: Cannot add the new"
 			  " entry in the tracer_pkt");
 		return -1;
 	}
@@ -694,8 +689,7 @@ tracer_unpack_pkt(PACKET rpkt, brdcast_hdr ** new_bcast_hdr,
 	tracer_sz = BRDCAST_SZ(TRACERPKT_SZ(trcr_hdr->hops));
 	if (tracer_sz > rpkt.hdr.sz || !trcr_hdr->hops ||
 		trcr_hdr->hops > MAXGROUPNODE) {
-		debug(DBG_INSANE, "%s:%d messed tracer pkt: %d, %d, %d",
-			  ERROR_POS, tracer_sz, rpkt.hdr.sz, trcr_hdr->hops);
+		debug$("messed tracer pkt: %d, %d, %d", tracer_sz, rpkt.hdr.sz, trcr_hdr->hops);
 		return -1;
 	}
 
@@ -715,8 +709,7 @@ tracer_unpack_pkt(PACKET rpkt, brdcast_hdr ** new_bcast_hdr,
 		if ((!(trcr_hdr->flags & TRCR_BBLOCK)
 			 && !(trcr_hdr->flags & TRCR_IGW))
 			|| !(bcast_hdr->flags & BCAST_TRACER_BBLOCK)) {
-			debug(DBG_INSANE, ERROR_MSG "trcr_flags: %d flags: %d",
-				  ERROR_POS, trcr_hdr->flags, bcast_hdr->flags);
+			debug$("trcr_flags: %d flags: %d", trcr_hdr->flags, bcast_hdr->flags);
 			return -1;
 		}
 	}
@@ -725,7 +718,6 @@ tracer_unpack_pkt(PACKET rpkt, brdcast_hdr ** new_bcast_hdr,
 		level--;
 	if (!(rpkt.hdr.flags & BCAST_PKT)
 		|| !(bcast_hdr->flags & BCAST_TRACER_PKT) || level > FAMILY_LVLS) {
-		debug(DBG_INSANE, "%s:%d", ERROR_POS);
 		return -1;
 	}
 
@@ -739,7 +731,6 @@ tracer_unpack_pkt(PACKET rpkt, brdcast_hdr ** new_bcast_hdr,
 
 	*real_from_rpos = ip_to_rfrom(rpkt.from, &rip_quadg, 0, 0);
 	if (*real_from_rpos < 0) {
-		debug(DBG_INSANE, "%s:%d", ERROR_POS);
 		return -1;
 	}
 
@@ -888,7 +879,7 @@ tracer_store_bblock(u_char level, tracer_hdr * trcr_hdr,
 	*bblocks_found = bb;
 	if (!bb) {
 		/* The bblock was malformed -_- */
-		debug(DBG_NORMAL, ERROR_MSG "malformed bnode block", ERROR_POS);
+		debug$("malformed bnode block");
 		*bblock_found_sz = 0;
 		*bblocks_found_block = 0;
 		return -1;
@@ -919,8 +910,8 @@ tracer_store_bblock(u_char level, tracer_hdr * trcr_hdr,
 			 * bnode block was sent by ourself, skip it. 
 			 */
 
-			debug(DBG_NORMAL, ERROR_MSG "skipping the %d bnode,"
-				  "it was built by us!", ERROR_POS, i);
+			debug$("skipping the %d bnode,"
+				  "it was built by us!", i);
 			goto discard_bblock;
 		}
 
@@ -939,15 +930,13 @@ tracer_store_bblock(u_char level, tracer_hdr * trcr_hdr,
 
 				goto skip_bmap;
 			} else {
-				debug(DBG_NOISE, ERROR_MSG "Malforded bblock entry",
-					  ERROR_POS);
+				debug$("Malforded bblock entry");
 				goto discard_bblock;
 			}
 		}
 
 		if (!(trcr_hdr->flags & TRCR_BBLOCK)) {
-			debug(DBG_NOISE, ERROR_MSG "Malforded bblock entry",
-				  ERROR_POS);
+			debug$("Malforded bblock entry");
 			goto discard_bblock;
 		}
 
@@ -987,7 +976,7 @@ tracer_store_bblock(u_char level, tracer_hdr * trcr_hdr,
 			/* Store the rnodes of the bnode */
 			for (e = 0; e < bblist_hdr[i]->links; e++) {
 				setzero(&rn, sizeof(map_rnode));
-				debug(DBG_INSANE, "Bnode %d new link %d: gid %d lvl %d",
+				debug$("Bnode %d new link %d: gid %d lvl %d",
 					  bnode, e, bblist[i][e]->gnode, bblist[i][e]->level);
 
 				gnode = gnode_from_pos(bblist[i][e]->gnode,
@@ -1064,9 +1053,9 @@ tracer_check_node_collision(tracer_hdr * trcr, int hop, map_node * node,
 		probable_collision = 1;
 
 	if (probable_collision) {
-		loginfo("%s collision detected! Checking rehook status...",
+		info$("%s collision detected! Checking rehook status...",
 				!level ? "node" : "gnode");
-		debug(DBG_NORMAL, "collision info: i: %d, starter %d opener %d",
+		debug$("collision info: i: %d, starter %d opener %d",
 			  hop, me.cur_node->flags & QSPN_STARTER,
 			  me.cur_node->flags & QSPN_OPENER);
 		new_rehook(gnode, tr_node, level, gcount);
@@ -1240,7 +1229,7 @@ tracer_store_pkt(inet_prefix rip, quadro_group * rip_quadg, u_char level,
 				gnode->flags &= ~GMAP_VOID;
 
 			gnode_inc_seeds(&me.cur_quadg, level);
-			debug(DBG_INSANE, "TRCR_STORE: node %d added", tracer[i].node);
+			debug$("TRCR_STORE: node %d added", tracer[i].node);
 		}
 
 		/* update the rtt of the node */
@@ -1279,7 +1268,7 @@ tracer_store_pkt(inet_prefix rip, quadro_group * rip_quadg, u_char level,
 					rnode_del(node, x);
 			}
 
-			debug(DBG_INSANE, "TRCR_STORE: krnl_update node %d",
+			debug$("TRCR_STORE: krnl_update node %d",
 				  tracer[i].node);
 			rt_update_node(0, node, 0, 0, 0, level);
 			node->flags &= ~MAP_UPDATE;
@@ -1338,18 +1327,17 @@ flood_pkt_send(int (*is_node_excluded) (TRACER_PKT_EXCLUDE_VARS),
 		/* Get the socket associated to the rnode  */
 		if (rnl_fill_rq(node, &pkt) < 0)
 			continue;
-		if (server_opt.dbg_lvl)
-			debug(DBG_INSANE, "flood_pkt_send(0x%x): %s to %s"
-				  " lvl %d", pkt.hdr.id,
-				  rq_to_str(pkt.hdr.op), inet_to_str(pkt.to), level - 1);
+
+		debug$("flood_pkt_send(0x%x): %s to %s"
+			  " lvl %d", pkt.hdr.id,
+			  rq_to_str(pkt.hdr.op), inet_to_str(pkt.to), level - 1);
 
 		/* Let's send the pkt */
 		err = rnl_send_rq(node, &pkt, 0, pkt.hdr.op, pkt.hdr.id, 0, 0, 0);
 		if (err == -1) {
 			ntop = inet_to_str(pkt.to);
-			error(ERROR_MSG "Cannot send the %s request"
-				  " with id: %d to %s",
-				  ERROR_FUNC, rq_to_str(pkt.hdr.op), pkt.hdr.id, ntop);
+			error$("Cannot send the %s request with id: %d to %s",
+				  rq_to_str(pkt.hdr.op), pkt.hdr.id, ntop);
 		} else
 			e++;
 	}
@@ -1446,7 +1434,7 @@ tracer_pkt_recv(PACKET rpkt)
 								&real_from_rpos);
 	if (ret_err) {
 		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "tracer_pkt_recv(): The %s sent an invalid "
+		debug$("tracer_pkt_recv(): The %s sent an invalid "
 			  "tracer_pkt here.", ntop);
 		return -1;
 	}
@@ -1472,18 +1460,17 @@ tracer_pkt_recv(PACKET rpkt)
 		void_map = me.ext_map;
 	}
 
-	if (server_opt.dbg_lvl) {
-		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NOISE, "Tracer_pkt(0x%x, lvl %d) received from %s",
+	ntop = inet_to_str(rpkt.from);
+	debug$("Tracer_pkt(0x%x, lvl %d) received from %s",
 			  rpkt.hdr.id, level, ntop);
-	}
+	
 
 	/*
 	 * This is the check for the broadcast id. If it is <= tracer_starter->brdcast
 	 * the pkt is an old broadcast that still dance around.
 	 */
 	if (rpkt.hdr.id <= tracer_starter->brdcast) {
-		debug(DBG_NOISE, "tracer_pkt_recv(): Received from %s an old "
+		debug$("tracer_pkt_recv(): Received from %s an old "
 			  "tracer_pkt broadcast: 0x%x, cur: 0x%x", ntop,
 			  rpkt.hdr.id, tracer_starter->brdcast);
 		return -1;
@@ -1503,7 +1490,7 @@ tracer_pkt_recv(PACKET rpkt)
 								   &old_bblock, &old_bblock_sz);
 		if (ret_err) {
 			ntop = inet_to_str(rpkt.from);
-			debug(DBG_NORMAL, "tracer_pkt_recv(): Cannot store the"
+			debug$("tracer_pkt_recv(): Cannot store the"
 				  " tracer_pkt received from %s", ntop);
 		}
 	}
@@ -1529,7 +1516,7 @@ tracer_pkt_recv(PACKET rpkt)
 		/* Increment the rtt of the last gnode chunk */
 		ret_err = tracer_add_rtt(real_from_rpos, tracer, hops - 1);
 		if (ret_err < 0)
-			debug(DBG_NOISE, "tracer_add_rtt(0x%x) hop %d failed",
+			debug$("tracer_add_rtt(0x%x) hop %d failed",
 				  rpkt.hdr.id, hops - 1);
 		pkt_copy(&pkt, &rpkt);
 		pkt_clear(&pkt);
@@ -1576,7 +1563,7 @@ tracer_pkt_start(u_char level)
 					 0, 0, 0,	/*bnode_block */
 					 &pkt);		/*Where the pkt is built */
 	/*Diffuse the packet in all the universe! */
-	debug(DBG_INSANE, "Tracer_pkt 0x%x starting.", pkt.hdr.id);
+	debug$("Tracer_pkt 0x%x starting.", pkt.hdr.id);
 	flood_pkt_send(exclude_from_and_glevel, level + 1, -1, -1, pkt);
 	tracer_pkt_start_mutex = 0;
 	return 0;

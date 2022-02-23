@@ -163,7 +163,7 @@ get_dev(int *dev_idx)
 	int idx;
 
 	if ((idx = ll_first_up_if()) == -1) {
-		error("Couldn't find \"up\" devices. Set one dev \"up\", or "
+		error$("Couldn't find \"up\" devices. Set one dev \"up\", or "
 			  "specify the device name in the options.");
 		return 0;
 	}
@@ -189,7 +189,7 @@ get_all_up_ifs(interface * ifs, int ifs_n)
 
 		ifs[n].dev_idx = idx;
 		strncpy(ifs[n].dev_name, ll_index_to_name(idx), IFNAMSIZ);
-		loginfo("Network interface \"%s\" detected", ifs[n].dev_name);
+		info$("Network interface \"%s\" detected", ifs[n].dev_name);
 		n++;
 
 		if ((idx - 1) > i)
@@ -207,12 +207,12 @@ set_flags(char *dev, u_int flags, u_int mask)
 
 	strcpy(ifr.ifr_name, dev);
 	if ((s = new_socket(AF_INET)) < 0) {
-		error("Error while setting \"%s\" flags: Cannot open socket", dev);
+		error$("Error while setting \"%s\" flags: Cannot open socket", dev);
 		return -1;
 	}
 
 	if (ioctl(s, SIOCGIFFLAGS, &ifr)) {
-		error("Error while setting \"%s\" flags: %s", dev,
+		error$("Error while setting \"%s\" flags: %s", dev,
 			  strerror(errno));
 		close(s);
 		return -1;
@@ -221,7 +221,7 @@ set_flags(char *dev, u_int flags, u_int mask)
 	ifr.ifr_flags &= ~mask;
 	ifr.ifr_flags |= mask & flags;
 	if (ioctl(s, SIOCSIFFLAGS, &ifr)) {
-		error("Error while setting \"%s\" flags: %s", dev,
+		error$("Error while setting \"%s\" flags: %s", dev,
 			  strerror(errno));
 		close(s);
 		return -1;
@@ -285,7 +285,7 @@ if_init_all(char *ifs_name[MAX_INTERFACES], int ifs_n,
 	int ret = 0, i, n;
 
 	if (rtnl_open(&rth, 0) < 0) {
-		error("Cannot open the rtnetlink socket to talk to the kernel's "
+		error$("Cannot open the rtnetlink socket to talk to the kernel's "
 			  "soul");
 		return -1;
 	}
@@ -303,7 +303,7 @@ if_init_all(char *ifs_name[MAX_INTERFACES], int ifs_n,
 
 			new_ifs[n].dev_idx = ll_name_to_index(ifs_name[n]);
 			if (!new_ifs[n].dev_idx) {
-				error("Cannot initialize the %s interface. "
+				error$("Cannot initialize the %s interface. "
 					  "Ignoring it", ifs_name[n]);
 				continue;
 			}
@@ -348,7 +348,7 @@ set_dev_ip(inet_prefix ip, char *dev)
 		struct ifreq req;
 
 		if ((s = new_socket(AF_INET)) < 0) {
-			error("Error while setting \"%s\" ip: Cannot open socket",
+			error$("Error while setting \"%s\" ip: Cannot open socket",
 				  dev);
 			return -1;
 		}
@@ -357,7 +357,7 @@ set_dev_ip(inet_prefix ip, char *dev)
 		inet_to_sockaddr(&ip, 0, &req.ifr_addr, 0);
 
 		if (ioctl(s, SIOCSIFADDR, &req)) {
-			error("Error while setting \"%s\" ip: %s", dev,
+			error$("Error while setting \"%s\" ip: %s", dev,
 				  strerror(errno));
 			close(s);
 			return -1;
@@ -368,7 +368,7 @@ set_dev_ip(inet_prefix ip, char *dev)
 		struct sockaddr *sa = (struct sockaddr *) &sin6;
 
 		if ((s = new_socket(AF_INET6)) < 0) {
-			error("Error while setting \"%s\" ip: Cannot open socket",
+			error$("Error while setting \"%s\" ip: Cannot open socket",
 				  dev);
 			return -1;
 		}
@@ -379,7 +379,7 @@ set_dev_ip(inet_prefix ip, char *dev)
 		memcpy(&req6.ifr6_addr, sin6.sin6_addr.s6_addr32, ip.len);
 
 		if (ioctl(s, SIOCSIFADDR, &req6)) {
-			error("Error while setting \"%s\" ip: %s", dev,
+			error$("Error while setting \"%s\" ip: %s", dev,
 				  strerror(errno));
 			close(s);
 			return -1;
@@ -421,7 +421,7 @@ get_dev_ip(inet_prefix * ip, int family, char *dev)
 	setzero(ip, sizeof(inet_prefix));
 
 	if ((s = new_socket(family)) < 0) {
-		error("Error while setting \"%s\" ip: Cannot open socket", dev);
+		error$("Error while setting \"%s\" ip: Cannot open socket", dev);
 		return -1;
 	}
 
@@ -432,7 +432,10 @@ get_dev_ip(inet_prefix * ip, int family, char *dev)
 		req.ifr_addr.sa_family = family;
 
 		if (ioctl(s, SIOCGIFADDR, &req))
-			ERROR_FINISH(ret, -1, finish);
+		{
+			ret = -1;
+			goto finish;
+		}
 
 		sockaddr_to_inet(&req.ifr_addr, ip, 0);
 	} else if (family == AF_INET6) {
@@ -446,7 +449,10 @@ get_dev_ip(inet_prefix * ip, int family, char *dev)
 		req6.ifr6_prefixlen = 0;
 
 		if (ioctl(s, SIOCGIFADDR, &req6))
-			ERROR_FINISH(ret, -1, finish);
+		{
+			ret = -1;
+			goto finish;
+		}
 
 		inet_setip(ip, (u_int *) & req6.ifr6_addr, family);
 	}
@@ -468,7 +474,7 @@ static int
 flush_update(void)
 {
 	if (rtnl_send(filter.rth, filter.flushb, filter.flushp) < 0) {
-		error("Failed to send flush request: %s", strerror(errno));
+		error$("Failed to send flush request: %s", strerror(errno));
 		return -1;
 	}
 	filter.flushp = 0;
@@ -488,7 +494,7 @@ print_addrinfo(const struct sockaddr_nl *who, struct nlmsghdr *n,
 		return 0;
 	len -= NLMSG_LENGTH(sizeof(*ifa));
 	if (len < 0) {
-		error("BUG: wrong nlmsg len %d\n", len);
+		error$("BUG: wrong nlmsg len %d\n", len);
 		return -1;
 	}
 
@@ -593,18 +599,18 @@ ip_addr_flush(int family, char *dev, int scope)
 		return -1;
 
 	if (rtnl_wilddump_request(&rth, family, RTM_GETLINK) < 0) {
-		error("Cannot send dump request: %s", strerror(errno));
+		error$("Cannot send dump request: %s", strerror(errno));
 		return -1;
 	}
 
 	if (rtnl_dump_filter(&rth, store_nlmsg, &linfo, NULL, NULL) < 0) {
-		error("Dump terminated");
+		error$("Dump terminated");
 		return -1;
 	}
 
 	filter.ifindex = ll_name_to_index(filter_dev);
 	if (filter.ifindex <= 0) {
-		error("Device \"%s\" does not exist.", filter_dev);
+		error$("Device \"%s\" does not exist.", filter_dev);
 		return -1;
 	}
 
@@ -620,12 +626,12 @@ ip_addr_flush(int family, char *dev, int scope)
 
 	for (;;) {
 		if (rtnl_wilddump_request(&rth, filter.family, RTM_GETADDR) < 0) {
-			error("Cannot send dump request: %s", strerror(errno));
+			error$("Cannot send dump request: %s", strerror(errno));
 			return -1;
 		}
 		filter.flushed = 0;
 		if (rtnl_dump_filter(&rth, print_addrinfo, stdout, NULL, NULL) < 0) {
-			error("Flush terminated: %s", errno);
+			error$("Flush terminated: %s", errno);
 			return -1;
 		}
 		if (filter.flushed == 0)

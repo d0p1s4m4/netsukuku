@@ -128,8 +128,7 @@ add_nexthops(struct nlmsghdr *n, struct rtmsg *r, struct nexthop *nhop)
 
 		if (nhop[0].dev) {
 			if ((idx = ll_name_to_index(nhop[0].dev)) == 0) {
-				error(ERROR_MSG "Device \"%s\" doesn't really exist\n",
-					  ERROR_POS, nhop[0].dev);
+				error$("Device \"%s\" doesn't really exist\n", nhop[0].dev);
 				return -1;
 			}
 			addattr32(n, sizeof(struct rt_request), RTA_OIF, idx);
@@ -158,11 +157,10 @@ add_nexthops(struct nlmsghdr *n, struct rtmsg *r, struct nexthop *nhop)
 
 		if (nhop[i].dev)
 			if ((rtnh->rtnh_ifindex = ll_name_to_index(nhop[i].dev)) == 0)
-				fatal("%s:%d, Cannot find device \"%s\"\n", ERROR_POS,
-					  nhop[i].dev);
+				fatal$("Cannot find device \"%s\"\n", nhop[i].dev);
 
 		if (nhop[i].hops == 0) {
-			debug(DBG_NORMAL, "hops=%d is invalid. Using hops=255\n",
+			debug$("hops=%d is invalid. Using hops=255\n",
 				  nhop[i].hops);
 			rtnh->rtnh_hops = 255;
 		} else
@@ -236,8 +234,7 @@ route_exec(int route_cmd, int route_type, int route_scope, unsigned flags,
 		int idx;
 
 		if ((idx = ll_name_to_index(dev)) == 0) {
-			error("%s:%d, Device \"%s\" doesn't really exist\n", ERROR_POS,
-				  dev);
+			error$("Device \"%s\" doesn't really exist\n", dev);
 			return -1;
 		}
 		addattr32(&req.nh, sizeof(req), RTA_OIF, idx);
@@ -463,13 +460,13 @@ route_get_exact_prefix_dst(inet_prefix prefix, inet_prefix * dst,
 	ll_init_map(&rth);
 
 	if (rtnl_wilddump_request(&rth, do_ipv6, RTM_GETROUTE) < 0) {
-		error(ERROR_MSG "Cannot send dump request" ERROR_POS);
+		error$("Cannot send dump request");
 		return -1;
 	}
 
 	setzero(dst_data, sizeof(dst_data));
 	if (rtnl_dump_filter(&rth, route_get_gw, dst_data, NULL, NULL) < 0) {
-		debug(DBG_NORMAL, ERROR_MSG "Dump terminated" ERROR_POS);
+		debug$("Dump terminated");
 		return -1;
 	}
 	inet_copy(dst, (inet_prefix *) dst_data);
@@ -498,15 +495,15 @@ route_flush_cache(int family)
 
 	flush_fd = open(ROUTE_FLUSH_SYSCTL, O_WRONLY);
 	if (flush_fd < 0) {
-		debug(DBG_NORMAL, "Cannot open \"%s\"\n", ROUTE_FLUSH_SYSCTL);
+		debug$("Cannot open \"%s\"\n", ROUTE_FLUSH_SYSCTL);
 		return -1;
 	}
 
 	if ((err = write(flush_fd, (void *) buf, len)) == 0) {
-		debug(DBG_NORMAL, "Warning: Route Cache not flushed\n");
+		debug$("Warning: Route Cache not flushed\n");
 		return -1;
 	} else if (err == -1) {
-		debug(DBG_NORMAL, "Cannot flush routing cache: %s\n",
+		debug$("Cannot flush routing cache: %s\n",
 			  strerror(errno));
 		return -1;
 	}
@@ -541,15 +538,15 @@ route_ip_forward(int family, int enable)
 
 	flush_fd = open(sysctl_path, O_WRONLY);
 	if (flush_fd < 0) {
-		debug(DBG_NORMAL, "Cannot open \"%s\"\n", sysctl_path);
+		debug$("Cannot open \"%s\"\n", sysctl_path);
 		return -1;
 	}
 
 	if ((err = write(flush_fd, (void *) buf, len)) == 0) {
-		debug(DBG_NORMAL, "Warning: ip_forward setting changed\n");
+		debug$("Warning: ip_forward setting changed\n");
 		return -1;
 	} else if (err == -1) {
-		debug(DBG_NORMAL, "Cannot change the ip_forward setting: %s\n",
+		debug$("Cannot change the ip_forward setting: %s\n",
 			  strerror(errno));
 		return -1;
 	}
@@ -586,9 +583,9 @@ route_rp_filter(int family, char *dev, int enable)
 		strcpy(final_path, RP_FILTER_SYSCTL_1);
 	} else if (family == AF_INET6) {
 		strcpy(final_path, RP_FILTER_SYSCTL_1_IPV6);
-	} else
-		ERROR_FINISH(ret, -1, finish);
-
+	} else {
+		ret = -1; goto finish;
+	}
 	strcat(final_path, dev);
 	strcat(final_path, RP_FILTER_SYSCTL_2);
 
@@ -597,17 +594,17 @@ route_rp_filter(int family, char *dev, int enable)
 
 	flush_fd = open(final_path, O_WRONLY);
 	if (flush_fd < 0) {
-		debug(DBG_NORMAL, "Cannot open \"%s\"\n", final_path);
-		ERROR_FINISH(ret, -1, finish);
+		debug$("Cannot open \"%s\"\n", final_path);
+		ret = -1; goto finish;
 	}
 
 	if ((err = write(flush_fd, (void *) buf, len)) == 0) {
-		debug(DBG_NORMAL, "Warning: rp_filter setting changed\n");
-		ERROR_FINISH(ret, -1, finish);
+		debug$("Warning: rp_filter setting changed\n");
+		ret = -1; goto finish;
 	} else if (err == -1) {
-		debug(DBG_NORMAL, "Cannot change the rp_filter setting: %s\n",
+		debug$("Cannot change the rp_filter setting: %s\n",
 			  strerror(errno));
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1; goto finish;
 	}
 	close(flush_fd);
 

@@ -157,8 +157,7 @@ wait_new_rnode(struct rehook_argv *rargv)
 	int gid_a[MAX_LEVELS], gid_b[MAX_LEVELS];
 	int e = 0, i, retries;
 
-	debug(DBG_NOISE,
-		  "wait_new_rnode: waiting the %d rnode %d lvl appearance",
+	debug$("wait_new_rnode: waiting the %d rnode %d lvl appearance",
 		  rargv->gid, rargv->level);
 
 	memcpy(&gid_a, me.cur_quadg.gid, sizeof(me.cur_quadg.gid));
@@ -184,15 +183,14 @@ wait_new_rnode(struct rehook_argv *rargv)
 			}
 		}
 		if (e) {
-			debug(DBG_NOISE, "wait_new_rnode: %d rnode %d "
-				  "lvl found", rargv->gid, rargv->level);
+			debug$("wait_new_rnode: %d rnode %d lvl found",
+				rargv->gid, rargv->level);
 			return;
 		}
 		radar_wait_new_scan();
 	}
 
-	debug(DBG_NORMAL,
-		  "wait_new_rnode: not found! Anyway, trying to rehook");
+	debug$("wait_new_rnode: not found! Anyway, trying to rehook");
 }
 
 /*
@@ -323,8 +321,7 @@ new_rehook(map_gnode * gnode, int gid, int level, int gnode_count)
 		/* `gnode' is marked as HOOKED, return. */
 		return;
 
-	debug(DBG_NORMAL,
-		  "new_rehook: me.gid %d, gnode %d, level %d, gnode_count %d, "
+	debug$("new_rehook: me.gid %d, gnode %d, level %d, gnode_count %d, "
 		  "qspn_gcount %d, our rnode: %d", me.cur_quadg.gid[level], gid,
 		  level, gnode_count, qspn_gnode_count[_EL(level)],
 		  gnode->g.flags & MAP_RNODE);
@@ -333,7 +330,7 @@ new_rehook(map_gnode * gnode, int gid, int level, int gnode_count)
 	 * Update the rehook time and let's see if we can take this new rehook
 	 */
 	if (update_rehook_time(level)) {
-		debug(DBG_SOFT, "new_rehook: we have to wait before accepting "
+		debug$("new_rehook: we have to wait before accepting "
 			  "another rehook");
 		return;
 	}

@@ -82,7 +82,7 @@ inet_setip_raw(inet_prefix * ip, u_int * data, int family)
 		memcpy(ip->data, data, sizeof(ip->data));
 		ip->len = 16;
 	} else
-		fatal(ERROR_MSG "family not supported", ERROR_POS);
+		fatal$("family not supported");
 
 	ip->bits = ip->len << 3;	/* bits=len*8 */
 
@@ -113,7 +113,7 @@ inet_setip_bcast(inet_prefix * ip, int family)
 		u_int data[MAX_IP_INT] = IPV6_ADDR_BROADCAST;
 		inet_setip(ip, data, family);
 	} else
-		fatal(ERROR_MSG "family not supported", ERROR_POS);
+		fatal$("family not supported");
 
 	return 0;
 }
@@ -130,7 +130,7 @@ inet_setip_anyaddr(inet_prefix * ip, int family)
 		struct in6_addr ipv6 = IN6ADDR_ANY_INIT;
 		inet_setip(ip, (u_int *) (&ipv6), family);
 	} else
-		fatal(ERROR_MSG "family not supported", ERROR_POS);
+		fatal$("family not supported");
 
 	return 0;
 }
@@ -148,7 +148,7 @@ inet_setip_loopback(inet_prefix * ip, int family)
 		u_int data[MAX_IP_INT] = LOOPBACK_IPV6;
 		inet_setip(ip, data, family);
 	} else
-		fatal(ERROR_MSG "family not supported", ERROR_POS);
+		fatal$("family not supported");
 
 	return 0;
 }
@@ -170,7 +170,7 @@ inet_setip_localaddr(inet_prefix * ip, int family, int class)
 	} else if (family == AF_INET6) {
 		ip->data[0] = NTK_RESTRICTED_IPV6_MASK(ip->data[0]);
 	} else
-		fatal(ERROR_MSG "family not supported", ERROR_POS);
+		fatal$("family not supported");
 
 	return 0;
 }
@@ -192,7 +192,7 @@ inet_is_ip_local(inet_prefix * ip, int class)
 	} else if (ip->family == AF_INET6)
 		return ip->data[0] == NTK_RESTRICTED_IPV6_MASK(ip->data[0]);
 	else
-		fatal(ERROR_MSG "family not supported", ERROR_POS);
+		fatal$("family not supported");
 	return 0;
 }
 
@@ -477,13 +477,11 @@ str_to_inet(const char *src, inet_prefix * ip)
 	}
 
 	if ((res = inet_pton(family, src, (void *) data)) < 0) {
-		debug(DBG_NORMAL, ERROR_MSG "error -> %s.",
-			  ERROR_FUNC, strerror(errno));
+		debug$("error -> %s.", strerror(errno));
 		return -1;
 	}
 	if (!res) {
-		debug(DBG_NORMAL, ERROR_MSG "impossible to convert \"%s\":"
-			  " invalid address.", ERROR_FUNC, src);
+		debug$("impossible to convert \"%s\": invalid address.", src);
 		return -1;
 	}
 
@@ -528,7 +526,7 @@ inet_to_sockaddr(inet_prefix * ip, u_short port, struct sockaddr *dst,
 		if (dstlen)
 			*dstlen = sizeof(struct sockaddr_in6);
 	} else
-		fatal(ERROR_MSG "family not supported", ERROR_POS);
+		fatal$("family not supported");
 
 	return 0;
 }
@@ -551,7 +549,7 @@ sockaddr_to_inet(struct sockaddr *ip, inet_prefix * dst, u_short * port)
 	else if (ip->sa_family == AF_INET6)
 		p = (char *) ip->sa_data + sizeof(u_short) + sizeof(int);
 	else {
-		error(ERROR_MSG "family not supported", ERROR_POS);
+		error$("family not supported");
 		return -1;
 	}
 
@@ -571,7 +569,7 @@ new_socket(int sock_type)
 {
 	int sockfd;
 	if ((sockfd = socket(sock_type, SOCK_STREAM, 0)) == -1) {
-		error("Socket SOCK_STREAM creation failed: %s", strerror(errno));
+		error$("Socket SOCK_STREAM creation failed: %s", strerror(errno));
 		return -1;
 	}
 
@@ -583,7 +581,7 @@ new_dgram_socket(int sock_type)
 {
 	int sockfd;
 	if ((sockfd = socket(sock_type, SOCK_DGRAM, 0)) == -1) {
-		error("Socket SOCK_DGRAM creation failed: %s", strerror(errno));
+		error$("Socket SOCK_DGRAM creation failed: %s", strerror(errno));
 		return -1;
 	}
 
@@ -613,7 +611,7 @@ inet_getpeername(int sk, inet_prefix * ip, short *port)
 	alen = sizeof(saddr_sto);
 	setzero(sa, alen);
 	if (getpeername(sk, sa, &alen) == -1) {
-		error("Cannot getpeername: %s", strerror(errno));
+		error$("Cannot getpeername: %s", strerror(errno));
 		return -1;
 	}
 
@@ -636,7 +634,7 @@ join_ipv6_multicast(int socket, int idx)
 
 	if (setsockopt(socket, IPPROTO_IPV6, IPV6_JOIN_GROUP, &mreq6,
 				   sizeof(mreq6)) < 0) {
-		error("Cannot set IPV6_JOIN_GROUP: %s", strerror(errno));
+		error$("Cannot set IPV6_JOIN_GROUP: %s", strerror(errno));
 		close(socket);
 		return -1;
 	}
@@ -651,7 +649,7 @@ set_multicast_if(int socket, int idx)
 
 	if (setsockopt(socket, IPPROTO_IPV6, IPV6_MULTICAST_IF,
 				   &idx, sizeof(int)) < 0) {
-		error("set_multicast_if(): cannot set IPV6_MULTICAST_IF: %s",
+		error$("set_multicast_if(): cannot set IPV6_MULTICAST_IF: %s",
 			  strerror(errno));
 		close(socket);
 		return -1;
@@ -664,7 +662,7 @@ int
 set_nonblock_sk(int fd)
 {
 	if (fcntl(fd, F_SETFL, O_NONBLOCK) < 0) {
-		error("set_nonblock_sk(): cannot set O_NONBLOCK: %s",
+		error$("set_nonblock_sk(): cannot set O_NONBLOCK: %s",
 			  strerror(errno));
 		close(fd);
 		return -1;
@@ -676,7 +674,7 @@ int
 unset_nonblock_sk(int fd)
 {
 	if (fcntl(fd, F_SETFL, 0) < 0) {
-		error("unset_nonblock_sk(): cannot unset O_NONBLOCK: %s",
+		error$("unset_nonblock_sk(): cannot unset O_NONBLOCK: %s",
 			  strerror(errno));
 		close(fd);
 		return -1;
@@ -696,7 +694,7 @@ set_reuseaddr_sk(int socket)
 		setsockopt(socket, SOL_SOCKET, SO_REUSEADDR, &reuseaddr,
 				   sizeof(int));
 	if (ret < 0)
-		error("setsockopt SO_REUSEADDR: %s", strerror(errno));
+		error$("setsockopt SO_REUSEADDR: %s", strerror(errno));
 	return ret;
 }
 
@@ -713,7 +711,7 @@ set_bindtodevice_sk(int socket, char *dev)
 		setsockopt(socket, SOL_SOCKET, SO_BINDTODEVICE, dev,
 				   strlen(dev) + 1);
 	if (ret < 0)
-		error("setsockopt SO_BINDTODEVICE: %s", strerror(errno));
+	error$("setsockopt SO_BINDTODEVICE: %s", strerror(errno));
 
 	return ret;
 }
@@ -735,7 +733,7 @@ set_multicast_loop_sk(int family, int socket, u_char loop)
 			setsockopt(socket, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, &loop,
 					   sizeof(loop));
 	if (ret < 0)
-		error("setsockopt IP_MULTICAST_LOOP: %s", strerror(errno));
+		error$("setsockopt IP_MULTICAST_LOOP: %s", strerror(errno));
 	return ret;
 }
 
@@ -751,7 +749,7 @@ set_broadcast_sk(int socket, int family, inet_prefix * host, short port,
 	if (family == AF_INET) {
 		if (setsockopt(socket, SOL_SOCKET, SO_BROADCAST, &broadcast,
 					   sizeof(broadcast)) < 0) {
-			error("Cannot set SO_BROADCAST to socket: %s",
+			error$("Cannot set SO_BROADCAST to socket: %s",
 				  strerror(errno));
 			close(socket);
 			return -1;
@@ -763,20 +761,20 @@ set_broadcast_sk(int socket, int family, inet_prefix * host, short port,
 			return -1;
 		set_multicast_if(socket, dev_idx);
 	} else
-		fatal(ERROR_MSG "family not supported", ERROR_POS);
+		fatal$("family not supported");
 
 	/* What's my name ? */
 	alen = sizeof(saddr_sto);
 	setzero(sa, alen);
 	if (getsockname(socket, sa, &alen) == -1) {
-		error("Cannot getsockname: %s", strerror(errno));
+		error$("Cannot getsockname: %s", strerror(errno));
 		close(socket);
 		return -1;
 	}
 
 	/* Let's bind it! */
 	if (bind(socket, sa, alen) < 0) {
-		error("Cannot bind the broadcast socket: %s", strerror(errno));
+		error$("Cannot bind the broadcast socket: %s", strerror(errno));
 		close(socket);
 		return -1;
 	}
@@ -792,7 +790,7 @@ unset_broadcast_sk(int socket, int family)
 		if (setsockopt
 			(socket, SOL_SOCKET, SO_BROADCAST, &broadcast,
 			 sizeof(broadcast)) < 0) {
-			error("Cannot unset broadcasting: %s", strerror(errno));
+			error$("Cannot unset broadcasting: %s", strerror(errno));
 			return -1;
 		}
 	}
@@ -806,7 +804,7 @@ set_keepalive_sk(int socket)
 
 	if (setsockopt(socket, SOL_SOCKET, SO_KEEPALIVE, (void *) &on,
 				   sizeof(on)) < 0) {
-		error("Cannot set keepalive socket: %s", strerror(errno));
+		error$("Cannot set keepalive socket: %s", strerror(errno));
 		return -1;
 	}
 	return 0;
@@ -819,7 +817,7 @@ unset_keepalive_sk(int socket)
 
 	if (setsockopt(socket, SOL_SOCKET, SO_KEEPALIVE, (void *) &off,
 				   sizeof(off)) < 0) {
-		error("Cannot unset keepalive socket: %s", strerror(errno));
+		error$("Cannot unset keepalive socket: %s", strerror(errno));
 		return -1;
 	}
 	return 0;
@@ -832,7 +830,7 @@ set_tos_sk(int socket, int lowdelay)
 
 	/* Only for Ipv4 */
 	if (setsockopt(socket, IPPROTO_IP, IP_TOS, &tos, sizeof(tos)) < 0) {
-		error("setsockopt IP_TOS %d: %s", tos, strerror(errno));
+		error$("setsockopt IP_TOS %d: %s", tos, strerror(errno));
 		return -1;
 	}
 
@@ -856,23 +854,22 @@ new_tcp_conn(inet_prefix * host, short port, char *dev)
 	ntop = inet_to_str(*host);
 
 	if (inet_to_sockaddr(host, port, sa, &sa_len)) {
-		error("Cannot new_tcp_connect(): %d Family not supported",
+		error$("Cannot new_tcp_connect(): %d Family not supported",
 			  host->family);
-		ERROR_FINISH(sk, -1, finish);
+		return (-1);
 	}
 
 	if ((sk = new_socket(host->family)) == -1)
-		ERROR_FINISH(sk, -1, finish);
+		return (-1);
 
 	if (dev)					/* if `dev' is not null bind the socket to it */
 		if (set_bindtodevice_sk(sk, dev) < 0)
-			ERROR_FINISH(sk, -1, finish);
+			return (-1);
 
 	if (connect(sk, sa, sa_len) == -1) {
-		error("Cannot tcp_connect() to %s: %s", ntop, strerror(errno));
-		ERROR_FINISH(sk, -1, finish);
+		error$("Cannot tcp_connect() to %s: %s", ntop, strerror(errno));
+		return (-1);
 	}
-  finish:
 	return sk;
 }
 
@@ -887,24 +884,23 @@ new_udp_conn(inet_prefix * host, short port, char *dev)
 	ntop = inet_to_str(*host);
 
 	if (inet_to_sockaddr(host, port, sa, &sa_len)) {
-		error("Cannot new_udp_connect(): %d Family not supported",
+		error$("Cannot new_udp_connect(): %d Family not supported",
 			  host->family);
-		ERROR_FINISH(sk, -1, finish);
+		return (-1);
 	}
 
 	if ((sk = new_dgram_socket(host->family)) == -1)
-		ERROR_FINISH(sk, -1, finish);
+		return (-1);
 
 	if (dev)					/* if `dev' is not null bind the socket to it */
 		if (set_bindtodevice_sk(sk, dev) < 0)
-			ERROR_FINISH(sk, -1, finish);
+			return (-1);
 
 	if (connect(sk, sa, sa_len) == -1) {
-		error("Cannot connect to %s: %s", ntop, strerror(errno));
-		ERROR_FINISH(sk, -1, finish);
+		error$("Cannot connect to %s: %s", ntop, strerror(errno));
+		return (-1);
 	}
 
-  finish:
 	return sk;
 }
 
@@ -925,7 +921,7 @@ new_bcast_conn(inet_prefix * host, short port, int dev_idx)
 	 * Connect
 	 */
 	if (inet_to_sockaddr(host, port, sa, &alen)) {
-		error("set_broadcast_sk: %d Family not supported", host->family);
+		error$("set_broadcast_sk: %d Family not supported", host->family);
 		return -1;
 	}
 
@@ -939,7 +935,7 @@ new_bcast_conn(inet_prefix * host, short port, int dev_idx)
 
 	if (connect(sk, sa, alen) == -1) {
 		ntop = inet_to_str(*host);
-		error("Cannot connect to the broadcast (%s): %s", ntop,
+		error$("Cannot connect to the broadcast (%s): %s", ntop,
 			  strerror(errno));
 		return -1;
 	}
@@ -960,14 +956,7 @@ inet_recv(int s, void *buf, size_t len, int flags)
 	ssize_t err;
 
 	if ((err = recv(s, buf, len, flags)) == -1) {
-		switch (errno) {
-		default:
-			/* Probably connection was closed */
-			debug(DBG_NORMAL, "inet_recv: Cannot recv(): %s",
-				  strerror(errno));
-			return err;
-			break;
-		}
+		debug$("inet_recv: Cannot recv(): %s", strerror(errno));
 	}
 	return err;
 }
@@ -992,7 +981,7 @@ inet_recv_timeout(int s, void *buf, size_t len, int flags, u_int timeout)
 
 	ret = select(s + 1, &fdset, NULL, NULL, &timeout_t);
 	if (ret == -1) {
-		error(ERROR_MSG "select error: %s", ERROR_FUNC, strerror(errno));
+		error$("select error: %s", strerror(errno));
 		return ret;
 	}
 
@@ -1006,12 +995,7 @@ inet_recvfrom(int s, void *buf, size_t len, int flags,
 	ssize_t err;
 
 	if ((err = recvfrom(s, buf, len, flags, from, fromlen)) < 0) {
-		switch (errno) {
-		default:
-			error("inet_recvfrom: Cannot recv(): %s", strerror(errno));
-			return err;
-			break;
-		}
+		error$("inet_recvfrom: Cannot recv(): %s", strerror(errno));
 	}
 	return err;
 }
@@ -1036,7 +1020,7 @@ inet_recvfrom_timeout(int s, void *buf, size_t len, int flags,
 
 	ret = select(s + 1, &fdset, NULL, NULL, &timeout_t);
 	if (ret == -1) {
-		error(ERROR_MSG "select error: %s", ERROR_FUNC, strerror(errno));
+		error$("select error: %s", strerror(errno));
 		return ret;
 	}
 
@@ -1065,7 +1049,7 @@ inet_send(int s, const void *msg, size_t len, int flags)
                                 printf("%lu", err);
 				break;
 			default:
-				error("inet_send: Cannot send(): %s", strerror(errno));
+				error$("inet_send: Cannot send(): %s", strerror(errno));
 				return err;
 				break;
 		}
@@ -1093,7 +1077,7 @@ inet_send_timeout(int s, const void *msg, size_t len, int flags,
 	ret = select(s + 1, NULL, &fdset, NULL, &timeout_t);
 
 	if (ret == -1) {
-		error(ERROR_MSG "select error: %s", ERROR_FUNC, strerror(errno));
+		error$("select error: %s", strerror(errno));
 		return ret;
 	}
 
@@ -1120,13 +1104,13 @@ inet_sendto(int s, const void *msg, size_t len, int flags,
 		case EFAULT:
                     /* Must be modified to accept IPv6 addresses
                      * when IPv6 support is activated. */
-			error("Bad Address\n"
+			error$("Bad Address\n"
                                 "To Family is: %hu "
                                 "To Data is: %s", 
                                 to->sa_family, 
                                 inet_ntoa(  (  ((struct sockaddr_in*)to)->sin_addr ) ));
 		default:
-			error("inet_sendto: Cannot send(): %s", strerror(errno));
+			error$("inet_sendto: Cannot send(): %s", strerror(errno));
 			return err;
 			break;
 		}
@@ -1156,7 +1140,7 @@ inet_sendto_timeout(int s, const void *msg, size_t len, int flags,
 	ret = select(s + 1, NULL, &fdset, NULL, &timeout_t);
 
 	if (ret == -1) {
-		error(ERROR_MSG "select error: %s", ERROR_FUNC, strerror(errno));
+		error$("select error: %s", strerror(errno));
 		return ret;
 	}
 
@@ -1172,7 +1156,7 @@ inet_sendfile(int out_fd, int in_fd, off_t * offset, size_t count)
 	ssize_t err;
 
 	if ((err = sendfile(out_fd, in_fd, offset, count)) == -1)
-		error("inet_sendfile: Cannot sendfile(): %s", strerror(errno));
+		error$("inet_sendfile: Cannot sendfile(): %s", strerror(errno));
         if (err < count) {
                 count = count - err;
                 err = inet_sendfile(out_fd, in_fd, offset, count);
@@ -1193,7 +1177,7 @@ inet_sendfile64(int out_fd, int in_fd, off64_t * offset, size_t count)
 	ssize_t err;
 
 	if ((err = sendfile64(out_fd, in_fd, offset, count)) == -1)
-		error("inet_sendfile: Cannot sendfile(): %s", strerror(errno));
+		error$("inet_sendfile: Cannot sendfile(): %s", strerror(errno));
         if (err < count) {
             count = count - err;
             err = inet_sendfile64(out_fd, in_fd, offset, count);

@@ -496,18 +496,27 @@ snsd_unpack_all_nodes(char *pack, size_t pack_sz,
 	u_short counter;
 
 	if ((sz += sizeof(struct snsd_node_llist_hdr)) > pack_sz)
-		ERROR_FINISH(snd_head, 0, finish);
+	{
+		snd_head = 0;
+		goto finish;
+	}
 
 	counter = ntohs((*(short *) buf));
 	buf += sizeof(short);
 
 	if (counter > SNSD_MAX_REC_SERV)
-		ERROR_FINISH(snd_head, 0, finish);
+	{
+		snd_head = 0;
+		goto finish;
+	}
 
 	*nodes_counter = 0;
 	for (i = 0; i < counter; i++) {
 		if ((sz += SNSD_NODE_PACK_SZ) > pack_sz)
-			ERROR_FINISH(snd_head, 0, finish);
+		{
+			snd_head = 0;
+			goto finish;
+		}
 
 		snd = snsd_unpack_node(buf);
 		buf += SNSD_NODE_PACK_SZ;
@@ -646,7 +655,10 @@ snsd_unpack_all_prios(char *pack, size_t pack_sz,
 	*nodes_counter = ncounter;
 
 	if ((sz += sizeof(struct snsd_prio_llist_hdr)) > pack_sz)
-		ERROR_FINISH(snp_head, 0, finish);
+	{
+		snp_head = 0;
+		goto finish;
+	}
 
 	counter = ntohs((*(short *) buf));
 	buf += sizeof(short);
@@ -654,18 +666,27 @@ snsd_unpack_all_prios(char *pack, size_t pack_sz,
 	(*unpacked_sz) += sizeof(short);
 
 	if (counter > SNSD_MAX_REC_SERV || counter <= 0)
-		ERROR_FINISH(snp_head, 0, finish);
+	{
+		snp_head = 0;
+		goto finish;
+	}
 
 	for (i = 0; i < counter; i++) {
 		if ((sz += SNSD_PRIO_PACK_SZ) > pack_sz)
-			ERROR_FINISH(snp_head, 0, finish);
+		{
+			snp_head = 0;
+			goto finish;
+		}
 
 		tmp_sz = (*unpacked_sz);
 		snp = snsd_unpack_prio(buf, pack_sz - usz, unpacked_sz,
 							   &tmp_counter);
 		ncounter += tmp_counter;
 		if (!snp || ncounter > SNSD_MAX_REC_SERV)
-			ERROR_FINISH(snp_head, 0, finish);
+		{
+			snp_head = 0;
+			goto finish;
+		}
 
 		/* tmp_sz=how much we've read so far from `buf' */
 		tmp_sz = (*unpacked_sz) - tmp_sz;
@@ -817,7 +838,10 @@ snsd_unpack_all_service(char *pack, size_t pack_sz,
 		*nodes_counter = ncounter;
 
 	if ((sz += sizeof(struct snsd_service_llist_hdr)) > pack_sz)
-		ERROR_FINISH(sns_head, 0, finish);
+	{
+		sns_head = 0;
+		goto finish;
+	}
 
 	counter = ntohs((*(short *) buf));
 	buf += sizeof(short);
@@ -826,18 +850,27 @@ snsd_unpack_all_service(char *pack, size_t pack_sz,
 
 
 	if (counter > SNSD_MAX_RECORDS || counter <= 0)
-		ERROR_FINISH(sns_head, 0, finish);
+	{
+		sns_head = 0;
+		goto finish;
+	}
 
 	for (i = 0; i < counter; i++) {
 		if ((sz += SNSD_SERVICE_PACK_SZ) > pack_sz)
-			ERROR_FINISH(sns_head, 0, finish);
+		{
+			sns_head = 0;
+			goto finish;
+		}
 
 		tmp_sz = (*unpacked_sz);
 		sns = snsd_unpack_service(buf, pack_sz - usz, unpacked_sz,
 								  &tmp_counter);
 		ncounter += tmp_counter;
 		if (!sns || ncounter > SNSD_MAX_RECORDS)
-			ERROR_FINISH(sns_head, 0, finish);
+		{
+			sns_head = 0;
+			goto finish;
+		}
 
 		/* tmp_sz=how much we've read from `buf' */
 		tmp_sz = (*unpacked_sz) - tmp_sz;

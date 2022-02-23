@@ -163,8 +163,8 @@ map_rnode *
 map_rnode_insert(map_node * node, size_t pos, map_rnode * new)
 {
 	if (pos >= node->links)
-		fatal("Error in %s: %d: Cannot insert map_rnode in %u position."
-			  " It goes beyond the buffer\n", ERROR_POS, pos);
+		fatal$("Error in %s: %d: Cannot insert map_rnode in %u position."
+			  " It goes beyond the buffer\n", __FILE__, __LINE__, pos);
 
 	return rnode_insert(node->r_node, pos, new);
 }
@@ -195,8 +195,8 @@ void
 rnode_del(map_node * node, size_t pos)
 {
 	if (pos >= node->links || node->links <= 0)
-		fatal("Error in %s: %d: Cannot delete Map_rnode in %u position."
-			  " It goes beyond the buffer\n", ERROR_POS, pos);
+		fatal$("Error in %s: %d: Cannot delete Map_rnode in %u position."
+			  " It goes beyond the buffer\n", __FILE__, __LINE__, pos);
 	if (pos != node->links - 1)
 		rnode_swap((map_rnode *) & node->r_node[pos],
 				   (map_rnode *) & node->r_node[(node->links - 1)]);
@@ -715,7 +715,7 @@ unpack_map(char *pack, int *addr_map, map_node ** new_root,
 	ints_network_to_host(imap_hdr, int_map_hdr_iinfo);
 
 	if (verify_int_map_hdr(imap_hdr, maxgroupnode, maxrnodeblock)) {
-		error("Malformed int/bmap_map_hdr. Aborting unpack_map().");
+		error$("Malformed int/bmap_map_hdr. Aborting unpack_map().");
 		return 0;
 	}
 
@@ -741,7 +741,7 @@ unpack_map(char *pack, int *addr_map, map_node ** new_root,
 			addr_map = (int *) map;
 		err = map_store_rblock(map, addr_map, nodes, rblock);
 		if (err != imap_hdr->rblock_sz / MAP_RNODE_PACK_SZ) {
-			error
+			error$
 				("An error occurred while storing the rnodes block in the int/bnode_map");
 			free_map(map, 0);
 			return 0;
@@ -774,7 +774,7 @@ save_map(map_node * map, map_node * root_node, char *file)
 		return 0;
 
 	if ((fd = fopen(file, "w")) == NULL) {
-		error("Cannot save the int_map in %s: %s", file, strerror(errno));
+		error$("Cannot save the int_map in %s: %s", file, strerror(errno));
 		return -1;
 	}
 
@@ -802,7 +802,7 @@ load_map(char *file, map_node ** new_root)
 	size_t pack_sz;
 
 	if ((fd = fopen(file, "r")) == NULL) {
-		error("Cannot load the map from %s: %s", file, strerror(errno));
+		error$("Cannot load the map from %s: %s", file, strerror(errno));
 		return 0;
 	}
 
@@ -831,6 +831,6 @@ load_map(char *file, map_node ** new_root)
 		xfree(pack);
 	fclose(fd);
 	if (!map)
-		error("Malformed map file. Aborting load_map().");
+		error$("Malformed map file. Aborting load_map().");
 	return map;
 }

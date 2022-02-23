@@ -187,7 +187,7 @@ a_qst_u(char *buf, andns_pkt * ap, int limitlen)
 		ret = ap->qstlength;
 		break;
 	default:
-		debug(DBG_INSANE, "In a_qst_u: unknow query type.");
+		debug$("In a_qst_u: unknow query type.");
 		err_ret(ERR_ANDMAP, -1)
 	}
 	return ret;
@@ -285,7 +285,7 @@ a_answs_u(char *buf, andns_pkt * ap, int limitlen)
 	for (i = 0; i < ancount; i++) {
 		res = a_answ_u(buf + offset, ap, limitlen - offset);
 		if (res == -1) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_ANDMAD, -1);
 		}
 		offset += res;
@@ -344,13 +344,12 @@ a_u(char *buf, int pktlen, andns_pkt ** app)
 		goto andmap;
 	offset += res;
 	if (offset != pktlen)
-		error
-			("In a_u(): pktlen differs from readed contents: ID query %d.",
+		error$("In a_u(): pktlen differs from readed contents: ID query %d.",
 			 ap->id);
 	return offset;
   andmap:
 	destroy_andns_pkt(ap);
-	error(err_str);
+	error$(err_str);
 	err_ret(ERR_ANDMAP, -1);
 }
 
@@ -427,7 +426,7 @@ a_qst_p(andns_pkt * ap, char *buf, int limitlen)
 		ret = ANDNS_HASH_H;
 		break;
 	default:
-		debug(DBG_INSANE, "In a_qst_p: unknow query type.");
+		debug$("In a_qst_p: unknow query type.");
 		err_ret(ERR_ANDMAD, -1);
 		break;
 	}
@@ -491,7 +490,7 @@ a_answ_p(andns_pkt * ap, andns_pkt_data * apd, char *buf, int limitlen)
 		}
 		break;
 	default:
-		debug(DBG_INSANE, "In a_answ_p(): unknow query type.");
+		debug$("In a_answ_p(): unknow query type.");
 		err_ret(ERR_ANDMAD, -1);
 		break;
 	}
@@ -517,7 +516,7 @@ a_answs_p(andns_pkt * ap, char *buf, int limitlen)
 	for (i = 0; i < ap->ancount && apd; i++) {
 		if ((res =
 			 a_answ_p(ap, apd, buf + offset, limitlen - offset)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_ANDMAD, -1);
 		}
 		offset += res;
@@ -549,7 +548,7 @@ a_p(andns_pkt * ap, char *buf)
 	if (offset > ANDNS_COMPR_THRESHOLD) {
 		res = andns_compress(buf, offset);
 		if (res == -1)
-			error(err_str);
+			error$(err_str);
 		else
 			return res;
 	}
@@ -557,7 +556,7 @@ a_p(andns_pkt * ap, char *buf)
 	return offset;
   server_fail:
 	destroy_andns_pkt(ap);
-	error(err_str);
+	error$(err_str);
 	err_ret(ERR_ANDMAD, -1);
 }
 

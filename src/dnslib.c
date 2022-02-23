@@ -42,7 +42,7 @@ getlblptr(char *buf)
 	if (!LBL_PTR(*c))			/* No ptr */
 		return 0;
 	if (LBL_PTR(*c) != LBL_PTR_MASK) {
-		debug(DBG_INSANE, "In getlblptr: invalid octet %02x",
+		debug$("In getlblptr: invalid octet %02x",
 			  (unsigned char) c[0]);
 		err_ret(ERR_DNSMLO, -1);
 	}
@@ -71,7 +71,7 @@ read_label_octet(const char *src, char *dst, int limit)
 
 	how = *src++;
 	if (how > limit || how > DNS_MAX_LABELS) {
-		error("In read_label_octet: got %d with limti %d\n", how, limit);
+		error$("In read_label_octet: got %d with limti %d\n", how, limit);
 		err_ret(ERR_DNSMSL, -1);
 	}
 	memcpy(dst, src, how);
@@ -102,7 +102,7 @@ lbltoname(char *buf, char *start_pkt, char *dst, int limit)
 		ptr = getlblptr(crow);
 		if (ptr) {				/* Got a pointer.... or got an error */
 			if (ptr == -1) {
-				debug(DBG_INSANE, err_str);
+				debug$(err_str);
 				err_ret(ERR_DNSMSL, -1);
 			}
 			if (++recursion > MAX_RECURSION_PTR)
@@ -121,7 +121,7 @@ lbltoname(char *buf, char *start_pkt, char *dst, int limit)
 			read_label_octet(crow, dst,
 							 min(new_limit, DNS_MAX_HNAME_LEN - writed));
 		if (how == -1) {
-			debug(DBG_INSANE, err_str);
+			debug$(err_str);
 			err_ret(ERR_DNSMSL, -1);
 		}
 		if (!recursion)
@@ -185,7 +185,7 @@ swap_straddr(char *src, char *dst)
 	*(dst + slen) = 0;
 	return 0;
   mlf_addr:
-	debug(DBG_INSANE, "in swap_straddr: invalid address `%s`.\n", src);
+	debug$("in swap_straddr: invalid address `%s`.\n", src);
 	err_ret(ERR_DNSMDD, -1);
 }
 
@@ -209,18 +209,18 @@ rm_inv_prefix(char *src, char *dst)
 	char *temp;
 	int ret;
 	if (!src) {
-		debug(DBG_INSANE, "In rm_inv_prefix: NULL argument!");
+		debug$("In rm_inv_prefix: NULL argument!");
 		err_ret(ERR_DNSMDD, -1);
 	}
 	if (!
 		((temp = (char *) strcasestr(src, DNS_INV_PREFIX)) ||
 		 (temp = (char *) strcasestr(src, DNS_INV_PREFIX6)) ||
 		 (temp = (char *) strcasestr(src, OLD_DNS_INV_PREFIX6)))) {
-		debug(DBG_INSANE, "In rm_inv_prefix(): no suffix for PTR query.");
+		debug$("In rm_inv_prefix(): no suffix for PTR query.");
 		err_ret(ERR_DNSMDD, -1);
 	}
 	if (temp - src >= DNS_MAX_HNAME_LEN) {
-		error("In rm_inv_prefix(): name too long.");
+		error$("In rm_inv_prefix(): name too long.");
 		err_ret(ERR_DNSMDD, -1);
 	}
 	ret = strstr(temp, "6") ? AF_INET6 : AF_INET;
@@ -250,7 +250,7 @@ swapped_straddr(char *src, char *dst)
 
 	res = rm_inv_prefix(src, temp);
 	if (res == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_DNSMDD, -1);
 	}
 	if (res == AF_INET)
@@ -258,7 +258,7 @@ swapped_straddr(char *src, char *dst)
 	else
 		res = swap_straddr6(temp, dst);
 	if (res == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_DNSMDD, -1);
 	}
 	return 0;
@@ -274,7 +274,7 @@ swapped_straddr_pref(char *src, char *dst, int family)
 	else
 		res = swap_straddr6(src, dst);
 	if (res == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_DNSMDD, -1);
 	}
 	add_inv_prefix(dst, family);
@@ -293,13 +293,13 @@ nametolbl(char *name, char *dst)
 	int offset = 0, res;
 
 	if (strlen(name) > DNS_MAX_HNAME_LEN) {
-		debug(DBG_INSANE, "Malformed name: %s.", name);
+		debug$("Malformed name: %s.", name);
 		err_ret(ERR_DNSMDA, -1);
 	}
 	while ((crow = strstr(name + 1, "."))) {
 		res = crow - name;
 		if (res > DNS_MAX_LABELS) {
-			debug(DBG_INSANE, "Malformed name: %s.", name);
+			debug$("Malformed name: %s.", name);
 			err_ret(ERR_DNSMDA, -1);
 		}
 		*dst = (char) res;		/* write the octet length */
@@ -313,7 +313,7 @@ nametolbl(char *name, char *dst)
 	if (!name)
 		return offset;
 	if ((res = (char) strlen(name)) > DNS_MAX_LABELS) {
-		debug(DBG_INSANE, "Malformed name: %s", name);
+		debug$("Malformed name: %s", name);
 		err_ret(ERR_DNSMDA, -1);
 	}
 	*dst++ = (char) res;
@@ -390,7 +390,7 @@ d_qst_u(char *start_buf, char *buf, dns_pkt * dp, int limit_len)
 
 	/* get name */
 	if ((count = lbltoname(buf, start_buf, dpq->qname, limit_len)) == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_DNSMDD, 1);
 	}
 	buf += count;
@@ -430,7 +430,7 @@ d_qsts_u(char *start_buf, char *buf, dns_pkt * dp, int limit_len)
 		if ((res =
 			 d_qst_u(start_buf, buf + offset, dp,
 					 limit_len - offset)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_DNSMDD, -1);
 		}
 		offset += res;
@@ -454,7 +454,7 @@ d_a_u(char *start_buf, char *buf, dns_pkt_a ** dpa_orig, int limit_len)
 
 	/* get name */
 	if ((count = lbltoname(buf, start_buf, dpa->name, limit_len)) == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_DNSMDD, -1);
 	}
 	buf += count;
@@ -499,24 +499,22 @@ d_a_u(char *start_buf, char *buf, dns_pkt_a ** dpa_orig, int limit_len)
 		if ((ui =
 			 lbltoname(buf + 2, start_buf, dpa->rdata + 2,
 					   rdlen - 2)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_DNSMDD, -1);
 		}
 		if (rdlen != ui + 2) {
-			debug(DBG_NORMAL,
-				  "In d_a_u(): rdlen (%d) differs from readed bytes (%d).",
+			debug$("In d_a_u(): rdlen (%d) differs from readed bytes (%d).",
 				  rdlen, ui + 2);
 			err_ret(ERR_DNSMDD, -1);
 		}
 		count += 2 + ui;
 	} else {
 		if ((ui = lbltoname(buf, start_buf, dpa->rdata, rdlen)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_intret(ERR_DNSMDD);
 		}
 		if (rdlen != ui) {
-			debug(DBG_NORMAL,
-				  "In d_a_u(): rdlen (%d) differs from readed bytes (%d).",
+			debug$("In d_a_u(): rdlen (%d) differs from readed bytes (%d).",
 				  rdlen, ui);
 			err_ret(ERR_DNSMDD, -1);
 		}
@@ -542,7 +540,7 @@ d_as_u(char *start_buf, char *buf, dns_pkt_a ** dpa, int limit_len,
 		if ((res =
 			 d_a_u(start_buf, buf + offset, dpa,
 				   limit_len - offset)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_intret(ERR_DNSMDD);
 		}
 		offset += res;
@@ -583,7 +581,7 @@ d_u(char *buf, int pktlen, dns_pkt ** dpp)
 	/* Writes qsts */
 	if (dp->pkt_hdr.qdcount) {
 		if ((res = d_qsts_u(buf, crow, dp, pktlen - offset)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_intret(ERR_DNSMDP);
 		}
 		offset += res;
@@ -594,7 +592,7 @@ d_u(char *buf, int pktlen, dns_pkt ** dpp)
 		if ((res =
 			 d_as_u(buf, crow, &(dp->pkt_answ), pktlen - offset,
 					DP_ANCOUNT(dp))) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_intret(ERR_DNSMDP);
 		}
 		offset += res;
@@ -669,7 +667,7 @@ d_qst_p(dns_pkt_qst * dpq, char *buf, int limitlen)
 	uint16_t u;
 
 	if ((offset = nametolbl(dpq->qname, buf)) == -1) {
-		error(err_str);
+		error$(err_str);
 		err_ret(ERR_DNSMDA, -1);
 	}
 	if (offset + 4 > limitlen)
@@ -703,7 +701,7 @@ d_qsts_p(dns_pkt * dp, char *buf, int limitlen)
 
 	for (i = 0; dpq && i < DP_QDCOUNT(dp); i++) {
 		if ((res = d_qst_p(dpq, buf + offset, limitlen - offset)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_DNSMDA, -1);
 		}
 		offset += res;
@@ -746,7 +744,7 @@ d_a_p(dns_pkt_a * dpa, char *buf, int limitlen)
 	} else if (dpa->type == T_MX) {
 		memcpy(buf + 2, dpa->rdata, 2);
 		if ((rdlen = nametolbl(dpa->rdata + 2, buf + 4)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_DNSMDA, -1);
 		}
 		offset += rdlen + 2;
@@ -755,7 +753,7 @@ d_a_p(dns_pkt_a * dpa, char *buf, int limitlen)
 		dpa->rdlength = rdlen + 2;
 	} else {
 		if ((rdlen = nametolbl(dpa->rdata, buf + 2)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_DNSMDA, -1);
 		}
 		offset += rdlen;
@@ -776,7 +774,7 @@ d_as_p(dns_pkt_a * dpa, char *buf, int limitlen, int count)
 	int i;
 	for (i = 0; dpa && i < count; i++) {
 		if ((res = d_a_p(dpa, buf + offset, limitlen - offset)) == -1) {
-			error(err_str);
+			error$(err_str);
 			err_ret(ERR_DNSMDA, -1);
 		}
 		offset += res;
@@ -826,7 +824,7 @@ d_p(dns_pkt * dp, char *buf)
 	destroy_dns_pkt(dp);
 	return offset;
   server_fail:
-	error(err_str);
+	error$(err_str);
 	destroy_dns_pkt(dp);
 	err_ret(ERR_DNSPDS, -1);
 }

@@ -60,11 +60,10 @@ hook_fill_rq(map_node * dst_rnode, PACKET * pkt, u_char rq)
 	if (rnl_fill_rq(dst_rnode, pkt) < 0)
 		return -1;
 
-	if (server_opt.dbg_lvl) {
-		const char *ntop;
-		ntop = inet_to_str(pkt->to);
-		debug(DBG_INSANE, "Quest %s to %s", rq_to_str(rq), ntop);
-	}
+	const char *ntop;
+	ntop = inet_to_str(pkt->to);
+	debug$("Quest %s to %s", rq_to_str(rq), ntop);
+
 
 	return 0;
 }
@@ -140,17 +139,24 @@ get_free_nodes(map_node * dst_rnode,
 					1, &rpkt);
 	if (err < 0) {
 		if (rpkt.hdr.sz && (u_char) (*rpkt.msg) == E_NTK_FULL)
-			ERROR_FINISH(ret, -2, finish);
-		ERROR_FINISH(ret, -1, finish);
+		{
+			ret = -2;
+		}
+		else
+		{
+			ret = -1;
+		}
+		goto finish;
 	}
 
 	ints_network_to_host(rpkt.msg, free_nodes_hdr_iinfo);
 	memcpy(fn_hdr, rpkt.msg, sizeof(struct free_nodes_hdr));
 
 	if (verify_free_nodes_hdr(&pkt.to, fn_hdr)) {
-		error("Malformed PUT_FREE_NODES request hdr from %s",
+		error$("Malformed PUT_FREE_NODES request hdr from %s",
 			  inet_to_str(pkt.to));
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 
 	fn_hdr->nodes++;
@@ -164,7 +170,7 @@ get_free_nodes(map_node * dst_rnode,
 		}
 	}
 
-	debug(DBG_NORMAL, "Received %d free %s", fn_hdr->nodes,
+	debug$("Received %d free %s", fn_hdr->nodes,
 		  fn_hdr->level == 1 ? "nodes" : "gnodes");
   finish:
 	pkt_free(&pkt, 0);
@@ -279,13 +285,12 @@ put_free_nodes(PACKET rq_pkt)
 	memcpy(p, &fn_pkt, sizeof(fn_pkt));
 	ints_host_to_network(p, free_nodes_hdr_iinfo);
 
-	debug(DBG_INSANE, "Reply %s to %s", re_to_str(pkt.hdr.op), ntop);
+	debug$("Reply %s to %s", re_to_str(pkt.hdr.op), ntop);
 	err = pkt_send(&pkt);
 
   finish:
 	if (err < 0) {
-		error
-			("put_free_nodes(): Cannot send the PUT_FREE_NODES reply to %s.",
+		error$("put_free_nodes(): Cannot send the PUT_FREE_NODES reply to %s.",
 			 ntop);
 		ret = -1;
 	}
@@ -324,15 +329,19 @@ get_qspn_round(map_node * dst_rnode, struct timeval to_rtt,
 		rnl_send_rq(dst_rnode, &pkt, 0, GET_QSPN_ROUND, 0, PUT_QSPN_ROUND,
 					1, &rpkt);
 	if (err < 0)
-		ERROR_FINISH(ret, -1, finish);
+	{
+		ret = -1;
+		goto finish;
+	}
 
 	buf = rpkt.msg;
 	bufget(&max_levels, sizeof(u_char));
 	if (QSPN_ROUND_PKT_SZ(max_levels) != rpkt.hdr.sz ||
 		max_levels > FAMILY_LVLS) {
-		error("Malformed PUT_QSPN_ROUND request hdr from %s",
+		error$("Malformed PUT_QSPN_ROUND request hdr from %s",
 			  inet_to_str(pkt.to));
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 
 	/* Convert the pkt from network to host order */
@@ -441,13 +450,12 @@ put_qspn_round(PACKET rq_pkt)
 	pkt.msg = xzalloc(pkt_sz);
 
 	/* Go pkt, go! Follow your instinct */
-	debug(DBG_INSANE, "Reply %s to %s", re_to_str(pkt.hdr.op), ntop);
+	debug$("Reply %s to %s", re_to_str(pkt.hdr.op), ntop);
 	memcpy(pkt.msg, &qr_pkt, sizeof(qr_pkt));
 	err = pkt_send(&pkt);
 
 	if (err < 0) {
-		error
-			("put_qspn_round(): Cannot send the PUT_QSPN_ROUND reply to %s.",
+		error$("put_qspn_round(): Cannot send the PUT_QSPN_ROUND reply to %s.",
 			 ntop);
 		ret = -1;
 	}
@@ -478,12 +486,13 @@ put_ext_map(PACKET rq_pkt)
 	pkt.msg =
 		pack_extmap(me.ext_map, MAXGROUPNODE, &me.cur_quadg, &pkt_sz);
 	pkt.hdr.sz = pkt_sz;
-	debug(DBG_INSANE, "Reply %s to %s", re_to_str(PUT_EXT_MAP), ntop);
+	debug$("Reply %s to %s", re_to_str(PUT_EXT_MAP), ntop);
 	err = send_rq(&pkt, 0, PUT_EXT_MAP, rq_pkt.hdr.id, 0, 0, 0);
 	if (err < 0) {
-		error("put_ext_maps(): Cannot send the PUT_EXT_MAP reply to %s.",
+		error$("put_ext_maps(): Cannot send the PUT_EXT_MAP reply to %s.",
 			  ntop);
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 
   finish:
@@ -519,8 +528,7 @@ get_ext_map(map_node * dst_rnode, quadro_group * new_quadg)
 	pack = rpkt.msg;
 	ret = ext_map = unpack_extmap(pack, new_quadg);
 	if (!ext_map)
-		error
-			("get_ext_map: Malformed ext_map. Cannot unpack the ext_map.");
+		error$("get_ext_map: Malformed ext_map. Cannot unpack the ext_map.");
   finish:
 	pkt_free(&pkt, 0);
 	pkt_free(&rpkt, 0);
@@ -551,12 +559,13 @@ put_int_map(PACKET rq_pkt)
 
 	pkt.msg = pack_map(map, 0, MAXGROUPNODE, me.cur_node, &pkt_sz);
 	pkt.hdr.sz = pkt_sz;
-	debug(DBG_INSANE, "Reply %s to %s", re_to_str(PUT_INT_MAP), ntop);
+	debug$("Reply %s to %s", re_to_str(PUT_INT_MAP), ntop);
 	err = send_rq(&pkt, 0, PUT_INT_MAP, rq_pkt.hdr.id, 0, 0, 0);
 	if (err < 0) {
-		error("put_int_map(): Cannot send the PUT_INT_MAP reply to %s.",
+		error$("put_int_map(): Cannot send the PUT_INT_MAP reply to %s.",
 			  ntop);
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
   finish:
 	pkt_free(&pkt, 0);
@@ -592,7 +601,7 @@ get_int_map(map_node * dst_rnode, map_node ** new_root)
 	ret = int_map = unpack_map(pack, 0, new_root, MAXGROUPNODE,
 							   MAXRNODEBLOCK_PACK_SZ);
 	if (!int_map)
-		error("get_int_map(): Malformed int_map. Cannot load it");
+		error$("get_int_map(): Malformed int_map. Cannot load it");
 
 	/*Finished, yeah */
   finish:
@@ -628,13 +637,13 @@ put_bnode_map(PACKET rq_pkt)
 					   &pack_sz);
 	pkt.hdr.sz = pack_sz;
 
-	debug(DBG_INSANE, "Reply %s to %s", re_to_str(PUT_BNODE_MAP), ntop);
+	debug$("Reply %s to %s", re_to_str(PUT_BNODE_MAP), ntop);
 	err = send_rq(&pkt, 0, PUT_BNODE_MAP, rq_pkt.hdr.id, 0, 0, 0);
 	if (err < 0) {
-		error
-			("put_bnode_maps(): Cannot send the PUT_BNODE_MAP reply to %s.",
+		error$("put_bnode_maps(): Cannot send the PUT_BNODE_MAP reply to %s.",
 			 ntop);
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 
   finish:
@@ -673,7 +682,7 @@ get_bnode_map(map_node * dst_rnode, u_int ** bmap_nodes)
 		unpack_all_bmaps(pack, FAMILY_LVLS, me.ext_map, bmap_nodes,
 						 MAXGROUPNODE, MAXBNODE_RNODEBLOCK);
 	if (!bnode_map)
-		error("get_bnode_map(): Malformed bnode_map. Cannot load it");
+		error$("get_bnode_map(): Malformed bnode_map. Cannot load it");
 
   finish:
 	pkt_free(&pkt, 0);
@@ -707,12 +716,13 @@ put_internet_gws(PACKET rq_pkt)
 						(int *) &pack_sz);
 	pkt.hdr.sz = pack_sz;
 
-	debug(DBG_INSANE, "Reply %s to %s", re_to_str(PUT_INTERNET_GWS), ntop);
+	debug$("Reply %s to %s", re_to_str(PUT_INTERNET_GWS), ntop);
 	err = send_rq(&pkt, 0, PUT_INTERNET_GWS, rq_pkt.hdr.id, 0, 0, 0);
 	if (err < 0) {
-		error("put_internet_gws(): Cannot send the PUT_INTERNET_GWS "
+		error$("put_internet_gws(): Cannot send the PUT_INTERNET_GWS "
 			  "reply to %s.", ntop);
-		ERROR_FINISH(ret, -1, finish);
+		ret = -1;
+		goto finish;
 	}
 
   finish:
@@ -741,7 +751,10 @@ get_internet_gws(map_node * dst_rnode, int **igws_counter)
 	err = rnl_send_rq(dst_rnode, &pkt, 0, GET_INTERNET_GWS, 0,
 					  PUT_INTERNET_GWS, 1, &rpkt);
 	if (err < 0)
-		ERROR_FINISH(ret, 0, finish);
+	{
+		ret = 0;
+		goto finish;
+	}
 
 	/* Extracting the list... */
 	pack = rpkt.msg;
@@ -749,8 +762,7 @@ get_internet_gws(map_node * dst_rnode, int **igws_counter)
 		unpack_igws(pack, rpkt.hdr.sz, me.int_map, me.ext_map, FAMILY_LVLS,
 					&igws, igws_counter);
 	if (ret < 0) {
-		error
-			("get_internet_gws(): Malformed internet_gws. Cannot load it");
+		error$("get_internet_gws(): Malformed internet_gws. Cannot load it");
 		igws = 0;
 	}
 
@@ -772,7 +784,7 @@ hook_set_all_ips(inet_prefix ip, interface * ifs, int ifs_n)
 	const char *ntop;
 	ntop = inet_to_str(ip);
 
-	loginfo("Setting the %s ip to all the interfaces", ntop);
+	info$("Setting the %s ip to all the interfaces", ntop);
 
 	if (my_family == AF_INET) {
 		/* Down & Up: reset the configurations of all the interfaces */
@@ -784,13 +796,13 @@ hook_set_all_ips(inet_prefix ip, interface * ifs, int ifs_n)
 	}
 
 	if (set_all_dev_ip(ip, ifs, ifs_n) < 0)
-		fatal("Cannot set the %s ip to all the interfaces", ntop);
+		fatal$("Cannot set the %s ip to all the interfaces", ntop);
 	if (restricted_mode && (server_opt.use_shared_inet ||
 							server_opt.share_internet)) {
 		set_dev_down(DEFAULT_TUNL_IF);
 		set_dev_up(DEFAULT_TUNL_IF);
 		if (set_dev_ip(ip, DEFAULT_TUNL_IF) < 0)
-			fatal("Cannot assign an IP to the default tunnel");
+			fatal$("Cannot assign an IP to the default tunnel");
 	}
 }
 
@@ -884,7 +896,7 @@ create_new_qgroup(int hook_level)
 
 	hook_set_all_ips(me.cur_ip, me.cur_ifs, me.cur_ifs_n);
 
-	loginfo("Now we are in a brand new gnode. The ip %s is now"
+	info$("Now we are in a brand new gnode. The ip %s is now"
 			" used.", ntop);
 }
 
@@ -923,8 +935,7 @@ update_join_rate(map_gnode * hook_gnode, int hook_level,
 	if (old_gcount[_EL(hook_level)] <= free_nodes)
 		return -1;
 
-	debug(DBG_SOFT,
-		  "update_join_rate: free_nodes %d, fn_hdr->join_rate %d",
+	debug$("update_join_rate: free_nodes %d, fn_hdr->join_rate %d",
 		  free_nodes, fn_hdr->join_rate);
 
 	/* There aren't free nodes in `hook_gnode', so skip this function */
@@ -969,7 +980,7 @@ update_join_rate(map_gnode * hook_gnode, int hook_level,
 	}
 
 
-	debug(DBG_NOISE, "update_join_rate: new join_rate %u, new_gnode %d",
+	debug$("update_join_rate: new join_rate %u, new_gnode %d",
 		  hook_join_rate, new_gnode);
 
   finish:
@@ -1005,7 +1016,7 @@ hook_init(void)
 
 	hook_reset();
 
-	debug(DBG_NORMAL, "Activating ip_forward and disabling rp_filter");
+	debug$("Activating ip_forward and disabling rp_filter");
 	route_ip_forward(my_family, 1);
 	route_rp_filter_all_dev(my_family, me.cur_ifs, me.cur_ifs_n, 0);
 	if (restricted_mode && (server_opt.share_internet ||
@@ -1121,12 +1132,11 @@ hook_first_radar_scan(map_gnode * hook_gnode, int hook_level,
 	for (i = 0; i < MAX_FIRST_RADAR_SCANS; i++) {
 		me.cur_node->flags |= MAP_HNODE;
 
-		loginfo("Launching radar_scan %d of %d", i + 1,
+		info$("Launching radar_scan %d of %d", i + 1,
 				MAX_FIRST_RADAR_SCANS);
 
 		if (radar_scan(0))
-			fatal("%s:%d: Scan of the area failed. Cannot continue.",
-				  ERROR_POS);
+			fatal$("Scan of the area failed. Cannot continue.");
 		total_hooking_nodes = count_hooking_nodes();
 
 		if (!me.cur_node->links ||
@@ -1145,10 +1155,10 @@ hook_first_radar_scan(map_gnode * hook_gnode, int hook_level,
 				if (i + 1 < MAX_FIRST_RADAR_SCANS)
 					goto hook_retry_scan;
 
-				loginfo("No nodes found! This is a black zone. "
+				info$("No nodes found! This is a black zone. "
 						"Creating a new_gnode.");
 			} else
-				loginfo("There are %d nodes around, which are hooking"
+				info$("There are %d nodes around, which are hooking"
 						" like us, but we came first so we have "
 						"to create the new gnode", total_hooking_nodes);
 			create_new_qgroup(hook_level);
@@ -1160,8 +1170,7 @@ hook_first_radar_scan(map_gnode * hook_gnode, int hook_level,
 			 * after them, so we wait until some of them create the new
 			 * gnode.
 			 */
-			loginfo
-				("I've seen %d hooking nodes around us, and one of them "
+			info$("I've seen %d hooking nodes around us, and one of them "
 				 "is becoming a new gnode.\n"
 				 "  We wait, then we'll restart the hook.",
 				 total_hooking_nodes);
@@ -1180,10 +1189,10 @@ hook_first_radar_scan(map_gnode * hook_gnode, int hook_level,
 		qspn_b_del_all_dead_rnodes();
 	}
 	if (me.cur_node->links < 1) {
-		loginfo("We have %d nodes around us. (%d are hooking)",
+		info$("We have %d nodes around us. (%d are hooking)",
 				me.cur_node->links, total_hooking_nodes);
 	} else if (me.cur_node->links == 1) {
-		loginfo("We have %d node around us. (%d are hooking)",
+		info$("We have %d node around us. (%d are hooking)",
 				me.cur_node->links, total_hooking_nodes);
 	}
 	return 0;
@@ -1217,7 +1226,7 @@ hook_get_free_nodes(int hook_level, struct free_nodes_hdr *fn_hdr,
 
 		err = get_free_nodes(rnl->node, fn_hdr, fnodes);
 		if (err == -2)
-			fatal("Netsukuku is full! Bring down some nodes and retry");
+			fatal$("Netsukuku is full! Bring down some nodes and retry");
 		else if (err == -1)
 			continue;
 
@@ -1236,7 +1245,7 @@ hook_get_free_nodes(int hook_level, struct free_nodes_hdr *fn_hdr,
 	*ret_rnl = rnl;
 
 	if (!e) {
-		loginfo("It seems all the quadro_groups in this area are full "
+		info$("It seems all the quadro_groups in this area are full "
 				"or are not cooperating.\n  "
 				"We are going to create a new gnode");
 
@@ -1273,7 +1282,7 @@ hook_choose_new_ip(map_gnode * hook_gnode, int hook_level,
 		 * a gid based on the hash of our current gid.
 		 */
 		inet_copy(&me.cur_ip, &rk_gnode_ip);
-		debug(DBG_NORMAL, "rehook_create_gnode: %s is our new ip",
+		debug$("rehook_create_gnode: %s is our new ip",
 			  inet_to_str(me.cur_ip));
 	} else {
 		/* 
@@ -1332,7 +1341,7 @@ hook_get_ext_map(int hook_level, int new_gnode,
 	 * Fetch the ext_map from the node who gave us the free nodes list. 
 	 */
 	if (!(new_ext_map = get_ext_map(rnl->node, &me.cur_quadg)))
-		fatal("None of the rnodes in this area gave me the extern map");
+		fatal$("None of the rnodes in this area gave me the extern map");
 	me.ext_map = new_ext_map;
 
 	if (we_are_rehooking && hook_level) {
@@ -1430,7 +1439,7 @@ hook_get_int_map(void)
 		}
 	}
 	if (!imaps)
-		fatal("None of the rnodes in this area gave me the int_map");
+		fatal$("None of the rnodes in this area gave me the int_map");
 
 	for (i = 0; i < imaps; i++)
 		free_map(merg_map[i], 0);
@@ -1471,7 +1480,7 @@ hook_get_bnode_map(void)
 		}
 	}
 	if (!e)
-		loginfo("None of the rnodes in this area gave me the bnode map.");
+		info$("None of the rnodes in this area gave me the bnode map.");
 
 }
 
@@ -1510,7 +1519,7 @@ hook_get_igw(void)
 		}
 	}
 	if (!e) {
-		loginfo("None gave me the Internet Gateway list");
+		info$("None gave me the Internet Gateway list");
 		reset_igws(me.igws, me.igws_counter, FAMILY_LVLS);
 	}
 }
@@ -1570,12 +1579,10 @@ hook_finish(int new_gnode, struct free_nodes_hdr *fn_hdr)
 					 me.my_bandwidth, me.cur_node, &me.cur_quadg);
 	}
 
-	loginfo("Starting the second radar scan before sending our"
+	info$("Starting the second radar scan before sending our"
 			" first tracer_pkt");
 	if (radar_scan(0))
-		fatal("%s:%d: Scan of the area failed. Cannot continue.",
-			  ERROR_POS);
-
+		fatal$("Scan of the area failed. Cannot continue.");
 	/* 
 	 * Now we send a simple tracer_pkt in all the level we have to. This pkt
 	 * is just to say <<Hey there, I'm here, alive>>, thus the other nodes
@@ -1590,7 +1597,7 @@ hook_finish(int new_gnode, struct free_nodes_hdr *fn_hdr)
 	}
 
 	/* Let's fill the krnl routing table */
-	loginfo("Filling the kernel routing table");
+	info$("Filling the kernel routing table");
 
 	rt_full_update(0);
 	if (restricted_mode && (server_opt.use_shared_inet ||
@@ -1599,7 +1606,7 @@ hook_finish(int new_gnode, struct free_nodes_hdr *fn_hdr)
 							 me.my_igws, me.cur_quadg.levels, my_family);
 
 	/* (Re)Hook completed */
-	loginfo("%sook completed", we_are_rehooking ? "Reh" : "H");
+	info$("%sook completed", we_are_rehooking ? "Reh" : "H");
 
 	we_are_rehooking = 0;
 }
@@ -1636,7 +1643,7 @@ netsukuku_hook(map_gnode * hook_gnode, int hook_level)
 	/*  
 	 * *       The beginning          * *       
 	 */
-	loginfo("The %s begins. Starting to scan the area",
+	info$("The %s begins. Starting to scan the area",
 			we_are_rehooking ? "rehook" : "hook");
 	new_gnode = hook_first_radar_scan(hook_gnode, hook_level, &old_quadg);
 	if (new_gnode)

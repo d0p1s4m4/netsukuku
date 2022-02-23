@@ -588,7 +588,7 @@ main(int argc, char **argv)
 	extern int optind, opterr, optopt;
 	extern char *optarg;
 
-	log_init("", 0, 1);
+	log_initialize(argv[0]);
 	gettimeofday(&time_start, NULL);
 
 	opts_init();

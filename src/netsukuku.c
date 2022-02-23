@@ -59,7 +59,7 @@ save_pid(void)
 	FILE *fd;
 
 	if (!(fd = fopen(server_opt.pid_file, "w")))
-		error("Couldn't create pid file \"%s\": %s",
+		error$("Couldn't create pid file \"%s\": %s",
 			  server_opt.pid_file, strerror(errno));
 	fprintf(fd, "ntkd %ld\n", (long) getpid());
 
@@ -80,14 +80,14 @@ is_ntkd_already_running(void)
 
 	if (!(fd = fopen(server_opt.pid_file, "r"))) {
 		if (errno != ENOENT)
-			error("Cannot read pid file \"%s\": %s",
+			error$("Cannot read pid file \"%s\": %s",
 				  server_opt.pid_file, strerror(errno));
 		return 0;
 	}
 
 	fscanf(fd, "ntkd %d\n", &oldpid);
 	if (ferror(fd)) {
-		error("error reading pid file \"%s\": %s\n",
+		error$("error reading pid file \"%s\": %s\n",
 			  server_opt.pid_file, strerror(errno));
 		fclose(fd);
 		return 0;
@@ -102,7 +102,7 @@ ntk_load_maps(void)
 {
 	if (file_exist(server_opt.int_map_file) &&
 		(me.int_map = load_map(server_opt.int_map_file, &me.cur_node)))
-		debug(DBG_NORMAL, "Internal map loaded");
+		debug$("Internal map loaded");
 	else
 		me.int_map = init_map(0);
 
@@ -110,7 +110,7 @@ ntk_load_maps(void)
 	/* Don't load the bnode map, it's useless */
 	if ((me.bnode_map = load_bmap(server_opt.bnode_map_file, me.ext_map,
 								  FAMILY_LVLS, &me.bmap_nodes))) {
-		debug(DBG_NORMAL, "Bnode map loaded");
+		debug$("Bnode map loaded");
 	} else
 #endif
 		bmap_levels_init(BMAP_LEVELS(FAMILY_LVLS), &me.bnode_map,
@@ -120,7 +120,7 @@ ntk_load_maps(void)
 
 	if (file_exist(server_opt.ext_map_file) &&
 		(me.ext_map = load_extmap(server_opt.ext_map_file, &me.cur_quadg)))
-		debug(DBG_NORMAL, "External map loaded");
+		debug$("External map loaded");
 	else
 		me.ext_map = init_extmap(FAMILY_LVLS, 0);
 
@@ -130,16 +130,16 @@ ntk_load_maps(void)
 int
 ntk_save_maps(void)
 {
-	debug(DBG_NORMAL, "Saving the internal map");
+	debug$("Saving the internal map");
 	save_map(me.int_map, me.cur_node, server_opt.int_map_file);
 
 #ifdef DEBUG
-	debug(DBG_NORMAL, "Saving the border nodes map");
+	debug$("Saving the border nodes map");
 	save_bmap(me.bnode_map, me.bmap_nodes, me.ext_map, me.cur_quadg,
 			  server_opt.bnode_map_file);
 #endif
 
-	debug(DBG_NORMAL, "Saving the external map");
+	debug$("Saving the external map");
 	save_extmap(me.ext_map, MAXGROUPNODE, &me.cur_quadg,
 				server_opt.ext_map_file);
 
@@ -210,7 +210,7 @@ fill_default_options(void)
 	server_opt.counter_c_file = COUNTER_C_FILE;
 
 	server_opt.daemon = 1;
-	server_opt.dbg_lvl = 0;
+	server_opt.dbg_lvl = LOG_INFO;
 
 	server_opt.disable_andna = 0;
 	server_opt.disable_resolvconf = 0;
@@ -281,8 +281,7 @@ fill_loaded_cfg_options(void)
 	if ((value = CONF_GET_VALUE(CONF_NTK_INTERNET_GW))) {
 		if (str_to_inet_gw(value, &server_opt.inet_gw,
 						   &server_opt.inet_gw_dev))
-			fatal
-				("Malformed `%s' option: \"%s\". Its syntax is \"IP:dev\"",
+			fatal$("Malformed `%s' option: \"%s\". Its syntax is \"IP:dev\"",
 				 config_str[CONF_NTK_INTERNET_GW], value);
 	}
 	CONF_GET_INT_VALUE(CONF_NTK_INTERNET_UPLOAD, server_opt.my_upload_bw);
@@ -298,7 +297,7 @@ fill_loaded_cfg_options(void)
 													 &server_opt.
 													 inet_hosts_counter);
 		if (!server_opt.inet_hosts)
-			fatal("Malformed `%s' option: \"%s\". "
+			fatal$("Malformed `%s' option: \"%s\". "
 				  "Its syntax is host1:host2:...",
 				  config_str[CONF_NTK_INTERNET_PING_HOSTS], value);
 	}
@@ -381,7 +380,7 @@ exclude_interface(void)
                         return 0;
 		}
                 else
-                    fatal("Interface %s not found!", optarg);
+                    fatal$("Interface %s not found!", optarg);
 	}
 }
 
@@ -481,10 +480,9 @@ parse_options(int argc, char **argv)
 			break;
 		case '6':
 #ifdef IPV6_DISABLED
-			fatal("The ipv6 is still not supported");
+			fatal$("The ipv6 is still not supported");
 #endif
-			loginfo
-				("WARNING: The ipv6 support is still experimental and under "
+			info$("WARNING: The ipv6 support is still experimental and under "
 				 "development, nothing is assured to work.");
 			server_opt.family = AF_INET6;
 			break;
@@ -492,12 +490,14 @@ parse_options(int argc, char **argv)
 			server_opt.config_file = xstrndup(optarg, NAME_MAX - 1);
 			break;
 		case 'l':
-			if (log_to_file(optarg) < 0)
-				fatal(0);
+			/*if (log_to_file(optarg) < 0)
+				fatal$(0);
+				FIXME: log to file
+				*/
 			break;
 		case 'i':
                     	if(server_opt.ifs_n+1 >= MAX_INTERFACES)
-                            fatal("The maximum number of interfaces is %d",
+                            fatal$("The maximum number of interfaces is %d",
 							MAX_INTERFACES);
 			server_opt.ifs[server_opt.ifs_n++]=xstrndup(optarg, IFNAMSIZ-1);
 			break;
@@ -542,16 +542,16 @@ parse_options(int argc, char **argv)
 		case 'I':
 			server_opt.share_internet = 1;
 			if (!server_opt.restricted) {
-				loginfo("Share_internet=1. Assuming restricted=1");
+				info$("Share_internet=1. Assuming restricted=1");
 				server_opt.restricted = 1;
 			}
 			if (!server_opt.inet_connection) {
-				loginfo("Share_internet=1. Assuming inet_connection=1");
+				info$("Share_internet=1. Assuming inet_connection=1");
 				server_opt.inet_connection = 1;
 			}
 			break;
 		case 'd':
-			server_opt.dbg_lvl++;
+			server_opt.dbg_lvl = LOG_DEBUG;
 			break;
 		default:
 			usage();
@@ -571,7 +571,7 @@ parse_options(int argc, char **argv)
 void
 check_conflicting_options(void)
 {
-#define FATAL_NOT_SPECIFIED(str) 	fatal("You didn't specified the `%s' " \
+#define FATAL_NOT_SPECIFIED(str) 	fatal$("You didn't specified the `%s' " \
 						"option in netsukuku.conf",    \
 							(str));		       \
 
@@ -584,44 +584,44 @@ check_conflicting_options(void)
 
 	if (server_opt.restricted && server_opt.share_internet &&
 		!file_exist(server_opt.ip_masq_script))
-		fatal("ip_masquerade_script \"%s\" is inexistent",
+		fatal$("ip_masquerade_script \"%s\" is inexistent",
 			  server_opt.ip_masq_script);
 
 	if (server_opt.shape_internet &&
 		!file_exist(server_opt.tc_shaper_script))
-		fatal("tc_shaper_script \"%s\" is inexistent",
+		fatal$("tc_shaper_script \"%s\" is inexistent",
 			  server_opt.ip_masq_script);
 
 	if (!server_opt.restricted && server_opt.inet_connection)
-		fatal("inet_connection=1 but ntk_restricted_mode=0. If you "
+		fatal$("inet_connection=1 but ntk_restricted_mode=0. If you "
 			  "want to be compatible with the Internet, "
 			  "set the restricted mode in the options");
 
 	if (!server_opt.restricted && (server_opt.share_internet))
-		fatal("You want to share your Internet connection,"
+		fatal$("You want to share your Internet connection,"
 			  "but I am not running in restricted mode (-r), "
 			  "'cause I'm not sure of what you want... " "I'm aborting.");
 
 	if (server_opt.share_internet && me.my_bandwidth < MIN_CONN_BANDWIDTH)
-		fatal("You want to share your Internet connection but "
+		fatal$("You want to share your Internet connection but "
 			  "your bandwidth is just TOO small. Do not share "
 			  "it, or your connection will be saturated");
 
 	if (!server_opt.inet_connection && server_opt.share_internet) {
-		loginfo("You want to share your Internet connection,"
+		info$("You want to share your Internet connection,"
 				"but `internet_connection' is set to 0."
 				"We are assuming it is 1");
 		server_opt.inet_connection = 1;
 	}
 
 	if (server_opt.shape_internet && !server_opt.inet_connection)
-		fatal("The Internet traffic shaping option is set, but "
+		fatal$("The Internet traffic shaping option is set, but "
 			  "the `internet_connection' is set to 0, please check "
 			  "your options.");
 
 #ifdef IPV6_DISABLED
 	if (server_opt.inet_gw.family == AF_INET6)
-		fatal("Ipv6 is not supported");
+		fatal$("Ipv6 is not supported");
 #endif
 }
 
@@ -631,14 +631,14 @@ init_netsukuku(void)
 	xsrand();
 
 	if (geteuid())
-		fatal("Need root privileges");
+		fatal$("Need root privileges");
 
 	destroy_netsukuku_mutex = pid_saved = 0;
 	sigterm_timestamp = sighup_timestamp = sigalrm_timestamp = 0;
 	setzero(&me, sizeof(struct current_globals));
 
 	if (is_ntkd_already_running())
-		fatal("ntkd is already running. If it is not, remove \"%s\"",
+		fatal$("ntkd is already running. If it is not, remove \"%s\"",
 			  server_opt.pid_file);
 	else
 		save_pid();
@@ -650,14 +650,14 @@ init_netsukuku(void)
 
 	/* Check if the DATA_DIR exists, if not create it */
 	if (check_and_create_dir(DATA_DIR))
-		fatal("Cannot access to the %s directory. Exiting.", DATA_DIR);
+		fatal$("Cannot access to the %s directory. Exiting.", DATA_DIR);
 
 	/*
 	 * Device initialization
 	 */
 	if (if_init_all(server_opt.ifs, server_opt.ifs_n,
 					me.cur_ifs, &me.cur_ifs_n) < 0)
-		fatal("Cannot initialize any network interfaces");
+		fatal$("Cannot initialize any network interfaces");
 
 	/*
 	 * ANDNA init
@@ -687,7 +687,7 @@ init_netsukuku(void)
 
 #if 0
 	/* TODO: activate and test it !! */
-	debug(DBG_NORMAL, "ACPT: Initializing the accept_tbl: \n"
+	debug$("ACPT: Initializing the accept_tbl: \n"
 		  "	max_connections: %d,\n"
 		  "	max_accepts_per_host: %d,\n"
 		  "	max_accept_per_host_time: %d",
@@ -700,7 +700,7 @@ init_netsukuku(void)
 #endif
 
 	if (restricted_mode)
-		loginfo("NetsukukuD is in restricted mode. "
+		info$("NetsukukuD is in restricted mode. "
 				"Restricted class: %s",
 				server_opt.
 				restricted_class ? RESTRICTED_172_STR : RESTRICTED_10_STR);
@@ -746,7 +746,7 @@ sigterm_handler(int sig)
 	sigterm_timestamp = time(0);
 
 	if (!destroy_netsukuku())
-		fatal("Termination signal caught. Dying, bye, bye");
+		fatal$("Termination signal caught. Dying, bye, bye");
 }
 
 void *
@@ -756,7 +756,7 @@ reload_hostname_thread(void *null)
 	 * Reload the file where the hostnames to be registered are and
 	 * register the new ones
 	 */
-	loginfo("Reloading the andna hostnames file");
+	info$("Reloading the andna hostnames file");
 	load_hostnames(server_opt.andna_hnames_file, &andna_lcl, &lcl_counter);
 	load_snsd(server_opt.snsd_nodes_file, andna_lcl);
 	andna_update_hnames(1);
@@ -787,7 +787,7 @@ rh_cache_flush_thread(void *null)
 	/*
 	 * Flush the resolved hostnames cache.
 	 */
-	loginfo("Flush the resolved hostnames cache");
+	info$("Flush the resolved hostnames cache");
 	rh_cache_flush();
 
 	return 0;
@@ -823,15 +823,16 @@ main(int argc, char **argv)
 	pthread_t ping_igw_thread;
 	pthread_attr_t t_attr;
 
-	log_init(argv[0], 0, 1);
+	log_initialize(argv[0]);
+	log_set_output_fd(stdout);
 
 	/* Options loading... */
 	fill_default_options();
 	parse_options(argc, argv);
 
 	/* reinit the logs using the new `dbg_lvl' value */
-	log_init(argv[0], server_opt.dbg_lvl, 1);
-	log_to_file(0);
+	log_set_level(server_opt.dbg_lvl);
+	//log_to_file(0);
 
 	/* Load the option from the config file */
 	load_config_file(server_opt.config_file);
@@ -854,10 +855,10 @@ main(int argc, char **argv)
 
 	/* Angelic foreground or Daemonic background ? */
 	if (server_opt.daemon) {
-		loginfo("Forking to background");
-		log_init(argv[0], server_opt.dbg_lvl, 0);
+		info$("Forking to background");
+		//log_init(argv[0], server_opt.dbg_lvl, 0);
 		if (daemon(0, 0) == -1)
-			error("Impossible to daemonize: %s.", strerror(errno));
+			error$("Impossible to daemonize: %s.", strerror(errno));
 
 	}
 
@@ -869,12 +870,12 @@ main(int argc, char **argv)
 	 * These are the daemons, the main threads that keeps NetsukukuD
 	 * up & running.
 	 */
-	debug(DBG_NORMAL, "Activating all daemons");
+	debug$("Activating all daemons");
 
 	pthread_mutex_init(&udp_daemon_lock, 0);
 	pthread_mutex_init(&tcp_daemon_lock, 0);
 
-	debug(DBG_SOFT, "Evoking the netsukuku udp radar daemon.");
+	debug$("Evoking the netsukuku udp radar daemon.");
 	ud_argv.port = NTK_UDP_RADAR_PORT;
 	pthread_mutex_lock(&udp_daemon_lock);
 	pthread_create(&daemon_udp_thread, &t_attr, udp_daemon,
@@ -882,7 +883,7 @@ main(int argc, char **argv)
 	pthread_mutex_lock(&udp_daemon_lock);
 	pthread_mutex_unlock(&udp_daemon_lock);
 
-	debug(DBG_SOFT, "Evoking the netsukuku tcp daemon.");
+	debug$("Evoking the netsukuku tcp daemon.");
 	port = NTK_TCP_PORT;
 	pthread_mutex_lock(&tcp_daemon_lock);
 	pthread_create(&daemon_tcp_thread, &t_attr, tcp_daemon, (void *) &port);
@@ -901,16 +902,16 @@ main(int argc, char **argv)
 
 	if (restricted_mode && (server_opt.share_internet ||
 							server_opt.use_shared_inet)) {
-		debug(DBG_SOFT, "Evoking the Internet Gateway Pinger daemon");
+		debug$("Evoking the Internet Gateway Pinger daemon");
 		pthread_create(&ping_igw_thread, &t_attr, igw_monitor_igws_t, 0);
 	}
 
 	/* We use this same process for the radar_daemon. */
-	debug(DBG_SOFT, "Evoking radar daemon.");
+	debug$("Evoking radar daemon.");
 	radar_daemon(0);
 
 	/* Not reached, hahaha */
-	loginfo("Cya m8");
+	info$("Cya m8");
 	pthread_attr_destroy(&t_attr);
 	destroy_netsukuku();
 

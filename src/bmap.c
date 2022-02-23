@@ -381,7 +381,7 @@ unpack_all_bmaps(char *pack, u_char max_levels, map_gnode ** ext_map,
 		unpacked_bmap = unpack_map(bblock, (int *) ext_map[_EL(i + 1)], 0,
 								   maxbnodes, maxbnode_rnodeblock);
 		if (!unpacked_bmap) {
-			error("Cannot unpack the bnode_map at level %d ! Skipping...",
+			error$("Cannot unpack the bnode_map at level %d ! Skipping...",
 				  i);
 			e++;
 			continue;
@@ -424,7 +424,7 @@ save_bmap(map_bnode ** bmaps, u_int * bmap_nodes, map_gnode ** ext_map,
 		return 0;
 
 	if ((fd = fopen(file, "w")) == NULL) {
-		error("Cannot save the bnode_map in %s: %s", file,
+		error$("Cannot save the bnode_map in %s: %s", file,
 			  strerror(errno));
 		return -1;
 	}
@@ -453,7 +453,7 @@ load_bmap(char *file, map_gnode ** ext_map, u_char max_levels,
 	char *pack = 0;
 
 	if ((fd = fopen(file, "r")) == NULL) {
-		error("Cannot load the bmap from %s: %s", file, strerror(errno));
+		error$("Cannot load the bmap from %s: %s", file, strerror(errno));
 		return 0;
 	}
 
@@ -480,6 +480,6 @@ load_bmap(char *file, map_gnode ** ext_map, u_char max_levels,
 	if (pack)
 		xfree(pack);
 	if (!bmap)
-		error("Malformed bmap file. Cannot load the bnode maps.");
+		error$("Malformed bmap file. Cannot load the bnode maps.");
 	return bmap;
 }

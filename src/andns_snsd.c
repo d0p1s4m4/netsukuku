@@ -124,7 +124,7 @@ size_t snsd_node_to_aansw(char *buf,snsd_node *sn,u_char prio,int iplen)
 
 	res=snsd_node_to_data(buf+2,sn,iplen);
 	if (res==-1) {
-		error(err_str);
+		error$(err_str);
 		return -1;
 	}
 	if (sn->flags & SNSD_NODE_MAIN_IP)

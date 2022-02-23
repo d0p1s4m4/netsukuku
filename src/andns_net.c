@@ -57,8 +57,8 @@ w_socket(int family, int type, int proto, int die)
 	sk = socket(family, type, proto);
 	if (sk == -1) {
 		if (die)
-			fatal("w_socket: %s.", strerror(errno));
-		debug(DBG_NORMAL, "w_socket: %s.", strerror(errno));
+			fatal$("w_socket: %s.", strerror(errno));
+		debug$("w_socket: %s.", strerror(errno));
 		return -1;
 	}
 	return sk;
@@ -73,8 +73,8 @@ w_connect(struct addrinfo *ai, int die)
 	if (!res)
 		return sk;
 	if (die)
-		fatal("Unable to connect: %s.", strerror(errno));
-	debug(DBG_NORMAL, "w_connect: %s.", strerror(errno));
+		fatal$("Unable to connect: %s.", strerror(errno));
+	debug$("w_connect: %s.", strerror(errno));
 	close(sk);
 	return -1;
 }
@@ -88,8 +88,8 @@ serial_connect(struct addrinfo *ai, int die)
 	temp = ai;
 	if (!temp) {
 		if (die)
-			fatal("Unable to connect: no host specified.");
-		debug(DBG_NORMAL, "serial_connect: no host specified.");
+			fatal$("Unable to connect: no host specified.");
+		debug$("serial_connect: no host specified.");
 		return -1;
 	}
 	do {
@@ -98,8 +98,8 @@ serial_connect(struct addrinfo *ai, int die)
 	} while (res == -1 && temp);
 	if (res == -1) {
 		if (die)
-			fatal("Unable to connect.");
-		debug(DBG_NORMAL, "serial_connect: unable to connect.");
+			fatal$("Unable to connect.");
+		debug$("serial_connect: unable to connect.");
 		return -1;
 	}
 	return res;
@@ -120,7 +120,7 @@ host_connect(const char *host, uint16_t port, int type, int die)
 	memset(&filter, 0, sizeof(struct addrinfo));
 	filter.ai_socktype = type;
 	if (!host)
-		fatal("w_connect: malicious call.");
+		fatal$("w_connect: malicious call.");
 	memset(portstr, 0, 6);
 	res = snprintf(portstr, 6, "%d", port);
 	if (res < 0 || res >= 6) {
@@ -158,8 +158,8 @@ w_send(int sk, const void *buf, size_t len, int die)
 	ret = send(sk, buf, len, 0);
 	if (ret != len) {
 		if (die)
-			fatal("Unable to send(): %s.", strerror(errno));
-		debug(DBG_NORMAL, "w_send(): %s.", strerror(errno));
+			fatal$("Unable to send(): %s.", strerror(errno));
+		debug$("w_send(): %s.", strerror(errno));
 	}
 	return ret;
 }
@@ -172,8 +172,8 @@ w_recv(int sk, void *buf, size_t len, int die)
 	ret = recv(sk, buf, len, 0);
 	if (ret <= 0) {
 		if (die)
-			fatal("Unable to recv(): %s.", strerror(errno));
-		debug(DBG_INSANE, "w_recv(): %s.", strerror(errno));
+			fatal$("Unable to recv(): %s.", strerror(errno));
+		debug$("w_recv(): %s.", strerror(errno));
 	}
 	return ret;
 }
@@ -206,8 +206,8 @@ w_send_timeout(int s, const void *buf, size_t len, int die, int timeout)
 	ret = select(s + 1, &fdset, NULL, NULL, &timeout_t);
 	if (ret == -1) {
 		if (die)
-			fatal("send(): select error.");
-		debug(DBG_NORMAL, "send(): select error.");
+			fatal$("send(): select error.");
+		debug$("send(): select error.");
 		return ret;
 	}
 
@@ -232,8 +232,8 @@ w_recv_timeout(int s, void *buf, size_t len, int die, int timeout)
 
 	if (ret == -1) {
 		if (die)
-			fatal("recv(): select error.");
-		debug(DBG_NORMAL, "recv(): select error.");
+			fatal$("recv(): select error.");
+		debug$("recv(): select error.");
 		return ret;
 	}
 

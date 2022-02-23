@@ -176,7 +176,7 @@ internet_hosts_to_ip(void)
 		inet_prefix ip;
 
 		if (andns_gethostbyname(server_opt.inet_hosts[i], &ip)) {
-			error("Cannot resolve \"%s\". Check your netsukuku.conf",
+			error$("Cannot resolve \"%s\". Check your netsukuku.conf",
 				  server_opt.inet_hosts[i]);
 
 			/* remove the hname from `inet_hosts' */
@@ -308,7 +308,7 @@ init_internet_gateway_search(void)
 							 !server_opt.share_internet))
 		return;
 
-	loginfo("Activating the Internet Gateway Search engine");
+	info$("Activating the Internet Gateway Search engine");
 
 	init_igws(&me.igws, &me.igws_counter, GET_LEVELS(my_family));
 	init_tunnels_ifs();
@@ -319,7 +319,7 @@ init_internet_gateway_search(void)
 	/*
 	 * Bring tunl0 up (just to test if the ipip module is loaded)
 	 */
-	loginfo("Checking if \"" DEFAULT_TUNL_IF "\" exists");
+	info$("Checking if \"" DEFAULT_TUNL_IF "\" exists");
 	if (tunnel_change(0, 0, 0, DEFAULT_TUNL_PREFIX, DEFAULT_TUNL_NUMBER) <
 		0) {
 		printf("Cannot read \"" DEFAULT_TUNL_IF "\". "
@@ -344,8 +344,8 @@ init_internet_gateway_search(void)
 	 */
 	res = mark_init(server_opt.share_internet);
 	if (res) {
-		error(err_str);
-		error("Cannot set the netfilter rules needed for the multi-igw. "
+		error$(err_str);
+		error$("Cannot set the netfilter rules needed for the multi-igw. "
 			  "This feature will be disabled");
 		igw_multi_gw_disabled = 1;
 	}
@@ -357,7 +357,7 @@ init_internet_gateway_search(void)
 	if (!server_opt.inet_connection)
 		return;
 	if (!server_opt.inet_hosts)
-		fatal("You didn't specified any Internet hosts in the "
+		fatal$("You didn't specified any Internet hosts in the "
 			  "configuration file. What hosts should I ping?");
 
 	/*
@@ -367,7 +367,7 @@ init_internet_gateway_search(void)
 	if (server_opt.share_internet) {
 		igw_exec_masquerade_sh(server_opt.ip_masq_script, 0);
 		if (!server_opt.ip_masq_script)
-			fatal("No masquerading script was configured!");
+			fatal$("No masquerading script was configured!");
 	};
 
 	/*
@@ -389,10 +389,10 @@ init_internet_gateway_search(void)
 	if (ret < 0 || (!*new_gw_dev && !new_gw.family)) {
 		/* Nothing useful has been found  */
 
-		loginfo("The retrieval of the default gw from the kernel failed.");
+		info$("The retrieval of the default gw from the kernel failed.");
 
 		if (!server_opt.inet_gw.data[0])
-			fatal("The default gw isn't set in the kernel and you "
+			fatal$("The default gw isn't set in the kernel and you "
 				  "didn't specified it in netsukuku.conf. "
 				  "Cannot continue!");
 	} else if (!server_opt.inet_gw_dev ||
@@ -400,7 +400,7 @@ init_internet_gateway_search(void)
 			   memcmp(new_gw.data, server_opt.inet_gw.data, MAX_IP_SZ)) {
 
 		if (server_opt.inet_gw.data[0])
-			loginfo("Your specified Internet gateway doesn't match with "
+			info$("Your specified Internet gateway doesn't match with "
 					"the one currently stored in the kernel routing table."
 					"I'm going to use the kernel gateway: %s dev %s",
 					inet_to_str(new_gw), new_gw_dev);
@@ -415,10 +415,10 @@ init_internet_gateway_search(void)
 		rt_delete_def_gw(0);
 	}
 
-	loginfo("Using \"%s dev %s\" as your first Internet gateway.",
+	info$("Using \"%s dev %s\" as your first Internet gateway.",
 			inet_to_str(server_opt.inet_gw), server_opt.inet_gw_dev);
 	if (rt_replace_def_gw(server_opt.inet_gw_dev, server_opt.inet_gw, 0))
-		fatal("Cannot set the default gw to %s %s",
+		fatal$("Cannot set the default gw to %s %s",
 			  inet_to_str(server_opt.inet_gw), server_opt.inet_gw_dev);
 	active_gws++;
 
@@ -429,7 +429,7 @@ init_internet_gateway_search(void)
 		rule_add(0, 0, 0, 0, FWMARK_ALISHIELD, RTTABLE_ALISHIELD);
 		if (rt_replace_def_gw(server_opt.inet_gw_dev, server_opt.inet_gw,
 							  RTTABLE_ALISHIELD)) {
-			error("Cannot set the default route in the ALISHIELD table. "
+			error$("Cannot set the default route in the ALISHIELD table. "
 				  "Disabling the multi-inet_gw feature");
 			igw_multi_gw_disabled = 1;
 		}
@@ -450,39 +450,38 @@ init_internet_gateway_search(void)
 		if (!strcmp(me.cur_ifs[i].dev_name, server_opt.inet_gw_dev)) {
 			for (e = 0; e < server_opt.ifs_n; e++)
 				if (!strcmp(server_opt.ifs[i], server_opt.inet_gw_dev))
-					fatal("You specified the \"%s\" interface"
+					fatal$("You specified the \"%s\" interface"
 						  " in the options, but this device is also"
 						  " part of the primary Internet gw route."
 						  " Don't include \"%s\" in the list of "
 						  "interfaces utilised by the daemon",
 						  server_opt.inet_gw_dev, server_opt.inet_gw_dev);
 
-			loginfo("Deleting the \"%s\" interface from the device "
+			info$("Deleting the \"%s\" interface from the device "
 					"list since it is part of the primary Internet"
 					" gw route.", me.cur_ifs[i].dev_name);
 
 			ifs_del(me.cur_ifs, &me.cur_ifs_n, i);
 			if (me.cur_ifs_n <= 0)
-				fatal
-					("The deleted interface cannot be used by NetsukukuD because it is part\n"
+				fatal$("The deleted interface cannot be used by NetsukukuD because it is part\n"
 					 "  of your primary Internet gw route. You have to specify another\n"
 					 "  interface with the -i option or you won't be able share your"
 					 "  Internet connection");
 		}
 
-	loginfo("Launching the first ping to the Internet hosts");
+	info$("Launching the first ping to the Internet hosts");
 	if (!server_opt.disable_andna)
 		internet_hosts_to_ip();
 	me.inet_connected = igw_check_inet_conn();
 	if (me.inet_connected)
-		loginfo("The Internet connection is up & running");
+		info$("The Internet connection is up & running");
 	else
-		loginfo("The Internet connection appears to be down");
+		info$("The Internet connection appears to be down");
 	if (!me.inet_connected && server_opt.share_internet)
-		fatal("We are not connected to the Internet, but you want to "
+		fatal$("We are not connected to the Internet, but you want to "
 			  "share your connection. Please check your options");
 
-	debug(DBG_SOFT, "Evoking the Internet ping daemon.");
+	debug$("Evoking the Internet ping daemon.");
 	pthread_attr_init(&t_attr);
 	pthread_attr_setdetachstate(&t_attr, PTHREAD_CREATE_DETACHED);
 	pthread_create(&ping_thread, &t_attr, igw_check_inet_conn_t, 0);
@@ -755,8 +754,7 @@ igw_check_inet_conn_t(void *null)
 
 		if (old_status && !me.inet_connected) {
 			/* Connection lost, disable me.my_igws[0] */
-			loginfo
-				("Internet connection lost. Inet connection sharing disabled");
+			info$("Internet connection lost. Inet connection sharing disabled");
 
 			me.my_igws[0]->bandwidth = 0;
 			igw_update_gnode_bw(me.igws_counter, me.my_igws,
@@ -786,11 +784,10 @@ igw_check_inet_conn_t(void *null)
 					strncpy(server_opt.inet_gw_dev, new_gw_dev, IFNAMSIZ);
 					memcpy(&server_opt.inet_gw, &new_gw,
 						   sizeof(inet_prefix));
-					loginfo
-						("Our Internet gateway changed, now it is: %s dev %s",
+					info$("Our Internet gateway changed, now it is: %s dev %s",
 						 inet_to_str(new_gw), new_gw_dev);
 				} else
-					loginfo("Internet connection is alive again. "
+					info$("Internet connection is alive again. "
 							"Inet connection sharing enabled");
 			}
 
@@ -862,7 +859,7 @@ igw_monitor_igws_t(void *null)
 				if (!igw_ping_igw(igw)) {
 					memcpy(ip, igw->ip, MAX_IP_SZ);
 
-					loginfo("The Internet gw %s doesn't replies "
+					info$("The Internet gw %s doesn't replies "
 							"to pings. It is dead.",
 							ipraw_to_str(igw->ip, my_family));
 
@@ -902,7 +899,7 @@ igw_exec_masquerade_sh(char *script, int stop)
 
 	ret = exec_root_script(script, argv);
 	if (ret == -1)
-		fatal("%s wasn't executed. We cannot share the Inet "
+		fatal$("%s wasn't executed. We cannot share the Inet "
 			  "connection, aborting.");
 	return 0;
 }
@@ -928,10 +925,10 @@ igw_exec_tcshaper_sh(char *script, int stop,
 
 	if (ret == -1) {
 		if (!stop)
-			error("%s wasn't executed. The traffic shaping will be "
+			error$("%s wasn't executed. The traffic shaping will be "
 				  "disabled.");
 		else
-			error("The traffic shaping is still enabled!");
+			error$("The traffic shaping is still enabled!");
 	}
 
 	return 0;
@@ -1165,12 +1162,12 @@ igw_replace_def_igws(inet_gw ** igws, int *igws_counter,
 				inet_htonl(nh_tmp[0].gw.data, nh_tmp[0].gw.family);
 				if (route_replace
 					(0, 0, 0, &to, nh_tmp, 0, multigw_nh[x].table))
-					error("Cannote replace the default "
+					error$("Cannote replace the default "
 						  "route of the table %d ", multigw_nh[x].table);
 
 				res = create_mark_rules(multigw_nh[x].tunl + 1);
 				if (res == -1)
-					error(err_str);
+					error$(err_str);
 			}
 			taken_nexthops[ni] = igw;
 
@@ -1187,8 +1184,7 @@ igw_replace_def_igws(inet_gw ** igws, int *igws_counter,
 
 	if (!ni && active_gws) {
 #ifdef DEBUG
-		debug(DBG_INSANE, RED("igw_def_gw: no Internet gateways "
-							  "available. Deleting the default route"));
+		debug$("igw_def_gw: no Internet gateways available. Deleting the default route");
 #endif
 		rt_delete_def_gw(0);
 		active_gws = 0;
@@ -1203,11 +1199,11 @@ igw_replace_def_igws(inet_gw ** igws, int *igws_counter,
 		strcat(gw_ip, nh[n].dev);
 		strcat(gw_ip, ":");
 	}
-	debug(DBG_INSANE, RED("igw_def_gw: default via %s"), gw_ip);
+	debug$("igw_def_gw: default via %s", gw_ip);
 #endif
 
 	if (route_replace(0, 0, 0, &to, nh, 0, 0))
-		error("WARNING: Cannot update the default route " "lvl %d", level);
+		error$("WARNING: Cannot update the default route " "lvl %d", level);
 	active_gws = ni;
 
 	return 0;
@@ -1296,7 +1292,7 @@ igw_build_bentry(u_char level, size_t * pack_sz, int *new_bblocks)
 			bnode_gid[e] = gids[e];
 
 		if (!i || igws_buf[i - 1]->ip[0] != igws_buf[i]->ip[0])
-			debug(DBG_INSANE, "igw_build_bentry: ip %s", inet_to_str(ip));
+			debug$("igw_build_bentry: ip %s", inet_to_str(ip));
 
 		/* Fill the bnode chunk */
 		bchunk[0].gnode = 0;
@@ -1348,10 +1344,8 @@ igw_store_bblock(bnode_hdr * bblock_hdr, bnode_chunk * bchunk,
 				 &gw_ip);
 
 #ifdef DEBUG
-	if (server_opt.dbg_lvl)
-		debug(DBG_NOISE,
-			  GREEN("igw_store_bblock: storing %s IGW, level %d"),
-			  inet_to_str(gw_ip), level);
+	debug$("igw_store_bblock: storing %s IGW, level %d",
+		  inet_to_str(gw_ip), level);
 #endif
 
 	/*
@@ -1388,8 +1382,7 @@ igw_store_bblock(bnode_hdr * bblock_hdr, bnode_chunk * bchunk,
 	ret = igw_replace_def_igws(me.igws, me.igws_counter, me.my_igws,
 							   me.cur_quadg.levels, my_family);
 	if (ret == -1) {
-		debug(DBG_SOFT, ERROR_MSG "cannot replace default gateway",
-			  ERROR_POS);
+		debug$("cannot replace default gateway");
 		return -1;
 	}
 	return 0;
@@ -1503,7 +1496,7 @@ unpack_igws(char *pack, size_t pack_sz,
 	/* Verify the package header */
 	if (sz != pack_sz || sz > MAX_IGWS_PACK_SZ(levels) ||
 		hdr->levels > levels) {
-		debug(DBG_NORMAL, "Malformed igws package");
+		debug$("Malformed igws package");
 		return -1;
 	}
 

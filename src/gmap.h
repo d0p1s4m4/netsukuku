@@ -111,7 +111,7 @@ INT_INFO map_gnode_iinfo = { 1,
 #define GET_LEVELS(family)						\
 ({ 									\
 	if((family) != AF_INET && (family) != AF_INET6)			\
-		fatal("GET_LEVELS: family not specified!");		\
+		fatal$("GET_LEVELS: family not specified!");		\
 	(family) == AF_INET ? IPV4_LEVELS : IPV6_LEVELS;		\
  })
 #else

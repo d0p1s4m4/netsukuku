@@ -217,7 +217,7 @@ send_ping(const char *host, struct sockaddr_in *taddr,
 
 	if ((datum->sock = socket(AF_INET, SOCK_RAW, proto->p_proto)) < 0) {
 #ifdef  DEBUG
-		debug(DBG_NORMAL, ERROR_MSG "sock: %s" ERROR_POS, strerror(errno));
+		debug$("sock: %s",strerror(errno));
 #endif	 /*DEBUG*/
 			return -2;
 	}
@@ -232,13 +232,13 @@ send_ping(const char *host, struct sockaddr_in *taddr,
 	if ((ss = sendto(datum->sock, buf, sizeof(buf), 0,
 					 (struct sockaddr *) taddr, sizeof(*taddr))) < 0) {
 #ifdef  DEBUG
-		debug(DBG_NORMAL, ERROR_MSG "sock: %s" ERROR_POS, strerror(errno));
+		debug$("sock: %s",strerror(errno));
 #endif	 /*DEBUG*/
 			return -2;
 	}
 	if (ss != len) {
 #ifdef  DEBUG
-		debug(DBG_NORMAL, ERROR_MSG "sock: %s" ERROR_POS, strerror(errno));
+		debug$("sock: %s",strerror(errno));
 #endif	 /*DEBUG*/
 			return -2;
 	}
@@ -276,7 +276,7 @@ recv_ping(struct sockaddr_in *taddr, struct ping_priv *datum)
 	if ((nf = select(datum->sock + 1, &readset, NULL, NULL, &to)) < 0) {
 		datum->rrt = -4;
 #ifdef  DEBUG
-		debug(DBG_NORMAL, ERROR_MSG "sock: %s" ERROR_POS, strerror(errno));
+		debug$("sock: %s",strerror(errno));
 #endif	 /*DEBUG*/
 			return 0;
 	}
@@ -292,7 +292,7 @@ recv_ping(struct sockaddr_in *taddr, struct ping_priv *datum)
 	if (cc < 0) {
 		datum->rrt = -4;
 #ifdef  DEBUG
-		debug(DBG_NORMAL, ERROR_MSG "sock: %s" ERROR_POS, strerror(errno));
+		debug$("sock: %s",strerror(errno));
 #endif	 /*DEBUG*/
 			return 0;
 	}

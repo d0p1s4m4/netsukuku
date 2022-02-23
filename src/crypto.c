@@ -70,7 +70,7 @@ genrsa(int key_bits, u_char ** pub, u_int * pub_len, u_char ** priv,
 
 	rsa = RSA_generate_key(key_bits, RSA_F4, NULL, NULL);
 	if (!rsa) {
-		debug(DBG_SOFT, "RSA key generation failed");
+		debug$("RSA key generation failed");
 		goto error;
 	}
 
@@ -80,7 +80,7 @@ genrsa(int key_bits, u_char ** pub, u_int * pub_len, u_char ** priv,
 		if (priv_len)
 			*priv_len = len;
 		if (len <= 0) {
-			debug(DBG_SOFT, "Cannot dump RSA public key: %s",
+			debug$("Cannot dump RSA public key: %s",
 				  ssl_strerr());
 			goto error;
 		}
@@ -92,7 +92,7 @@ genrsa(int key_bits, u_char ** pub, u_int * pub_len, u_char ** priv,
 		if (pub_len)
 			*pub_len = len;
 		if (len <= 0) {
-			debug(DBG_SOFT, "Cannot dump RSA public key: %s",
+			debug$("Cannot dump RSA public key: %s",
 				  ssl_strerr());
 			goto error;
 		}

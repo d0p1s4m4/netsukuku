@@ -172,7 +172,7 @@ rule_flush_table_range(int family, int a, int b)
 		return 1;
 
 	if (rtnl_wilddump_request(&rth, family, RTM_GETRULE) < 0) {
-		error("Cannot dump the routing rule table");
+		error$("Cannot dump the routing rule table");
 		return -1;
 	}
 
@@ -180,7 +180,7 @@ rule_flush_table_range(int family, int a, int b)
 	arg[1] = b;
 	if (rtnl_dump_filter
 		(&rth, rule_flush_table_range_filter, arg, NULL, NULL) < 0) {
-		error("Flush terminated");
+		error$("Flush terminated");
 		return -1;
 	}
 

@@ -56,7 +56,7 @@ prepare_listen_socket(int family, int socktype, u_short port,
 
 	err = getaddrinfo(NULL, strport, &hints, &aitop);
 	if (err) {
-		error("Getaddrinfo error: %s", gai_strerror(err));
+		error$("Getaddrinfo error: %s", gai_strerror(err));
 		return -1;
 	}
 
@@ -82,7 +82,7 @@ prepare_listen_socket(int family, int socktype, u_short port,
 
 		/* Let's bind it! */
 		if (bind(s, ai->ai_addr, ai->ai_addrlen) < 0) {
-			error("Cannot bind the port %d: %s. Trying another "
+			error$("Cannot bind the port %d: %s. Trying another "
 				  "socket...", port, strerror(errno));
 			inet_close(&s);
 			continue;
@@ -91,7 +91,7 @@ prepare_listen_socket(int family, int socktype, u_short port,
 		return s;
 	}
 
-	error("Cannot open inbound socket on port %d: %s", port,
+	error$("Cannot open inbound socket on port %d: %s", port,
 		  strerror(errno));
 	freeaddrinfo(aitop);
 	return -1;
@@ -125,7 +125,7 @@ sockets_all_ifs(int family, int socktype, u_short port,
 		dev_sk[i] = prepare_listen_socket(family, socktype, port, &ifs[i]);
 
 		if (dev_sk[i] < 0) {
-			error("Cannot create a socket on the %s interface! "
+			error$("Cannot create a socket on the %s interface! "
 				  "Ignoring it", ifs[i].dev_name);
 			dev_sk[i] = 0;
 			e++;
@@ -170,7 +170,7 @@ udp_exec_pkt(void *passed_argv)
 
 	if (add_accept(rpkt.from, 1)) {
 		ntop = inet_to_str(rpkt.from);
-		debug(DBG_NORMAL, "ACPT: dropped UDP pkt from %s: "
+		debug$("ACPT: dropped UDP pkt from %s: "
 			  "Accept table full.", ntop);
 		return 0;
 	}
@@ -216,7 +216,7 @@ udp_daemon(void *passed_argv)
 		exec_pkt_argv.flags |= UDP_THREAD_FOR_EACH_PKT;
 	}
 
-	debug(DBG_SOFT, "Preparing the udp listening socket on port %d",
+	debug$("Preparing the udp listening socket on port %d",
 		  udp_port);
 
 	err = sockets_all_ifs(my_family, SOCK_DGRAM, udp_port, me.cur_ifs,
@@ -224,10 +224,10 @@ udp_daemon(void *passed_argv)
 	if (!err)
 		return NULL;
 	else if (err < 0)
-		fatal("Creation of the %s daemon aborted. "
+		fatal$("Creation of the %s daemon aborted. "
 			  "Is there another ntkd running?", "udp");
 
-	debug(DBG_NORMAL, "Udp daemon on port %d up & running", udp_port);
+	debug$("Udp daemon on port %d up & running", udp_port);
 	pthread_mutex_unlock(&udp_daemon_lock);
 
 	pthread_mutex_init(&udp_exec_lock, 0);
@@ -256,7 +256,7 @@ udp_daemon(void *passed_argv)
 				break;
 			select_errors++;
 #endif
-			error("daemon_udp: select error: %s", strerror(errno));
+			error$("daemon_udp: select error: %s", strerror(errno));
 			continue;
 		}
 
@@ -353,7 +353,7 @@ tcp_daemon(void *door)
 	pthread_attr_init(&t_attr);
 	pthread_attr_setdetachstate(&t_attr, PTHREAD_CREATE_DETACHED);
 
-	debug(DBG_SOFT, "Preparing the tcp listening socket on port %d",
+	debug$("Preparing the tcp listening socket on port %d",
 		  tcp_port);
 
 	err = sockets_all_ifs(my_family, SOCK_STREAM, tcp_port, me.cur_ifs,
@@ -361,7 +361,7 @@ tcp_daemon(void *door)
 	if (!err)
 		return NULL;
 	else if (err < 0)
-		fatal("Creation of the %s daemon aborted. "
+		fatal$("Creation of the %s daemon aborted. "
 			  "Is there another ntkd running?", "tcp");
 
 	pthread_mutex_init(&tcp_exec_lock, 0);
@@ -386,7 +386,7 @@ tcp_daemon(void *door)
 		}
 	}
 
-	debug(DBG_NORMAL, "Tcp daemon on port %d up & running", tcp_port);
+	debug$("Tcp daemon on port %d up & running", tcp_port);
 	pthread_mutex_unlock(&tcp_daemon_lock);
 	for (;;) {
 		FD_ZERO(&fdset);
@@ -407,7 +407,7 @@ tcp_daemon(void *door)
 			/* NetsukukuD has been closed */
 			break;
 		if (ret < 0 && errno != EINTR)
-			error("daemon_tcp: select error: %s", strerror(errno));
+			error$("daemon_tcp: select error: %s", strerror(errno));
 		if (ret < 0)
 			continue;
 
@@ -422,7 +422,7 @@ tcp_daemon(void *door)
 			fd = accept(dev_sk[i], (struct sockaddr *) &addr, &addrlen);
 			if (fd == -1) {
 				if (errno != EINTR && errno != EWOULDBLOCK)
-					error("daemon_tcp: accept(): %s", strerror(errno));
+					error$("daemon_tcp: accept(): %s", strerror(errno));
 				continue;
 			}
 
@@ -439,7 +439,7 @@ tcp_daemon(void *door)
 				ntop = inet_to_str(ip);
 
 			if ((ret = add_accept(ip, 0))) {
-				debug(DBG_NORMAL, "ACPT: drop connection with %s: "
+				debug$("ACPT: drop connection with %s: "
 					  "Accept table full.", ntop);
 
 				/* Omg, we cannot take it anymore, go away: ACK_NEGATIVE */

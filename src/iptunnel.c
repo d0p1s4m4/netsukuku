@@ -80,7 +80,7 @@ do_ioctl_get_ifindex(const char *dev)
 	fd = socket(AF_INET, SOCK_DGRAM, 0);
 	err = ioctl(fd, SIOCGIFINDEX, &ifr);
 	if (err) {
-		error(ERROR_MSG "ioctl: %s", ERROR_POS, strerror(errno));
+		error$("ioctl: %s",strerror(errno));
 		return 0;
 	}
 	close(fd);
@@ -99,7 +99,7 @@ do_ioctl_get_iftype(const char *dev)
 	fd = socket(AF_INET, SOCK_DGRAM, 0);
 	err = ioctl(fd, SIOCGIFHWADDR, &ifr);
 	if (err) {
-		error(ERROR_MSG "ioctl: %s", ERROR_POS, strerror(errno));
+		error$("ioctl: %s",strerror(errno));
 		return -1;
 	}
 	close(fd);
@@ -117,7 +117,7 @@ do_ioctl_get_ifname(int idx)
 	fd = socket(AF_INET, SOCK_DGRAM, 0);
 	err = ioctl(fd, SIOCGIFNAME, &ifr);
 	if (err) {
-		error(ERROR_MSG "ioctl: %s", ERROR_POS, strerror(errno));
+		error$("ioctl: %s",strerror(errno));
 		return NULL;
 	}
 	close(fd);
@@ -138,7 +138,7 @@ do_get_ioctl(const char *basedev, struct ip_tunnel_parm *p)
 	err = ioctl(fd, SIOCGETTUNNEL, &ifr);
 	/*
 	 * if (err)
-	 * error(ERROR_MSG "ioctl: %s",ERROR_POS, strerror(errno));
+	 * error$("ioctl: %s",ERROR_POS, strerror(errno));
 	 */
 	close(fd);
 	return err;
@@ -158,11 +158,10 @@ do_add_ioctl(int cmd, const char *basedev, struct ip_tunnel_parm *p)
 	ifr.ifr_ifru.ifru_data = (void *) p;
 	fd = socket(AF_INET, SOCK_DGRAM, 0);
 	err = ioctl(fd, cmd, &ifr);
-	error
-		("Socket File Descriptor Is: %i cmd is: %i err is: %i ifr is: %s Errno is: %d",
+	error$("Socket File Descriptor Is: %i cmd is: %i err is: %i ifr is: %s Errno is: %d",
 		 fd, cmd, err, &ifr, errno);
 	if (err)
-		error(ERROR_MSG "ioctl: %s", ERROR_POS, strerror(errno));
+		error$("ioctl: %s",strerror(errno));
 	close(fd);
 	return err;
 }
@@ -182,7 +181,7 @@ do_del_ioctl(const char *basedev, struct ip_tunnel_parm *p)
 	fd = socket(AF_INET, SOCK_DGRAM, 0);
 	err = ioctl(fd, SIOCDELTUNNEL, &ifr);
 	if (err)
-		error(ERROR_MSG "ioctl: %s", ERROR_POS, strerror(errno));
+		error$("ioctl: %s", strerror(errno));
 	close(fd);
 	return err;
 }
@@ -228,7 +227,7 @@ fill_tunnel_parm(int cmd, inet_prefix * remote, inet_prefix * local,
 
 	if (p->iph.protocol == IPPROTO_IPIP)
 		if ((p->i_flags & GRE_KEY) || (p->o_flags & GRE_KEY))
-			fatal("Keys are not allowed with ipip and sit.");
+			fatal$("Keys are not allowed with ipip and sit.");
 
 	if (medium[0]) {
 		p->link = do_ioctl_get_ifindex(medium);
@@ -237,7 +236,7 @@ fill_tunnel_parm(int cmd, inet_prefix * remote, inet_prefix * local,
 	}
 
 	if (IN_MULTICAST(ntohl(p->iph.daddr)) && !p->iph.saddr)
-		fatal("Broadcast tunnel requires a source address.");
+		fatal$("Broadcast tunnel requires a source address.");
 
 	return 0;
 }
@@ -268,13 +267,13 @@ do_add(int cmd, inet_prefix * remote, inet_prefix * local, char *dev,
 		return -1;
 
 	if (p.iph.ttl && p.iph.frag_off == 0)
-		fatal("ttl != 0 and noptmudisc are incompatible");
+		fatal$("ttl != 0 and noptmudisc are incompatible");
 
 	switch (p.iph.protocol) {
 	case IPPROTO_IPIP:
 		return do_add_ioctl(cmd, DEFAULT_TUNL_IF, &p);
 	default:
-		fatal("cannot determine tunnel mode (ipip, gre or sit)\n");
+		fatal$("cannot determine tunnel mode (ipip, gre or sit)\n");
 	}
 	return -1;
 }
@@ -375,7 +374,7 @@ set_tunnel_ip(char *tunl_prefix, int tunl_number, inet_prefix * tunl_ip)
 	set_all_ifs(&tunnel_ifs[tunl_number], 1, set_dev_down);
 	set_all_ifs(&tunnel_ifs[tunl_number], 1, set_dev_up);
 	if (set_all_dev_ip(*tunl_ip, &tunnel_ifs[tunl_number], 1) < 0) {
-		error("Cannot set the %s ip to " TUNL_STRING,
+		error$("Cannot set the %s ip to " TUNL_STRING,
 			  ntop, TUNL_N(tunl_prefix, tunl_number));
 		return -1;
 	}
@@ -400,7 +399,7 @@ add_tunnel_if(inet_prefix * remote, inet_prefix * local, char *dev,
 		goto skip_krnl_add_tunl;
 
 	if (tunnel_add(remote, local, dev, tunl_prefix, tunl_number) < 0) {
-		error("Cannot add the \"" TUNL_STRING "\" tunnel",
+		error$("Cannot add the \"" TUNL_STRING "\" tunnel",
 			  TUNL_N(tunl_prefix, tunl_number));
 		return -1;
 	}
@@ -447,7 +446,7 @@ del_tunnel_if(inet_prefix * remote, inet_prefix * local, char *dev,
 		goto skip_krnl_del_tunl;
 
 	if (tunnel_del(remote, local, dev, tunl_prefix, tunl_number) < 0) {
-		error("Cannot delete the \"" TUNL_STRING "\" tunnel",
+		error$("Cannot delete the \"" TUNL_STRING "\" tunnel",
 			  TUNL_N(tunl_prefix, tunl_number));
 		return -1;
 	}
