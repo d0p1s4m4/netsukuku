@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('tracer_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">tracer.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="tracer_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2004 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,75 +108,75 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef TRACER_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define TRACER_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;pkts.h&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;bmap.h&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="pkts_8h.html">pkts.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="bmap_8h.html">bmap.h</a>&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define TRACER_RQ_TIMEOUT   16  </span><span class="comment">/* seconds */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="tracer_8h.html#a2a249f3d46291721d1b33135ab389b9b">   26</a></span><span class="preprocessor">#define TRACER_RQ_TIMEOUT   16  </span><span class="comment">/* seconds */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * Tracer_hdr flags</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define TRCR_BBLOCK     1       </span><span class="comment">/* In this tracer_pkt there are </span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">                                   encapsulated bblocks */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="tracer_8h.html#a025c5b2fd91790a9dbe079048e4bbf82">   32</a></span><span class="preprocessor">#define TRCR_BBLOCK     1       </span><span class="comment">/* In this tracer_pkt there are </span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="tracer_8h.html#a55e87cbed702590efdc62fba8b8669cb">   33</a></span><span class="comment">                                   encapsulated bblocks */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define TRCR_IGW        (1&lt;&lt;1)  </span><span class="comment">/* Internet Gateways are encapsulated</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">                                   in the pkt */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> * *  Tracer packet. It is encapsulated in a broadcast pkt  *</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    u_char flags;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="struct___p_a_c_k_e_d__.html#a2fe4c2a6c59b2912a3eace82a9ecf192">   40</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct___p_a_c_k_e_d__.html#a8c12250514df2cc94bdf7879e39a50a6">   41</a></span>    u_char <a class="code hl_variable" href="if_8c.html#ac8bf36fe0577cba66bccda3a6f7e80a4">flags</a>;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    u_short hops;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    u_short first_qspn_open_chunk;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="tracer_8h.html#a013de0f7d516c7a02fe40950e32a1c8a">   43</a></span>    u_short first_qspn_open_chunk;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <a class="code hl_struct" href="struct___p_a_c_k_e_d__.html">_PACKED_</a> tracer_hdr;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>INT_INFO tracer_hdr_iinfo = { 2,</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {INT_TYPE_16BIT, INT_TYPE_16BIT},</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><a class="code hl_define" href="endianness_8h.html#a3e44b8503d7a90af675c81800fe6d275">INT_INFO</a> <a class="code hl_variable" href="tracer_8h.html#a013de0f7d516c7a02fe40950e32a1c8a">tracer_hdr_iinfo</a> = { 2,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {<a class="code hl_define" href="endianness_8h.html#a66b75e81c28419f622f82e631e5da9bc">INT_TYPE_16BIT</a>, <a class="code hl_define" href="endianness_8h.html#a66b75e81c28419f622f82e631e5da9bc">INT_TYPE_16BIT</a>},</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    {<span class="keyword">sizeof</span>(u_char), <span class="keyword">sizeof</span>(u_char) + <span class="keyword">sizeof</span>(u_short)}</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    ,</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    {1, 1}</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="struct___p_a_c_k_e_d__.html#a2e73fe0838113c16ec4076ad0b95e7af">   51</a></span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    u_char node;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    u_int rtt;                  <span class="comment">/* The rtt to reach the `node&#39; of the previous</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">                                   chunk from the node of the current `one&#39;. </span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="struct___p_a_c_k_e_d__.html#ae0d2b53da8b2bb9ab8a7804502f06704">   55</a></span><span class="comment">                                   chunk from the node of the current `one&#39;. </span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">                                   (in milliseconds) */</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    u_int gcount;               <span class="comment">/* how many nodes there are in the `node&#39; </span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">                                   gnode */</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="tracer_8h.html#aa9ad685a71ae8cdb0022528945cf521d">   58</a></span><span class="comment">                                   gnode */</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <a class="code hl_struct" href="struct___p_a_c_k_e_d__.html">_PACKED_</a> tracer_chunk;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>INT_INFO tracer_chunk_iinfo = { 2,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {INT_TYPE_32BIT, INT_TYPE_32BIT},</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><a class="code hl_define" href="endianness_8h.html#a3e44b8503d7a90af675c81800fe6d275">INT_INFO</a> <a class="code hl_variable" href="tracer_8h.html#aa9ad685a71ae8cdb0022528945cf521d">tracer_chunk_iinfo</a> = { 2,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {<a class="code hl_define" href="endianness_8h.html#acc663d0291dd4a32c1dfbed3167bd58b">INT_TYPE_32BIT</a>, <a class="code hl_define" href="endianness_8h.html#acc663d0291dd4a32c1dfbed3167bd58b">INT_TYPE_32BIT</a>},</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    {<span class="keyword">sizeof</span>(char), <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>) + <span class="keyword">sizeof</span>(u_int)}</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    ,</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    {1, 1}</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#define TRACERPKT_SZ(hops)  (sizeof(tracer_hdr)+(sizeof(tracer_chunk)*(hops)))</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="tracer_8h.html#aac7d2ea210782c1890839ac7569dc85c">   65</a></span>};</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="tracer_8h.html#abf192235cdfe6b134ee84b1413a15c9b">   66</a></span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="tracer_8h.html#aeb02c6167fa4cadf6bf59a840e923488">   67</a></span><span class="preprocessor">#define TRACERPKT_SZ(hops)  (sizeof(tracer_hdr)+(sizeof(tracer_chunk)*(hops)))</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define TRACER_HDR_PTR(msg)     ((tracer_hdr *)(((char *)BRDCAST_HDR_PTR((msg)))+sizeof(brdcast_hdr)))</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define TRACER_CHUNK_PTR(msg)   ((tracer_chunk *)(((char *)TRACER_HDR_PTR(msg))+sizeof(tracer_hdr)))</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="tracer_8h.html#ac90a270a849ce681c52a612c50df51d8">   69</a></span><span class="preprocessor">#define TRACER_CHUNK_PTR(msg)   ((tracer_chunk *)(((char *)TRACER_HDR_PTR(msg))+sizeof(tracer_hdr)))</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">int</span> tracer_pkt_start_mutex;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">int</span> <a class="code hl_variable" href="tracer_8h.html#ac90a270a849ce681c52a612c50df51d8">tracer_pkt_start_mutex</a>;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">/*Functions definition. Damn I hate to use functions with a lot of args. It isn&#39;t elegant*/</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> ip_to_rfrom(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> rip, <a class="code hl_struct" href="structquadro__group.html">quadro_group</a> * rip_quadg,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#a809840aac9f63a3ba74995665fda8341">ip_to_rfrom</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> rip, <a class="code hl_struct" href="structquadro__group.html">quadro_group</a> * rip_quadg,</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                <a class="code hl_struct" href="structquadro__group.html">quadro_group</a> * new_quadg, <span class="keywordtype">char</span> quadg_flags);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>tracer_chunk *tracer_add_entry(<span class="keywordtype">void</span> *void_map, <span class="keywordtype">void</span> *void_node,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>tracer_chunk *<a class="code hl_function" href="tracer_8h.html#a8ba2b9ecc8544ba58636cc874516705f">tracer_add_entry</a>(<span class="keywordtype">void</span> *void_map, <span class="keywordtype">void</span> *void_node,</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                               tracer_chunk * tracer, u_int * hops,</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                               u_char level);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">int</span> tracer_add_rtt(<span class="keywordtype">int</span> rpos, tracer_chunk * tracer, u_short hop);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>u_short tracer_split_bblock(<span class="keywordtype">void</span> *, <span class="keywordtype">size_t</span>, bnode_hdr ***,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#adc77fff22a19df060d7e8c0f39f0307d">tracer_add_rtt</a>(<span class="keywordtype">int</span> rpos, tracer_chunk * tracer, u_short hop);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>u_short <a class="code hl_function" href="tracer_8h.html#aaa9412b8510a84314cde4dbe100483d0">tracer_split_bblock</a>(<span class="keywordtype">void</span> *, <span class="keywordtype">size_t</span>, bnode_hdr ***,</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                            bnode_chunk ****, <span class="keywordtype">size_t</span> *);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keywordtype">int</span> tracer_get_trtt(<span class="keywordtype">int</span> from_rnode_pos, tracer_hdr * trcr_hdr,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#aa5421753dff7e95e17506259688267ad">tracer_get_trtt</a>(<span class="keywordtype">int</span> from_rnode_pos, tracer_hdr * trcr_hdr,</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                    tracer_chunk * tracer, u_int * trtt);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">int</span> tracer_store_pkt(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a>, <a class="code hl_struct" href="structquadro__group.html">quadro_group</a> *, u_char, tracer_hdr *,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#a12c03f2eaa97e2c644dcdd892e0fa758">tracer_store_pkt</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a>, <a class="code hl_struct" href="structquadro__group.html">quadro_group</a> *, u_char, tracer_hdr *,</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                     tracer_chunk *, <span class="keywordtype">void</span> *, <span class="keywordtype">size_t</span>, u_short *, <span class="keywordtype">char</span> **,</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                     <span class="keywordtype">size_t</span> *);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keywordtype">int</span> tracer_unpack_pkt(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a>, brdcast_hdr **, tracer_hdr **,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#accaeb87ef08184699f87a7dda50909ab">tracer_unpack_pkt</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a>, brdcast_hdr **, tracer_hdr **,</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                      tracer_chunk **, bnode_hdr **, <span class="keywordtype">size_t</span> *,</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                      <a class="code hl_struct" href="structquadro__group.html">quadro_group</a> *, <span class="keywordtype">int</span> *);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keywordtype">int</span> tracer_pkt_build(u_char, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>, u_char, brdcast_hdr *,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#aedc888fcd3fe8dafa7e3a6199190e476">tracer_pkt_build</a>(u_char, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>, u_char, brdcast_hdr *,</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                     tracer_hdr *, tracer_chunk *, u_short, <span class="keywordtype">char</span> *, <span class="keywordtype">size_t</span>,</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                     <a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> *);</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
@@ -173,32 +189,61 @@ $(function() {
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment"> * `pos&#39; :      the position of the `node&#39; in the root_node&#39;s rnodes.</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment"> * `level&#39;:     The level where there is the gnode the pkt is restricted to.</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment"> * `sub_id&#39;:    If the pkt is a qspn_open, it is the qspn open sub_id of </span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment"> *      the pkt.</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="tracer_8h.html#a603cd5535d60565f7b18d50cf236acf9">  103</a></span><span class="comment"> *      the pkt.</span></div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">#define TRACER_PKT_EXCLUDE_VARS     ext_rnode *e_rnode, map_node *node,    \</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">                    int from_rpos, int pos,            \</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="tracer_8h.html#a353dac0dc28caf10c9a28cca2155b8f5">  106</a></span><span class="preprocessor">                    int from_rpos, int pos,            \</span></div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">                    u_char excl_level, int sub_id</span></div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#define TRACER_PKT_EXCLUDE_VARS_NAME    e_rnode, node, from_rpos, pos,         \</span></div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">                    excl_level, sub_id</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">int</span> flood_pkt_send(<span class="keywordtype">int</span> (*is_node_excluded) (TRACER_PKT_EXCLUDE_VARS),</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#a5fe4a335927501caa212fea5bb0753fe">flood_pkt_send</a>(<span class="keywordtype">int</span> (*is_node_excluded) (<a class="code hl_define" href="tracer_8h.html#a603cd5535d60565f7b18d50cf236acf9">TRACER_PKT_EXCLUDE_VARS</a>),</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                   u_char level, <span class="keywordtype">int</span> sub_id, <span class="keywordtype">int</span> from_rpos, <a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> pkt);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keywordtype">int</span> exclude_from(TRACER_PKT_EXCLUDE_VARS);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">int</span> exclude_glevel(TRACER_PKT_EXCLUDE_VARS);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keywordtype">int</span> exclude_all_but_notfrom(TRACER_PKT_EXCLUDE_VARS);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keywordtype">int</span> exclude_from_and_glevel(TRACER_PKT_EXCLUDE_VARS);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#af05b0c61b0f303c4e45429ac287846ca">exclude_from</a>(<a class="code hl_define" href="tracer_8h.html#a603cd5535d60565f7b18d50cf236acf9">TRACER_PKT_EXCLUDE_VARS</a>);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#ad426a27aa22b51aa62761c62dc0c43fc">exclude_glevel</a>(<a class="code hl_define" href="tracer_8h.html#a603cd5535d60565f7b18d50cf236acf9">TRACER_PKT_EXCLUDE_VARS</a>);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#a6b8b6fdd22f378b6d7f0a6bbacabedb6">exclude_all_but_notfrom</a>(<a class="code hl_define" href="tracer_8h.html#a603cd5535d60565f7b18d50cf236acf9">TRACER_PKT_EXCLUDE_VARS</a>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#a0e2b1eeeef541e95cd668591b0ad5816">exclude_from_and_glevel</a>(<a class="code hl_define" href="tracer_8h.html#a603cd5535d60565f7b18d50cf236acf9">TRACER_PKT_EXCLUDE_VARS</a>);</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">int</span> tracer_pkt_recv(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rpkt);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="keywordtype">int</span> tracer_pkt_start(u_char level);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#ab53c5821a9d4215b3d5ba16fd95e8297">tracer_pkt_recv</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rpkt);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="keywordtype">int</span> <a class="code hl_function" href="tracer_8h.html#ac9c1eb29dad329c4ce003e9f770859c7">tracer_pkt_start</a>(u_char level);</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#endif                          </span><span class="comment">/*TRACER_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="abmap_8h_html"><div class="ttname"><a href="bmap_8h.html">bmap.h</a></div></div>
+<div class="ttc" id="aendianness_8h_html_a3e44b8503d7a90af675c81800fe6d275"><div class="ttname"><a href="endianness_8h.html#a3e44b8503d7a90af675c81800fe6d275">INT_INFO</a></div><div class="ttdeci">#define INT_INFO</div><div class="ttdef"><b>Definition:</b> endianness.h:82</div></div>
+<div class="ttc" id="aendianness_8h_html_a66b75e81c28419f622f82e631e5da9bc"><div class="ttname"><a href="endianness_8h.html#a66b75e81c28419f622f82e631e5da9bc">INT_TYPE_16BIT</a></div><div class="ttdeci">#define INT_TYPE_16BIT</div><div class="ttdef"><b>Definition:</b> endianness.h:30</div></div>
+<div class="ttc" id="aendianness_8h_html_acc663d0291dd4a32c1dfbed3167bd58b"><div class="ttname"><a href="endianness_8h.html#acc663d0291dd4a32c1dfbed3167bd58b">INT_TYPE_32BIT</a></div><div class="ttdeci">#define INT_TYPE_32BIT</div><div class="ttdef"><b>Definition:</b> endianness.h:29</div></div>
+<div class="ttc" id="aif_8c_html_ac8bf36fe0577cba66bccda3a6f7e80a4"><div class="ttname"><a href="if_8c.html#ac8bf36fe0577cba66bccda3a6f7e80a4">flags</a></div><div class="ttdeci">int flags</div><div class="ttdef"><b>Definition:</b> if.c:38</div></div>
+<div class="ttc" id="apkts_8h_html"><div class="ttname"><a href="pkts_8h.html">pkts.h</a></div></div>
 <div class="ttc" id="astruct___p_a_c_k_e_d___html"><div class="ttname"><a href="struct___p_a_c_k_e_d__.html">_PACKED_</a></div><div class="ttdef"><b>Definition:</b> bmap.h:83</div></div>
 <div class="ttc" id="astruct_p_a_c_k_e_t_html"><div class="ttname"><a href="struct_p_a_c_k_e_t.html">PACKET</a></div><div class="ttdef"><b>Definition:</b> pkts.h:107</div></div>
 <div class="ttc" id="astructinet__prefix_html"><div class="ttname"><a href="structinet__prefix.html">inet_prefix</a></div><div class="ttdef"><b>Definition:</b> inet.h:73</div></div>
 <div class="ttc" id="astructquadro__group_html"><div class="ttname"><a href="structquadro__group.html">quadro_group</a></div><div class="ttdef"><b>Definition:</b> gmap.h:128</div></div>
+<div class="ttc" id="atracer_8h_html_a013de0f7d516c7a02fe40950e32a1c8a"><div class="ttname"><a href="tracer_8h.html#a013de0f7d516c7a02fe40950e32a1c8a">tracer_hdr_iinfo</a></div><div class="ttdeci">INT_INFO tracer_hdr_iinfo</div><div class="ttdef"><b>Definition:</b> tracer.h:43</div></div>
+<div class="ttc" id="atracer_8h_html_a0e2b1eeeef541e95cd668591b0ad5816"><div class="ttname"><a href="tracer_8h.html#a0e2b1eeeef541e95cd668591b0ad5816">exclude_from_and_glevel</a></div><div class="ttdeci">int exclude_from_and_glevel(TRACER_PKT_EXCLUDE_VARS)</div><div class="ttdef"><b>Definition:</b> tracer.c:1396</div></div>
+<div class="ttc" id="atracer_8h_html_a12c03f2eaa97e2c644dcdd892e0fa758"><div class="ttname"><a href="tracer_8h.html#a12c03f2eaa97e2c644dcdd892e0fa758">tracer_store_pkt</a></div><div class="ttdeci">int tracer_store_pkt(inet_prefix, quadro_group *, u_char, tracer_hdr *, tracer_chunk *, void *, size_t, u_short *, char **, size_t *)</div><div class="ttdef"><b>Definition:</b> tracer.c:1085</div></div>
+<div class="ttc" id="atracer_8h_html_a5fe4a335927501caa212fea5bb0753fe"><div class="ttname"><a href="tracer_8h.html#a5fe4a335927501caa212fea5bb0753fe">flood_pkt_send</a></div><div class="ttdeci">int flood_pkt_send(int(*is_node_excluded)(TRACER_PKT_EXCLUDE_VARS), u_char level, int sub_id, int from_rpos, PACKET pkt)</div><div class="ttdef"><b>Definition:</b> tracer.c:1298</div></div>
+<div class="ttc" id="atracer_8h_html_a603cd5535d60565f7b18d50cf236acf9"><div class="ttname"><a href="tracer_8h.html#a603cd5535d60565f7b18d50cf236acf9">TRACER_PKT_EXCLUDE_VARS</a></div><div class="ttdeci">#define TRACER_PKT_EXCLUDE_VARS</div><div class="ttdef"><b>Definition:</b> tracer.h:103</div></div>
+<div class="ttc" id="atracer_8h_html_a6b8b6fdd22f378b6d7f0a6bbacabedb6"><div class="ttname"><a href="tracer_8h.html#a6b8b6fdd22f378b6d7f0a6bbacabedb6">exclude_all_but_notfrom</a></div><div class="ttdeci">int exclude_all_but_notfrom(TRACER_PKT_EXCLUDE_VARS)</div><div class="ttdef"><b>Definition:</b> tracer.c:1388</div></div>
+<div class="ttc" id="atracer_8h_html_a809840aac9f63a3ba74995665fda8341"><div class="ttname"><a href="tracer_8h.html#a809840aac9f63a3ba74995665fda8341">ip_to_rfrom</a></div><div class="ttdeci">int ip_to_rfrom(inet_prefix rip, quadro_group *rip_quadg, quadro_group *new_quadg, char quadg_flags)</div><div class="ttdef"><b>Definition:</b> tracer.c:47</div></div>
+<div class="ttc" id="atracer_8h_html_a8ba2b9ecc8544ba58636cc874516705f"><div class="ttname"><a href="tracer_8h.html#a8ba2b9ecc8544ba58636cc874516705f">tracer_add_entry</a></div><div class="ttdeci">tracer_chunk * tracer_add_entry(void *void_map, void *void_node, tracer_chunk *tracer, u_int *hops, u_char level)</div><div class="ttdef"><b>Definition:</b> tracer.c:166</div></div>
+<div class="ttc" id="atracer_8h_html_aa5421753dff7e95e17506259688267ad"><div class="ttname"><a href="tracer_8h.html#aa5421753dff7e95e17506259688267ad">tracer_get_trtt</a></div><div class="ttdeci">int tracer_get_trtt(int from_rnode_pos, tracer_hdr *trcr_hdr, tracer_chunk *tracer, u_int *trtt)</div><div class="ttdef"><b>Definition:</b> tracer.c:257</div></div>
+<div class="ttc" id="atracer_8h_html_aa9ad685a71ae8cdb0022528945cf521d"><div class="ttname"><a href="tracer_8h.html#aa9ad685a71ae8cdb0022528945cf521d">tracer_chunk_iinfo</a></div><div class="ttdeci">INT_INFO tracer_chunk_iinfo</div><div class="ttdef"><b>Definition:</b> tracer.h:58</div></div>
+<div class="ttc" id="atracer_8h_html_aaa9412b8510a84314cde4dbe100483d0"><div class="ttname"><a href="tracer_8h.html#aaa9412b8510a84314cde4dbe100483d0">tracer_split_bblock</a></div><div class="ttdeci">u_short tracer_split_bblock(void *, size_t, bnode_hdr ***, bnode_chunk ****, size_t *)</div><div class="ttdef"><b>Definition:</b> tracer.c:760</div></div>
+<div class="ttc" id="atracer_8h_html_ab53c5821a9d4215b3d5ba16fd95e8297"><div class="ttname"><a href="tracer_8h.html#ab53c5821a9d4215b3d5ba16fd95e8297">tracer_pkt_recv</a></div><div class="ttdeci">int tracer_pkt_recv(PACKET rpkt)</div><div class="ttdef"><b>Definition:</b> tracer.c:1411</div></div>
+<div class="ttc" id="atracer_8h_html_ac90a270a849ce681c52a612c50df51d8"><div class="ttname"><a href="tracer_8h.html#ac90a270a849ce681c52a612c50df51d8">tracer_pkt_start_mutex</a></div><div class="ttdeci">int tracer_pkt_start_mutex</div><div class="ttdef"><b>Definition:</b> tracer.h:69</div></div>
+<div class="ttc" id="atracer_8h_html_ac9c1eb29dad329c4ce003e9f770859c7"><div class="ttname"><a href="tracer_8h.html#ac9c1eb29dad329c4ce003e9f770859c7">tracer_pkt_start</a></div><div class="ttdeci">int tracer_pkt_start(u_char level)</div><div class="ttdef"><b>Definition:</b> tracer.c:1542</div></div>
+<div class="ttc" id="atracer_8h_html_accaeb87ef08184699f87a7dda50909ab"><div class="ttname"><a href="tracer_8h.html#accaeb87ef08184699f87a7dda50909ab">tracer_unpack_pkt</a></div><div class="ttdeci">int tracer_unpack_pkt(PACKET, brdcast_hdr **, tracer_hdr **, tracer_chunk **, bnode_hdr **, size_t *, quadro_group *, int *)</div><div class="ttdef"><b>Definition:</b> tracer.c:661</div></div>
+<div class="ttc" id="atracer_8h_html_ad426a27aa22b51aa62761c62dc0c43fc"><div class="ttname"><a href="tracer_8h.html#ad426a27aa22b51aa62761c62dc0c43fc">exclude_glevel</a></div><div class="ttdeci">int exclude_glevel(TRACER_PKT_EXCLUDE_VARS)</div><div class="ttdef"><b>Definition:</b> tracer.c:1359</div></div>
+<div class="ttc" id="atracer_8h_html_adc77fff22a19df060d7e8c0f39f0307d"><div class="ttname"><a href="tracer_8h.html#adc77fff22a19df060d7e8c0f39f0307d">tracer_add_rtt</a></div><div class="ttdeci">int tracer_add_rtt(int rpos, tracer_chunk *tracer, u_short hop)</div><div class="ttdef"><b>Definition:</b> tracer.c:244</div></div>
+<div class="ttc" id="atracer_8h_html_aedc888fcd3fe8dafa7e3a6199190e476"><div class="ttname"><a href="tracer_8h.html#aedc888fcd3fe8dafa7e3a6199190e476">tracer_pkt_build</a></div><div class="ttdeci">int tracer_pkt_build(u_char, int, int, int, u_char, brdcast_hdr *, tracer_hdr *, tracer_chunk *, u_short, char *, size_t, PACKET *)</div><div class="ttdef"><b>Definition:</b> tracer.c:438</div></div>
+<div class="ttc" id="atracer_8h_html_af05b0c61b0f303c4e45429ac287846ca"><div class="ttname"><a href="tracer_8h.html#af05b0c61b0f303c4e45429ac287846ca">exclude_from</a></div><div class="ttdeci">int exclude_from(TRACER_PKT_EXCLUDE_VARS)</div><div class="ttdef"><b>Definition:</b> tracer.c:1379</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="tracer_8h.html">tracer.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

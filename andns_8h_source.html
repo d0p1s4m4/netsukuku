@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('andns_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">andns.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">             /**************************************</span></div>
+<a href="andns_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">             /**************************************</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">            *     AUTHOR: Federico Tomassini        *</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">           *     Copyright (C) Federico Tomassini    *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">          *     Contact effetom@gmail.com             *</span></div>
@@ -96,75 +112,105 @@ $(function() {
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;sys/socket.h&gt;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;netdb.h&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;dnslib.h&quot;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;andns_lib.h&quot;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;inet.h&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="dnslib_8h.html">dnslib.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="andns__lib_8h.html">andns_lib.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="inet_8h.html">inet.h</a>&quot;</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define ANDNS_TIMEOUT       15</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="andns_8h.html#afb945b9ea115da5e949e13cc99da86b1">   30</a></span><span class="preprocessor">#define ANDNS_TIMEOUT       15</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define MAXNSSERVERS        3</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define DNS_REPLY_TIMEOUT       10  </span><span class="comment">/* seconds */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="andns_8h.html#a9ffd051a017f698fcf815adeae6cde69">   32</a></span><span class="preprocessor">#define MAXNSSERVERS        3</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="andns_8h.html#a2eb68ada0356c733bf3842a6ab5a4529">   33</a></span><span class="preprocessor">#define DNS_REPLY_TIMEOUT       10  </span><span class="comment">/* seconds */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define DNS_PORT        53</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define DNS_PORT_STR        &quot;53&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="andns_8h.html#ab1d3f5c08428c20521a92ca2fa20f46c">   35</a></span><span class="preprocessor">#define DNS_PORT        53</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="andns_8h.html#af7f98e1d3ce09c1628ba3334b0e32829">   36</a></span><span class="preprocessor">#define DNS_PORT_STR        &quot;53&quot;</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">/* PREFIX TO QUERY THE INET REALM */</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define INET_REALM_PREFIX       &quot;.INT&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define NTK_REALM_PREFIX        &quot;.NTK&quot;</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define PTR_INET_REALM_PREFIX   &quot;INT.&quot;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define PTR_NTK_REALM_PREFIX    &quot;NTK.&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define REALM_PREFIX_LEN        4</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="andns_8h.html#ae3120483f02820a26dd66e4c4fdb3d56">   39</a></span><span class="preprocessor">#define INET_REALM_PREFIX       &quot;.INT&quot;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="andns_8h.html#af677d7083f12ffbb35d6e67a1c9ef405">   40</a></span><span class="preprocessor">#define NTK_REALM_PREFIX        &quot;.NTK&quot;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="andns_8h.html#a43e367d97240e6669d5c5d0012c95b3c">   41</a></span><span class="preprocessor">#define PTR_INET_REALM_PREFIX   &quot;INT.&quot;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="andns_8h.html#a451f4b4d57de0e725ee39f93277e64f9">   42</a></span><span class="preprocessor">#define PTR_NTK_REALM_PREFIX    &quot;NTK.&quot;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="andns_8h.html#a7331067075b99b331e36fb7ac7db09b8">   43</a></span><span class="preprocessor">#define REALM_PREFIX_LEN        4</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#define DNS_PROTO       0</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define ANDNS_PROTO     1</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="andns_8h.html#a957880db3b2497cbe16f1f69129a497c">   45</a></span><span class="preprocessor">#define DNS_PROTO       0</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="andns_8h.html#ace8ba5259fa2ff091aa3aedfbb4e2cb9">   46</a></span><span class="preprocessor">#define ANDNS_PROTO     1</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define NK_DNS          0</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define NK_NTK          1</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define NK_INET         2</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define GET_NK_BIT(msg)     (*((msg+3))&gt;&gt;4)&amp;0x03</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="andns_8h.html#a2886d25d5d94720331b4cf39cb81c37e">   48</a></span><span class="preprocessor">#define NK_DNS          0</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="andns_8h.html#a1551800f2e195346f530995a7effd624">   49</a></span><span class="preprocessor">#define NK_NTK          1</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="andns_8h.html#ad3fbec33ed22683ae6ae968e62debe0b">   50</a></span><span class="preprocessor">#define NK_INET         2</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="andns_8h.html#a3a51d3bacf2ff13ce7f94f7690e829ee">   51</a></span><span class="preprocessor">#define GET_NK_BIT(msg)     (*((msg+3))&gt;&gt;4)&amp;0x03</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define RCODE_NOERR     0</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define RCODE_EINTRPRT      1</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#define RCODE_ESRVFAIL      2</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#define RCODE_ENSDMN        3</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#define RCODE_ENIMPL        4</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define RCODE_ERFSD     5</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="andns_8h.html#a204f703d440cc58988ec2ba09f79d9c9">   53</a></span><span class="preprocessor">#define RCODE_NOERR     0</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="andns_8h.html#aa6d49814f998dc5f8d420a14a8f9bd21">   54</a></span><span class="preprocessor">#define RCODE_EINTRPRT      1</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="andns_8h.html#ab43abcb5638319b886fee639a99d20a1">   55</a></span><span class="preprocessor">#define RCODE_ESRVFAIL      2</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="andns_8h.html#a53851c693e3513509bb187774f26db8f">   56</a></span><span class="preprocessor">#define RCODE_ENSDMN        3</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="andns_8h.html#ae7bf34a4b69a4b7c61b5b3b1352b743c">   57</a></span><span class="preprocessor">#define RCODE_ENIMPL        4</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="andns_8h.html#a4b48cbaf0656f6ddfb7bdd3375eb33e3">   58</a></span><span class="preprocessor">#define RCODE_ERFSD     5</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="comment">/* FUNCTIONS */</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">int</span> store_ns(<span class="keywordtype">char</span> *ns);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">int</span> collect_resolv_conf(<span class="keywordtype">char</span> *resolve_conf);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">void</span> reset_andns_ns(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">int</span> andns_init(<span class="keywordtype">int</span> restricted, <span class="keywordtype">char</span> *resolv_conf, <span class="keywordtype">int</span> family);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> andns_close(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">int</span> ns_general_send(<span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer, <span class="keywordtype">int</span> anslen);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keywordtype">void</span> dpktacpy(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dst, <a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * src, <span class="keyword">const</span> <span class="keywordtype">char</span> *prefix);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> *dpktcpy(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * src, <span class="keyword">const</span> <span class="keywordtype">char</span> *prefix);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">char</span> *rm_realm_prefix(<span class="keywordtype">char</span> *from, <span class="keywordtype">char</span> *dst, <span class="keywordtype">int</span> type);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> *dpktcpy_rm_pref(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * src);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> andns_gethostbyname(<span class="keywordtype">char</span> *hname, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * ip);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">int</span> andns_realm(<a class="code hl_struct" href="structdns__pkt__qst.html">dns_pkt_qst</a> * dpq, <span class="keywordtype">int</span> *prefixed);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">int</span> is_prefixed(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dp);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">int</span> dns_forward(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dp, <span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keywordtype">int</span> inet_rslv(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dp, <span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">int</span> nk_rslv(<a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap, <span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">int</span> qtype_a_to_d(<a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keywordtype">int</span> apqsttodpqst(<a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap, <a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> ** dpsrc);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keywordtype">int</span> dpanswtoapansw(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dp, <a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keywordtype">int</span> nk_forward(<a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap, <span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">char</span> *andns_rslv(<span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer, <span class="keywordtype">int</span> *answ_len);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a06279c082d2dfb4436b0b575ee0bf485">store_ns</a>(<span class="keywordtype">char</span> *ns);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a412c450840e3bb78ac14b32b3db878a8">collect_resolv_conf</a>(<span class="keywordtype">char</span> *resolve_conf);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">void</span> <a class="code hl_function" href="andns_8h.html#a14f73f295437c3ab586d2f19cf20799f">reset_andns_ns</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a5a4d6d7f4f8ffb407a416f1bab193258">andns_init</a>(<span class="keywordtype">int</span> restricted, <span class="keywordtype">char</span> *resolv_conf, <span class="keywordtype">int</span> <a class="code hl_variable" href="if_8c.html#a4417150d9f858949bd9ea8794995ebcc">family</a>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> <a class="code hl_function" href="andns_8h.html#a7d0899aadc62060e73c4ad5745dbfaad">andns_close</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a65c36ebb80b180a09b9a78c73ee5c106">ns_general_send</a>(<span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer, <span class="keywordtype">int</span> anslen);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keywordtype">void</span> <a class="code hl_function" href="andns_8h.html#a4f773865e30cee5adfced0cd497c64e9">dpktacpy</a>(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dst, <a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * src, <span class="keyword">const</span> <span class="keywordtype">char</span> *prefix);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> *<a class="code hl_function" href="andns_8h.html#a9e06171cb7f2cb139c5b5a2c42c7f1c3">dpktcpy</a>(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * src, <span class="keyword">const</span> <span class="keywordtype">char</span> *prefix);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">char</span> *<a class="code hl_function" href="andns_8h.html#a9013940c1fe5bc379bee1af5ca4ddcfc">rm_realm_prefix</a>(<span class="keywordtype">char</span> *from, <span class="keywordtype">char</span> *dst, <span class="keywordtype">int</span> <a class="code hl_variable" href="krnl__route_8c.html#ac765329451135abec74c45e1897abf26">type</a>);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> *<a class="code hl_function" href="andns_8h.html#afe768aa6db2bfb53b0b05496bbc60e5a">dpktcpy_rm_pref</a>(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * src);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#ad2d760371a7d8f72ee021dcf12997c2d">andns_gethostbyname</a>(<span class="keywordtype">char</span> *hname, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * ip);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a1dc287a0b8b0db15f31309ea0cb8e383">andns_realm</a>(<a class="code hl_struct" href="structdns__pkt__qst.html">dns_pkt_qst</a> * dpq, <span class="keywordtype">int</span> *prefixed);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#ab43667541accf07092016e32181edf94">is_prefixed</a>(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dp);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#aae58fed9c96a1eb5a5411c76510ba3ac">dns_forward</a>(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dp, <span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a81431a7e5716758c3bbefd17f8e68898">inet_rslv</a>(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dp, <span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a77c1322dbf52a1bacabe97028c9ce8d2">nk_rslv</a>(<a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap, <span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a21a8f0e04e19b66f878b3d4536c685ca">qtype_a_to_d</a>(<a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#ace63c5b658eb33f8b5076fa0506e8afb">apqsttodpqst</a>(<a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap, <a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> ** dpsrc);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a1220da16c538185a3258cedab47c254a">dpanswtoapansw</a>(<a class="code hl_struct" href="structdns__pkt.html">dns_pkt</a> * dp, <a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keywordtype">int</span> <a class="code hl_function" href="andns_8h.html#a36956c4fc77c5a1b3dfcda3cc0a9051e">nk_forward</a>(<a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> * ap, <span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">char</span> *<a class="code hl_function" href="andns_8h.html#a2a2f7851e18a4b31f391a8f239f7bec0">andns_rslv</a>(<span class="keywordtype">char</span> *msg, <span class="keywordtype">int</span> msglen, <span class="keywordtype">char</span> *answer, <span class="keywordtype">int</span> *answ_len);</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#endif                          </span><span class="comment">/* ANDNS_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aandns_8h_html_a06279c082d2dfb4436b0b575ee0bf485"><div class="ttname"><a href="andns_8h.html#a06279c082d2dfb4436b0b575ee0bf485">store_ns</a></div><div class="ttdeci">int store_ns(char *ns)</div><div class="ttdef"><b>Definition:</b> andns.c:99</div></div>
+<div class="ttc" id="aandns_8h_html_a1220da16c538185a3258cedab47c254a"><div class="ttname"><a href="andns_8h.html#a1220da16c538185a3258cedab47c254a">dpanswtoapansw</a></div><div class="ttdeci">int dpanswtoapansw(dns_pkt *dp, andns_pkt *ap)</div><div class="ttdef"><b>Definition:</b> andns.c:528</div></div>
+<div class="ttc" id="aandns_8h_html_a14f73f295437c3ab586d2f19cf20799f"><div class="ttname"><a href="andns_8h.html#a14f73f295437c3ab586d2f19cf20799f">reset_andns_ns</a></div><div class="ttdeci">void reset_andns_ns(void)</div><div class="ttdef"><b>Definition:</b> andns.c:168</div></div>
+<div class="ttc" id="aandns_8h_html_a1dc287a0b8b0db15f31309ea0cb8e383"><div class="ttname"><a href="andns_8h.html#a1dc287a0b8b0db15f31309ea0cb8e383">andns_realm</a></div><div class="ttdeci">int andns_realm(dns_pkt_qst *dpq, int *prefixed)</div><div class="ttdef"><b>Definition:</b> andns.c:391</div></div>
+<div class="ttc" id="aandns_8h_html_a21a8f0e04e19b66f878b3d4536c685ca"><div class="ttname"><a href="andns_8h.html#a21a8f0e04e19b66f878b3d4536c685ca">qtype_a_to_d</a></div><div class="ttdeci">int qtype_a_to_d(andns_pkt *ap)</div><div class="ttdef"><b>Definition:</b> andns.c:456</div></div>
+<div class="ttc" id="aandns_8h_html_a2a2f7851e18a4b31f391a8f239f7bec0"><div class="ttname"><a href="andns_8h.html#a2a2f7851e18a4b31f391a8f239f7bec0">andns_rslv</a></div><div class="ttdeci">char * andns_rslv(char *msg, int msglen, char *answer, int *answ_len)</div><div class="ttdef"><b>Definition:</b> andns.c:949</div></div>
+<div class="ttc" id="aandns_8h_html_a36956c4fc77c5a1b3dfcda3cc0a9051e"><div class="ttname"><a href="andns_8h.html#a36956c4fc77c5a1b3dfcda3cc0a9051e">nk_forward</a></div><div class="ttdeci">int nk_forward(andns_pkt *ap, char *msg, int msglen, char *answer)</div><div class="ttdef"><b>Definition:</b> andns.c:888</div></div>
+<div class="ttc" id="aandns_8h_html_a412c450840e3bb78ac14b32b3db878a8"><div class="ttname"><a href="andns_8h.html#a412c450840e3bb78ac14b32b3db878a8">collect_resolv_conf</a></div><div class="ttdeci">int collect_resolv_conf(char *resolve_conf)</div><div class="ttdef"><b>Definition:</b> andns.c:129</div></div>
+<div class="ttc" id="aandns_8h_html_a4f773865e30cee5adfced0cd497c64e9"><div class="ttname"><a href="andns_8h.html#a4f773865e30cee5adfced0cd497c64e9">dpktacpy</a></div><div class="ttdeci">void dpktacpy(dns_pkt *dst, dns_pkt *src, const char *prefix)</div><div class="ttdef"><b>Definition:</b> andns.c:272</div></div>
+<div class="ttc" id="aandns_8h_html_a5a4d6d7f4f8ffb407a416f1bab193258"><div class="ttname"><a href="andns_8h.html#a5a4d6d7f4f8ffb407a416f1bab193258">andns_init</a></div><div class="ttdeci">int andns_init(int restricted, char *resolv_conf, int family)</div><div class="ttdef"><b>Definition:</b> andns.c:185</div></div>
+<div class="ttc" id="aandns_8h_html_a65c36ebb80b180a09b9a78c73ee5c106"><div class="ttname"><a href="andns_8h.html#a65c36ebb80b180a09b9a78c73ee5c106">ns_general_send</a></div><div class="ttdeci">int ns_general_send(char *msg, int msglen, char *answer, int anslen)</div><div class="ttdef"><b>Definition:</b> andns.c:250</div></div>
+<div class="ttc" id="aandns_8h_html_a77c1322dbf52a1bacabe97028c9ce8d2"><div class="ttname"><a href="andns_8h.html#a77c1322dbf52a1bacabe97028c9ce8d2">nk_rslv</a></div><div class="ttdeci">int nk_rslv(andns_pkt *ap, char *msg, int msglen, char *answer)</div><div class="ttdef"><b>Definition:</b> andns.c:800</div></div>
+<div class="ttc" id="aandns_8h_html_a7d0899aadc62060e73c4ad5745dbfaad"><div class="ttname"><a href="andns_8h.html#a7d0899aadc62060e73c4ad5745dbfaad">andns_close</a></div><div class="ttdeci">void andns_close(void)</div><div class="ttdef"><b>Definition:</b> andns.c:241</div></div>
+<div class="ttc" id="aandns_8h_html_a81431a7e5716758c3bbefd17f8e68898"><div class="ttname"><a href="andns_8h.html#a81431a7e5716758c3bbefd17f8e68898">inet_rslv</a></div><div class="ttdeci">int inet_rslv(dns_pkt *dp, char *msg, int msglen, char *answer)</div><div class="ttdef"><b>Definition:</b> andns.c:732</div></div>
+<div class="ttc" id="aandns_8h_html_a9013940c1fe5bc379bee1af5ca4ddcfc"><div class="ttname"><a href="andns_8h.html#a9013940c1fe5bc379bee1af5ca4ddcfc">rm_realm_prefix</a></div><div class="ttdeci">char * rm_realm_prefix(char *from, char *dst, int type)</div><div class="ttdef"><b>Definition:</b> andns.c:348</div></div>
+<div class="ttc" id="aandns_8h_html_a9e06171cb7f2cb139c5b5a2c42c7f1c3"><div class="ttname"><a href="andns_8h.html#a9e06171cb7f2cb139c5b5a2c42c7f1c3">dpktcpy</a></div><div class="ttdeci">dns_pkt * dpktcpy(dns_pkt *src, const char *prefix)</div><div class="ttdef"><b>Definition:</b> andns.c:320</div></div>
+<div class="ttc" id="aandns_8h_html_aae58fed9c96a1eb5a5411c76510ba3ac"><div class="ttname"><a href="andns_8h.html#aae58fed9c96a1eb5a5411c76510ba3ac">dns_forward</a></div><div class="ttdeci">int dns_forward(dns_pkt *dp, char *msg, int msglen, char *answer)</div><div class="ttdef"><b>Definition:</b> andns.c:663</div></div>
+<div class="ttc" id="aandns_8h_html_ab43667541accf07092016e32181edf94"><div class="ttname"><a href="andns_8h.html#ab43667541accf07092016e32181edf94">is_prefixed</a></div><div class="ttdeci">int is_prefixed(dns_pkt *dp)</div><div class="ttdef"><b>Definition:</b> andns.c:443</div></div>
+<div class="ttc" id="aandns_8h_html_ace63c5b658eb33f8b5076fa0506e8afb"><div class="ttname"><a href="andns_8h.html#ace63c5b658eb33f8b5076fa0506e8afb">apqsttodpqst</a></div><div class="ttdeci">int apqsttodpqst(andns_pkt *ap, dns_pkt **dpsrc)</div><div class="ttdef"><b>Definition:</b> andns.c:474</div></div>
+<div class="ttc" id="aandns_8h_html_ad2d760371a7d8f72ee021dcf12997c2d"><div class="ttname"><a href="andns_8h.html#ad2d760371a7d8f72ee021dcf12997c2d">andns_gethostbyname</a></div><div class="ttdeci">int andns_gethostbyname(char *hname, inet_prefix *ip)</div><div class="ttdef"><b>Definition:</b> andns.c:599</div></div>
+<div class="ttc" id="aandns_8h_html_afe768aa6db2bfb53b0b05496bbc60e5a"><div class="ttname"><a href="andns_8h.html#afe768aa6db2bfb53b0b05496bbc60e5a">dpktcpy_rm_pref</a></div><div class="ttdeci">dns_pkt * dpktcpy_rm_pref(dns_pkt *src)</div><div class="ttdef"><b>Definition:</b> andns.c:377</div></div>
+<div class="ttc" id="aandns__lib_8h_html"><div class="ttname"><a href="andns__lib_8h.html">andns_lib.h</a></div></div>
+<div class="ttc" id="adnslib_8h_html"><div class="ttname"><a href="dnslib_8h.html">dnslib.h</a></div></div>
+<div class="ttc" id="aif_8c_html_a4417150d9f858949bd9ea8794995ebcc"><div class="ttname"><a href="if_8c.html#a4417150d9f858949bd9ea8794995ebcc">family</a></div><div class="ttdeci">int family</div><div class="ttdef"><b>Definition:</b> if.c:33</div></div>
+<div class="ttc" id="ainet_8h_html"><div class="ttname"><a href="inet_8h.html">inet.h</a></div></div>
+<div class="ttc" id="akrnl__route_8c_html_ac765329451135abec74c45e1897abf26"><div class="ttname"><a href="krnl__route_8c.html#ac765329451135abec74c45e1897abf26">type</a></div><div class="ttdeci">int type</div><div class="ttdef"><b>Definition:</b> krnl_route.c:48</div></div>
 <div class="ttc" id="astructandns__pkt_html"><div class="ttname"><a href="structandns__pkt.html">andns_pkt</a></div><div class="ttdef"><b>Definition:</b> andns_lib.h:63</div></div>
 <div class="ttc" id="astructdns__pkt__qst_html"><div class="ttname"><a href="structdns__pkt__qst.html">dns_pkt_qst</a></div><div class="ttdef"><b>Definition:</b> dnslib.h:89</div></div>
 <div class="ttc" id="astructdns__pkt_html"><div class="ttname"><a href="structdns__pkt.html">dns_pkt</a></div><div class="ttdef"><b>Definition:</b> dnslib.h:110</div></div>
 <div class="ttc" id="astructinet__prefix_html"><div class="ttname"><a href="structinet__prefix.html">inet_prefix</a></div><div class="ttdef"><b>Definition:</b> inet.h:73</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="andns_8h.html">andns.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

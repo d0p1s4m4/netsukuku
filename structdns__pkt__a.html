@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structdns__pkt__a.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,53 +83,150 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle"><div class="title">dns_pkt_a Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="dnslib_8h_source.html">dnslib.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for dns_pkt_a:</div>
 <div class="dyncontent">
 <div class="center"><img src="structdns__pkt__a__coll__graph.png" border="0" usemap="#adns__pkt__a_coll__map" alt="Collaboration graph"/></div>
 <map name="adns__pkt__a_coll__map" id="adns__pkt__a_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,88,32"/>
+<area shape="rect" title=" " alt="" coords="5,5,88,156"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a3ab128812688da2d6306fe8b27446e72"><td class="memItemLeft" align="right" valign="top"><a id="a3ab128812688da2d6306fe8b27446e72" name="a3ab128812688da2d6306fe8b27446e72"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> [DNS_MAX_HNAME_LEN]</td></tr>
+<tr class="memitem:a3ab128812688da2d6306fe8b27446e72"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__pkt__a.html#a3ab128812688da2d6306fe8b27446e72">name</a> [<a class="el" href="dnslib_8h.html#a7f7084664d4dc6199006433f56d8a10e">DNS_MAX_HNAME_LEN</a>]</td></tr>
 <tr class="separator:a3ab128812688da2d6306fe8b27446e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb5cfd209ba75c853d03f701e7f91679"><td class="memItemLeft" align="right" valign="top"><a id="acb5cfd209ba75c853d03f701e7f91679" name="acb5cfd209ba75c853d03f701e7f91679"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>type</b></td></tr>
+<tr class="memitem:acb5cfd209ba75c853d03f701e7f91679"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__pkt__a.html#acb5cfd209ba75c853d03f701e7f91679">type</a></td></tr>
 <tr class="separator:acb5cfd209ba75c853d03f701e7f91679"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c20591ae66c4984826225eb4426518f"><td class="memItemLeft" align="right" valign="top"><a id="a2c20591ae66c4984826225eb4426518f" name="a2c20591ae66c4984826225eb4426518f"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>cl</b></td></tr>
+<tr class="memitem:a2c20591ae66c4984826225eb4426518f"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__pkt__a.html#a2c20591ae66c4984826225eb4426518f">cl</a></td></tr>
 <tr class="separator:a2c20591ae66c4984826225eb4426518f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48b9f3382e0929bbd75cda2bf2838126"><td class="memItemLeft" align="right" valign="top"><a id="a48b9f3382e0929bbd75cda2bf2838126" name="a48b9f3382e0929bbd75cda2bf2838126"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>ttl</b></td></tr>
+<tr class="memitem:a48b9f3382e0929bbd75cda2bf2838126"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__pkt__a.html#a48b9f3382e0929bbd75cda2bf2838126">ttl</a></td></tr>
 <tr class="separator:a48b9f3382e0929bbd75cda2bf2838126"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af06969277715677d7441c9b816daa2ec"><td class="memItemLeft" align="right" valign="top"><a id="af06969277715677d7441c9b816daa2ec" name="af06969277715677d7441c9b816daa2ec"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>rdlength</b></td></tr>
+<tr class="memitem:af06969277715677d7441c9b816daa2ec"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__pkt__a.html#af06969277715677d7441c9b816daa2ec">rdlength</a></td></tr>
 <tr class="separator:af06969277715677d7441c9b816daa2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4d55b4b857e5e7c9d2abfdbab3e1320"><td class="memItemLeft" align="right" valign="top"><a id="ae4d55b4b857e5e7c9d2abfdbab3e1320" name="ae4d55b4b857e5e7c9d2abfdbab3e1320"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>rdata</b> [DNS_MAX_HNAME_LEN]</td></tr>
+<tr class="memitem:ae4d55b4b857e5e7c9d2abfdbab3e1320"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__pkt__a.html#ae4d55b4b857e5e7c9d2abfdbab3e1320">rdata</a> [<a class="el" href="dnslib_8h.html#a7f7084664d4dc6199006433f56d8a10e">DNS_MAX_HNAME_LEN</a>]</td></tr>
 <tr class="separator:ae4d55b4b857e5e7c9d2abfdbab3e1320"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9671c076b27480ff82bede1928091f2b"><td class="memItemLeft" align="right" valign="top"><a id="a9671c076b27480ff82bede1928091f2b" name="a9671c076b27480ff82bede1928091f2b"></a>
-struct <a class="el" href="structdns__pkt__a.html">dns_pkt_a</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>next</b></td></tr>
+<tr class="memitem:a9671c076b27480ff82bede1928091f2b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdns__pkt__a.html">dns_pkt_a</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__pkt__a.html#a9671c076b27480ff82bede1928091f2b">next</a></td></tr>
 <tr class="separator:a9671c076b27480ff82bede1928091f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a2c20591ae66c4984826225eb4426518f" name="a2c20591ae66c4984826225eb4426518f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c20591ae66c4984826225eb4426518f">&#9670;&nbsp;</a></span>cl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t cl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3ab128812688da2d6306fe8b27446e72" name="a3ab128812688da2d6306fe8b27446e72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ab128812688da2d6306fe8b27446e72">&#9670;&nbsp;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char name[<a class="el" href="dnslib_8h.html#a7f7084664d4dc6199006433f56d8a10e">DNS_MAX_HNAME_LEN</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9671c076b27480ff82bede1928091f2b" name="a9671c076b27480ff82bede1928091f2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9671c076b27480ff82bede1928091f2b">&#9670;&nbsp;</a></span>next</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdns__pkt__a.html">dns_pkt_a</a>* next</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae4d55b4b857e5e7c9d2abfdbab3e1320" name="ae4d55b4b857e5e7c9d2abfdbab3e1320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d55b4b857e5e7c9d2abfdbab3e1320">&#9670;&nbsp;</a></span>rdata</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char rdata[<a class="el" href="dnslib_8h.html#a7f7084664d4dc6199006433f56d8a10e">DNS_MAX_HNAME_LEN</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af06969277715677d7441c9b816daa2ec" name="af06969277715677d7441c9b816daa2ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af06969277715677d7441c9b816daa2ec">&#9670;&nbsp;</a></span>rdlength</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t rdlength</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a48b9f3382e0929bbd75cda2bf2838126" name="a48b9f3382e0929bbd75cda2bf2838126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48b9f3382e0929bbd75cda2bf2838126">&#9670;&nbsp;</a></span>ttl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t ttl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acb5cfd209ba75c853d03f701e7f91679" name="acb5cfd209ba75c853d03f701e7f91679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb5cfd209ba75c853d03f701e7f91679">&#9670;&nbsp;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="dnslib_8h_source.html">dnslib.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structdns__pkt__a.html">dns_pkt_a</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

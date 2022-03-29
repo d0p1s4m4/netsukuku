@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('err__errno_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">err_errno.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">                 /**************************************</span></div>
+<a href="err__errno_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">                 /**************************************</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">                *     AUTHOR: Federico Tomassini        *</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">               *     Copyright (C) Federico Tomassini    *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">              *     Contact effetom@gmail.com             *</span></div>
@@ -99,47 +115,47 @@ $(function() {
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define ERR_UFOERR  -1</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define ERR_DNSMLO  -2</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define ERR_DNSMSL  -3</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define ERR_DNSMDP  -4</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define ERR_DNSMDD  -5</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define ERR_DNSTRP  -6</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define ERR_DNSPLB  -7</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define ERR_DNSPTP  -8</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define ERR_DNSMDA  -9</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define ERR_DNSPDS  -10</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="err__errno_8h.html#ad9f4c22564b258a801bfb5ac9ef03540">   29</a></span><span class="preprocessor">#define ERR_UFOERR  -1</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="err__errno_8h.html#ad8d3dbb7f3adb0470998bf4b31c2818b">   30</a></span><span class="preprocessor">#define ERR_DNSMLO  -2</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a99bb8188ae4d32e5fd77a74e624b236b">   31</a></span><span class="preprocessor">#define ERR_DNSMSL  -3</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="err__errno_8h.html#afad5f0a552869f360cc2e930a43e96ef">   32</a></span><span class="preprocessor">#define ERR_DNSMDP  -4</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a8525951747f00209c18d712cda2425bb">   33</a></span><span class="preprocessor">#define ERR_DNSMDD  -5</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="err__errno_8h.html#abd650d9cdaf533614cbfe308d2bce2cb">   34</a></span><span class="preprocessor">#define ERR_DNSTRP  -6</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a2b28f8940a27e322308fad109ac283c8">   35</a></span><span class="preprocessor">#define ERR_DNSPLB  -7</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a3c4cfd3f3c96ad77fb22e80497e043e3">   36</a></span><span class="preprocessor">#define ERR_DNSPTP  -8</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a9559ad3f5c0c99215a35b05bc71b4591">   37</a></span><span class="preprocessor">#define ERR_DNSMDA  -9</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a8879dec47252c9107326f946cc811476">   38</a></span><span class="preprocessor">#define ERR_DNSPDS  -10</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define ERR_ANDMAP  -11</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define ERR_ANDPLB  -12</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define ERR_ANDMAD  -13</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define ERR_ANDNCQ  -14</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a27c6502d504a6eb8858b4a112d5b5533">   40</a></span><span class="preprocessor">#define ERR_ANDMAP  -11</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a828820db62592546abb88ddba21bdc7d">   41</a></span><span class="preprocessor">#define ERR_ANDPLB  -12</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a4e80484be2e09038c088e20efc74cb7a">   42</a></span><span class="preprocessor">#define ERR_ANDMAD  -13</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a715f444f80852c6fcb5dde89381de5b1">   43</a></span><span class="preprocessor">#define ERR_ANDNCQ  -14</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#define ERR_RSLERC  -15</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define ERR_RSLAIE  -16</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define ERR_RSLNNS  -17</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define ERR_RSLFDQ  -18</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define ERR_RSLRSL  -19</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define ERR_RSLAQD  -20</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="err__errno_8h.html#ad6e113a7822026935139cedcbc164f61">   45</a></span><span class="preprocessor">#define ERR_RSLERC  -15</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="err__errno_8h.html#afe8fa12798577307d53769d6c32551b1">   46</a></span><span class="preprocessor">#define ERR_RSLAIE  -16</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a664a9fcd0d5569343860fca5667a6c2e">   47</a></span><span class="preprocessor">#define ERR_RSLNNS  -17</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a1273e79d2b24df89774cab666f433c73">   48</a></span><span class="preprocessor">#define ERR_RSLFDQ  -18</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a27da6e0d9bf0685a8f67e2a2a3797a52">   49</a></span><span class="preprocessor">#define ERR_RSLRSL  -19</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a285d48c8dee8866e894d89265660e030">   50</a></span><span class="preprocessor">#define ERR_RSLAQD  -20</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#define ERR_MRKINI  -21</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define ERR_NETFIL  -22</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define ERR_NETRUL  -23</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#define ERR_NETCOM  -24</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#define ERR_NETCHA  -25</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#define ERR_NETDEL  -26</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define ERR_NETSTO  -27</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#define ERR_NETRST  -28</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a80264bb350ad02bfe08198238b9a0df7">   52</a></span><span class="preprocessor">#define ERR_MRKINI  -21</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="err__errno_8h.html#aec6ca9ace31e74a088412e6ae25356d1">   53</a></span><span class="preprocessor">#define ERR_NETFIL  -22</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="err__errno_8h.html#ae3f4de529ecbd6629ee967f6b8f62bdb">   54</a></span><span class="preprocessor">#define ERR_NETRUL  -23</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="err__errno_8h.html#acf170bc1f470516dfd14133d9e81b2a5">   55</a></span><span class="preprocessor">#define ERR_NETCOM  -24</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a243d23e572a2e67bfa8b7aad2329f172">   56</a></span><span class="preprocessor">#define ERR_NETCHA  -25</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="err__errno_8h.html#ab5f6fb5b32b8187db91a822870fbad12">   57</a></span><span class="preprocessor">#define ERR_NETDEL  -26</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="err__errno_8h.html#afde860c9ab485d9980dcf049be6ec600">   58</a></span><span class="preprocessor">#define ERR_NETSTO  -27</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="err__errno_8h.html#aabe9b48d28761147fddc4ecc38883421">   59</a></span><span class="preprocessor">#define ERR_NETRST  -28</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define ERR_SNDMRF  -29</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define ERR_SNDRCS  -30</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="err__errno_8h.html#adea74a91343bfa6469ee527cb522e404">   61</a></span><span class="preprocessor">#define ERR_SNDMRF  -29</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a4aa20e15e1c7875a3d645312f9b803ef">   62</a></span><span class="preprocessor">#define ERR_SNDRCS  -30</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#define ERR_ZLIBCP  -31</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define ERR_ZLIBUP  -32</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#define ERR_ZLIBNU  -33</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a407a90c57b6280fcd3106925488b9751">   64</a></span><span class="preprocessor">#define ERR_ZLIBCP  -31</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a5aa375632fd61b58c89b4a52e29e006e">   65</a></span><span class="preprocessor">#define ERR_ZLIBUP  -32</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a3553d4cf3fa7452751d0d32dca275123">   66</a></span><span class="preprocessor">#define ERR_ZLIBNU  -33</span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define ERR_TOTAL_ERRS  (-(ERR_ZLIBNU))</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define ERR_OVERFLOW    &quot;Error number does not exist.&quot;</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a6c9e15d993c2c9d59ecad558792c4599">   68</a></span><span class="preprocessor">#define ERR_TOTAL_ERRS  (-(ERR_ZLIBNU))</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="err__errno_8h.html#ad10b7a726bfcfbac7f7c30586e8802d0">   69</a></span><span class="preprocessor">#define ERR_OVERFLOW    &quot;Error number does not exist.&quot;</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="comment">/* END OF DEFS */</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
@@ -147,29 +163,36 @@ $(function() {
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> <span class="comment">/*</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">  * Core</span></div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">  */</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">const</span> <span class="keywordtype">char</span> *err_func, *err_file;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#define ERR_NERR                (ERR_TOTAL_ERRS)</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#define err_seterrno(n)         errno=(n);err_func=__func__;    \</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a981d14c9f7f8ae99fae0b58ca0c685fe">   77</a></span><span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_variable" href="err__errno_8h.html#aa01ffcdcb00b46f4c0ab397c81122ffe">err_func</a>, *<a class="code hl_variable" href="err__errno_8h.html#a981d14c9f7f8ae99fae0b58ca0c685fe">err_file</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a9b9d6b082de06e803647e8cc9b3ea984">   78</a></span><span class="preprocessor">#define ERR_NERR                (ERR_TOTAL_ERRS)</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="err__errno_8h.html#aadf53cc80e4ab7d0dd8fe5cb21740f57">   79</a></span><span class="preprocessor">#define err_seterrno(n)         errno=(n);err_func=__func__;    \</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">                                err_file=__FILE__</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#define err_ret(n,ret)      {err_seterrno(n);return ret;}</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#define err_intret(n)           {err_seterrno(n);return -1;}</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#define err_voidret(n)          {err_seterrno(n);return NULL;}</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#define err_strerror(e)                                         \</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a377b0e8bb008b17155b39a3468139c5a">   81</a></span><span class="preprocessor">#define err_ret(n,ret)      {err_seterrno(n);return ret;}</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="err__errno_8h.html#ac9f66f75f893521939e9449e1750a10c">   82</a></span><span class="preprocessor">#define err_intret(n)           {err_seterrno(n);return -1;}</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="err__errno_8h.html#af0d4e32e95c425e619fcc6db3a375e9b">   83</a></span><span class="preprocessor">#define err_voidret(n)          {err_seterrno(n);return NULL;}</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="err__errno_8h.html#ad3e9aca7c6eceaa00cae6346ebbbc6ac">   84</a></span><span class="preprocessor">#define err_strerror(e)                                         \</span></div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">        ((e)&gt;=0)?                                               \</span></div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">                strerror(e):                                    \</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">                __err_strerror(e)</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#define ERR_FORMAT      &quot;In %s(): %s() returns -&gt; %s&quot;</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#define err_str         ERR_FORMAT,__func__,                    \</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a7bd608453b83e74874a4983106a1d9cd">   88</a></span><span class="preprocessor">#define ERR_FORMAT      &quot;In %s(): %s() returns -&gt; %s&quot;</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="err__errno_8h.html#a90e18811673b5472aaa45865934515b7">   89</a></span><span class="preprocessor">#define err_str         ERR_FORMAT,__func__,                    \</span></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">                        err_func,__err_strerror(errno)</span></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">const</span> <span class="keywordtype">char</span> *__err_strerror(<span class="keywordtype">int</span> n);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_function" href="err__errno_8h.html#a57e51beec59efc077631903bdb408ca3">__err_strerror</a>(<span class="keywordtype">int</span> n);</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#endif                          </span><span class="comment">/* ERR_ERRNO_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aerr__errno_8h_html_a57e51beec59efc077631903bdb408ca3"><div class="ttname"><a href="err__errno_8h.html#a57e51beec59efc077631903bdb408ca3">__err_strerror</a></div><div class="ttdeci">const char * __err_strerror(int n)</div><div class="ttdef"><b>Definition:</b> err_errno.c:60</div></div>
+<div class="ttc" id="aerr__errno_8h_html_a981d14c9f7f8ae99fae0b58ca0c685fe"><div class="ttname"><a href="err__errno_8h.html#a981d14c9f7f8ae99fae0b58ca0c685fe">err_file</a></div><div class="ttdeci">const char * err_file</div><div class="ttdef"><b>Definition:</b> err_errno.h:77</div></div>
+<div class="ttc" id="aerr__errno_8h_html_aa01ffcdcb00b46f4c0ab397c81122ffe"><div class="ttname"><a href="err__errno_8h.html#aa01ffcdcb00b46f4c0ab397c81122ffe">err_func</a></div><div class="ttdeci">const char * err_func</div><div class="ttdef"><b>Definition:</b> err_errno.h:77</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="err__errno_8h.html">err_errno.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

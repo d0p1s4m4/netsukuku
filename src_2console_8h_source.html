@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('src_2console_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">console.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="src_2console_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * modify it under the terms of the GNU General Public License as published</span></div>
@@ -92,50 +108,71 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define CONSOLE_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define CONSOLE_SOCKET_PATH     &quot;/tmp/ntk-console&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define CONSOLE_VERSION_MAJOR   0</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define CONSOLE_VERSION_MINOR   3</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define CONSOLE_ARGV_LENGTH     250</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define CONSOLE_BUFFER_LENGTH   250</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="src_2console_8h.html#a364c071ccc859a372a97be5fa7e40768">   22</a></span><span class="preprocessor">#define CONSOLE_SOCKET_PATH     &quot;/tmp/ntk-console&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="src_2console_8h.html#aecef8fd16f8135b1d3d4c703d9ff9fdb">   23</a></span><span class="preprocessor">#define CONSOLE_VERSION_MAJOR   0</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="src_2console_8h.html#a23179065f462a838d3b097791e02ca4e">   24</a></span><span class="preprocessor">#define CONSOLE_VERSION_MINOR   3</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ac1020dce15f5404d0fbe8ade9c3d15e6">   25</a></span><span class="preprocessor">#define CONSOLE_ARGV_LENGTH     250</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ac0bd031381bca03cafa21cb09cbe0659">   26</a></span><span class="preprocessor">#define CONSOLE_BUFFER_LENGTH   250</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#ifndef TRUE</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define FALSE               0</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define TRUE                1</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="src_2console_8h.html#aa93f0eb578d23995850d61f7d61c55c1">   29</a></span><span class="preprocessor">#define FALSE               0</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="src_2console_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">   30</a></span><span class="preprocessor">#define TRUE                1</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    COMMAND_HELP = 0x100,</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    COMMAND_UPTIME,</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    COMMAND_KILL,</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    COMMAND_VERSION,</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    COMMAND_INETCONN,</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    COMMAND_CURIFS,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    COMMAND_CURIFSCT,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    COMMAND_CURQSPNID,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    COMMAND_CURIP,</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    COMMAND_CURNODE,</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    COMMAND_IFS,</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    COMMAND_IFSCT,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    COMMAND_QUIT,</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    COMMAND_CONSUPTIME</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} command_t;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10">   34</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a121bb43290e8dfbd37ca2e3a099c7bb5">   35</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a121bb43290e8dfbd37ca2e3a099c7bb5">COMMAND_HELP</a> = 0x100,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10acd4d5b6680f3b7db62b87f9548f34c7d">   36</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10acd4d5b6680f3b7db62b87f9548f34c7d">COMMAND_UPTIME</a>,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a5a33600e196d1251aece31f5e40f1e2f">   37</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a5a33600e196d1251aece31f5e40f1e2f">COMMAND_KILL</a>,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a1b1f2f035031376404eb62bcb5be97d6">   38</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a1b1f2f035031376404eb62bcb5be97d6">COMMAND_VERSION</a>,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10aa093ebf89a44aaafa33ed4718dcd61ea">   39</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10aa093ebf89a44aaafa33ed4718dcd61ea">COMMAND_INETCONN</a>,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a829c9297012c4421e4d937f4d234704b">   40</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a829c9297012c4421e4d937f4d234704b">COMMAND_CURIFS</a>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a32c286fc05c669e45483663b81431f98">   41</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a32c286fc05c669e45483663b81431f98">COMMAND_CURIFSCT</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a3f2ffacdb232c3268cd925ba5ce94bf9">   42</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a3f2ffacdb232c3268cd925ba5ce94bf9">COMMAND_CURQSPNID</a>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a60715c67af0a7c9de803c43f0f8b60cc">   43</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a60715c67af0a7c9de803c43f0f8b60cc">COMMAND_CURIP</a>,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10ac38c59924ed636b2522e997e561c2d8a">   44</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10ac38c59924ed636b2522e997e561c2d8a">COMMAND_CURNODE</a>,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10aa4f865dc296a519c0d73ade8b41ea764">   45</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10aa4f865dc296a519c0d73ade8b41ea764">COMMAND_IFS</a>,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a3434d6b0134d2a9233d48ccffe27db1f">   46</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a3434d6b0134d2a9233d48ccffe27db1f">COMMAND_IFSCT</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a01f8fb71d343306d4c60fcb6e85a06e1">   47</a></span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a01f8fb71d343306d4c60fcb6e85a06e1">COMMAND_QUIT</a>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_enumvalue" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a042ba201a2d1ce063b77100891b86d25">COMMAND_CONSUPTIME</a></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a042ba201a2d1ce063b77100891b86d25">   49</a></span>} <a class="code hl_enumeration" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10">command_t</a>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#pragma pack(1)</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structcmd__packet__t.html">   53</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    command_t command;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">char</span> *argv[CONSOLE_ARGV_LENGTH];</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structcmd__packet__t.html#a0ef41ce0f1743aeed5d4b90af53257eb">   54</a></span>    <a class="code hl_enumeration" href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10">command_t</a> <a class="code hl_variable" href="structcmd__packet__t.html#a0ef41ce0f1743aeed5d4b90af53257eb">command</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structcmd__packet__t.html#a5e195525e9302c1e12a3c8ccf117579c">   55</a></span>    <span class="keywordtype">char</span> *argv[<a class="code hl_define" href="src_2console_8h.html#ac1020dce15f5404d0fbe8ade9c3d15e6">CONSOLE_ARGV_LENGTH</a>];</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <a class="code hl_struct" href="structcmd__packet__t.html">cmd_packet_t</a>;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#pragma pack(0)</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif                          </span><span class="comment">/* CONSOLE_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10">command_t</a></div><div class="ttdeci">command_t</div><div class="ttdef"><b>Definition:</b> console.h:34</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a01f8fb71d343306d4c60fcb6e85a06e1"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a01f8fb71d343306d4c60fcb6e85a06e1">COMMAND_QUIT</a></div><div class="ttdeci">@ COMMAND_QUIT</div><div class="ttdef"><b>Definition:</b> console.h:47</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a042ba201a2d1ce063b77100891b86d25"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a042ba201a2d1ce063b77100891b86d25">COMMAND_CONSUPTIME</a></div><div class="ttdeci">@ COMMAND_CONSUPTIME</div><div class="ttdef"><b>Definition:</b> console.h:48</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a121bb43290e8dfbd37ca2e3a099c7bb5"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a121bb43290e8dfbd37ca2e3a099c7bb5">COMMAND_HELP</a></div><div class="ttdeci">@ COMMAND_HELP</div><div class="ttdef"><b>Definition:</b> console.h:35</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a1b1f2f035031376404eb62bcb5be97d6"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a1b1f2f035031376404eb62bcb5be97d6">COMMAND_VERSION</a></div><div class="ttdeci">@ COMMAND_VERSION</div><div class="ttdef"><b>Definition:</b> console.h:38</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a32c286fc05c669e45483663b81431f98"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a32c286fc05c669e45483663b81431f98">COMMAND_CURIFSCT</a></div><div class="ttdeci">@ COMMAND_CURIFSCT</div><div class="ttdef"><b>Definition:</b> console.h:41</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a3434d6b0134d2a9233d48ccffe27db1f"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a3434d6b0134d2a9233d48ccffe27db1f">COMMAND_IFSCT</a></div><div class="ttdeci">@ COMMAND_IFSCT</div><div class="ttdef"><b>Definition:</b> console.h:46</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a3f2ffacdb232c3268cd925ba5ce94bf9"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a3f2ffacdb232c3268cd925ba5ce94bf9">COMMAND_CURQSPNID</a></div><div class="ttdeci">@ COMMAND_CURQSPNID</div><div class="ttdef"><b>Definition:</b> console.h:42</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a5a33600e196d1251aece31f5e40f1e2f"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a5a33600e196d1251aece31f5e40f1e2f">COMMAND_KILL</a></div><div class="ttdeci">@ COMMAND_KILL</div><div class="ttdef"><b>Definition:</b> console.h:37</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a60715c67af0a7c9de803c43f0f8b60cc"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a60715c67af0a7c9de803c43f0f8b60cc">COMMAND_CURIP</a></div><div class="ttdeci">@ COMMAND_CURIP</div><div class="ttdef"><b>Definition:</b> console.h:43</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10a829c9297012c4421e4d937f4d234704b"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10a829c9297012c4421e4d937f4d234704b">COMMAND_CURIFS</a></div><div class="ttdeci">@ COMMAND_CURIFS</div><div class="ttdef"><b>Definition:</b> console.h:40</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10aa093ebf89a44aaafa33ed4718dcd61ea"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10aa093ebf89a44aaafa33ed4718dcd61ea">COMMAND_INETCONN</a></div><div class="ttdeci">@ COMMAND_INETCONN</div><div class="ttdef"><b>Definition:</b> console.h:39</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10aa4f865dc296a519c0d73ade8b41ea764"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10aa4f865dc296a519c0d73ade8b41ea764">COMMAND_IFS</a></div><div class="ttdeci">@ COMMAND_IFS</div><div class="ttdef"><b>Definition:</b> console.h:45</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10ac38c59924ed636b2522e997e561c2d8a"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10ac38c59924ed636b2522e997e561c2d8a">COMMAND_CURNODE</a></div><div class="ttdeci">@ COMMAND_CURNODE</div><div class="ttdef"><b>Definition:</b> console.h:44</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ab31350eb38b009cbd282027630a1ee10acd4d5b6680f3b7db62b87f9548f34c7d"><div class="ttname"><a href="src_2console_8h.html#ab31350eb38b009cbd282027630a1ee10acd4d5b6680f3b7db62b87f9548f34c7d">COMMAND_UPTIME</a></div><div class="ttdeci">@ COMMAND_UPTIME</div><div class="ttdef"><b>Definition:</b> console.h:36</div></div>
+<div class="ttc" id="asrc_2console_8h_html_ac1020dce15f5404d0fbe8ade9c3d15e6"><div class="ttname"><a href="src_2console_8h.html#ac1020dce15f5404d0fbe8ade9c3d15e6">CONSOLE_ARGV_LENGTH</a></div><div class="ttdeci">#define CONSOLE_ARGV_LENGTH</div><div class="ttdef"><b>Definition:</b> console.h:25</div></div>
 <div class="ttc" id="astructcmd__packet__t_html"><div class="ttname"><a href="structcmd__packet__t.html">cmd_packet_t</a></div><div class="ttdef"><b>Definition:</b> console.h:53</div></div>
+<div class="ttc" id="astructcmd__packet__t_html_a0ef41ce0f1743aeed5d4b90af53257eb"><div class="ttname"><a href="structcmd__packet__t.html#a0ef41ce0f1743aeed5d4b90af53257eb">cmd_packet_t::command</a></div><div class="ttdeci">command_t command</div><div class="ttdef"><b>Definition:</b> console.h:54</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="src_2console_8h.html">console.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

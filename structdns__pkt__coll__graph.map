@@ -1,6 +1,6 @@
 <map id="dns_pkt" name="dns_pkt">
-<area shape="rect" id="node1" title=" " alt="" coords="135,124,203,151"/>
-<area shape="rect" id="node2" href="$structdns__pkt__hdr.html" title=" " alt="" coords="5,5,99,32"/>
-<area shape="rect" id="node3" href="$structdns__pkt__qst.html" title=" " alt="" coords="123,5,216,32"/>
-<area shape="rect" id="node4" href="$structdns__pkt__a.html" title=" " alt="" coords="292,5,375,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="135,351,203,428"/>
+<area shape="rect" id="node2" href="$structdns__pkt__hdr.html" title=" " alt="" coords="5,5,99,259"/>
+<area shape="rect" id="node3" href="$structdns__pkt__qst.html" title=" " alt="" coords="123,79,216,185"/>
+<area shape="rect" id="node4" href="$structdns__pkt__a.html" title=" " alt="" coords="300,57,383,207"/>
 </map>

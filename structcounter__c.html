@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structcounter__c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,7 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -70,44 +90,121 @@ $(function() {
   <div class="headertitle"><div class="title">counter_c Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="andna__cache_8h_source.html">andna_cache.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for counter_c:</div>
 <div class="dyncontent">
 <div class="center"><img src="structcounter__c__coll__graph.png" border="0" usemap="#acounter__c_coll__map" alt="Collaboration graph"/></div>
 <map name="acounter__c_coll__map" id="acounter__c_coll__map">
-<area shape="rect" title=" " alt="" coords="30,95,109,121"/>
-<area shape="rect" href="structcounter__c__hashes.html" title=" " alt="" coords="5,5,133,32"/>
+<area shape="rect" title=" " alt="" coords="13,175,126,281"/>
+<area shape="rect" href="structcounter__c__hashes.html" title=" " alt="" coords="5,5,133,112"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa0f6f05c008e016f80d4a12976abb324"><td class="memItemLeft" align="right" valign="top"><a id="aa0f6f05c008e016f80d4a12976abb324" name="aa0f6f05c008e016f80d4a12976abb324"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LLIST_HDR</b> (struct <a class="el" href="structcounter__c.html">counter_c</a>)</td></tr>
+<tr class="memitem:aa0f6f05c008e016f80d4a12976abb324"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcounter__c.html#aa0f6f05c008e016f80d4a12976abb324">LLIST_HDR</a> (struct <a class="el" href="structcounter__c.html">counter_c</a>)</td></tr>
 <tr class="separator:aa0f6f05c008e016f80d4a12976abb324"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a45fb423ecc605348a5ff48469b2fdbb5"><td class="memItemLeft" align="right" valign="top"><a id="a45fb423ecc605348a5ff48469b2fdbb5" name="a45fb423ecc605348a5ff48469b2fdbb5"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>pubkey</b> [ANDNA_PKEY_LEN]</td></tr>
+<tr class="memitem:a45fb423ecc605348a5ff48469b2fdbb5"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcounter__c.html#a45fb423ecc605348a5ff48469b2fdbb5">pubkey</a> [<a class="el" href="andna__cache_8h.html#a8c597b42f177efc44b30898859f26d39">ANDNA_PKEY_LEN</a>]</td></tr>
 <tr class="separator:a45fb423ecc605348a5ff48469b2fdbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a639870aa0bd3049b341f02dd37e02f1f"><td class="memItemLeft" align="right" valign="top"><a id="a639870aa0bd3049b341f02dd37e02f1f" name="a639870aa0bd3049b341f02dd37e02f1f"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="memitem:a639870aa0bd3049b341f02dd37e02f1f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcounter__c.html#a639870aa0bd3049b341f02dd37e02f1f">flags</a></td></tr>
 <tr class="separator:a639870aa0bd3049b341f02dd37e02f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76ca87d9d0317dc166e74c68b3908b0c"><td class="memItemLeft" align="right" valign="top"><a id="a76ca87d9d0317dc166e74c68b3908b0c" name="a76ca87d9d0317dc166e74c68b3908b0c"></a>
-u_short&#160;</td><td class="memItemRight" valign="bottom"><b>hashes</b></td></tr>
+<tr class="memitem:a76ca87d9d0317dc166e74c68b3908b0c"><td class="memItemLeft" align="right" valign="top">u_short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcounter__c.html#a76ca87d9d0317dc166e74c68b3908b0c">hashes</a></td></tr>
 <tr class="separator:a76ca87d9d0317dc166e74c68b3908b0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09483716a516820389973f46396d7bce"><td class="memItemLeft" align="right" valign="top"><a id="a09483716a516820389973f46396d7bce" name="a09483716a516820389973f46396d7bce"></a>
-<a class="el" href="structcounter__c__hashes.html">counter_c_hashes</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>cch</b></td></tr>
+<tr class="memitem:a09483716a516820389973f46396d7bce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcounter__c__hashes.html">counter_c_hashes</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcounter__c.html#a09483716a516820389973f46396d7bce">cch</a></td></tr>
 <tr class="separator:a09483716a516820389973f46396d7bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa0f6f05c008e016f80d4a12976abb324" name="aa0f6f05c008e016f80d4a12976abb324"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0f6f05c008e016f80d4a12976abb324">&#9670;&nbsp;</a></span>LLIST_HDR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LLIST_HDR </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcounter__c.html">counter_c</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a09483716a516820389973f46396d7bce" name="a09483716a516820389973f46396d7bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09483716a516820389973f46396d7bce">&#9670;&nbsp;</a></span>cch</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcounter__c__hashes.html">counter_c_hashes</a>* cch</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a639870aa0bd3049b341f02dd37e02f1f" name="a639870aa0bd3049b341f02dd37e02f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a639870aa0bd3049b341f02dd37e02f1f">&#9670;&nbsp;</a></span>flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char flags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76ca87d9d0317dc166e74c68b3908b0c" name="a76ca87d9d0317dc166e74c68b3908b0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76ca87d9d0317dc166e74c68b3908b0c">&#9670;&nbsp;</a></span>hashes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_short hashes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45fb423ecc605348a5ff48469b2fdbb5" name="a45fb423ecc605348a5ff48469b2fdbb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45fb423ecc605348a5ff48469b2fdbb5">&#9670;&nbsp;</a></span>pubkey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char pubkey[<a class="el" href="andna__cache_8h.html#a8c597b42f177efc44b30898859f26d39">ANDNA_PKEY_LEN</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="andna__cache_8h_source.html">andna_cache.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structcounter__c.html">counter_c</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structlcl__cache.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,7 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -70,55 +90,171 @@ $(function() {
   <div class="headertitle"><div class="title">lcl_cache Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="andna__cache_8h_source.html">andna_cache.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for lcl_cache:</div>
 <div class="dyncontent">
 <div class="center"><img src="structlcl__cache__coll__graph.png" border="0" usemap="#alcl__cache_coll__map" alt="Collaboration graph"/></div>
 <map name="alcl__cache_coll__map" id="alcl__cache_coll__map">
-<area shape="rect" title=" " alt="" coords="16,273,93,300"/>
-<area shape="rect" href="structsnsd__service.html" title=" " alt="" coords="5,184,104,211"/>
-<area shape="rect" href="structsnsd__prio.html" title=" " alt="" coords="15,95,94,121"/>
-<area shape="rect" href="structsnsd__node.html" title=" " alt="" coords="12,5,97,32"/>
+<area shape="rect" title=" " alt="" coords="5,484,131,635"/>
+<area shape="rect" href="structsnsd__service.html" title=" " alt="" coords="11,329,125,421"/>
+<area shape="rect" href="structsnsd__prio.html" title=" " alt="" coords="11,189,125,267"/>
+<area shape="rect" href="structsnsd__node.html" title=" " alt="" coords="11,5,125,127"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aba26da30e17bde6a2b7a48a33e6749a0"><td class="memItemLeft" align="right" valign="top"><a id="aba26da30e17bde6a2b7a48a33e6749a0" name="aba26da30e17bde6a2b7a48a33e6749a0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LLIST_HDR</b> (struct <a class="el" href="structlcl__cache.html">lcl_cache</a>)</td></tr>
+<tr class="memitem:aba26da30e17bde6a2b7a48a33e6749a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlcl__cache.html#aba26da30e17bde6a2b7a48a33e6749a0">LLIST_HDR</a> (struct <a class="el" href="structlcl__cache.html">lcl_cache</a>)</td></tr>
 <tr class="separator:aba26da30e17bde6a2b7a48a33e6749a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:af203df082d5c6dcaa0c88b07cf86466d"><td class="memItemLeft" align="right" valign="top"><a id="af203df082d5c6dcaa0c88b07cf86466d" name="af203df082d5c6dcaa0c88b07cf86466d"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>hostname</b></td></tr>
+<tr class="memitem:af203df082d5c6dcaa0c88b07cf86466d"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlcl__cache.html#af203df082d5c6dcaa0c88b07cf86466d">hostname</a></td></tr>
 <tr class="separator:af203df082d5c6dcaa0c88b07cf86466d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dcf5d3d56ff3cc26a70df639004cba3"><td class="memItemLeft" align="right" valign="top"><a id="a9dcf5d3d56ff3cc26a70df639004cba3" name="a9dcf5d3d56ff3cc26a70df639004cba3"></a>
-u_int&#160;</td><td class="memItemRight" valign="bottom"><b>hash</b></td></tr>
+<tr class="memitem:a9dcf5d3d56ff3cc26a70df639004cba3"><td class="memItemLeft" align="right" valign="top">u_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlcl__cache.html#a9dcf5d3d56ff3cc26a70df639004cba3">hash</a></td></tr>
 <tr class="separator:a9dcf5d3d56ff3cc26a70df639004cba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f79f52c456ae0ba7852f4b0cc4093f9"><td class="memItemLeft" align="right" valign="top"><a id="a4f79f52c456ae0ba7852f4b0cc4093f9" name="a4f79f52c456ae0ba7852f4b0cc4093f9"></a>
-u_short&#160;</td><td class="memItemRight" valign="bottom"><b>hname_updates</b></td></tr>
+<tr class="memitem:a4f79f52c456ae0ba7852f4b0cc4093f9"><td class="memItemLeft" align="right" valign="top">u_short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlcl__cache.html#a4f79f52c456ae0ba7852f4b0cc4093f9">hname_updates</a></td></tr>
 <tr class="separator:a4f79f52c456ae0ba7852f4b0cc4093f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f48d949c7a1e7bf2ce81c70caa7c3ec"><td class="memItemLeft" align="right" valign="top"><a id="a2f48d949c7a1e7bf2ce81c70caa7c3ec" name="a2f48d949c7a1e7bf2ce81c70caa7c3ec"></a>
-time_t&#160;</td><td class="memItemRight" valign="bottom"><b>timestamp</b></td></tr>
+<tr class="memitem:a2f48d949c7a1e7bf2ce81c70caa7c3ec"><td class="memItemLeft" align="right" valign="top">time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlcl__cache.html#a2f48d949c7a1e7bf2ce81c70caa7c3ec">timestamp</a></td></tr>
 <tr class="separator:a2f48d949c7a1e7bf2ce81c70caa7c3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a004b27ec1a5c6fee6ad35503c8d393"><td class="memItemLeft" align="right" valign="top"><a id="a0a004b27ec1a5c6fee6ad35503c8d393" name="a0a004b27ec1a5c6fee6ad35503c8d393"></a>
-u_short&#160;</td><td class="memItemRight" valign="bottom"><b>snsd_counter</b></td></tr>
+<tr class="memitem:a0a004b27ec1a5c6fee6ad35503c8d393"><td class="memItemLeft" align="right" valign="top">u_short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlcl__cache.html#a0a004b27ec1a5c6fee6ad35503c8d393">snsd_counter</a></td></tr>
 <tr class="separator:a0a004b27ec1a5c6fee6ad35503c8d393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adffbdf545b48607ff64671945be23a5c"><td class="memItemLeft" align="right" valign="top"><a id="adffbdf545b48607ff64671945be23a5c" name="adffbdf545b48607ff64671945be23a5c"></a>
-<a class="el" href="structsnsd__service.html">snsd_service</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>service</b></td></tr>
+<tr class="memitem:adffbdf545b48607ff64671945be23a5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsnsd__service.html">snsd_service</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlcl__cache.html#adffbdf545b48607ff64671945be23a5c">service</a></td></tr>
 <tr class="separator:adffbdf545b48607ff64671945be23a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a639870aa0bd3049b341f02dd37e02f1f"><td class="memItemLeft" align="right" valign="top"><a id="a639870aa0bd3049b341f02dd37e02f1f" name="a639870aa0bd3049b341f02dd37e02f1f"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="memitem:a639870aa0bd3049b341f02dd37e02f1f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlcl__cache.html#a639870aa0bd3049b341f02dd37e02f1f">flags</a></td></tr>
 <tr class="separator:a639870aa0bd3049b341f02dd37e02f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aba26da30e17bde6a2b7a48a33e6749a0" name="aba26da30e17bde6a2b7a48a33e6749a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba26da30e17bde6a2b7a48a33e6749a0">&#9670;&nbsp;</a></span>LLIST_HDR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LLIST_HDR </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlcl__cache.html">lcl_cache</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a639870aa0bd3049b341f02dd37e02f1f" name="a639870aa0bd3049b341f02dd37e02f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a639870aa0bd3049b341f02dd37e02f1f">&#9670;&nbsp;</a></span>flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char flags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9dcf5d3d56ff3cc26a70df639004cba3" name="a9dcf5d3d56ff3cc26a70df639004cba3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dcf5d3d56ff3cc26a70df639004cba3">&#9670;&nbsp;</a></span>hash</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_int hash</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f79f52c456ae0ba7852f4b0cc4093f9" name="a4f79f52c456ae0ba7852f4b0cc4093f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f79f52c456ae0ba7852f4b0cc4093f9">&#9670;&nbsp;</a></span>hname_updates</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_short hname_updates</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af203df082d5c6dcaa0c88b07cf86466d" name="af203df082d5c6dcaa0c88b07cf86466d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af203df082d5c6dcaa0c88b07cf86466d">&#9670;&nbsp;</a></span>hostname</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* hostname</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adffbdf545b48607ff64671945be23a5c" name="adffbdf545b48607ff64671945be23a5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adffbdf545b48607ff64671945be23a5c">&#9670;&nbsp;</a></span>service</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsnsd__service.html">snsd_service</a>* service</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a004b27ec1a5c6fee6ad35503c8d393" name="a0a004b27ec1a5c6fee6ad35503c8d393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a004b27ec1a5c6fee6ad35503c8d393">&#9670;&nbsp;</a></span>snsd_counter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_short snsd_counter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f48d949c7a1e7bf2ce81c70caa7c3ec" name="a2f48d949c7a1e7bf2ce81c70caa7c3ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f48d949c7a1e7bf2ce81c70caa7c3ec">&#9670;&nbsp;</a></span>timestamp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">time_t timestamp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="andna__cache_8h_source.html">andna_cache.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structlcl__cache.html">lcl_cache</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

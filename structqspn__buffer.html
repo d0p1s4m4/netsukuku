@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structqspn__buffer.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,7 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -70,45 +90,122 @@ $(function() {
   <div class="headertitle"><div class="title">qspn_buffer Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="qspn_8h_source.html">qspn.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for qspn_buffer:</div>
 <div class="dyncontent">
 <div class="center"><img src="structqspn__buffer__coll__graph.png" border="0" usemap="#aqspn__buffer_coll__map" alt="Collaboration graph"/></div>
 <map name="aqspn__buffer_coll__map" id="aqspn__buffer_coll__map">
-<area shape="rect" title=" " alt="" coords="5,184,95,211"/>
-<area shape="rect" href="structmap__node.html" title=" " alt="" coords="9,95,91,121"/>
-<area shape="rect" href="structmap__rnode.html" title=" " alt="" coords="7,5,93,32"/>
+<area shape="rect" title=" " alt="" coords="5,388,119,495"/>
+<area shape="rect" href="structmap__node.html" title=" " alt="" coords="21,204,103,325"/>
+<area shape="rect" href="structmap__rnode.html" title=" " alt="" coords="19,5,105,141"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af488d58115358ffb4baeab76bc0bbc37"><td class="memItemLeft" align="right" valign="top"><a id="af488d58115358ffb4baeab76bc0bbc37" name="af488d58115358ffb4baeab76bc0bbc37"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LLIST_HDR</b> (struct <a class="el" href="structqspn__buffer.html">qspn_buffer</a>)</td></tr>
+<tr class="memitem:af488d58115358ffb4baeab76bc0bbc37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqspn__buffer.html#af488d58115358ffb4baeab76bc0bbc37">LLIST_HDR</a> (struct <a class="el" href="structqspn__buffer.html">qspn_buffer</a>)</td></tr>
 <tr class="separator:af488d58115358ffb4baeab76bc0bbc37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ae15253d721eb011cf04f5f3e51efc4dc"><td class="memItemLeft" align="right" valign="top"><a id="ae15253d721eb011cf04f5f3e51efc4dc" name="ae15253d721eb011cf04f5f3e51efc4dc"></a>
-<a class="el" href="structmap__node.html">map_node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>rnode</b></td></tr>
+<tr class="memitem:ae15253d721eb011cf04f5f3e51efc4dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmap__node.html">map_node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqspn__buffer.html#ae15253d721eb011cf04f5f3e51efc4dc">rnode</a></td></tr>
 <tr class="separator:ae15253d721eb011cf04f5f3e51efc4dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affb85c549409c2906539a4ae5405b177"><td class="memItemLeft" align="right" valign="top"><a id="affb85c549409c2906539a4ae5405b177" name="affb85c549409c2906539a4ae5405b177"></a>
-u_int&#160;</td><td class="memItemRight" valign="bottom"><b>replies</b></td></tr>
+<tr class="memitem:affb85c549409c2906539a4ae5405b177"><td class="memItemLeft" align="right" valign="top">u_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqspn__buffer.html#affb85c549409c2906539a4ae5405b177">replies</a></td></tr>
 <tr class="separator:affb85c549409c2906539a4ae5405b177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecf821afb692a8474e58154a444ca5f2"><td class="memItemLeft" align="right" valign="top"><a id="aecf821afb692a8474e58154a444ca5f2" name="aecf821afb692a8474e58154a444ca5f2"></a>
-u_char *&#160;</td><td class="memItemRight" valign="bottom"><b>replier</b></td></tr>
+<tr class="memitem:aecf821afb692a8474e58154a444ca5f2"><td class="memItemLeft" align="right" valign="top">u_char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqspn__buffer.html#aecf821afb692a8474e58154a444ca5f2">replier</a></td></tr>
 <tr class="separator:aecf821afb692a8474e58154a444ca5f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4afae808d884307f1d92abc2c42e1b19"><td class="memItemLeft" align="right" valign="top"><a id="a4afae808d884307f1d92abc2c42e1b19" name="a4afae808d884307f1d92abc2c42e1b19"></a>
-u_short *&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="memitem:a4afae808d884307f1d92abc2c42e1b19"><td class="memItemLeft" align="right" valign="top">u_short *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqspn__buffer.html#a4afae808d884307f1d92abc2c42e1b19">flags</a></td></tr>
 <tr class="separator:a4afae808d884307f1d92abc2c42e1b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af488d58115358ffb4baeab76bc0bbc37" name="af488d58115358ffb4baeab76bc0bbc37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af488d58115358ffb4baeab76bc0bbc37">&#9670;&nbsp;</a></span>LLIST_HDR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LLIST_HDR </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structqspn__buffer.html">qspn_buffer</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a4afae808d884307f1d92abc2c42e1b19" name="a4afae808d884307f1d92abc2c42e1b19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4afae808d884307f1d92abc2c42e1b19">&#9670;&nbsp;</a></span>flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_short* flags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aecf821afb692a8474e58154a444ca5f2" name="aecf821afb692a8474e58154a444ca5f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecf821afb692a8474e58154a444ca5f2">&#9670;&nbsp;</a></span>replier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_char* replier</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="affb85c549409c2906539a4ae5405b177" name="affb85c549409c2906539a4ae5405b177"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affb85c549409c2906539a4ae5405b177">&#9670;&nbsp;</a></span>replies</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_int replies</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae15253d721eb011cf04f5f3e51efc4dc" name="ae15253d721eb011cf04f5f3e51efc4dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae15253d721eb011cf04f5f3e51efc4dc">&#9670;&nbsp;</a></span>rnode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structmap__node.html">map_node</a>* rnode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="qspn_8h_source.html">qspn.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structqspn__buffer.html">qspn_buffer</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

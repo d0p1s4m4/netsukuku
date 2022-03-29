@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('accept_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">accept.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="accept_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2004 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,10 +108,10 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef ACCEPT_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define ACCEPT_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define MAX_CONNECTIONS     512</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="accept_8h.html#a053b7859476cc9867ec62c49e68d3fa1">   22</a></span><span class="preprocessor">#define MAX_CONNECTIONS     512</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define MAX_ACCEPTS     16</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define FREE_ACCEPT_TIME    4   </span><span class="comment">/*in seconds */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="accept_8h.html#aeedfc74fdbc64f01623b48cba867095a">   24</a></span><span class="preprocessor">#define MAX_ACCEPTS     16</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="accept_8h.html#a3696e252725b215aabce7c9e82b954ba">   25</a></span><span class="preprocessor">#define FREE_ACCEPT_TIME    4   </span><span class="comment">/*in seconds */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> * This struct keep tracks of single connection to the server.</span></div>
@@ -103,55 +119,86 @@ $(function() {
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * position in the accept_tbl.</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structaccept__table.html">   32</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structaccept__table.html">accept_table</a> {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> ip;             <span class="comment">/*Ip of the node connected */</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> accepts;      <span class="comment">/*Number of connection from this node */</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    pid_t *pid;                 <span class="comment">/*The pid of each child that have accepted the conn */</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *closed;      <span class="comment">/*Each element of this array is 1 or 0. It indicates if the connection has</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structaccept__table.html#a13c202ab92e8fb89876769d5eabe03ad">   33</a></span>    <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> <a class="code hl_variable" href="structaccept__table.html#a13c202ab92e8fb89876769d5eabe03ad">ip</a>;             <span class="comment">/*Ip of the node connected */</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structaccept__table.html#aca7473ca9a3bb614cd1207f135032ddc">   34</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="structaccept__table.html#aca7473ca9a3bb614cd1207f135032ddc">accepts</a>;      <span class="comment">/*Number of connection from this node */</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structaccept__table.html#a5afce35563ade4cfbdd9e39f9138b41b">   35</a></span>    pid_t *<a class="code hl_variable" href="structaccept__table.html#a5afce35563ade4cfbdd9e39f9138b41b">pid</a>;                 <span class="comment">/*The pid of each child that have accepted the conn */</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structaccept__table.html#a7ba2da727f56ddc5685b183c4794095a">   36</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code hl_variable" href="structaccept__table.html#a7ba2da727f56ddc5685b183c4794095a">closed</a>;      <span class="comment">/*Each element of this array is 1 or 0. It indicates if the connection has</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">                                   been closed */</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    time_t *acp_t;              <span class="comment">/*The time when the connection was accepted. The &quot;accepts&quot; counter</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structaccept__table.html#af85f7b26d6b041fcef1e340731b25087">   38</a></span>    time_t *<a class="code hl_variable" href="structaccept__table.html#af85f7b26d6b041fcef1e340731b25087">acp_t</a>;              <span class="comment">/*The time when the connection was accepted. The &quot;accepts&quot; counter</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">                                   will decrement when one of the acp_t+FREE_ACCEPT_TIME will </span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">                                   be &lt;= current_time AND (the relative pid will be non existent OR</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">                                   the relative closed element will be == 1)</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">                                 */</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrequest__tbl.html">request_tbl</a> rqtbl;   <span class="comment">/*The request table */</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structaccept__table.html#adff4a4be25fa05aa5eac70f266feb64f">   43</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrequest__tbl.html">request_tbl</a> <a class="code hl_variable" href="structaccept__table.html#adff4a4be25fa05aa5eac70f266feb64f">rqtbl</a>;   <span class="comment">/*The request table */</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">/* This struct keeps all the info regarding each node connected */</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">struct </span><a class="code hl_struct" href="structaccept__table.html">accept_table</a> *accept_tbl;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="accept_8h.html#a766cfdccc178dd640fc17eb74c5e0d84">   47</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structaccept__table.html">accept_table</a> *<a class="code hl_variable" href="accept_8h.html#a766cfdccc178dd640fc17eb74c5e0d84">accept_tbl</a>;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">/* </span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> * accept_idx is the position of the accept_tbl of a thread.</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * accept_sidx is the second index, it is used for example in pid[accept_sidx] </span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> * note: this var are used only in the child and the child doesn&#39;t need to modify them!</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keywordtype">int</span> accept_idx, accept_sidx;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>pthread_mutex_t mtx_acpt_idx, mtx_acpt_sidx;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="accept_8h.html#a0f18723b84eee53d752cad728dcdf8cc">   54</a></span><span class="keywordtype">int</span> <a class="code hl_variable" href="accept_8h.html#a0f18723b84eee53d752cad728dcdf8cc">accept_idx</a>, <a class="code hl_variable" href="accept_8h.html#a36aa3d912ef1ddbfbe1f99f53b25f162">accept_sidx</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="accept_8h.html#a17c05d21c92c90edf6315d960be7bc1b">   55</a></span>pthread_mutex_t <a class="code hl_variable" href="accept_8h.html#a17c05d21c92c90edf6315d960be7bc1b">mtx_acpt_idx</a>, <a class="code hl_variable" href="accept_8h.html#a97092972bbcf6b25f39b6e61a40c338f">mtx_acpt_sidx</a>;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">int</span> update_accept_tbl_mutex;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="accept_8h.html#a34038acdada5f785578712ba8967f7a7">   57</a></span><span class="keywordtype">int</span> <a class="code hl_variable" href="accept_8h.html#a34038acdada5f785578712ba8967f7a7">update_accept_tbl_mutex</a>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">int</span> max_connections, max_accepts_per_host, free_accept_time;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="accept_8h.html#a25866269ca9316e48f81e3a80c23efcf">   59</a></span><span class="keywordtype">int</span> <a class="code hl_variable" href="accept_8h.html#a0afac2e6900284b3945dcc8f237757cc">max_connections</a>, <a class="code hl_variable" href="accept_8h.html#abdb40729b94eb814ab0b77863fdbf006">max_accepts_per_host</a>, <a class="code hl_variable" href="accept_8h.html#a25866269ca9316e48f81e3a80c23efcf">free_accept_time</a>;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">void</span> init_accept_tbl(<span class="keywordtype">int</span> startups, <span class="keywordtype">int</span> accepts, <span class="keywordtype">int</span> time);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">void</span> destroy_accept_tbl(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">void</span> update_accept_tbl(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">int</span> find_ip_acpt(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> ip);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">int</span> find_first_free(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">int</span> is_ip_acpt_free(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> ip, <span class="keywordtype">int</span> *index);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">int</span> find_free_acp_t(<span class="keywordtype">int</span> idx);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">int</span> new_accept(<span class="keywordtype">int</span> idx, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> ip);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">int</span> add_accept(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> ip, <span class="keywordtype">int</span> replace);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keywordtype">void</span> del_accept(<span class="keywordtype">int</span> idx, <span class="keywordtype">int</span> *sidx);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">int</span> close_accept(<span class="keywordtype">int</span> idx, <span class="keywordtype">int</span> sidx);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">void</span> add_accept_pid(pid_t pid, <span class="keywordtype">int</span> idx, <span class="keywordtype">int</span> sidx);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">void</span> <a class="code hl_function" href="accept_8h.html#a3032d579f748fa8a4440de3820b2be83">init_accept_tbl</a>(<span class="keywordtype">int</span> startups, <span class="keywordtype">int</span> <a class="code hl_variable" href="structaccept__table.html#aca7473ca9a3bb614cd1207f135032ddc">accepts</a>, <span class="keywordtype">int</span> time);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">void</span> <a class="code hl_function" href="accept_8h.html#ae966f1b6c2e7318b524e1e613173d2b4">destroy_accept_tbl</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">void</span> <a class="code hl_function" href="accept_8h.html#a97f5d05130305618f3acfa5e28b86ab8">update_accept_tbl</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">int</span> <a class="code hl_function" href="accept_8h.html#a8c4bc9a7a82822dff37e2014a9c3b802">find_ip_acpt</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> <a class="code hl_variable" href="structaccept__table.html#a13c202ab92e8fb89876769d5eabe03ad">ip</a>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">int</span> <a class="code hl_function" href="accept_8h.html#a29e19093e403323930dcd5a4b1fb8bfb">find_first_free</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">int</span> <a class="code hl_function" href="accept_8h.html#a70224e39ebc9db020557c615688ada67">is_ip_acpt_free</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> <a class="code hl_variable" href="structaccept__table.html#a13c202ab92e8fb89876769d5eabe03ad">ip</a>, <span class="keywordtype">int</span> *index);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">int</span> <a class="code hl_function" href="accept_8h.html#a6da65f33355cabe5993fab2dff5941b4">find_free_acp_t</a>(<span class="keywordtype">int</span> idx);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">int</span> <a class="code hl_function" href="accept_8h.html#a5a4be13a1f36281b9c268aa9c507b70e">new_accept</a>(<span class="keywordtype">int</span> idx, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> <a class="code hl_variable" href="structaccept__table.html#a13c202ab92e8fb89876769d5eabe03ad">ip</a>);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">int</span> <a class="code hl_function" href="accept_8h.html#a1c6006fb8298f7667eb793d8b099af91">add_accept</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> <a class="code hl_variable" href="structaccept__table.html#a13c202ab92e8fb89876769d5eabe03ad">ip</a>, <span class="keywordtype">int</span> replace);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keywordtype">void</span> <a class="code hl_function" href="accept_8h.html#a48bc8f11f2f84c027d6fd7fe820857df">del_accept</a>(<span class="keywordtype">int</span> idx, <span class="keywordtype">int</span> *sidx);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">int</span> <a class="code hl_function" href="accept_8h.html#a04d9c3ca08298244aa21a56a55e54863">close_accept</a>(<span class="keywordtype">int</span> idx, <span class="keywordtype">int</span> sidx);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">void</span> <a class="code hl_function" href="accept_8h.html#ad213b46f0e91a0d82c2fed88ffc3f880">add_accept_pid</a>(pid_t <a class="code hl_variable" href="structaccept__table.html#a5afce35563ade4cfbdd9e39f9138b41b">pid</a>, <span class="keywordtype">int</span> idx, <span class="keywordtype">int</span> sidx);</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif                          </span><span class="comment">/*ACCEPT_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aaccept_8h_html_a04d9c3ca08298244aa21a56a55e54863"><div class="ttname"><a href="accept_8h.html#a04d9c3ca08298244aa21a56a55e54863">close_accept</a></div><div class="ttdeci">int close_accept(int idx, int sidx)</div><div class="ttdef"><b>Definition:</b> accept.c:276</div></div>
+<div class="ttc" id="aaccept_8h_html_a0afac2e6900284b3945dcc8f237757cc"><div class="ttname"><a href="accept_8h.html#a0afac2e6900284b3945dcc8f237757cc">max_connections</a></div><div class="ttdeci">int max_connections</div><div class="ttdef"><b>Definition:</b> accept.h:59</div></div>
+<div class="ttc" id="aaccept_8h_html_a0f18723b84eee53d752cad728dcdf8cc"><div class="ttname"><a href="accept_8h.html#a0f18723b84eee53d752cad728dcdf8cc">accept_idx</a></div><div class="ttdeci">int accept_idx</div><div class="ttdef"><b>Definition:</b> accept.h:54</div></div>
+<div class="ttc" id="aaccept_8h_html_a17c05d21c92c90edf6315d960be7bc1b"><div class="ttname"><a href="accept_8h.html#a17c05d21c92c90edf6315d960be7bc1b">mtx_acpt_idx</a></div><div class="ttdeci">pthread_mutex_t mtx_acpt_idx</div><div class="ttdef"><b>Definition:</b> accept.h:55</div></div>
+<div class="ttc" id="aaccept_8h_html_a1c6006fb8298f7667eb793d8b099af91"><div class="ttname"><a href="accept_8h.html#a1c6006fb8298f7667eb793d8b099af91">add_accept</a></div><div class="ttdeci">int add_accept(inet_prefix ip, int replace)</div><div class="ttdef"><b>Definition:</b> accept.c:229</div></div>
+<div class="ttc" id="aaccept_8h_html_a25866269ca9316e48f81e3a80c23efcf"><div class="ttname"><a href="accept_8h.html#a25866269ca9316e48f81e3a80c23efcf">free_accept_time</a></div><div class="ttdeci">int free_accept_time</div><div class="ttdef"><b>Definition:</b> accept.h:59</div></div>
+<div class="ttc" id="aaccept_8h_html_a29e19093e403323930dcd5a4b1fb8bfb"><div class="ttname"><a href="accept_8h.html#a29e19093e403323930dcd5a4b1fb8bfb">find_first_free</a></div><div class="ttdeci">int find_first_free(void)</div><div class="ttdef"><b>Definition:</b> accept.c:160</div></div>
+<div class="ttc" id="aaccept_8h_html_a3032d579f748fa8a4440de3820b2be83"><div class="ttname"><a href="accept_8h.html#a3032d579f748fa8a4440de3820b2be83">init_accept_tbl</a></div><div class="ttdeci">void init_accept_tbl(int startups, int accepts, int time)</div><div class="ttdef"><b>Definition:</b> accept.c:39</div></div>
+<div class="ttc" id="aaccept_8h_html_a34038acdada5f785578712ba8967f7a7"><div class="ttname"><a href="accept_8h.html#a34038acdada5f785578712ba8967f7a7">update_accept_tbl_mutex</a></div><div class="ttdeci">int update_accept_tbl_mutex</div><div class="ttdef"><b>Definition:</b> accept.h:57</div></div>
+<div class="ttc" id="aaccept_8h_html_a36aa3d912ef1ddbfbe1f99f53b25f162"><div class="ttname"><a href="accept_8h.html#a36aa3d912ef1ddbfbe1f99f53b25f162">accept_sidx</a></div><div class="ttdeci">int accept_sidx</div><div class="ttdef"><b>Definition:</b> accept.h:54</div></div>
+<div class="ttc" id="aaccept_8h_html_a48bc8f11f2f84c027d6fd7fe820857df"><div class="ttname"><a href="accept_8h.html#a48bc8f11f2f84c027d6fd7fe820857df">del_accept</a></div><div class="ttdeci">void del_accept(int idx, int *sidx)</div><div class="ttdef"><b>Definition:</b> accept.c:258</div></div>
+<div class="ttc" id="aaccept_8h_html_a5a4be13a1f36281b9c268aa9c507b70e"><div class="ttname"><a href="accept_8h.html#a5a4be13a1f36281b9c268aa9c507b70e">new_accept</a></div><div class="ttdeci">int new_accept(int idx, inet_prefix ip)</div><div class="ttdef"><b>Definition:</b> accept.c:205</div></div>
+<div class="ttc" id="aaccept_8h_html_a6da65f33355cabe5993fab2dff5941b4"><div class="ttname"><a href="accept_8h.html#a6da65f33355cabe5993fab2dff5941b4">find_free_acp_t</a></div><div class="ttdeci">int find_free_acp_t(int idx)</div><div class="ttdef"><b>Definition:</b> accept.c:192</div></div>
+<div class="ttc" id="aaccept_8h_html_a70224e39ebc9db020557c615688ada67"><div class="ttname"><a href="accept_8h.html#a70224e39ebc9db020557c615688ada67">is_ip_acpt_free</a></div><div class="ttdeci">int is_ip_acpt_free(inet_prefix ip, int *index)</div><div class="ttdef"><b>Definition:</b> accept.c:171</div></div>
+<div class="ttc" id="aaccept_8h_html_a766cfdccc178dd640fc17eb74c5e0d84"><div class="ttname"><a href="accept_8h.html#a766cfdccc178dd640fc17eb74c5e0d84">accept_tbl</a></div><div class="ttdeci">struct accept_table * accept_tbl</div><div class="ttdef"><b>Definition:</b> accept.h:47</div></div>
+<div class="ttc" id="aaccept_8h_html_a8c4bc9a7a82822dff37e2014a9c3b802"><div class="ttname"><a href="accept_8h.html#a8c4bc9a7a82822dff37e2014a9c3b802">find_ip_acpt</a></div><div class="ttdeci">int find_ip_acpt(inet_prefix ip)</div><div class="ttdef"><b>Definition:</b> accept.c:147</div></div>
+<div class="ttc" id="aaccept_8h_html_a97092972bbcf6b25f39b6e61a40c338f"><div class="ttname"><a href="accept_8h.html#a97092972bbcf6b25f39b6e61a40c338f">mtx_acpt_sidx</a></div><div class="ttdeci">pthread_mutex_t mtx_acpt_sidx</div><div class="ttdef"><b>Definition:</b> accept.h:55</div></div>
+<div class="ttc" id="aaccept_8h_html_a97f5d05130305618f3acfa5e28b86ab8"><div class="ttname"><a href="accept_8h.html#a97f5d05130305618f3acfa5e28b86ab8">update_accept_tbl</a></div><div class="ttdeci">void update_accept_tbl(void)</div><div class="ttdef"><b>Definition:</b> accept.c:99</div></div>
+<div class="ttc" id="aaccept_8h_html_abdb40729b94eb814ab0b77863fdbf006"><div class="ttname"><a href="accept_8h.html#abdb40729b94eb814ab0b77863fdbf006">max_accepts_per_host</a></div><div class="ttdeci">int max_accepts_per_host</div><div class="ttdef"><b>Definition:</b> accept.h:59</div></div>
+<div class="ttc" id="aaccept_8h_html_ad213b46f0e91a0d82c2fed88ffc3f880"><div class="ttname"><a href="accept_8h.html#ad213b46f0e91a0d82c2fed88ffc3f880">add_accept_pid</a></div><div class="ttdeci">void add_accept_pid(pid_t pid, int idx, int sidx)</div><div class="ttdef"><b>Definition:</b> accept.c:288</div></div>
+<div class="ttc" id="aaccept_8h_html_ae966f1b6c2e7318b524e1e613173d2b4"><div class="ttname"><a href="accept_8h.html#ae966f1b6c2e7318b524e1e613173d2b4">destroy_accept_tbl</a></div><div class="ttdeci">void destroy_accept_tbl(void)</div><div class="ttdef"><b>Definition:</b> accept.c:79</div></div>
 <div class="ttc" id="astructaccept__table_html"><div class="ttname"><a href="structaccept__table.html">accept_table</a></div><div class="ttdef"><b>Definition:</b> accept.h:32</div></div>
+<div class="ttc" id="astructaccept__table_html_a13c202ab92e8fb89876769d5eabe03ad"><div class="ttname"><a href="structaccept__table.html#a13c202ab92e8fb89876769d5eabe03ad">accept_table::ip</a></div><div class="ttdeci">inet_prefix ip</div><div class="ttdef"><b>Definition:</b> accept.h:33</div></div>
+<div class="ttc" id="astructaccept__table_html_a5afce35563ade4cfbdd9e39f9138b41b"><div class="ttname"><a href="structaccept__table.html#a5afce35563ade4cfbdd9e39f9138b41b">accept_table::pid</a></div><div class="ttdeci">pid_t * pid</div><div class="ttdef"><b>Definition:</b> accept.h:35</div></div>
+<div class="ttc" id="astructaccept__table_html_a7ba2da727f56ddc5685b183c4794095a"><div class="ttname"><a href="structaccept__table.html#a7ba2da727f56ddc5685b183c4794095a">accept_table::closed</a></div><div class="ttdeci">unsigned char * closed</div><div class="ttdef"><b>Definition:</b> accept.h:36</div></div>
+<div class="ttc" id="astructaccept__table_html_aca7473ca9a3bb614cd1207f135032ddc"><div class="ttname"><a href="structaccept__table.html#aca7473ca9a3bb614cd1207f135032ddc">accept_table::accepts</a></div><div class="ttdeci">unsigned char accepts</div><div class="ttdef"><b>Definition:</b> accept.h:34</div></div>
+<div class="ttc" id="astructaccept__table_html_adff4a4be25fa05aa5eac70f266feb64f"><div class="ttname"><a href="structaccept__table.html#adff4a4be25fa05aa5eac70f266feb64f">accept_table::rqtbl</a></div><div class="ttdeci">struct request_tbl rqtbl</div><div class="ttdef"><b>Definition:</b> accept.h:43</div></div>
+<div class="ttc" id="astructaccept__table_html_af85f7b26d6b041fcef1e340731b25087"><div class="ttname"><a href="structaccept__table.html#af85f7b26d6b041fcef1e340731b25087">accept_table::acp_t</a></div><div class="ttdeci">time_t * acp_t</div><div class="ttdef"><b>Definition:</b> accept.h:38</div></div>
 <div class="ttc" id="astructinet__prefix_html"><div class="ttname"><a href="structinet__prefix.html">inet_prefix</a></div><div class="ttdef"><b>Definition:</b> inet.h:73</div></div>
 <div class="ttc" id="astructrequest__tbl_html"><div class="ttname"><a href="structrequest__tbl.html">request_tbl</a></div><div class="ttdef"><b>Definition:</b> request.h:142</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="accept_8h.html">accept.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

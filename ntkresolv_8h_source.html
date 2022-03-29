@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('ntkresolv_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">ntkresolv.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="ntkresolv_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * modify it under the terms of the GNU General Public License as published</span></div>
@@ -98,70 +114,70 @@ $(function() {
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;arpa/inet.h&gt;</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;sys/socket.h&gt;</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;andns_lib.h&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="andns__lib_8h.html">andns_lib.h</a>&quot;</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define VERSION         &quot;0.3.3&quot;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define NTK_RESOLV_MAIL_BUGS    &quot;efphe@netsukuku.org&quot;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a1c6d5de492ac61ad29aec7aa9a436bbf">   30</a></span><span class="preprocessor">#define VERSION         &quot;0.3.3&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a5886ad2c31397e9240e0717323241e89">   31</a></span><span class="preprocessor">#define NTK_RESOLV_MAIL_BUGS    &quot;efphe@netsukuku.org&quot;</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define NTKRESOLV_PORT      53</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define NTKRESOLV_PORT_STR  &quot;53&quot;</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define MAX_NS          3</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define LOCALHOST       &quot;localhost&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a20d9a2fe19436a1c9a85c2a7ad060a8b">   33</a></span><span class="preprocessor">#define NTKRESOLV_PORT      53</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ad217a78e12f234cb8b7c1c7547f1e07c">   34</a></span><span class="preprocessor">#define NTKRESOLV_PORT_STR  &quot;53&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a67f1edc0014c2569b2a1e7e423aaa825">   35</a></span><span class="preprocessor">#define MAX_NS          3</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#acfc12278a87672861e438f8841a7a713">   36</a></span><span class="preprocessor">#define LOCALHOST       &quot;localhost&quot;</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define NTK_RESOLV_TIMEOUT  15</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a9be2e43ceeb2b8546e32192c9f3e538e">   38</a></span><span class="preprocessor">#define NTK_RESOLV_TIMEOUT  15</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define MAX_HOSTNAME_LEN    512</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define NTKRESOLV_MAX_OBJ_LEN   512</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#abf2afc2380f0ce3399d8af4b1f12897c">   40</a></span><span class="preprocessor">#define MAX_HOSTNAME_LEN    512</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a52da5cb73b4c3959f202a4336d0ab5f7">   41</a></span><span class="preprocessor">#define NTKRESOLV_MAX_OBJ_LEN   512</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//#define ANDNS_MAX_SZ    1024</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define min(x,y)        (x)&lt;(y)?(x):(y)</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#abb702d8b501669a23aa0ab3b281b9384">   46</a></span><span class="preprocessor">#define min(x,y)        (x)&lt;(y)?(x):(y)</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define REALM_NTK       0+1</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define REALM_INT       1+1</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define REALM_NTK_STR       &quot;ntk&quot;</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define REALM_INT_STR       &quot;inet&quot;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ad41f7dd9c619944e55a7340b252bdac5">   48</a></span><span class="preprocessor">#define REALM_NTK       0+1</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a2b93ad5b32ecef381c9099bbfe432be0">   49</a></span><span class="preprocessor">#define REALM_INT       1+1</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a7b4fa296dafdfc175e6341051eb65a3d">   50</a></span><span class="preprocessor">#define REALM_NTK_STR       &quot;ntk&quot;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a018f24d7966c5c73444b4b0770ee0e62">   51</a></span><span class="preprocessor">#define REALM_INT_STR       &quot;inet&quot;</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define QTYPE_A         AT_A</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define QTYPE_PTR       AT_PTR</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#define QTYPE_G         AT_G</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#define QTYPE_MX        3</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#define QTYPE_A_STR     &quot;snsd&quot;</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define QTYPE_PTR_STR       &quot;ptr&quot;</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#define QTYPE_G_STR     &quot;global&quot;</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#define QTYPE_MX_STR        &quot;mx&quot;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#af2c396d095344cd7d0bee1734963f684">   53</a></span><span class="preprocessor">#define QTYPE_A         AT_A</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a32a04223e6d00b7e93f5842402b7aafd">   54</a></span><span class="preprocessor">#define QTYPE_PTR       AT_PTR</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a6d3161a004cfa38e99c49b9518380de3">   55</a></span><span class="preprocessor">#define QTYPE_G         AT_G</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a4f84a498ef8ddf59c1b814925c84380d">   56</a></span><span class="preprocessor">#define QTYPE_MX        3</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a81093d199d124a6350b1e5177d55ca81">   57</a></span><span class="preprocessor">#define QTYPE_A_STR     &quot;snsd&quot;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a4ee713923b53397155295947705d3db3">   58</a></span><span class="preprocessor">#define QTYPE_PTR_STR       &quot;ptr&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a258ce4a900804b62bf1e20c48813528a">   59</a></span><span class="preprocessor">#define QTYPE_G_STR     &quot;global&quot;</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a05eca7682455c9a56f940307679e0bd4">   60</a></span><span class="preprocessor">#define QTYPE_MX_STR        &quot;mx&quot;</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define SNSD_PROTO_TCP      0</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#define SNSD_PROTO_UDP      1</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#define SNSD_PROTO_TCP_STR  &quot;tcp&quot;</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define SNSD_PROTO_UDP_STR  &quot;udp&quot;</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a14c6562406341ffaed43e397b450fbc0">   62</a></span><span class="preprocessor">#define SNSD_PROTO_TCP      0</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a99ed4de53803acf3f17756b8107f646f">   63</a></span><span class="preprocessor">#define SNSD_PROTO_UDP      1</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a53dd5e12a84afd46224ecc5d8e1d754a">   64</a></span><span class="preprocessor">#define SNSD_PROTO_TCP_STR  &quot;tcp&quot;</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#afb527f6e7ebc215fb69d979707fc478d">   65</a></span><span class="preprocessor">#define SNSD_PROTO_UDP_STR  &quot;udp&quot;</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#define SNSD_PROTO_DEFAULT  SNSD_PROTO_TCP</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define SNSD_SERVICE_DEFAULT    0</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a288d4f1a0a7f03c4082dcf3c55d1f7d5">   67</a></span><span class="preprocessor">#define SNSD_PROTO_DEFAULT  SNSD_PROTO_TCP</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#adb1f393a0caf558d612d2a83d7637f42">   68</a></span><span class="preprocessor">#define SNSD_SERVICE_DEFAULT    0</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">/* NK BIT */</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#define NK_DNS          0</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#define NK_NTK                  1</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#define NK_INET                 2</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a2886d25d5d94720331b4cf39cb81c37e">   71</a></span><span class="preprocessor">#define NK_DNS          0</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a1551800f2e195346f530995a7effd624">   72</a></span><span class="preprocessor">#define NK_NTK                  1</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ad3fbec33ed22683ae6ae968e62debe0b">   73</a></span><span class="preprocessor">#define NK_INET                 2</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#define TIME_SCALE      1000000.0</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#define HELP_STR        &quot;help&quot;</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a3104e6ab77c71296e6879fc57af26e8e">   75</a></span><span class="preprocessor">#define TIME_SCALE      1000000.0</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a564a94e97ac7ed8acc0c96afcf952d1f">   76</a></span><span class="preprocessor">#define HELP_STR        &quot;help&quot;</span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">char</span> *QTYPE_STR_LIST[] =</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    { QTYPE_A_STR, QTYPE_PTR_STR, QTYPE_G_STR, QTYPE_MX_STR };</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keywordtype">int</span> QT_LEN = 4;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a42c357180e5545cd19e4a233245e97f5">   80</a></span><span class="keywordtype">char</span> *<a class="code hl_variable" href="ntkresolv_8h.html#a42c357180e5545cd19e4a233245e97f5">QTYPE_STR_LIST</a>[] =</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    { <a class="code hl_define" href="ntkresolv_8h.html#a81093d199d124a6350b1e5177d55ca81">QTYPE_A_STR</a>, <a class="code hl_define" href="ntkresolv_8h.html#a4ee713923b53397155295947705d3db3">QTYPE_PTR_STR</a>, <a class="code hl_define" href="ntkresolv_8h.html#a258ce4a900804b62bf1e20c48813528a">QTYPE_G_STR</a>, <a class="code hl_define" href="ntkresolv_8h.html#a05eca7682455c9a56f940307679e0bd4">QTYPE_MX_STR</a> };</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#aebaff2c5e182f385ff36a100acf6eda9">   82</a></span><span class="keywordtype">int</span> <a class="code hl_variable" href="ntkresolv_8h.html#aebaff2c5e182f385ff36a100acf6eda9">QT_LEN</a> = 4;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#define QTFROMPREF(s)                           \</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ac65a4ac9bb5378da7462a64bd495dade">   84</a></span><span class="preprocessor">#define QTFROMPREF(s)                           \</span></div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">({                                  \</span></div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">    int __n,__res=-1;                       \</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">    for (__n=0;__n&lt;QT_LEN;__n++)                    \</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">        if (!strncasecmp(s,QTYPE_STR_LIST[__n],strlen(s)))  \</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">            {__res=__n;break;}              \</span></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">    __res; })</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#define REALMFROMPREF(s)                        \</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ae56a3e2aadab2b37eaf10bddd08d5fad">   91</a></span><span class="preprocessor">#define REALMFROMPREF(s)                        \</span></div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">({                                  \</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">    uint8_t __res=0;                        \</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">    if (!strncasecmp(REALM_NTK_STR,s,strlen(s)))            \</span></div>
@@ -169,7 +185,7 @@ $(function() {
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">    else if (!strncasecmp(REALM_INT_STR,s,strlen(s)))       \</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">        __res=REALM_INT;                    \</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">        __res; })</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#define PROTOFROMPREF(s)                        \</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a1596642d6f5588acb4d57532546a306e">   99</a></span><span class="preprocessor">#define PROTOFROMPREF(s)                        \</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">({                                  \</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">    uint8_t __res=-1;                       \</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">    if (!strncasecmp(SNSD_PROTO_UDP_STR,s,strlen(s)))       \</span></div>
@@ -181,19 +197,19 @@ $(function() {
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="structntkresolv__opts.html">  110</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structntkresolv__opts.html">ntkresolv_opts</a> {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordtype">char</span> nsserver[MAX_HOSTNAME_LEN];</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    int16_t port;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    int8_t silent;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">char</span> obj[NTKRESOLV_MAX_OBJ_LEN];</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    uint16_t id;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    uint8_t hash;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> *q;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>} <a class="code hl_struct" href="structntkresolv__opts.html">ntkresolv_opts</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="structntkresolv__opts.html#a1938292592c39aeaee6c34260d3fb7de">  111</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="structntkresolv__opts.html#a1938292592c39aeaee6c34260d3fb7de">nsserver</a>[<a class="code hl_define" href="ntkresolv_8h.html#abf2afc2380f0ce3399d8af4b1f12897c">MAX_HOSTNAME_LEN</a>];</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="structntkresolv__opts.html#af113e27943856fda379256192bf93450">  112</a></span>    int16_t <a class="code hl_variable" href="structntkresolv__opts.html#af113e27943856fda379256192bf93450">port</a>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="structntkresolv__opts.html#a2f19e4f7524399b3db11b7dd85eee764">  113</a></span>    int8_t <a class="code hl_variable" href="structntkresolv__opts.html#a2f19e4f7524399b3db11b7dd85eee764">silent</a>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structntkresolv__opts.html#a9737435f70ac06c731e140a970c26075">  114</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="structntkresolv__opts.html#a9737435f70ac06c731e140a970c26075">obj</a>[<a class="code hl_define" href="ntkresolv_8h.html#a52da5cb73b4c3959f202a4336d0ab5f7">NTKRESOLV_MAX_OBJ_LEN</a>];</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="structntkresolv__opts.html#a4fc3a0c58dfbd1e68224521185cb9384">  115</a></span>    uint16_t <a class="code hl_variable" href="structntkresolv__opts.html#a4fc3a0c58dfbd1e68224521185cb9384">id</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structntkresolv__opts.html#a17d89840e7296c323504b31fc6359606">  116</a></span>    uint8_t <a class="code hl_variable" href="structntkresolv__opts.html#a17d89840e7296c323504b31fc6359606">hash</a>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structntkresolv__opts.html#a25808677ea8bfc68a6063b71317d13fa">  117</a></span>    <a class="code hl_struct" href="structandns__pkt.html">andns_pkt</a> *<a class="code hl_variable" href="structntkresolv__opts.html#a25808677ea8bfc68a6063b71317d13fa">q</a>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a7438ae50ad8f30b6c769e18ab2426b19">  118</a></span>} <a class="code hl_typedef" href="ntkresolv_8h.html#a7438ae50ad8f30b6c769e18ab2426b19">ntkresolv_opts</a>;</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#define NTKRESOLV_OPTS_SZ   sizeof(ntkresolv_opts)</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a7cd71d013792e06ea44a6b2520c8f96f">  120</a></span><span class="preprocessor">#define NTKRESOLV_OPTS_SZ   sizeof(ntkresolv_opts)</span></div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#define QR_STR(ap)  ((ap)-&gt;qr==0)?&quot;QUERY&quot;</span>:&quot;ANSWER&quot;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#define QTYPE_STR(ap)                       \</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a25b2507fa991dd2f751868ee7abd1119">  122</a></span><span class="preprocessor">#define QR_STR(ap)  ((ap)-&gt;qr==0)?&quot;QUERY&quot;</span>:&quot;ANSWER&quot;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a4cef513f4261f6e140c095c87bb11ec6">  123</a></span><span class="preprocessor">#define QTYPE_STR(ap)                       \</span></div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">({                              \</span></div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">    char *__c;                      \</span></div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">    switch((ap)-&gt;qtype) {                   \</span></div>
@@ -211,7 +227,7 @@ $(function() {
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            break;                  \</div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            }                   \</div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        __c;})</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="preprocessor">#define NK_STR(ap)                      \</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a100a3a96395929a18eaaf268ab82e581">  141</a></span><span class="preprocessor">#define NK_STR(ap)                      \</span></div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">({                              \</span></div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="preprocessor">    char *__d;                      \</span></div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="preprocessor">    switch((ap)-&gt;nk) {                  \</span></div>
@@ -230,7 +246,7 @@ $(function() {
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            }                   \</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        __d;})</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="preprocessor">#define RCODE_STR(ap)                       \</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a1a863555b318d1c6997c49d8de55da80">  160</a></span><span class="preprocessor">#define RCODE_STR(ap)                       \</span></div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="preprocessor">({                              \</span></div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">    char *__e;                      \</span></div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="preprocessor">    switch((ap)-&gt;rcode) {                   \</span></div>
@@ -257,7 +273,7 @@ $(function() {
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            break;                  \</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    }                           \</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    __e;})</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="preprocessor">#define IPV_STR(ap)                     \</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a6b4f787254a1f87583baa2ab78f34563">  187</a></span><span class="preprocessor">#define IPV_STR(ap)                     \</span></div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="preprocessor">({                              \</span></div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="preprocessor">    char *__f;                      \</span></div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">    switch((ap)-&gt;ipv) {                 \</span></div>
@@ -272,8 +288,8 @@ $(function() {
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            break;                  \</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    }                           \</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    __f;})</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="preprocessor">#define MAX_INT_STR 10</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="preprocessor">#define SERVICE_STR(ap)                     \</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a5721cfe42e8db215901012095e6b6567">  202</a></span><span class="preprocessor">#define MAX_INT_STR 10</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a77840316740c63151f2850afa4162970">  203</a></span><span class="preprocessor">#define SERVICE_STR(ap)                     \</span></div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="preprocessor">({                              \</span></div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="preprocessor">    char *__g;                      \</span></div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="preprocessor">    char __t[MAX_INT_STR];                  \</span></div>
@@ -294,7 +310,7 @@ $(function() {
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            break;                  \</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }                           \</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    __g;})</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="preprocessor">#define PROTO_STR(ap)                       \</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a78594d579da50a437bec5ba358e6326b">  224</a></span><span class="preprocessor">#define PROTO_STR(ap)                       \</span></div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="preprocessor">({                              \</span></div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="preprocessor">    char *__h;                      \</span></div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="preprocessor">    switch((ap)-&gt;qtype) {                   \</span></div>
@@ -319,90 +335,143 @@ $(function() {
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    __h;})</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
 <div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="preprocessor">#define GET_OPT_REALM   (globopts.realm==REALM_NTK)?&quot;NTK&quot;</span>:&quot;INET&quot;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ab5ffd0c915f63d129bd296d815bfb433">  249</a></span><span class="preprocessor">#define GET_OPT_REALM   (globopts.realm==REALM_NTK)?&quot;NTK&quot;</span>:&quot;INET&quot;</div>
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment">/* CODE UTILS */</span></div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">#define GOP             (globopts)</span></div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="preprocessor">#define AMISILENT       (GOP.silent)</span></div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="preprocessor">#define GQT             (GOP.q)</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#af46d5710eb9c0f7d78b167192f5044df">  252</a></span><span class="preprocessor">#define GOP             (globopts)</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ae6d2373d5d0aaa43b5c9ebae403c191e">  253</a></span><span class="preprocessor">#define AMISILENT       (GOP.silent)</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ab81c3f0d00c74341ab6bd77579e32b7e">  254</a></span><span class="preprocessor">#define GQT             (GOP.q)</span></div>
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">#define say             printf</span></div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="preprocessor">#define bye             if (!AMISILENT) say(&quot;\tBye!\n&quot;</span>);</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#aece649721e18f44f19d280d746e4be4d">  256</a></span><span class="preprocessor">#define say             printf</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a882d865ce3d6bc56310f857e70a7c8bb">  257</a></span><span class="preprocessor">#define bye             if (!AMISILENT) say(&quot;\tBye!\n&quot;</span>);</div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="preprocessor">#define COMPUTE_TIME    diff_time(time_start,time_stop)</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="preprocessor">#define time_report     if (!AMISILENT){gettimeofday(&amp;time_stop,NULL);      \</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a93f93b62359c21679d07f81352fee880">  259</a></span><span class="preprocessor">#define COMPUTE_TIME    diff_time(time_start,time_stop)</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a7bc282695bdcbc4fd6b105b85efa355c">  260</a></span><span class="preprocessor">#define time_report     if (!AMISILENT){gettimeofday(&amp;time_stop,NULL);      \</span></div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="preprocessor">                        say(&quot;Query time: %f seconds.\n&quot;</span>                     \</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>                                        ,COMPUTE_TIME);}</div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="preprocessor">#define G_ALIGN(len)    GQT-&gt;qstlength=len;GQT-&gt;qstdata=(char*)         \</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#aa6334aac61cbbf4f8473e31892e83847">  264</a></span><span class="preprocessor">#define G_ALIGN(len)    GQT-&gt;qstlength=len;GQT-&gt;qstdata=(char*)         \</span></div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">                                xmalloc(len+1);                         \</span></div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="preprocessor">                                if (!GQT-&gt;qstdata){say(&quot;Fatal malloc!\n&quot;</span>);  \</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>                                        exit(1);}</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="preprocessor">#define G_SETQST_A(s)   G_ALIGN(strlen(s)+1);strcpy(GQT-&gt;qstdata,s);        \</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a52d82770f67d1dfbb4129bdd21f60988">  268</a></span><span class="preprocessor">#define G_SETQST_A(s)   G_ALIGN(strlen(s)+1);strcpy(GQT-&gt;qstdata,s);        \</span></div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="preprocessor">                                GQT-&gt;qstlength=strlen(s);</span></div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">#define NTK_RESOLV_HASH_STR(s,d)                            \</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#ae8009720010d3e8c1956a6966edf1bbd">  271</a></span><span class="preprocessor">#define NTK_RESOLV_HASH_STR(s,d)                            \</span></div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="preprocessor">({                                      \</span></div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="preprocessor">    int __i;                                \</span></div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="preprocessor">    for (__i=0;__i&lt;ANDNS_HASH_H;__i++)                  \</span></div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="preprocessor">        sprintf(d+2*__i,&quot;%02x&quot;</span>,((unsigned char*)(s))[__i]);     \</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    d[2*ANDNS_HASH_H]=0;})</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="preprocessor">#define NTK_RESOLV_STR_HASH(s,d)                            \</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a4a4b13935f7abb542c63e852a9a7907a">  278</a></span><span class="preprocessor">#define NTK_RESOLV_STR_HASH(s,d)                            \</span></div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="preprocessor">({                                      \</span></div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="preprocessor">    int __i,__t;                                \</span></div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="preprocessor">    for (__i=0;__i&lt;ANDNS_HASH_H;__i++) {                    \</span></div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="preprocessor">        sscanf(s+2*__i,&quot;%02x&quot;</span>,&amp;__t);                    \</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        d[__i]=(unsigned char)(__t);}})</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="preprocessor">#define NTK_RESOLV_IP_SYMBOL    &quot;~&quot;</span></div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">#define NTK_RESOLV_HNAME_SYMBOL &quot;-&quot;</span></div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="preprocessor">#define NTK_RESOLV_SYMBOL(apd)  (apd)-&gt;m&amp;APD_IP?NTK_RESOLV_IP_SYMBOL:   \</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a8ba3243859d8f914d3b876ff6808a153">  285</a></span><span class="preprocessor">#define NTK_RESOLV_IP_SYMBOL    &quot;~&quot;</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#adde79566ae721241ba116761bd5d5923">  286</a></span><span class="preprocessor">#define NTK_RESOLV_HNAME_SYMBOL &quot;-&quot;</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="ntkresolv_8h.html#a5cab6f144e98dcccba0f96930368acbc">  287</a></span><span class="preprocessor">#define NTK_RESOLV_SYMBOL(apd)  (apd)-&gt;m&amp;APD_IP?NTK_RESOLV_IP_SYMBOL:   \</span></div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="preprocessor">                    NTK_RESOLV_HNAME_SYMBOL</span></div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment">/* FUNCTIONS */</span></div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="keywordtype">void</span> version(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="keywordtype">void</span> usage(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="keywordtype">void</span> qt_usage(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="keywordtype">void</span> realm_usage(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="keywordtype">void</span> proto_usage(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="keywordtype">void</span> service_and_proto_usage(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="keywordtype">double</span> diff_time(<span class="keyword">struct</span> timeval a, <span class="keyword">struct</span> timeval b);</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="keywordtype">void</span> opts_init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="keywordtype">void</span> opts_set_silent(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="keywordtype">void</span> opts_set_port(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="keywordtype">void</span> opts_set_ns(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="keywordtype">void</span> opts_set_qt(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="keywordtype">void</span> opts_set_realm(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="keywordtype">void</span> opts_set_service_and_proto(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="keywordtype">void</span> opts_set_proto(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="keywordtype">void</span> opts_set_recursion(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="keywordtype">void</span> opts_set_hash(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="keywordtype">void</span> opts_set_compute_hash(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="keywordtype">void</span> opts_set_parsable_output(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="keywordtype">void</span> opts_set_question(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="keywordtype">void</span> opts_finish(<span class="keywordtype">char</span> *arg);</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="keywordtype">void</span> print_headers();</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="keywordtype">void</span> print_question();</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="keywordtype">void</span> ip_bin_to_str(<span class="keywordtype">void</span> *data, <span class="keywordtype">char</span> *dst);</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="keywordtype">void</span> answer_data_to_str(<a class="code hl_struct" href="structandns__pkt__data.html">andns_pkt_data</a> * apd, <span class="keywordtype">char</span> *dst);</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="keywordtype">void</span> print_answers();</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="keywordtype">void</span> print_parsable_answers(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="keywordtype">void</span> print_results(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="keywordtype">void</span> do_command(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="keywordtype">void</span> ntkresolv_exit(<span class="keywordtype">int</span> i);</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="keywordtype">void</span> ntkresolv_safe_exit(<span class="keywordtype">int</span> i);</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv);</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#af986bd0575ec9b913dfab4b8422509ae">version</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#ae8605e2b78cd4a81b6c6b5c30cb7366a">usage</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a878d850445a499c5a529a50309f704fa">qt_usage</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#ae226936b7b54e18fd0142cec3fb75891">realm_usage</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a618d6dfb1e757d0b6cc7e14e85961d3d">proto_usage</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#aa31287dfedcfeb069e2c19e9d85cfd11">service_and_proto_usage</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="keywordtype">double</span> <a class="code hl_function" href="ntkresolv_8h.html#a0747e971997561796c198513dc8975b8">diff_time</a>(<span class="keyword">struct</span> timeval a, <span class="keyword">struct</span> timeval b);</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a58a3474ad5ffa3046c2a6247fa4b780a">opts_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#afcf190ef5b605c4de3d3e23554c840d1">opts_set_silent</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a55b7bc0916e754d54b95471def57e94f">opts_set_port</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a4fe23240617e7ebb55aca663b64e95ad">opts_set_ns</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a63d87b859b08cbb60c867d78293adc54">opts_set_qt</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a33446b4052c109032876b7423849f082">opts_set_realm</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a5a81581501fa29b9a28b34addd0a8ab9">opts_set_service_and_proto</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a53dc39e8aa18066a1fd3a0c5e991fd96">opts_set_proto</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a841b458a4dc72d824a01473834268395">opts_set_recursion</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a5a3cc876c2ff1c7fb7b3dbac59fada84">opts_set_hash</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a48277393ef68e08f4ca797702b93317b">opts_set_compute_hash</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#ae8882435d15ed8800aaa7b5e8f476a57">opts_set_parsable_output</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a4aa3684915c89eb76081f2e5e6c6f336">opts_set_question</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#af8db000da6d4c6009e8af4b927f818a5">opts_finish</a>(<span class="keywordtype">char</span> *arg);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#adf498292ef00b9985c9e3a7bd6a48d80">print_headers</a>();</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a63f0bee2b9d27323f626496a5213c8e2">print_question</a>();</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a06ffe4a1e6ae3edcadaa101f26796965">ip_bin_to_str</a>(<span class="keywordtype">void</span> *data, <span class="keywordtype">char</span> *dst);</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a16ab30be9cce526b45a80e549e3e815b">answer_data_to_str</a>(<a class="code hl_struct" href="structandns__pkt__data.html">andns_pkt_data</a> * apd, <span class="keywordtype">char</span> *dst);</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a4b38d66e3a7bdcea18a221170b455f86">print_answers</a>();</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a1e9dbfcdf317a29cc3a93947945f8762">print_parsable_answers</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#acbd6fc90c9321ec2a13e43c26c32131d">print_results</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#aa95ce7a8d4506ae83dd9b76933d7c6ba">do_command</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#ad9097259eb78c35bf7252b9e8156f52e">ntkresolv_exit</a>(<span class="keywordtype">int</span> i);</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="keywordtype">void</span> <a class="code hl_function" href="ntkresolv_8h.html#a525d73873ebf5621cb96d199b41454df">ntkresolv_safe_exit</a>(<span class="keywordtype">int</span> i);</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="keywordtype">int</span> <a class="code hl_function" href="ntkresolv_8h.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv);</div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="preprocessor">#endif                          </span><span class="comment">/* NTK_RESOLV_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aandns__lib_8h_html"><div class="ttname"><a href="andns__lib_8h.html">andns_lib.h</a></div></div>
+<div class="ttc" id="antkresolv_8h_html_a05eca7682455c9a56f940307679e0bd4"><div class="ttname"><a href="ntkresolv_8h.html#a05eca7682455c9a56f940307679e0bd4">QTYPE_MX_STR</a></div><div class="ttdeci">#define QTYPE_MX_STR</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:60</div></div>
+<div class="ttc" id="antkresolv_8h_html_a06ffe4a1e6ae3edcadaa101f26796965"><div class="ttname"><a href="ntkresolv_8h.html#a06ffe4a1e6ae3edcadaa101f26796965">ip_bin_to_str</a></div><div class="ttdeci">void ip_bin_to_str(void *data, char *dst)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:412</div></div>
+<div class="ttc" id="antkresolv_8h_html_a0747e971997561796c198513dc8975b8"><div class="ttname"><a href="ntkresolv_8h.html#a0747e971997561796c198513dc8975b8">diff_time</a></div><div class="ttdeci">double diff_time(struct timeval a, struct timeval b)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:147</div></div>
+<div class="ttc" id="antkresolv_8h_html_a16ab30be9cce526b45a80e549e3e815b"><div class="ttname"><a href="ntkresolv_8h.html#a16ab30be9cce526b45a80e549e3e815b">answer_data_to_str</a></div><div class="ttdeci">void answer_data_to_str(andns_pkt_data *apd, char *dst)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:440</div></div>
+<div class="ttc" id="antkresolv_8h_html_a1e9dbfcdf317a29cc3a93947945f8762"><div class="ttname"><a href="ntkresolv_8h.html#a1e9dbfcdf317a29cc3a93947945f8762">print_parsable_answers</a></div><div class="ttdeci">void print_parsable_answers(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:488</div></div>
+<div class="ttc" id="antkresolv_8h_html_a258ce4a900804b62bf1e20c48813528a"><div class="ttname"><a href="ntkresolv_8h.html#a258ce4a900804b62bf1e20c48813528a">QTYPE_G_STR</a></div><div class="ttdeci">#define QTYPE_G_STR</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:59</div></div>
+<div class="ttc" id="antkresolv_8h_html_a33446b4052c109032876b7423849f082"><div class="ttname"><a href="ntkresolv_8h.html#a33446b4052c109032876b7423849f082">opts_set_realm</a></div><div class="ttdeci">void opts_set_realm(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:230</div></div>
+<div class="ttc" id="antkresolv_8h_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="ntkresolv_8h.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition:</b> netsukuku.c:818</div></div>
+<div class="ttc" id="antkresolv_8h_html_a42c357180e5545cd19e4a233245e97f5"><div class="ttname"><a href="ntkresolv_8h.html#a42c357180e5545cd19e4a233245e97f5">QTYPE_STR_LIST</a></div><div class="ttdeci">char * QTYPE_STR_LIST[]</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:80</div></div>
+<div class="ttc" id="antkresolv_8h_html_a48277393ef68e08f4ca797702b93317b"><div class="ttname"><a href="ntkresolv_8h.html#a48277393ef68e08f4ca797702b93317b">opts_set_compute_hash</a></div><div class="ttdeci">void opts_set_compute_hash(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:286</div></div>
+<div class="ttc" id="antkresolv_8h_html_a4aa3684915c89eb76081f2e5e6c6f336"><div class="ttname"><a href="ntkresolv_8h.html#a4aa3684915c89eb76081f2e5e6c6f336">opts_set_question</a></div><div class="ttdeci">void opts_set_question(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:299</div></div>
+<div class="ttc" id="antkresolv_8h_html_a4b38d66e3a7bdcea18a221170b455f86"><div class="ttname"><a href="ntkresolv_8h.html#a4b38d66e3a7bdcea18a221170b455f86">print_answers</a></div><div class="ttdeci">void print_answers()</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:454</div></div>
+<div class="ttc" id="antkresolv_8h_html_a4ee713923b53397155295947705d3db3"><div class="ttname"><a href="ntkresolv_8h.html#a4ee713923b53397155295947705d3db3">QTYPE_PTR_STR</a></div><div class="ttdeci">#define QTYPE_PTR_STR</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:58</div></div>
+<div class="ttc" id="antkresolv_8h_html_a4fe23240617e7ebb55aca663b64e95ad"><div class="ttname"><a href="ntkresolv_8h.html#a4fe23240617e7ebb55aca663b64e95ad">opts_set_ns</a></div><div class="ttdeci">void opts_set_ns(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:198</div></div>
+<div class="ttc" id="antkresolv_8h_html_a525d73873ebf5621cb96d199b41454df"><div class="ttname"><a href="ntkresolv_8h.html#a525d73873ebf5621cb96d199b41454df">ntkresolv_safe_exit</a></div><div class="ttdeci">void ntkresolv_safe_exit(int i)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:578</div></div>
+<div class="ttc" id="antkresolv_8h_html_a52da5cb73b4c3959f202a4336d0ab5f7"><div class="ttname"><a href="ntkresolv_8h.html#a52da5cb73b4c3959f202a4336d0ab5f7">NTKRESOLV_MAX_OBJ_LEN</a></div><div class="ttdeci">#define NTKRESOLV_MAX_OBJ_LEN</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:41</div></div>
+<div class="ttc" id="antkresolv_8h_html_a53dc39e8aa18066a1fd3a0c5e991fd96"><div class="ttname"><a href="ntkresolv_8h.html#a53dc39e8aa18066a1fd3a0c5e991fd96">opts_set_proto</a></div><div class="ttdeci">void opts_set_proto(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:260</div></div>
+<div class="ttc" id="antkresolv_8h_html_a55b7bc0916e754d54b95471def57e94f"><div class="ttname"><a href="ntkresolv_8h.html#a55b7bc0916e754d54b95471def57e94f">opts_set_port</a></div><div class="ttdeci">void opts_set_port(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:182</div></div>
+<div class="ttc" id="antkresolv_8h_html_a58a3474ad5ffa3046c2a6247fa4b780a"><div class="ttname"><a href="ntkresolv_8h.html#a58a3474ad5ffa3046c2a6247fa4b780a">opts_init</a></div><div class="ttdeci">void opts_init(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:162</div></div>
+<div class="ttc" id="antkresolv_8h_html_a5a3cc876c2ff1c7fb7b3dbac59fada84"><div class="ttname"><a href="ntkresolv_8h.html#a5a3cc876c2ff1c7fb7b3dbac59fada84">opts_set_hash</a></div><div class="ttdeci">void opts_set_hash(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:280</div></div>
+<div class="ttc" id="antkresolv_8h_html_a5a81581501fa29b9a28b34addd0a8ab9"><div class="ttname"><a href="ntkresolv_8h.html#a5a81581501fa29b9a28b34addd0a8ab9">opts_set_service_and_proto</a></div><div class="ttdeci">void opts_set_service_and_proto(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:243</div></div>
+<div class="ttc" id="antkresolv_8h_html_a618d6dfb1e757d0b6cc7e14e85961d3d"><div class="ttname"><a href="ntkresolv_8h.html#a618d6dfb1e757d0b6cc7e14e85961d3d">proto_usage</a></div><div class="ttdeci">void proto_usage(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:103</div></div>
+<div class="ttc" id="antkresolv_8h_html_a63d87b859b08cbb60c867d78293adc54"><div class="ttname"><a href="ntkresolv_8h.html#a63d87b859b08cbb60c867d78293adc54">opts_set_qt</a></div><div class="ttdeci">void opts_set_qt(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:212</div></div>
+<div class="ttc" id="antkresolv_8h_html_a63f0bee2b9d27323f626496a5213c8e2"><div class="ttname"><a href="ntkresolv_8h.html#a63f0bee2b9d27323f626496a5213c8e2">print_question</a></div><div class="ttdeci">void print_question()</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:406</div></div>
+<div class="ttc" id="antkresolv_8h_html_a7438ae50ad8f30b6c769e18ab2426b19"><div class="ttname"><a href="ntkresolv_8h.html#a7438ae50ad8f30b6c769e18ab2426b19">ntkresolv_opts</a></div><div class="ttdeci">struct ntkresolv_opts ntkresolv_opts</div></div>
+<div class="ttc" id="antkresolv_8h_html_a81093d199d124a6350b1e5177d55ca81"><div class="ttname"><a href="ntkresolv_8h.html#a81093d199d124a6350b1e5177d55ca81">QTYPE_A_STR</a></div><div class="ttdeci">#define QTYPE_A_STR</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:57</div></div>
+<div class="ttc" id="antkresolv_8h_html_a841b458a4dc72d824a01473834268395"><div class="ttname"><a href="ntkresolv_8h.html#a841b458a4dc72d824a01473834268395">opts_set_recursion</a></div><div class="ttdeci">void opts_set_recursion(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:274</div></div>
+<div class="ttc" id="antkresolv_8h_html_a878d850445a499c5a529a50309f704fa"><div class="ttname"><a href="ntkresolv_8h.html#a878d850445a499c5a529a50309f704fa">qt_usage</a></div><div class="ttdeci">void qt_usage(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:71</div></div>
+<div class="ttc" id="antkresolv_8h_html_aa31287dfedcfeb069e2c19e9d85cfd11"><div class="ttname"><a href="ntkresolv_8h.html#aa31287dfedcfeb069e2c19e9d85cfd11">service_and_proto_usage</a></div><div class="ttdeci">void service_and_proto_usage(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:119</div></div>
+<div class="ttc" id="antkresolv_8h_html_aa95ce7a8d4506ae83dd9b76933d7c6ba"><div class="ttname"><a href="ntkresolv_8h.html#aa95ce7a8d4506ae83dd9b76933d7c6ba">do_command</a></div><div class="ttdeci">void do_command(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:530</div></div>
+<div class="ttc" id="antkresolv_8h_html_abf2afc2380f0ce3399d8af4b1f12897c"><div class="ttname"><a href="ntkresolv_8h.html#abf2afc2380f0ce3399d8af4b1f12897c">MAX_HOSTNAME_LEN</a></div><div class="ttdeci">#define MAX_HOSTNAME_LEN</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:40</div></div>
+<div class="ttc" id="antkresolv_8h_html_acbd6fc90c9321ec2a13e43c26c32131d"><div class="ttname"><a href="ntkresolv_8h.html#acbd6fc90c9321ec2a13e43c26c32131d">print_results</a></div><div class="ttdeci">void print_results(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:517</div></div>
+<div class="ttc" id="antkresolv_8h_html_ad9097259eb78c35bf7252b9e8156f52e"><div class="ttname"><a href="ntkresolv_8h.html#ad9097259eb78c35bf7252b9e8156f52e">ntkresolv_exit</a></div><div class="ttdeci">void ntkresolv_exit(int i)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:572</div></div>
+<div class="ttc" id="antkresolv_8h_html_adf498292ef00b9985c9e3a7bd6a48d80"><div class="ttname"><a href="ntkresolv_8h.html#adf498292ef00b9985c9e3a7bd6a48d80">print_headers</a></div><div class="ttdeci">void print_headers()</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:392</div></div>
+<div class="ttc" id="antkresolv_8h_html_ae226936b7b54e18fd0142cec3fb75891"><div class="ttname"><a href="ntkresolv_8h.html#ae226936b7b54e18fd0142cec3fb75891">realm_usage</a></div><div class="ttdeci">void realm_usage(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:89</div></div>
+<div class="ttc" id="antkresolv_8h_html_ae8605e2b78cd4a81b6c6b5c30cb7366a"><div class="ttname"><a href="ntkresolv_8h.html#ae8605e2b78cd4a81b6c6b5c30cb7366a">usage</a></div><div class="ttdeci">void usage(void)</div><div class="ttdef"><b>Definition:</b> netsukuku.c:161</div></div>
+<div class="ttc" id="antkresolv_8h_html_ae8882435d15ed8800aaa7b5e8f476a57"><div class="ttname"><a href="ntkresolv_8h.html#ae8882435d15ed8800aaa7b5e8f476a57">opts_set_parsable_output</a></div><div class="ttdeci">void opts_set_parsable_output(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:292</div></div>
+<div class="ttc" id="antkresolv_8h_html_aebaff2c5e182f385ff36a100acf6eda9"><div class="ttname"><a href="ntkresolv_8h.html#aebaff2c5e182f385ff36a100acf6eda9">QT_LEN</a></div><div class="ttdeci">int QT_LEN</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:82</div></div>
+<div class="ttc" id="antkresolv_8h_html_af8db000da6d4c6009e8af4b927f818a5"><div class="ttname"><a href="ntkresolv_8h.html#af8db000da6d4c6009e8af4b927f818a5">opts_finish</a></div><div class="ttdeci">void opts_finish(char *arg)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:365</div></div>
+<div class="ttc" id="antkresolv_8h_html_af986bd0575ec9b913dfab4b8422509ae"><div class="ttname"><a href="ntkresolv_8h.html#af986bd0575ec9b913dfab4b8422509ae">version</a></div><div class="ttdeci">void version(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:35</div></div>
+<div class="ttc" id="antkresolv_8h_html_afcf190ef5b605c4de3d3e23554c840d1"><div class="ttname"><a href="ntkresolv_8h.html#afcf190ef5b605c4de3d3e23554c840d1">opts_set_silent</a></div><div class="ttdeci">void opts_set_silent(void)</div><div class="ttdef"><b>Definition:</b> ntkresolv.c:176</div></div>
 <div class="ttc" id="astructandns__pkt__data_html"><div class="ttname"><a href="structandns__pkt__data.html">andns_pkt_data</a></div><div class="ttdef"><b>Definition:</b> andns_lib.h:45</div></div>
 <div class="ttc" id="astructandns__pkt_html"><div class="ttname"><a href="structandns__pkt.html">andns_pkt</a></div><div class="ttdef"><b>Definition:</b> andns_lib.h:63</div></div>
 <div class="ttc" id="astructntkresolv__opts_html"><div class="ttname"><a href="structntkresolv__opts.html">ntkresolv_opts</a></div><div class="ttdef"><b>Definition:</b> ntkresolv.h:110</div></div>
+<div class="ttc" id="astructntkresolv__opts_html_a17d89840e7296c323504b31fc6359606"><div class="ttname"><a href="structntkresolv__opts.html#a17d89840e7296c323504b31fc6359606">ntkresolv_opts::hash</a></div><div class="ttdeci">uint8_t hash</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:116</div></div>
+<div class="ttc" id="astructntkresolv__opts_html_a1938292592c39aeaee6c34260d3fb7de"><div class="ttname"><a href="structntkresolv__opts.html#a1938292592c39aeaee6c34260d3fb7de">ntkresolv_opts::nsserver</a></div><div class="ttdeci">char nsserver[MAX_HOSTNAME_LEN]</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:111</div></div>
+<div class="ttc" id="astructntkresolv__opts_html_a25808677ea8bfc68a6063b71317d13fa"><div class="ttname"><a href="structntkresolv__opts.html#a25808677ea8bfc68a6063b71317d13fa">ntkresolv_opts::q</a></div><div class="ttdeci">andns_pkt * q</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:117</div></div>
+<div class="ttc" id="astructntkresolv__opts_html_a2f19e4f7524399b3db11b7dd85eee764"><div class="ttname"><a href="structntkresolv__opts.html#a2f19e4f7524399b3db11b7dd85eee764">ntkresolv_opts::silent</a></div><div class="ttdeci">int8_t silent</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:113</div></div>
+<div class="ttc" id="astructntkresolv__opts_html_a4fc3a0c58dfbd1e68224521185cb9384"><div class="ttname"><a href="structntkresolv__opts.html#a4fc3a0c58dfbd1e68224521185cb9384">ntkresolv_opts::id</a></div><div class="ttdeci">uint16_t id</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:115</div></div>
+<div class="ttc" id="astructntkresolv__opts_html_a9737435f70ac06c731e140a970c26075"><div class="ttname"><a href="structntkresolv__opts.html#a9737435f70ac06c731e140a970c26075">ntkresolv_opts::obj</a></div><div class="ttdeci">char obj[NTKRESOLV_MAX_OBJ_LEN]</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:114</div></div>
+<div class="ttc" id="astructntkresolv__opts_html_af113e27943856fda379256192bf93450"><div class="ttname"><a href="structntkresolv__opts.html#af113e27943856fda379256192bf93450">ntkresolv_opts::port</a></div><div class="ttdeci">int16_t port</div><div class="ttdef"><b>Definition:</b> ntkresolv.h:112</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="ntkresolv_8h.html">ntkresolv.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

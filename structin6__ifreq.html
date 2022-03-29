@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structin6__ifreq.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,33 +83,86 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle"><div class="title">in6_ifreq Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="if_8h_source.html">if.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for in6_ifreq:</div>
+<div class="dyncontent">
+<div class="center"><img src="structin6__ifreq__coll__graph.png" border="0" usemap="#ain6__ifreq_coll__map" alt="Collaboration graph"/></div>
+<map name="ain6__ifreq_coll__map" id="ain6__ifreq_coll__map">
+<area shape="rect" title=" " alt="" coords="5,5,111,112"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aededc4bb37fcd5c0325e848b8c4c8c0f"><td class="memItemLeft" align="right" valign="top"><a id="aededc4bb37fcd5c0325e848b8c4c8c0f" name="aededc4bb37fcd5c0325e848b8c4c8c0f"></a>
-struct in6_addr&#160;</td><td class="memItemRight" valign="bottom"><b>ifr6_addr</b></td></tr>
+<tr class="memitem:aededc4bb37fcd5c0325e848b8c4c8c0f"><td class="memItemLeft" align="right" valign="top">struct in6_addr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structin6__ifreq.html#aededc4bb37fcd5c0325e848b8c4c8c0f">ifr6_addr</a></td></tr>
 <tr class="separator:aededc4bb37fcd5c0325e848b8c4c8c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfec5490affe03af6585d60252dd5317"><td class="memItemLeft" align="right" valign="top"><a id="acfec5490affe03af6585d60252dd5317" name="acfec5490affe03af6585d60252dd5317"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>ifr6_prefixlen</b></td></tr>
+<tr class="memitem:acfec5490affe03af6585d60252dd5317"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structin6__ifreq.html#acfec5490affe03af6585d60252dd5317">ifr6_prefixlen</a></td></tr>
 <tr class="separator:acfec5490affe03af6585d60252dd5317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0686e2793de6ee0bf0abb76201e6f084"><td class="memItemLeft" align="right" valign="top"><a id="a0686e2793de6ee0bf0abb76201e6f084" name="a0686e2793de6ee0bf0abb76201e6f084"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ifr6_ifindex</b></td></tr>
+<tr class="memitem:a0686e2793de6ee0bf0abb76201e6f084"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structin6__ifreq.html#a0686e2793de6ee0bf0abb76201e6f084">ifr6_ifindex</a></td></tr>
 <tr class="separator:a0686e2793de6ee0bf0abb76201e6f084"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="aededc4bb37fcd5c0325e848b8c4c8c0f" name="aededc4bb37fcd5c0325e848b8c4c8c0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aededc4bb37fcd5c0325e848b8c4c8c0f">&#9670;&nbsp;</a></span>ifr6_addr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct in6_addr ifr6_addr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0686e2793de6ee0bf0abb76201e6f084" name="a0686e2793de6ee0bf0abb76201e6f084"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0686e2793de6ee0bf0abb76201e6f084">&#9670;&nbsp;</a></span>ifr6_ifindex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ifr6_ifindex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acfec5490affe03af6585d60252dd5317" name="acfec5490affe03af6585d60252dd5317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfec5490affe03af6585d60252dd5317">&#9670;&nbsp;</a></span>ifr6_prefixlen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t ifr6_prefixlen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="if_8h_source.html">if.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structin6__ifreq.html">in6_ifreq</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

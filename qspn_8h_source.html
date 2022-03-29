@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('qspn_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">qspn.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="qspn_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2004 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,11 +108,11 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef QSPN_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define QSPN_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;gmap.h&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="gmap_8h.html">gmap.h</a>&quot;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define QSPN_WAIT_ROUND     32  </span><span class="comment">/*This is a crucial value. It is the number of </span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">                                   seconds to be waited before the next qspn_round </span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">                                   can be sent */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="qspn_8h.html#a92655b607960af188bc0b093314ef164">   24</a></span><span class="preprocessor">#define QSPN_WAIT_ROUND     32  </span><span class="comment">/*This is a crucial value. It is the number of </span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="qspn_8h.html#a4501642a2f00aceda8bdfd8cd12c8deb">   25</a></span><span class="comment">                                   seconds to be waited before the next qspn_round </span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="qspn_8h.html#af9d45d1418ce8ca77e84e64df6340740">   26</a></span><span class="comment">                                   can be sent */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define QSPN_WAIT_ROUND_MS  QSPN_WAIT_ROUND*1000</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define QSPN_WAIT_DELTA_MS  64  </span><span class="comment">/*If a qspn_round is sent while </span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">                                   qspn_round_left() &lt; QSPN_WAIT_DELTA_MS,</span></div>
@@ -104,95 +120,133 @@ $(function() {
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#undef QSPN_WAIT_ROUND</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define QSPN_WAIT_ROUND     8</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="qspn_8h.html#a8d6acb8a59cd922e4078753ca15ed3be">   34</a></span><span class="preprocessor">#define QSPN_WAIT_ROUND     8</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="qspn_8h.html#ad5404f8472abfeb9a35cbfdead283137">   36</a></span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">/*Wait time bound to a specific level:  y = (w/2)*x  + w/(x+1) */</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define QSPN_WAIT_ROUND_LVL(level) ((level)*(QSPN_WAIT_ROUND/2) +          \</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">                    QSPN_WAIT_ROUND/((level)+1))</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="qspn_8h.html#a4a21b8a839346e0e2f22f980204f9b22">   39</a></span><span class="preprocessor">                    QSPN_WAIT_ROUND/((level)+1))</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define QSPN_WAIT_ROUND_MS_LVL(level) (QSPN_WAIT_ROUND_LVL(level)*1000)</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/* The delta grows in this way:  y = x*(w/2) + 2*w*x + w; */</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define QSPN_WAIT_DELTA_MS_LVL(level) ((level)*(QSPN_WAIT_DELTA_MS/2) +        \</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">        2*QSPN_WAIT_DELTA_MS*(level) + QSPN_WAIT_DELTA_MS)</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structqspn__buffer.html">   45</a></span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structqspn__buffer.html#af488d58115358ffb4baeab76bc0bbc37">   46</a></span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">/* This list keeps tracks of the qspn_pkts sent or</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> * received by our rnodes*/</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">struct </span><a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    LLIST_HDR(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_struct" href="structmap__node.html">map_node</a> *rnode;            <span class="comment">/* the rnode this buf is referring to */</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    u_int replies;              <span class="comment">/* How many replies we forwarded/sent</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structqspn__buffer.html#ae15253d721eb011cf04f5f3e51efc4dc">   48</a></span><span class="comment"> * received by our rnodes*/</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structqspn__buffer.html#affb85c549409c2906539a4ae5405b177">   49</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_function" href="structqspn__buffer.html#af488d58115358ffb4baeab76bc0bbc37">LLIST_HDR</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structqspn__buffer.html#aecf821afb692a8474e58154a444ca5f2">   51</a></span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structqspn__buffer.html#a4afae808d884307f1d92abc2c42e1b19">   52</a></span>    <a class="code hl_struct" href="structmap__node.html">map_node</a> *<a class="code hl_variable" href="structqspn__buffer.html#ae15253d721eb011cf04f5f3e51efc4dc">rnode</a>;            <span class="comment">/* the rnode this buf is referring to */</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    u_int <a class="code hl_variable" href="structqspn__buffer.html#affb85c549409c2906539a4ae5405b177">replies</a>;              <span class="comment">/* How many replies we forwarded/sent</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">                                   to `rnode&#39; */</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    u_char *replier;            <span class="comment">/* Who has sent these replies (qspn_sub_id) */</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    u_short *flags;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    u_char *<a class="code hl_variable" href="structqspn__buffer.html#aecf821afb692a8474e58154a444ca5f2">replier</a>;            <span class="comment">/* Who has sent these replies (qspn_sub_id) */</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    u_short *<a class="code hl_variable" href="structqspn__buffer.html#a4afae808d884307f1d92abc2c42e1b19">flags</a>;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="qspn_8h.html#a1f03e7fddbc0d8b9a547fbc8ae1d1838">   60</a></span><span class="comment">/*</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"> *  *  *  Global vars  *  *  *</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="qspn_8h.html#a7376bee5662f5931615b3648fb8e21b5">   62</a></span><span class="comment"> */</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">struct </span><a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> **qspn_b;    <span class="comment">/*It is sizeof(struct qspn_buffer *)*levels big */</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="qspn_8h.html#ae43980163dccdef6bba0624790470ac3">   64</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> **<a class="code hl_variable" href="qspn_8h.html#a1f03e7fddbc0d8b9a547fbc8ae1d1838">qspn_b</a>;    <span class="comment">/*It is sizeof(struct qspn_buffer *)*levels big */</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">int</span> *qspn_send_mutex;           <span class="comment">/*It is sizeof(int)*levels big. */</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">int</span> *<a class="code hl_variable" href="qspn_8h.html#a7376bee5662f5931615b3648fb8e21b5">qspn_send_mutex</a>;           <span class="comment">/*It is sizeof(int)*levels big. */</span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define GCOUNT_LEVELS       (MAX_LEVELS-ZERO_LEVEL+UNITY_LEVEL)</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"> * qspn_gnode_count[x] is the number of nodes present in the gnode</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="qspn_8h.html#a388441c5ed5a4a4928808761b21be7f9">   70</a></span><span class="comment"> * qspn_gnode_count[x] is the number of nodes present in the gnode</span></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"> * me.cur_quadg.gnode[x], it is updated at each qspn_round.</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"> * Use the _EL() macro!</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>u_int qspn_gnode_count[GCOUNT_LEVELS];</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="qspn_8h.html#a0dca986e26225bf2bb53737721da97e4">   73</a></span><span class="comment"> */</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>u_int <a class="code hl_variable" href="qspn_8h.html#a388441c5ed5a4a4928808761b21be7f9">qspn_gnode_count</a>[<a class="code hl_define" href="qspn_8h.html#ae43980163dccdef6bba0624790470ac3">GCOUNT_LEVELS</a>];</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">/* gcount of the previous qspn_round */</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>u_int qspn_old_gcount[GCOUNT_LEVELS];</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>u_int <a class="code hl_variable" href="qspn_8h.html#a0dca986e26225bf2bb53737721da97e4">qspn_old_gcount</a>[<a class="code hl_define" href="qspn_8h.html#ae43980163dccdef6bba0624790470ac3">GCOUNT_LEVELS</a>];</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> *  *  Functions declaration  *  *</span></div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keywordtype">void</span> qspn_time_reset(<span class="keywordtype">int</span> start_level, <span class="keywordtype">int</span> end_level, <span class="keywordtype">int</span> levels);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">void</span> qspn_reset_counters(u_char levels);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keywordtype">void</span> qspn_reset(u_char levels);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keywordtype">void</span> qspn_init(u_char levels);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keywordtype">void</span> qspn_free(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> qspn_set_map_vars(u_char level, <a class="code hl_struct" href="structmap__node.html">map_node</a> ** map,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#ae829542b920ee60cf45ec71a3ca765f5">qspn_time_reset</a>(<span class="keywordtype">int</span> start_level, <span class="keywordtype">int</span> end_level, <span class="keywordtype">int</span> levels);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a40d1fdcd6e95b3b04b67babf6bb72f14">qspn_reset_counters</a>(u_char levels);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#aa4732df7308d4e5ab35303e776e2380a">qspn_reset</a>(u_char levels);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a6c5c062e24ec079201aea53899af3e28">qspn_init</a>(u_char levels);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a8e01d03af3860d083a330dfad626d239">qspn_free</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a7d4488a7a0d0eb767588a5afb7f85e47">qspn_set_map_vars</a>(u_char level, <a class="code hl_struct" href="structmap__node.html">map_node</a> ** map,</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                       <a class="code hl_struct" href="structmap__node.html">map_node</a> ** root_node, <span class="keywordtype">int</span> *root_node_pos,</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                       <a class="code hl_struct" href="structmap__gnode.html">map_gnode</a> ** gmap);</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keywordtype">void</span> qspn_b_clean(u_char level);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keywordtype">int</span> qspn_b_add(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> *qb, u_char replier, u_short flags);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keywordtype">int</span> qspn_b_find_reply(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> *qb, <span class="keywordtype">int</span> sub_id);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">struct </span><a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> *qspn_b_find_rnode(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> *qb,</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                                      <a class="code hl_struct" href="structmap__node.html">map_node</a> * rnode);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keywordtype">int</span> qspn_b_del_dead_rnodes(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> **qb, <a class="code hl_struct" href="structmap__node.html">map_node</a> * root_node);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keywordtype">void</span> qspn_b_del_all_dead_rnodes(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a2bc4cdc2b729d5b3626481db29789e05">qspn_b_clean</a>(u_char level);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keywordtype">int</span> <a class="code hl_function" href="qspn_8h.html#ade9d52b888ef2388737a05b2345caec4">qspn_b_add</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> *qb, u_char <a class="code hl_variable" href="structqspn__buffer.html#aecf821afb692a8474e58154a444ca5f2">replier</a>, u_short <a class="code hl_variable" href="if_8c.html#ac8bf36fe0577cba66bccda3a6f7e80a4">flags</a>);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keywordtype">int</span> <a class="code hl_function" href="qspn_8h.html#ac2ca7c6fd9c6e9b984e3f4f439090711">qspn_b_find_reply</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> *qb, <span class="keywordtype">int</span> sub_id);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">struct </span><a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> *<a class="code hl_function" href="qspn_8h.html#ab930a121b089ed3c20e8c599f0101695">qspn_b_find_rnode</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> *qb,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                                      <a class="code hl_struct" href="structmap__node.html">map_node</a> * <a class="code hl_variable" href="structqspn__buffer.html#ae15253d721eb011cf04f5f3e51efc4dc">rnode</a>);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keywordtype">int</span> <a class="code hl_function" href="qspn_8h.html#a3a6fd647a6c1d1d519d16de9a4395678">qspn_b_del_dead_rnodes</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structqspn__buffer.html">qspn_buffer</a> **qb, <a class="code hl_struct" href="structmap__node.html">map_node</a> * root_node);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#ad5629aab4eceb4a0ea97a417bf085f66">qspn_b_del_all_dead_rnodes</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keywordtype">int</span> qspn_round_left(u_char level);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keywordtype">void</span> update_qspn_time(u_char level, u_int new_qspn_time);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keywordtype">int</span> <a class="code hl_function" href="qspn_8h.html#aaa5e9fc3e6827c9f4593a3812ef14f0d">qspn_round_left</a>(u_char level);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#ad5239640aec880598ca4e773a6ab96b9">update_qspn_time</a>(u_char level, u_int new_qspn_time);</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keywordtype">void</span> qspn_inc_gcount(u_int * gcount, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> inc);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keywordtype">void</span> qspn_dec_gcount(u_int * gcount, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> dec);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keywordtype">void</span> qspn_reset_gcount(u_int * gcount, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> value);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="keywordtype">void</span> qspn_backup_gcount(u_int * old_gcount, <span class="keywordtype">int</span> *gcount);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a02f16027494ad99d0d705595d5d757e1">qspn_inc_gcount</a>(u_int * gcount, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> inc);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a916a1d446a6a10cea404b88096fe7a6b">qspn_dec_gcount</a>(u_int * gcount, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> dec);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a96119d495d6670ec51c1b7c28df7c681">qspn_reset_gcount</a>(u_int * gcount, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#a8620dcb680cc1a57630fe2a2112d74f5">qspn_backup_gcount</a>(u_int * old_gcount, <span class="keywordtype">int</span> *gcount);</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keywordtype">void</span> qspn_new_round(u_char level, <span class="keywordtype">int</span> new_qspn_id, u_int new_qspn_time);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keywordtype">void</span> <a class="code hl_function" href="qspn_8h.html#ab2f4bfac6bcea3379068bf4aab92e381">qspn_new_round</a>(u_char level, <span class="keywordtype">int</span> new_qspn_id, u_int new_qspn_time);</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">int</span> qspn_send(u_char level);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keywordtype">int</span> qspn_close(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rpkt);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keywordtype">int</span> qspn_open(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rpkt);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">int</span> <a class="code hl_function" href="qspn_8h.html#a0c2ef8efd5611e3ed71086a267af7915">qspn_send</a>(u_char level);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keywordtype">int</span> <a class="code hl_function" href="qspn_8h.html#ab70abece99b6ae77b078ec100c35912a">qspn_close</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rpkt);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keywordtype">int</span> <a class="code hl_function" href="qspn_8h.html#a6df687dad6a64c0807fbfc105cf244c5">qspn_open</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rpkt);</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#endif                          </span><span class="comment">/*QSPN_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="agmap_8h_html"><div class="ttname"><a href="gmap_8h.html">gmap.h</a></div></div>
+<div class="ttc" id="aif_8c_html_ac8bf36fe0577cba66bccda3a6f7e80a4"><div class="ttname"><a href="if_8c.html#ac8bf36fe0577cba66bccda3a6f7e80a4">flags</a></div><div class="ttdeci">int flags</div><div class="ttdef"><b>Definition:</b> if.c:38</div></div>
+<div class="ttc" id="aqspn_8h_html_a02f16027494ad99d0d705595d5d757e1"><div class="ttname"><a href="qspn_8h.html#a02f16027494ad99d0d705595d5d757e1">qspn_inc_gcount</a></div><div class="ttdeci">void qspn_inc_gcount(u_int *gcount, int level, int inc)</div><div class="ttdef"><b>Definition:</b> qspn.c:325</div></div>
+<div class="ttc" id="aqspn_8h_html_a0c2ef8efd5611e3ed71086a267af7915"><div class="ttname"><a href="qspn_8h.html#a0c2ef8efd5611e3ed71086a267af7915">qspn_send</a></div><div class="ttdeci">int qspn_send(u_char level)</div><div class="ttdef"><b>Definition:</b> qspn.c:610</div></div>
+<div class="ttc" id="aqspn_8h_html_a0dca986e26225bf2bb53737721da97e4"><div class="ttname"><a href="qspn_8h.html#a0dca986e26225bf2bb53737721da97e4">qspn_old_gcount</a></div><div class="ttdeci">u_int qspn_old_gcount[GCOUNT_LEVELS]</div><div class="ttdef"><b>Definition:</b> qspn.h:73</div></div>
+<div class="ttc" id="aqspn_8h_html_a1f03e7fddbc0d8b9a547fbc8ae1d1838"><div class="ttname"><a href="qspn_8h.html#a1f03e7fddbc0d8b9a547fbc8ae1d1838">qspn_b</a></div><div class="ttdeci">struct qspn_buffer ** qspn_b</div><div class="ttdef"><b>Definition:</b> qspn.h:60</div></div>
+<div class="ttc" id="aqspn_8h_html_a2bc4cdc2b729d5b3626481db29789e05"><div class="ttname"><a href="qspn_8h.html#a2bc4cdc2b729d5b3626481db29789e05">qspn_b_clean</a></div><div class="ttdeci">void qspn_b_clean(u_char level)</div><div class="ttdef"><b>Definition:</b> qspn.c:140</div></div>
+<div class="ttc" id="aqspn_8h_html_a388441c5ed5a4a4928808761b21be7f9"><div class="ttname"><a href="qspn_8h.html#a388441c5ed5a4a4928808761b21be7f9">qspn_gnode_count</a></div><div class="ttdeci">u_int qspn_gnode_count[GCOUNT_LEVELS]</div><div class="ttdef"><b>Definition:</b> qspn.h:70</div></div>
+<div class="ttc" id="aqspn_8h_html_a3a6fd647a6c1d1d519d16de9a4395678"><div class="ttname"><a href="qspn_8h.html#a3a6fd647a6c1d1d519d16de9a4395678">qspn_b_del_dead_rnodes</a></div><div class="ttdeci">int qspn_b_del_dead_rnodes(struct qspn_buffer **qb, map_node *root_node)</div><div class="ttdef"><b>Definition:</b> qspn.c:204</div></div>
+<div class="ttc" id="aqspn_8h_html_a40d1fdcd6e95b3b04b67babf6bb72f14"><div class="ttname"><a href="qspn_8h.html#a40d1fdcd6e95b3b04b67babf6bb72f14">qspn_reset_counters</a></div><div class="ttdeci">void qspn_reset_counters(u_char levels)</div><div class="ttdef"><b>Definition:</b> qspn.c:87</div></div>
+<div class="ttc" id="aqspn_8h_html_a6c5c062e24ec079201aea53899af3e28"><div class="ttname"><a href="qspn_8h.html#a6c5c062e24ec079201aea53899af3e28">qspn_init</a></div><div class="ttdeci">void qspn_init(u_char levels)</div><div class="ttdef"><b>Definition:</b> qspn.c:106</div></div>
+<div class="ttc" id="aqspn_8h_html_a6df687dad6a64c0807fbfc105cf244c5"><div class="ttname"><a href="qspn_8h.html#a6df687dad6a64c0807fbfc105cf244c5">qspn_open</a></div><div class="ttdeci">int qspn_open(PACKET rpkt)</div><div class="ttdef"><b>Definition:</b> qspn.c:1117</div></div>
+<div class="ttc" id="aqspn_8h_html_a7376bee5662f5931615b3648fb8e21b5"><div class="ttname"><a href="qspn_8h.html#a7376bee5662f5931615b3648fb8e21b5">qspn_send_mutex</a></div><div class="ttdeci">int * qspn_send_mutex</div><div class="ttdef"><b>Definition:</b> qspn.h:62</div></div>
+<div class="ttc" id="aqspn_8h_html_a7d4488a7a0d0eb767588a5afb7f85e47"><div class="ttname"><a href="qspn_8h.html#a7d4488a7a0d0eb767588a5afb7f85e47">qspn_set_map_vars</a></div><div class="ttdeci">void qspn_set_map_vars(u_char level, map_node **map, map_node **root_node, int *root_node_pos, map_gnode **gmap)</div><div class="ttdef"><b>Definition:</b> qspn.c:39</div></div>
+<div class="ttc" id="aqspn_8h_html_a8620dcb680cc1a57630fe2a2112d74f5"><div class="ttname"><a href="qspn_8h.html#a8620dcb680cc1a57630fe2a2112d74f5">qspn_backup_gcount</a></div><div class="ttdeci">void qspn_backup_gcount(u_int *old_gcount, int *gcount)</div><div class="ttdef"><b>Definition:</b> qspn.c:381</div></div>
+<div class="ttc" id="aqspn_8h_html_a8e01d03af3860d083a330dfad626d239"><div class="ttname"><a href="qspn_8h.html#a8e01d03af3860d083a330dfad626d239">qspn_free</a></div><div class="ttdeci">void qspn_free(void)</div><div class="ttdef"><b>Definition:</b> qspn.c:127</div></div>
+<div class="ttc" id="aqspn_8h_html_a916a1d446a6a10cea404b88096fe7a6b"><div class="ttname"><a href="qspn_8h.html#a916a1d446a6a10cea404b88096fe7a6b">qspn_dec_gcount</a></div><div class="ttdeci">void qspn_dec_gcount(u_int *gcount, int level, int dec)</div><div class="ttdef"><b>Definition:</b> qspn.c:346</div></div>
+<div class="ttc" id="aqspn_8h_html_a96119d495d6670ec51c1b7c28df7c681"><div class="ttname"><a href="qspn_8h.html#a96119d495d6670ec51c1b7c28df7c681">qspn_reset_gcount</a></div><div class="ttdeci">void qspn_reset_gcount(u_int *gcount, int level, int value)</div><div class="ttdef"><b>Definition:</b> qspn.c:366</div></div>
+<div class="ttc" id="aqspn_8h_html_aa4732df7308d4e5ab35303e776e2380a"><div class="ttname"><a href="qspn_8h.html#aa4732df7308d4e5ab35303e776e2380a">qspn_reset</a></div><div class="ttdeci">void qspn_reset(u_char levels)</div><div class="ttdef"><b>Definition:</b> qspn.c:96</div></div>
+<div class="ttc" id="aqspn_8h_html_aaa5e9fc3e6827c9f4593a3812ef14f0d"><div class="ttname"><a href="qspn_8h.html#aaa5e9fc3e6827c9f4593a3812ef14f0d">qspn_round_left</a></div><div class="ttdeci">int qspn_round_left(u_char level)</div><div class="ttdef"><b>Definition:</b> qspn.c:239</div></div>
+<div class="ttc" id="aqspn_8h_html_ab2f4bfac6bcea3379068bf4aab92e381"><div class="ttname"><a href="qspn_8h.html#ab2f4bfac6bcea3379068bf4aab92e381">qspn_new_round</a></div><div class="ttdeci">void qspn_new_round(u_char level, int new_qspn_id, u_int new_qspn_time)</div><div class="ttdef"><b>Definition:</b> qspn.c:504</div></div>
+<div class="ttc" id="aqspn_8h_html_ab70abece99b6ae77b078ec100c35912a"><div class="ttname"><a href="qspn_8h.html#ab70abece99b6ae77b078ec100c35912a">qspn_close</a></div><div class="ttdeci">int qspn_close(PACKET rpkt)</div><div class="ttdef"><b>Definition:</b> qspn.c:872</div></div>
+<div class="ttc" id="aqspn_8h_html_ab930a121b089ed3c20e8c599f0101695"><div class="ttname"><a href="qspn_8h.html#ab930a121b089ed3c20e8c599f0101695">qspn_b_find_rnode</a></div><div class="ttdeci">struct qspn_buffer * qspn_b_find_rnode(struct qspn_buffer *qb, map_node *rnode)</div><div class="ttdef"><b>Definition:</b> qspn.c:176</div></div>
+<div class="ttc" id="aqspn_8h_html_ac2ca7c6fd9c6e9b984e3f4f439090711"><div class="ttname"><a href="qspn_8h.html#ac2ca7c6fd9c6e9b984e3f4f439090711">qspn_b_find_reply</a></div><div class="ttdeci">int qspn_b_find_reply(struct qspn_buffer *qb, int sub_id)</div><div class="ttdef"><b>Definition:</b> qspn.c:185</div></div>
+<div class="ttc" id="aqspn_8h_html_ad5239640aec880598ca4e773a6ab96b9"><div class="ttname"><a href="qspn_8h.html#ad5239640aec880598ca4e773a6ab96b9">update_qspn_time</a></div><div class="ttdeci">void update_qspn_time(u_char level, u_int new_qspn_time)</div><div class="ttdef"><b>Definition:</b> qspn.c:281</div></div>
+<div class="ttc" id="aqspn_8h_html_ad5629aab4eceb4a0ea97a417bf085f66"><div class="ttname"><a href="qspn_8h.html#ad5629aab4eceb4a0ea97a417bf085f66">qspn_b_del_all_dead_rnodes</a></div><div class="ttdeci">void qspn_b_del_all_dead_rnodes(void)</div><div class="ttdef"><b>Definition:</b> qspn.c:223</div></div>
+<div class="ttc" id="aqspn_8h_html_ade9d52b888ef2388737a05b2345caec4"><div class="ttname"><a href="qspn_8h.html#ade9d52b888ef2388737a05b2345caec4">qspn_b_add</a></div><div class="ttdeci">int qspn_b_add(struct qspn_buffer *qb, u_char replier, u_short flags)</div><div class="ttdef"><b>Definition:</b> qspn.c:162</div></div>
+<div class="ttc" id="aqspn_8h_html_ae43980163dccdef6bba0624790470ac3"><div class="ttname"><a href="qspn_8h.html#ae43980163dccdef6bba0624790470ac3">GCOUNT_LEVELS</a></div><div class="ttdeci">#define GCOUNT_LEVELS</div><div class="ttdef"><b>Definition:</b> qspn.h:64</div></div>
+<div class="ttc" id="aqspn_8h_html_ae829542b920ee60cf45ec71a3ca765f5"><div class="ttname"><a href="qspn_8h.html#ae829542b920ee60cf45ec71a3ca765f5">qspn_time_reset</a></div><div class="ttdeci">void qspn_time_reset(int start_level, int end_level, int levels)</div><div class="ttdef"><b>Definition:</b> qspn.c:67</div></div>
 <div class="ttc" id="astruct_p_a_c_k_e_t_html"><div class="ttname"><a href="struct_p_a_c_k_e_t.html">PACKET</a></div><div class="ttdef"><b>Definition:</b> pkts.h:107</div></div>
 <div class="ttc" id="astructmap__gnode_html"><div class="ttname"><a href="structmap__gnode.html">map_gnode</a></div><div class="ttdef"><b>Definition:</b> gmap.h:37</div></div>
 <div class="ttc" id="astructmap__node_html"><div class="ttname"><a href="structmap__node.html">map_node</a></div><div class="ttdef"><b>Definition:</b> map.h:115</div></div>
 <div class="ttc" id="astructqspn__buffer_html"><div class="ttname"><a href="structqspn__buffer.html">qspn_buffer</a></div><div class="ttdef"><b>Definition:</b> qspn.h:45</div></div>
+<div class="ttc" id="astructqspn__buffer_html_a4afae808d884307f1d92abc2c42e1b19"><div class="ttname"><a href="structqspn__buffer.html#a4afae808d884307f1d92abc2c42e1b19">qspn_buffer::flags</a></div><div class="ttdeci">u_short * flags</div><div class="ttdef"><b>Definition:</b> qspn.h:52</div></div>
+<div class="ttc" id="astructqspn__buffer_html_ae15253d721eb011cf04f5f3e51efc4dc"><div class="ttname"><a href="structqspn__buffer.html#ae15253d721eb011cf04f5f3e51efc4dc">qspn_buffer::rnode</a></div><div class="ttdeci">map_node * rnode</div><div class="ttdef"><b>Definition:</b> qspn.h:48</div></div>
+<div class="ttc" id="astructqspn__buffer_html_aecf821afb692a8474e58154a444ca5f2"><div class="ttname"><a href="structqspn__buffer.html#aecf821afb692a8474e58154a444ca5f2">qspn_buffer::replier</a></div><div class="ttdeci">u_char * replier</div><div class="ttdef"><b>Definition:</b> qspn.h:51</div></div>
+<div class="ttc" id="astructqspn__buffer_html_af488d58115358ffb4baeab76bc0bbc37"><div class="ttname"><a href="structqspn__buffer.html#af488d58115358ffb4baeab76bc0bbc37">qspn_buffer::LLIST_HDR</a></div><div class="ttdeci">LLIST_HDR(struct qspn_buffer)</div></div>
+<div class="ttc" id="astructqspn__buffer_html_affb85c549409c2906539a4ae5405b177"><div class="ttname"><a href="structqspn__buffer.html#affb85c549409c2906539a4ae5405b177">qspn_buffer::replies</a></div><div class="ttdeci">u_int replies</div><div class="ttdef"><b>Definition:</b> qspn.h:49</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="qspn_8h.html">qspn.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

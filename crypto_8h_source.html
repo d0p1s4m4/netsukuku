@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('crypto_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">crypto.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="crypto_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2005 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -103,26 +119,41 @@ $(function() {
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;sys/types.h&gt;</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define RSA_PUB_EXPONENT    65537</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="crypto_8h.html#a0b9b03330620f6fa6f43c32d5dd09b74">   33</a></span><span class="preprocessor">#define RSA_PUB_EXPONENT    65537</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> init_crypto(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> free_crypto(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">char</span> *ssl_strerr(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>RSA *genrsa(<span class="keywordtype">int</span> key_bits, u_char ** pub, u_int * pub_len, u_char ** priv,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> <a class="code hl_function" href="crypto_8h.html#a71df7824b72ad8eebb88baa68f633ee2">init_crypto</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="crypto_8h.html#a7374e38adddf8ce3003d7af415f8f87c">free_crypto</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">char</span> *<a class="code hl_function" href="crypto_8h.html#a52124526b622bd95b9a997107ed4bb00">ssl_strerr</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>RSA *<a class="code hl_function" href="crypto_8h.html#a491a72eba3179028d73fe58a1b4085fc">genrsa</a>(<span class="keywordtype">int</span> key_bits, u_char ** pub, u_int * pub_len, u_char ** priv,</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            u_int * priv_len);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>RSA *get_rsa_pub(<span class="keyword">const</span> u_char ** pub_key, <span class="keywordtype">long</span> length);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>RSA *get_rsa_priv(<span class="keyword">const</span> u_char ** priv_key, <span class="keywordtype">long</span> length);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>u_char *hash_sha1(u_char * msg, u_int len, u_char * hash);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>u_char *hash_md5(u_char * msg, u_int m_len, u_char * hash);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>u_char *rsa_sign(u_char * msg, u_int m_len, RSA * priv, u_int * siglen);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keywordtype">int</span> verify_sign(u_char * msg, u_int m_len, u_char * signature,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>RSA *<a class="code hl_function" href="crypto_8h.html#aea7fc72cef4fcf0c49a4e80b5427b708">get_rsa_pub</a>(<span class="keyword">const</span> u_char ** pub_key, <span class="keywordtype">long</span> <a class="code hl_variable" href="ntk-console-server_8c.html#a9f59b34b1f25fe00023291b678246bcc">length</a>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>RSA *<a class="code hl_function" href="crypto_8h.html#a6e9f54be4925de0862135b0a4e29b502">get_rsa_priv</a>(<span class="keyword">const</span> u_char ** priv_key, <span class="keywordtype">long</span> <a class="code hl_variable" href="ntk-console-server_8c.html#a9f59b34b1f25fe00023291b678246bcc">length</a>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>u_char *<a class="code hl_function" href="crypto_8h.html#a09ecacf6ee246a0d05698891987e8fcb">hash_sha1</a>(u_char * msg, u_int len, u_char * hash);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>u_char *<a class="code hl_function" href="crypto_8h.html#acfc412c2366dd9d34a8fda2f8197db66">hash_md5</a>(u_char * msg, u_int m_len, u_char * hash);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>u_char *<a class="code hl_function" href="crypto_8h.html#a3c97a72c403bbf286f3681774d971160">rsa_sign</a>(u_char * msg, u_int m_len, RSA * priv, u_int * siglen);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keywordtype">int</span> <a class="code hl_function" href="crypto_8h.html#a1485a2eb818dac9656d344ae00249022">verify_sign</a>(u_char * msg, u_int m_len, u_char * signature,</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                u_int siglen, RSA * pub);</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#endif                          </span><span class="comment">/*CRYPTO_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="acrypto_8h_html_a09ecacf6ee246a0d05698891987e8fcb"><div class="ttname"><a href="crypto_8h.html#a09ecacf6ee246a0d05698891987e8fcb">hash_sha1</a></div><div class="ttdeci">u_char * hash_sha1(u_char *msg, u_int len, u_char *hash)</div><div class="ttdef"><b>Definition:</b> crypto.c:133</div></div>
+<div class="ttc" id="acrypto_8h_html_a1485a2eb818dac9656d344ae00249022"><div class="ttname"><a href="crypto_8h.html#a1485a2eb818dac9656d344ae00249022">verify_sign</a></div><div class="ttdeci">int verify_sign(u_char *msg, u_int m_len, u_char *signature, u_int siglen, RSA *pub)</div><div class="ttdef"><b>Definition:</b> crypto.c:173</div></div>
+<div class="ttc" id="acrypto_8h_html_a3c97a72c403bbf286f3681774d971160"><div class="ttname"><a href="crypto_8h.html#a3c97a72c403bbf286f3681774d971160">rsa_sign</a></div><div class="ttdeci">u_char * rsa_sign(u_char *msg, u_int m_len, RSA *priv, u_int *siglen)</div><div class="ttdef"><b>Definition:</b> crypto.c:150</div></div>
+<div class="ttc" id="acrypto_8h_html_a491a72eba3179028d73fe58a1b4085fc"><div class="ttname"><a href="crypto_8h.html#a491a72eba3179028d73fe58a1b4085fc">genrsa</a></div><div class="ttdeci">RSA * genrsa(int key_bits, u_char **pub, u_int *pub_len, u_char **priv, u_int *priv_len)</div><div class="ttdef"><b>Definition:</b> crypto.c:65</div></div>
+<div class="ttc" id="acrypto_8h_html_a52124526b622bd95b9a997107ed4bb00"><div class="ttname"><a href="crypto_8h.html#a52124526b622bd95b9a997107ed4bb00">ssl_strerr</a></div><div class="ttdeci">char * ssl_strerr(void)</div><div class="ttdef"><b>Definition:</b> crypto.c:52</div></div>
+<div class="ttc" id="acrypto_8h_html_a6e9f54be4925de0862135b0a4e29b502"><div class="ttname"><a href="crypto_8h.html#a6e9f54be4925de0862135b0a4e29b502">get_rsa_priv</a></div><div class="ttdeci">RSA * get_rsa_priv(const u_char **priv_key, long length)</div><div class="ttdef"><b>Definition:</b> crypto.c:127</div></div>
+<div class="ttc" id="acrypto_8h_html_a71df7824b72ad8eebb88baa68f633ee2"><div class="ttname"><a href="crypto_8h.html#a71df7824b72ad8eebb88baa68f633ee2">init_crypto</a></div><div class="ttdeci">void init_crypto(void)</div><div class="ttdef"><b>Definition:</b> crypto.c:39</div></div>
+<div class="ttc" id="acrypto_8h_html_a7374e38adddf8ce3003d7af415f8f87c"><div class="ttname"><a href="crypto_8h.html#a7374e38adddf8ce3003d7af415f8f87c">free_crypto</a></div><div class="ttdeci">void free_crypto(void)</div><div class="ttdef"><b>Definition:</b> crypto.c:46</div></div>
+<div class="ttc" id="acrypto_8h_html_acfc412c2366dd9d34a8fda2f8197db66"><div class="ttname"><a href="crypto_8h.html#acfc412c2366dd9d34a8fda2f8197db66">hash_md5</a></div><div class="ttdeci">u_char * hash_md5(u_char *msg, u_int m_len, u_char *hash)</div><div class="ttdef"><b>Definition:</b> crypto.c:139</div></div>
+<div class="ttc" id="acrypto_8h_html_aea7fc72cef4fcf0c49a4e80b5427b708"><div class="ttname"><a href="crypto_8h.html#aea7fc72cef4fcf0c49a4e80b5427b708">get_rsa_pub</a></div><div class="ttdeci">RSA * get_rsa_pub(const u_char **pub_key, long length)</div><div class="ttdef"><b>Definition:</b> crypto.c:115</div></div>
+<div class="ttc" id="antk-console-server_8c_html_a9f59b34b1f25fe00023291b678246bcc"><div class="ttname"><a href="ntk-console-server_8c.html#a9f59b34b1f25fe00023291b678246bcc">length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> ntk-console-server.c:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="crypto_8h.html">crypto.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

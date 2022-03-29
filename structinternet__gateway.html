@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structinternet__gateway.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,7 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -70,48 +90,138 @@ $(function() {
   <div class="headertitle"><div class="title">internet_gateway Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="igs_8h_source.html">igs.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for internet_gateway:</div>
 <div class="dyncontent">
 <div class="center"><img src="structinternet__gateway__coll__graph.png" border="0" usemap="#ainternet__gateway_coll__map" alt="Collaboration graph"/></div>
 <map name="ainternet__gateway_coll__map" id="ainternet__gateway_coll__map">
-<area shape="rect" title=" " alt="" coords="5,184,125,211"/>
-<area shape="rect" href="structmap__node.html" title=" " alt="" coords="24,95,107,121"/>
-<area shape="rect" href="structmap__rnode.html" title=" " alt="" coords="22,5,109,32"/>
+<area shape="rect" title=" " alt="" coords="5,388,125,509"/>
+<area shape="rect" href="structmap__node.html" title=" " alt="" coords="24,204,107,325"/>
+<area shape="rect" href="structmap__rnode.html" title=" " alt="" coords="22,5,109,141"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeb3f9de6f781a9dd4afac562ee8311b3"><td class="memItemLeft" align="right" valign="top"><a id="aeb3f9de6f781a9dd4afac562ee8311b3" name="aeb3f9de6f781a9dd4afac562ee8311b3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LLIST_HDR</b> (struct <a class="el" href="structinternet__gateway.html">internet_gateway</a>)</td></tr>
+<tr class="memitem:aeb3f9de6f781a9dd4afac562ee8311b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structinternet__gateway.html#aeb3f9de6f781a9dd4afac562ee8311b3">LLIST_HDR</a> (struct <a class="el" href="structinternet__gateway.html">internet_gateway</a>)</td></tr>
 <tr class="separator:aeb3f9de6f781a9dd4afac562ee8311b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a35e54edf46d8776aaf8235ca254d1b91"><td class="memItemLeft" align="right" valign="top"><a id="a35e54edf46d8776aaf8235ca254d1b91" name="a35e54edf46d8776aaf8235ca254d1b91"></a>
-u_int&#160;</td><td class="memItemRight" valign="bottom"><b>ip</b> [MAX_IP_INT]</td></tr>
+<tr class="memitem:a35e54edf46d8776aaf8235ca254d1b91"><td class="memItemLeft" align="right" valign="top">u_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structinternet__gateway.html#a35e54edf46d8776aaf8235ca254d1b91">ip</a> [<a class="el" href="inet_8h.html#a70f8406c9556460a606bee45306c5630">MAX_IP_INT</a>]</td></tr>
 <tr class="separator:a35e54edf46d8776aaf8235ca254d1b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2629cd83455d8833085556bc48cbfed"><td class="memItemLeft" align="right" valign="top"><a id="af2629cd83455d8833085556bc48cbfed" name="af2629cd83455d8833085556bc48cbfed"></a>
-u_char&#160;</td><td class="memItemRight" valign="bottom"><b>gid</b></td></tr>
+<tr class="memitem:af2629cd83455d8833085556bc48cbfed"><td class="memItemLeft" align="right" valign="top">u_char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structinternet__gateway.html#af2629cd83455d8833085556bc48cbfed">gid</a></td></tr>
 <tr class="separator:af2629cd83455d8833085556bc48cbfed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad009a56fdef39a6a5680d17b7b4469f6"><td class="memItemLeft" align="right" valign="top"><a id="ad009a56fdef39a6a5680d17b7b4469f6" name="ad009a56fdef39a6a5680d17b7b4469f6"></a>
-<a class="el" href="structmap__node.html">map_node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>node</b></td></tr>
+<tr class="memitem:ad009a56fdef39a6a5680d17b7b4469f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmap__node.html">map_node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structinternet__gateway.html#ad009a56fdef39a6a5680d17b7b4469f6">node</a></td></tr>
 <tr class="separator:ad009a56fdef39a6a5680d17b7b4469f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a639870aa0bd3049b341f02dd37e02f1f"><td class="memItemLeft" align="right" valign="top"><a id="a639870aa0bd3049b341f02dd37e02f1f" name="a639870aa0bd3049b341f02dd37e02f1f"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="memitem:a639870aa0bd3049b341f02dd37e02f1f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structinternet__gateway.html#a639870aa0bd3049b341f02dd37e02f1f">flags</a></td></tr>
 <tr class="separator:a639870aa0bd3049b341f02dd37e02f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8374974faf8c9d35a998cfa17f87e3ba"><td class="memItemLeft" align="right" valign="top"><a id="a8374974faf8c9d35a998cfa17f87e3ba" name="a8374974faf8c9d35a998cfa17f87e3ba"></a>
-u_char&#160;</td><td class="memItemRight" valign="bottom"><b>bandwidth</b></td></tr>
+<tr class="memitem:a8374974faf8c9d35a998cfa17f87e3ba"><td class="memItemLeft" align="right" valign="top">u_char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structinternet__gateway.html#a8374974faf8c9d35a998cfa17f87e3ba">bandwidth</a></td></tr>
 <tr class="separator:a8374974faf8c9d35a998cfa17f87e3ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aeb3f9de6f781a9dd4afac562ee8311b3" name="aeb3f9de6f781a9dd4afac562ee8311b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb3f9de6f781a9dd4afac562ee8311b3">&#9670;&nbsp;</a></span>LLIST_HDR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LLIST_HDR </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structinternet__gateway.html">internet_gateway</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a8374974faf8c9d35a998cfa17f87e3ba" name="a8374974faf8c9d35a998cfa17f87e3ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8374974faf8c9d35a998cfa17f87e3ba">&#9670;&nbsp;</a></span>bandwidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_char bandwidth</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a639870aa0bd3049b341f02dd37e02f1f" name="a639870aa0bd3049b341f02dd37e02f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a639870aa0bd3049b341f02dd37e02f1f">&#9670;&nbsp;</a></span>flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char flags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2629cd83455d8833085556bc48cbfed" name="af2629cd83455d8833085556bc48cbfed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2629cd83455d8833085556bc48cbfed">&#9670;&nbsp;</a></span>gid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_char gid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a35e54edf46d8776aaf8235ca254d1b91" name="a35e54edf46d8776aaf8235ca254d1b91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35e54edf46d8776aaf8235ca254d1b91">&#9670;&nbsp;</a></span>ip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_int ip[<a class="el" href="inet_8h.html#a70f8406c9556460a606bee45306c5630">MAX_IP_INT</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad009a56fdef39a6a5680d17b7b4469f6" name="ad009a56fdef39a6a5680d17b7b4469f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad009a56fdef39a6a5680d17b7b4469f6">&#9670;&nbsp;</a></span>node</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structmap__node.html">map_node</a>* node</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="igs_8h_source.html">igs.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structinternet__gateway.html">internet_gateway</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

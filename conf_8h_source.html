@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('conf_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">conf.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="conf_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2005 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,17 +108,17 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef CONF_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define CONF_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define CONF_MAX_LINES      500 </span><span class="comment">/* Max number of option lines */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="conf_8h.html#aa645418da917c64ec63c1e71d3dc578c">   22</a></span><span class="preprocessor">#define CONF_MAX_LINES      500 </span><span class="comment">/* Max number of option lines */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define CONF_GET_VALUE(opt)     (getenv(config_str[(opt)]))</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define CONF_GET_INT_VALUE(opt, n)                  \</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="conf_8h.html#a1bbfefba4fd4c6370752750ab142ed99">   24</a></span><span class="preprocessor">#define CONF_GET_VALUE(opt)     (getenv(config_str[(opt)]))</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="conf_8h.html#ac1992998b8938ec091ffdee51a48b2eb">   25</a></span><span class="preprocessor">#define CONF_GET_INT_VALUE(opt, n)                  \</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">({                                  \</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">    char *_val;                         \</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">    _val=CONF_GET_VALUE((opt));                 \</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">    if(_val)                            \</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">        (n)=atoi(_val);                     \</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">})</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define CONF_GET_STRN_VALUE(opt, str, maxbytes)             \</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="conf_8h.html#a921c482f670714a148a66643734baab3">   32</a></span><span class="preprocessor">#define CONF_GET_STRN_VALUE(opt, str, maxbytes)             \</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">({                                  \</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">    char *_val;                         \</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">    _val=CONF_GET_VALUE((opt));                 \</span></div>
@@ -114,39 +130,39 @@ $(function() {
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">/* </span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"> * The allowed options in the configuration file</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">enum</span> config_options {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    CONF_NTK_INT_MAP_FILE,</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    CONF_NTK_BNODE_MAP_FILE,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    CONF_NTK_EXT_MAP_FILE,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6">   44</a></span><span class="keyword">enum</span> <a class="code hl_enumeration" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6">config_options</a> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a77753ffc44edafc040e88ef8feb28c17">   45</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a77753ffc44edafc040e88ef8feb28c17">CONF_NTK_INT_MAP_FILE</a>,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a511cfdb7f03aeca6a8c75fee30a90c42">   46</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a511cfdb7f03aeca6a8c75fee30a90c42">CONF_NTK_BNODE_MAP_FILE</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6adbbc8103a2d86f6e23112873a9575847">   47</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6adbbc8103a2d86f6e23112873a9575847">CONF_NTK_EXT_MAP_FILE</a>,</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    CONF_ANDNA_HNAMES_FILE,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    CONF_SNSD_NODES_FILE,</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    CONF_ANDNA_CACHE_FILE,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    CONF_ANDNA_LCLKEY_FILE,</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    CONF_ANDNA_LCL_FILE,</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    CONF_ANDNA_RHC_FILE,</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    CONF_ANDNA_COUNTER_C_FILE,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a1885ab0f4f0ac6b43ef257e97b219801">   49</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a1885ab0f4f0ac6b43ef257e97b219801">CONF_ANDNA_HNAMES_FILE</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a6c02d0db475470ecf321df6a354e3621">   50</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a6c02d0db475470ecf321df6a354e3621">CONF_SNSD_NODES_FILE</a>,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a50b468269401089c3a9b55acd86644aa">   51</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a50b468269401089c3a9b55acd86644aa">CONF_ANDNA_CACHE_FILE</a>,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac489be02913050b9c7d35aec993fbe93">   52</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac489be02913050b9c7d35aec993fbe93">CONF_ANDNA_LCLKEY_FILE</a>,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a5e13c12f7cd6f882d4212f6f826488e1">   53</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a5e13c12f7cd6f882d4212f6f826488e1">CONF_ANDNA_LCL_FILE</a>,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a1052bf3610dcc5c5b06dd610575e388a">   54</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a1052bf3610dcc5c5b06dd610575e388a">CONF_ANDNA_RHC_FILE</a>,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a7c1f0bbd363a7d91320adfffe6a02599">   55</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a7c1f0bbd363a7d91320adfffe6a02599">CONF_ANDNA_COUNTER_C_FILE</a>,</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    CONF_NTK_PID_FILE,</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    CONF_NTK_MAX_CONNECTIONS,</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    CONF_NTK_MAX_ACCEPTS_PER_HOST,</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    CONF_NTK_MAX_ACCEPTS_PER_HOST_TIME,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a65982d72e5ccc518149d106dad5752df">   57</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a65982d72e5ccc518149d106dad5752df">CONF_NTK_PID_FILE</a>,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a03041bc41e7db99f6ac65d968e6ca338">   58</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a03041bc41e7db99f6ac65d968e6ca338">CONF_NTK_MAX_CONNECTIONS</a>,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac805ecb7818d3b9ac7e1a9f24c0dc84d">   59</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac805ecb7818d3b9ac7e1a9f24c0dc84d">CONF_NTK_MAX_ACCEPTS_PER_HOST</a>,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac05e459a8a53798dca3920715a4ec405">   60</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac05e459a8a53798dca3920715a4ec405">CONF_NTK_MAX_ACCEPTS_PER_HOST_TIME</a>,</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    CONF_DISABLE_ANDNA,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    CONF_DISABLE_RESOLVCONF,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a9515848165777ee3bf44f84ef8b9679f">   62</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a9515848165777ee3bf44f84ef8b9679f">CONF_DISABLE_ANDNA</a>,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6af39fd10b37df066f3f99529d30304b62">   63</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6af39fd10b37df066f3f99529d30304b62">CONF_DISABLE_RESOLVCONF</a>,</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    CONF_NTK_RESTRICTED_MODE,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    CONF_NTK_RESTRICTED_CLASS,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    CONF_NTK_INTERNET_CONNECTION,</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    CONF_NTK_INTERNET_GW,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    CONF_NTK_INTERNET_UPLOAD,</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    CONF_NTK_INTERNET_DOWNLOAD,</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    CONF_NTK_INTERNET_PING_HOSTS,</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    CONF_SHARE_INTERNET,</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    CONF_SHAPE_INTERNET,</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    CONF_USE_SHARED_INET,</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    CONF_NTK_IP_MASQ_SCRIPT,</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    CONF_NTK_TC_SHAPER_SCRIPT,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a8b257cb1c3f6621f59b8dce6955f4d04">   65</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a8b257cb1c3f6621f59b8dce6955f4d04">CONF_NTK_RESTRICTED_MODE</a>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6abaf73f53827a4f9cf7c34bc723f7c55a">   66</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6abaf73f53827a4f9cf7c34bc723f7c55a">CONF_NTK_RESTRICTED_CLASS</a>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a91d1732f73c35f92a543cf029c12261f">   67</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a91d1732f73c35f92a543cf029c12261f">CONF_NTK_INTERNET_CONNECTION</a>,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a69b11ec178b516bc5c6790f82315a2a8">   68</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a69b11ec178b516bc5c6790f82315a2a8">CONF_NTK_INTERNET_GW</a>,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac336091a3cda66cc6459b4e36daf414a">   69</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac336091a3cda66cc6459b4e36daf414a">CONF_NTK_INTERNET_UPLOAD</a>,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a9b676267584ac110933d59248d2ab6fc">   70</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a9b676267584ac110933d59248d2ab6fc">CONF_NTK_INTERNET_DOWNLOAD</a>,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a612fea18f61d58aeccae8806ce71fb49">   71</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a612fea18f61d58aeccae8806ce71fb49">CONF_NTK_INTERNET_PING_HOSTS</a>,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a879662dfe0a3396d474182f9da1bd3f4">   72</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a879662dfe0a3396d474182f9da1bd3f4">CONF_SHARE_INTERNET</a>,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ae1ae743475e6b33e8fd0b7dfb05ba2c3">   73</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ae1ae743475e6b33e8fd0b7dfb05ba2c3">CONF_SHAPE_INTERNET</a>,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6aa91ad40eaa54506c4421e4f5262954ea">   74</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6aa91ad40eaa54506c4421e4f5262954ea">CONF_USE_SHARED_INET</a>,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6aebd1fa9414885f6ea1b1b2aae6b9379b">   75</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6aebd1fa9414885f6ea1b1b2aae6b9379b">CONF_NTK_IP_MASQ_SCRIPT</a>,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a02fe077858795bd3c399f5d959d9b51d">   76</a></span>    <a class="code hl_enumvalue" href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a02fe077858795bd3c399f5d959d9b51d">CONF_NTK_TC_SHAPER_SCRIPT</a>,</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>};</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> config_str[][30] = {</div>
@@ -185,14 +201,49 @@ $(function() {
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>};</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keywordtype">void</span> clear_config_env(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keywordtype">int</span> load_config_file(<span class="keywordtype">char</span> *file);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keywordtype">void</span> <a class="code hl_function" href="conf_8h.html#a2b3330e6875d6db0b40acc9dfa14929a">clear_config_env</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keywordtype">int</span> <a class="code hl_function" href="conf_8h.html#a5613125090be341b2026a5677e5b08c5">load_config_file</a>(<span class="keywordtype">char</span> *file);</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#endif                          </span><span class="comment">/*CONF_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aconf_8h_html_a2b3330e6875d6db0b40acc9dfa14929a"><div class="ttname"><a href="conf_8h.html#a2b3330e6875d6db0b40acc9dfa14929a">clear_config_env</a></div><div class="ttdeci">void clear_config_env(void)</div><div class="ttdef"><b>Definition:</b> conf.c:36</div></div>
+<div class="ttc" id="aconf_8h_html_a5613125090be341b2026a5677e5b08c5"><div class="ttname"><a href="conf_8h.html#a5613125090be341b2026a5677e5b08c5">load_config_file</a></div><div class="ttdeci">int load_config_file(char *file)</div><div class="ttdef"><b>Definition:</b> conf.c:89</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6">config_options</a></div><div class="ttdeci">config_options</div><div class="ttdef"><b>Definition:</b> conf.h:44</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a02fe077858795bd3c399f5d959d9b51d"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a02fe077858795bd3c399f5d959d9b51d">CONF_NTK_TC_SHAPER_SCRIPT</a></div><div class="ttdeci">@ CONF_NTK_TC_SHAPER_SCRIPT</div><div class="ttdef"><b>Definition:</b> conf.h:76</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a03041bc41e7db99f6ac65d968e6ca338"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a03041bc41e7db99f6ac65d968e6ca338">CONF_NTK_MAX_CONNECTIONS</a></div><div class="ttdeci">@ CONF_NTK_MAX_CONNECTIONS</div><div class="ttdef"><b>Definition:</b> conf.h:58</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a1052bf3610dcc5c5b06dd610575e388a"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a1052bf3610dcc5c5b06dd610575e388a">CONF_ANDNA_RHC_FILE</a></div><div class="ttdeci">@ CONF_ANDNA_RHC_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:54</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a1885ab0f4f0ac6b43ef257e97b219801"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a1885ab0f4f0ac6b43ef257e97b219801">CONF_ANDNA_HNAMES_FILE</a></div><div class="ttdeci">@ CONF_ANDNA_HNAMES_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:49</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a50b468269401089c3a9b55acd86644aa"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a50b468269401089c3a9b55acd86644aa">CONF_ANDNA_CACHE_FILE</a></div><div class="ttdeci">@ CONF_ANDNA_CACHE_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:51</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a511cfdb7f03aeca6a8c75fee30a90c42"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a511cfdb7f03aeca6a8c75fee30a90c42">CONF_NTK_BNODE_MAP_FILE</a></div><div class="ttdeci">@ CONF_NTK_BNODE_MAP_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:46</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a5e13c12f7cd6f882d4212f6f826488e1"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a5e13c12f7cd6f882d4212f6f826488e1">CONF_ANDNA_LCL_FILE</a></div><div class="ttdeci">@ CONF_ANDNA_LCL_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:53</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a612fea18f61d58aeccae8806ce71fb49"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a612fea18f61d58aeccae8806ce71fb49">CONF_NTK_INTERNET_PING_HOSTS</a></div><div class="ttdeci">@ CONF_NTK_INTERNET_PING_HOSTS</div><div class="ttdef"><b>Definition:</b> conf.h:71</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a65982d72e5ccc518149d106dad5752df"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a65982d72e5ccc518149d106dad5752df">CONF_NTK_PID_FILE</a></div><div class="ttdeci">@ CONF_NTK_PID_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:57</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a69b11ec178b516bc5c6790f82315a2a8"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a69b11ec178b516bc5c6790f82315a2a8">CONF_NTK_INTERNET_GW</a></div><div class="ttdeci">@ CONF_NTK_INTERNET_GW</div><div class="ttdef"><b>Definition:</b> conf.h:68</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a6c02d0db475470ecf321df6a354e3621"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a6c02d0db475470ecf321df6a354e3621">CONF_SNSD_NODES_FILE</a></div><div class="ttdeci">@ CONF_SNSD_NODES_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:50</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a77753ffc44edafc040e88ef8feb28c17"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a77753ffc44edafc040e88ef8feb28c17">CONF_NTK_INT_MAP_FILE</a></div><div class="ttdeci">@ CONF_NTK_INT_MAP_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:45</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a7c1f0bbd363a7d91320adfffe6a02599"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a7c1f0bbd363a7d91320adfffe6a02599">CONF_ANDNA_COUNTER_C_FILE</a></div><div class="ttdeci">@ CONF_ANDNA_COUNTER_C_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:55</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a879662dfe0a3396d474182f9da1bd3f4"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a879662dfe0a3396d474182f9da1bd3f4">CONF_SHARE_INTERNET</a></div><div class="ttdeci">@ CONF_SHARE_INTERNET</div><div class="ttdef"><b>Definition:</b> conf.h:72</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a8b257cb1c3f6621f59b8dce6955f4d04"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a8b257cb1c3f6621f59b8dce6955f4d04">CONF_NTK_RESTRICTED_MODE</a></div><div class="ttdeci">@ CONF_NTK_RESTRICTED_MODE</div><div class="ttdef"><b>Definition:</b> conf.h:65</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a91d1732f73c35f92a543cf029c12261f"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a91d1732f73c35f92a543cf029c12261f">CONF_NTK_INTERNET_CONNECTION</a></div><div class="ttdeci">@ CONF_NTK_INTERNET_CONNECTION</div><div class="ttdef"><b>Definition:</b> conf.h:67</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a9515848165777ee3bf44f84ef8b9679f"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a9515848165777ee3bf44f84ef8b9679f">CONF_DISABLE_ANDNA</a></div><div class="ttdeci">@ CONF_DISABLE_ANDNA</div><div class="ttdef"><b>Definition:</b> conf.h:62</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6a9b676267584ac110933d59248d2ab6fc"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6a9b676267584ac110933d59248d2ab6fc">CONF_NTK_INTERNET_DOWNLOAD</a></div><div class="ttdeci">@ CONF_NTK_INTERNET_DOWNLOAD</div><div class="ttdef"><b>Definition:</b> conf.h:70</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6aa91ad40eaa54506c4421e4f5262954ea"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6aa91ad40eaa54506c4421e4f5262954ea">CONF_USE_SHARED_INET</a></div><div class="ttdeci">@ CONF_USE_SHARED_INET</div><div class="ttdef"><b>Definition:</b> conf.h:74</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6abaf73f53827a4f9cf7c34bc723f7c55a"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6abaf73f53827a4f9cf7c34bc723f7c55a">CONF_NTK_RESTRICTED_CLASS</a></div><div class="ttdeci">@ CONF_NTK_RESTRICTED_CLASS</div><div class="ttdef"><b>Definition:</b> conf.h:66</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6ac05e459a8a53798dca3920715a4ec405"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac05e459a8a53798dca3920715a4ec405">CONF_NTK_MAX_ACCEPTS_PER_HOST_TIME</a></div><div class="ttdeci">@ CONF_NTK_MAX_ACCEPTS_PER_HOST_TIME</div><div class="ttdef"><b>Definition:</b> conf.h:60</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6ac336091a3cda66cc6459b4e36daf414a"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac336091a3cda66cc6459b4e36daf414a">CONF_NTK_INTERNET_UPLOAD</a></div><div class="ttdeci">@ CONF_NTK_INTERNET_UPLOAD</div><div class="ttdef"><b>Definition:</b> conf.h:69</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6ac489be02913050b9c7d35aec993fbe93"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac489be02913050b9c7d35aec993fbe93">CONF_ANDNA_LCLKEY_FILE</a></div><div class="ttdeci">@ CONF_ANDNA_LCLKEY_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:52</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6ac805ecb7818d3b9ac7e1a9f24c0dc84d"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ac805ecb7818d3b9ac7e1a9f24c0dc84d">CONF_NTK_MAX_ACCEPTS_PER_HOST</a></div><div class="ttdeci">@ CONF_NTK_MAX_ACCEPTS_PER_HOST</div><div class="ttdef"><b>Definition:</b> conf.h:59</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6adbbc8103a2d86f6e23112873a9575847"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6adbbc8103a2d86f6e23112873a9575847">CONF_NTK_EXT_MAP_FILE</a></div><div class="ttdeci">@ CONF_NTK_EXT_MAP_FILE</div><div class="ttdef"><b>Definition:</b> conf.h:47</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6ae1ae743475e6b33e8fd0b7dfb05ba2c3"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6ae1ae743475e6b33e8fd0b7dfb05ba2c3">CONF_SHAPE_INTERNET</a></div><div class="ttdeci">@ CONF_SHAPE_INTERNET</div><div class="ttdef"><b>Definition:</b> conf.h:73</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6aebd1fa9414885f6ea1b1b2aae6b9379b"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6aebd1fa9414885f6ea1b1b2aae6b9379b">CONF_NTK_IP_MASQ_SCRIPT</a></div><div class="ttdeci">@ CONF_NTK_IP_MASQ_SCRIPT</div><div class="ttdef"><b>Definition:</b> conf.h:75</div></div>
+<div class="ttc" id="aconf_8h_html_ab0fdd734c254172f17d54af21a0370c6af39fd10b37df066f3f99529d30304b62"><div class="ttname"><a href="conf_8h.html#ab0fdd734c254172f17d54af21a0370c6af39fd10b37df066f3f99529d30304b62">CONF_DISABLE_RESOLVCONF</a></div><div class="ttdeci">@ CONF_DISABLE_RESOLVCONF</div><div class="ttdef"><b>Definition:</b> conf.h:63</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="conf_8h.html">conf.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

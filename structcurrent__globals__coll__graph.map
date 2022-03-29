@@ -1,11 +1,11 @@
 <map id="current_globals" name="current_globals">
-<area shape="rect" id="node1" title=" " alt="" coords="142,585,253,612"/>
-<area shape="rect" id="node2" href="$structmap__node.html" title=" " alt="" coords="285,95,368,121"/>
-<area shape="rect" id="node4" href="$structmap__gnode.html" title=" " alt="" coords="221,184,310,211"/>
-<area shape="rect" id="node8" href="$structext__rnode.html" title=" " alt="" coords="210,405,289,432"/>
-<area shape="rect" id="node9" href="$structinternet__gateway.html" title=" " alt="" coords="387,235,507,261"/>
-<area shape="rect" id="node3" href="$structmap__rnode.html" title=" " alt="" coords="283,5,370,32"/>
-<area shape="rect" id="node5" href="$structquadro__group.html" title=" " alt="" coords="147,285,247,312"/>
-<area shape="rect" id="node6" href="$structinet__prefix.html" title=" " alt="" coords="105,184,185,211"/>
-<area shape="rect" id="node7" href="$structext__rnode__cache.html" title=" " alt="" coords="187,496,307,523"/>
+<area shape="rect" id="node1" title=" " alt="" coords="102,1143,258,1367"/>
+<area shape="rect" id="node2" href="$structmap__node.html" title=" " alt="" coords="309,204,392,325"/>
+<area shape="rect" id="node4" href="$structmap__gnode.html" title=" " alt="" coords="245,395,334,502"/>
+<area shape="rect" id="node8" href="$structext__rnode.html" title=" " alt="" coords="226,863,305,940"/>
+<area shape="rect" id="node9" href="$structinternet__gateway.html" title=" " alt="" coords="419,533,539,655"/>
+<area shape="rect" id="node3" href="$structmap__rnode.html" title=" " alt="" coords="307,5,394,141"/>
+<area shape="rect" id="node5" href="$structquadro__group.html" title=" " alt="" coords="163,679,263,771"/>
+<area shape="rect" id="node6" href="$structinet__prefix.html" title=" " alt="" coords="80,388,160,509"/>
+<area shape="rect" id="node7" href="$structext__rnode__cache.html" title=" " alt="" coords="196,1003,316,1080"/>
 </map>

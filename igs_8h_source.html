@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('igs_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">igs.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="igs_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2005 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,7 +108,7 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef IGS_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define IGS_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;route.h&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="route_8h.html">route.h</a>&quot;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">/*</span></div>
@@ -116,20 +132,20 @@ $(function() {
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">\*/</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">/* Minum bandwidth necessary to share an internet connection */</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define MIN_CONN_BANDWIDTH  3   </span><span class="comment">/* 16 Kb/s */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="igs_8h.html#a6b93ad97d3af97847910f573bc2d9074">   46</a></span><span class="preprocessor">#define MIN_CONN_BANDWIDTH  3   </span><span class="comment">/* 16 Kb/s */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define MAX_INTERNET_HNAMES 10</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define MAX_INTERNET_HNAME_SZ   64</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define INET_HOST_PING_TIMEOUT  3</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define IGW_HOST_PING_TIMEOUT   10</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#define INET_NEXT_PING_WAIT 10</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="igs_8h.html#a6a315905232e554650cbba46a6967b05">   48</a></span><span class="preprocessor">#define MAX_INTERNET_HNAMES 10</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="igs_8h.html#ad84f06712bae2a529c48e0469366f181">   49</a></span><span class="preprocessor">#define MAX_INTERNET_HNAME_SZ   64</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="igs_8h.html#a4d24fc3b9e5b7e9b2f978896456d3db4">   50</a></span><span class="preprocessor">#define INET_HOST_PING_TIMEOUT  3</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="igs_8h.html#a1b3d96e5d6aa36ebeb548e09a3c7cbaf">   51</a></span><span class="preprocessor">#define IGW_HOST_PING_TIMEOUT   10</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="igs_8h.html#a13c8adb4e458d28bd451b5a7cb86da62">   52</a></span><span class="preprocessor">#define INET_NEXT_PING_WAIT 10</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define IGW_BW_DELTA        1   </span><span class="comment">/* If the difference between the old and the new</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">                                   igw-&gt;bandwidth is &gt;= IGW_BW_DELTA, then </span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="igs_8h.html#a2d04aa40319ca842c3c2b9698e150dd5">   54</a></span><span class="preprocessor">#define IGW_BW_DELTA        1   </span><span class="comment">/* If the difference between the old and the new</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="igs_8h.html#a83bc8572beefbe092fb96ddcea030fa7">   55</a></span><span class="comment">                                   igw-&gt;bandwidth is &gt;= IGW_BW_DELTA, then </span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">                                   me.igws is reordered and the routing table</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">                                   updated */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define MAXIGWS         MAXGROUPNODE    </span><span class="comment">/* max number of internet </span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">                                           gateways in each level */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="igs_8h.html#ae40fd06e6bcc31b8e82e4e3908983733">   57</a></span><span class="comment">                                   updated */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="igs_8h.html#ae05ce4a03cf48d4461af94f838aabec6">   58</a></span><span class="preprocessor">#define MAXIGWS         MAXGROUPNODE    </span><span class="comment">/* max number of internet </span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="igs_8h.html#af9cc7ceea222fa6e91fa5faf26079b7a">   59</a></span><span class="comment">                                           gateways in each level */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define RTTABLE_IGW     221     </span><span class="comment">/* Routing tables from 221 to 244 */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define RTTABLE_ALISHIELD   245 </span><span class="comment">/* Anti Loop multi-Igw Shield</span></div>
@@ -139,9 +155,9 @@ $(function() {
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#undef INET_NEXT_PING_WAIT</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define INET_NEXT_PING_WAIT 5</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="igs_8h.html#a7405e51c8f9c5351f4ee1b61b33f2343">   69</a></span><span class="preprocessor">#define INET_NEXT_PING_WAIT 5</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="igs_8h.html#a275f849b3bd2b805508b8beee8bfd883">   70</a></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="igs_8h.html#a53cf60e0a3f12eb6f0398228d4b37300">   71</a></span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">/* </span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> * inet_gw flags</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"> */</span></div>
@@ -150,35 +166,35 @@ $(function() {
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">                                   routing table */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#define IGW_RTRULE      (1&lt;&lt;2)  </span><span class="comment">/* The relative routing rule is already</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="structinternet__gateway.html">   79</a></span><span class="comment">                                   present */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structinternet__gateway.html#aeb3f9de6f781a9dd4afac562ee8311b3">   80</a></span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * internet_gateway</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> * </span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * This struct points to a particular (g)node which is sharing its Internet </span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structinternet__gateway.html#a35e54edf46d8776aaf8235ca254d1b91">   82</a></span><span class="comment"> * internet_gateway</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structinternet__gateway.html#af2629cd83455d8833085556bc48cbfed">   83</a></span><span class="comment"> * </span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structinternet__gateway.html#ad009a56fdef39a6a5680d17b7b4469f6">   84</a></span><span class="comment"> * This struct points to a particular (g)node which is sharing its Internet </span></div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> * connection</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">struct </span><a class="code hl_struct" href="structinternet__gateway.html">internet_gateway</a> {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    LLIST_HDR(<span class="keyword">struct</span> <a class="code hl_struct" href="structinternet__gateway.html">internet_gateway</a>);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    u_int ip[MAX_IP_INT];</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    u_char gid;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_struct" href="structmap__node.html">map_node</a> *node;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structinternet__gateway.html#a639870aa0bd3049b341f02dd37e02f1f">   86</a></span><span class="comment"> */</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structinternet__gateway.html#a8374974faf8c9d35a998cfa17f87e3ba">   87</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structinternet__gateway.html">internet_gateway</a> {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_function" href="structinternet__gateway.html#aeb3f9de6f781a9dd4afac562ee8311b3">LLIST_HDR</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structinternet__gateway.html">internet_gateway</a>);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="igs_8h.html#a70b61be6ea7e5cbbe9d3e95eac23d505">   89</a></span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    u_int <a class="code hl_variable" href="structinternet__gateway.html#a35e54edf46d8776aaf8235ca254d1b91">ip</a>[<a class="code hl_define" href="inet_8h.html#a70f8406c9556460a606bee45306c5630">MAX_IP_INT</a>];</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    u_char <a class="code hl_variable" href="structinternet__gateway.html#af2629cd83455d8833085556bc48cbfed">gid</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="igs_8h.html#ae7bfe266fb85224c1f68643610f15077">   92</a></span>    <a class="code hl_struct" href="structmap__node.html">map_node</a> *<a class="code hl_variable" href="structinternet__gateway.html#ad009a56fdef39a6a5680d17b7b4469f6">node</a>;</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structinet__gw__pack__hdr.html">   94</a></span>    <span class="keywordtype">char</span> flags;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    u_char bandwidth;           <span class="comment">/* Its Internet bandwidth */</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structinet__gw__pack__hdr.html">   94</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="structinternet__gateway.html#a639870aa0bd3049b341f02dd37e02f1f">flags</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structinet__gw__pack__hdr.html#aad013384dcb53c203877aa7c18fbf5a4">   95</a></span>    u_char <a class="code hl_variable" href="structinternet__gateway.html#a8374974faf8c9d35a998cfa17f87e3ba">bandwidth</a>;           <span class="comment">/* Its Internet bandwidth */</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structinternet__gateway.html">internet_gateway</a> <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a>;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">/* We pack only `gid&#39; and `bandwidth&#39; */</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="structinet__gw__pack__hdr.html#a414ea8934d1799c848d4cc56341645a7">   97</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structinternet__gateway.html">internet_gateway</a> <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="igs_8h.html#a8f2b617dc42f9ab3075ff6e9d08b8893">   98</a></span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="igs_8h.html#a8c2020a51620e48fe98fb21abb6b09d3">   99</a></span><span class="comment">/* We pack only `gid&#39; and `bandwidth&#39; */</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#define INET_GW_PACK_SZ     (sizeof(u_char)*2 + MAX_IP_SZ)</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">struct </span><a class="code hl_struct" href="structinet__gw__pack__hdr.html">inet_gw_pack_hdr</a> {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    int16_t gws[MAX_LEVELS];    <span class="comment">/* Number of inet_gws there are in the</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    int16_t <a class="code hl_variable" href="structinet__gw__pack__hdr.html#aad013384dcb53c203877aa7c18fbf5a4">gws</a>[<a class="code hl_define" href="gmap_8h.html#add784659439a8dd6b1423406171414d3">MAX_LEVELS</a>];    <span class="comment">/* Number of inet_gws there are in the</span></div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">                                   pack, for each level */</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    u_char levels;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>} <a class="code hl_struct" href="struct___p_a_c_k_e_d__.html">_PACKED_</a>;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>INT_INFO inet_gw_pack_hdr_iinfo =</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    { 1, {INT_TYPE_16BIT}, {0}, {MAX_LEVELS} };</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    u_char <a class="code hl_variable" href="structinet__gw__pack__hdr.html#a414ea8934d1799c848d4cc56341645a7">levels</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>} <a class="code hl_variable" href="igs_8h.html#a8f2b617dc42f9ab3075ff6e9d08b8893">_PACKED_</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="igs_8h.html#a8ef8c45d07d8035fb31bc0c645354017">  107</a></span><a class="code hl_define" href="endianness_8h.html#a3e44b8503d7a90af675c81800fe6d275">INT_INFO</a> <a class="code hl_variable" href="igs_8h.html#a8c2020a51620e48fe98fb21abb6b09d3">inet_gw_pack_hdr_iinfo</a> =</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    { 1, {<a class="code hl_define" href="endianness_8h.html#a66b75e81c28419f622f82e631e5da9bc">INT_TYPE_16BIT</a>}, {0}, {<a class="code hl_define" href="gmap_8h.html#add784659439a8dd6b1423406171414d3">MAX_LEVELS</a>} };</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">/* </span></div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment"> * The inet_gw_pack_body is:</span></div>
@@ -186,7 +202,7 @@ $(function() {
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment"> *                     hdr.levels</span></div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#define IGWS_PACK_SZ(hdr)                       \</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">({                                  \</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="igs_8h.html#ac103879d22ef63bace0aacfb3423f3f8">  116</a></span><span class="preprocessor">({                                  \</span></div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">    size_t _sz; int _pi;                        \</span></div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">    _sz=sizeof(struct inet_gw_pack_hdr);                \</span></div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">    for(_pi=0; _pi&lt;(hdr)-&gt;levels; _pi++)                \</span></div>
@@ -205,20 +221,20 @@ $(function() {
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">\*/</span></div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="structdefault__inet__gw__nexthop.html">  134</a></span><span class="comment">/*</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment"> * igw_nexthop</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="structdefault__inet__gw__nexthop.html#a1f63b2307a082083470cbb2e847acd09">  135</a></span><span class="comment"> * igw_nexthop</span></div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment"> * </span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment"> * The multigw allows the simultaneus use of multiple internet gateways.</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="structdefault__inet__gw__nexthop.html#a04d328b9e4a16a636d63dba2cc85d7f3">  137</a></span><span class="comment"> * The multigw allows the simultaneus use of multiple internet gateways.</span></div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment"> * The multigw requires one routing table and one tunnel for each</span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment"> * nexthop in the default multipath route. With an array of `igw_nexthop&#39; we</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment"> * keep track of them.</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="structdefault__inet__gw__nexthop.html#ad04a61d6d62178151840ac39ef785a04">  139</a></span><span class="comment"> * nexthop in the default multipath route. With an array of `igw_nexthop&#39; we</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="structdefault__inet__gw__nexthop.html#a39ca5e694312e485e48f680d272824fb">  140</a></span><span class="comment"> * keep track of them.</span></div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="keyword">struct </span><a class="code hl_struct" href="structdefault__inet__gw__nexthop.html">default_inet_gw_nexthop</a> {</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> <a class="code hl_struct" href="structnexthop.html">nexthop</a>;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> <a class="code hl_variable" href="structdefault__inet__gw__nexthop.html#a1f63b2307a082083470cbb2e847acd09">nexthop</a>;</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    u_char flags;               <span class="comment">/* inet_gw flags */</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="igs_8h.html#afddb8e0848934c313b463385d995b472">  145</a></span>    u_char <a class="code hl_variable" href="structdefault__inet__gw__nexthop.html#a04d328b9e4a16a636d63dba2cc85d7f3">flags</a>;               <span class="comment">/* inet_gw flags */</span></div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    u_char table;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    u_char tunl;                <span class="comment">/* `tunl&#39; is the number of the tunnel</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    u_char <a class="code hl_variable" href="structdefault__inet__gw__nexthop.html#ad04a61d6d62178151840ac39ef785a04">table</a>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    u_char <a class="code hl_variable" href="structdefault__inet__gw__nexthop.html#a39ca5e694312e485e48f680d272824fb">tunl</a>;                <span class="comment">/* `tunl&#39; is the number of the tunnel</span></div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">                                   we are using to reach this igw. </span></div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment">                                   (tunl = 4 means we are using the </span></div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment">                                   &quot;tunl4&quot; device) */</span></div>
@@ -232,7 +248,7 @@ $(function() {
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment"> * The simplest way to tell the other nodes that we are sharing our Internet</span></div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment"> * connection or that in our gnode there is an available gw is to use the</span></div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment"> * bnode block included in the qspn packets.</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment"> * We consider an Internet gw as a bnode connected to a virtual gnode (the</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="igs_8h.html#a9da835c20dad249585e2c392ad35291e">  162</a></span><span class="comment"> * We consider an Internet gw as a bnode connected to a virtual gnode (the</span></div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment"> * Internet), therefore in the relative bnode_chunk we set:</span></div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment"> *  bchunk.gnode    = 0; this value has no meaning</span></div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment"> *  bchunk.level    = GET_LEVELS(my_family) + 1;</span></div>
@@ -241,8 +257,8 @@ $(function() {
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">\*/</span></div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">#define MAX_IGW_PER_QSPN_CHUNK      16  </span><span class="comment">/* Maximum number of IGWs </span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">                                           contained in a single </span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">                                           QSPN chunk */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="igs_8h.html#a78b98b691ec68cb68436720bdc7fca46">  171</a></span><span class="comment">                                           contained in a single </span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="igs_8h.html#a981dc21821ba7cd93d607d1d2b3aa947">  172</a></span><span class="comment">                                           QSPN chunk */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">/*\</span></div>
@@ -251,77 +267,134 @@ $(function() {
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">\*/</span></div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keywordtype">int</span> active_gws;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><a class="code hl_struct" href="structdefault__inet__gw__nexthop.html">igw_nexthop</a> multigw_nh[MAX_MULTIPATH_ROUTES];</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keywordtype">int</span> <a class="code hl_variable" href="igs_8h.html#a78b98b691ec68cb68436720bdc7fca46">active_gws</a>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><a class="code hl_struct" href="structdefault__inet__gw__nexthop.html">igw_nexthop</a> <a class="code hl_variable" href="igs_8h.html#a981dc21821ba7cd93d607d1d2b3aa947">multigw_nh</a>[<a class="code hl_define" href="route_8h.html#a2dbb83f7996da5aa54f9890483f54c16">MAX_MULTIPATH_ROUTES</a>];</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment">/*\</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="igs_8h.html#a35c3e3ff94064955d6965ad87a95ab36">  186</a></span><span class="comment"> *</span></div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment"> * * *  Functions declaration  * * </span></div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">\*/</span></div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>u_char bandwidth_in_8bit(u_int x);</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="keywordtype">int</span> str_to_inet_gw(<span class="keywordtype">char</span> *str, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * gw, <span class="keywordtype">char</span> **dev);</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="keywordtype">char</span> **parse_internet_hosts(<span class="keywordtype">char</span> *str, <span class="keywordtype">int</span> *hosts);</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="keywordtype">void</span> free_internet_hosts(<span class="keywordtype">char</span> **hnames, <span class="keywordtype">int</span> hosts);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>u_char <a class="code hl_function" href="igs_8h.html#aa6de0936765376643c8726ca0eaf6dde">bandwidth_in_8bit</a>(u_int x);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#a016c3a34a9dc7add88dd0bce88440e05">str_to_inet_gw</a>(<span class="keywordtype">char</span> *str, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * gw, <span class="keywordtype">char</span> **dev);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="keywordtype">char</span> **<a class="code hl_function" href="igs_8h.html#a9ddd7d4ff55934ea1803e6b367e7358d">parse_internet_hosts</a>(<span class="keywordtype">char</span> *str, <span class="keywordtype">int</span> *hosts);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a53c17c74d86e8cf6bdd47242002c8bef">free_internet_hosts</a>(<span class="keywordtype">char</span> **hnames, <span class="keywordtype">int</span> hosts);</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="keywordtype">void</span> init_my_igw(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="keywordtype">void</span> init_igws(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *** igws, <span class="keywordtype">int</span> **igws_counter, <span class="keywordtype">int</span> levels);</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="keywordtype">void</span> reset_igws(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <span class="keywordtype">int</span> levels);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="keywordtype">void</span> free_igws(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <span class="keywordtype">int</span> levels);</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="keywordtype">void</span> init_my_igws(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter,</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a35c3e3ff94064955d6965ad87a95ab36">init_my_igw</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#aab1091590ed4414ea138fedb0d2982e3">init_igws</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *** igws, <span class="keywordtype">int</span> **igws_counter, <span class="keywordtype">int</span> levels);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a68b10196ae2d1b448a3097dbf254eb68">reset_igws</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <span class="keywordtype">int</span> levels);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a319bad303b318822fe195f434e5b3ddc">free_igws</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <span class="keywordtype">int</span> levels);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a96f88cc795a0a08a7176d0c0af39e562">init_my_igws</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter,</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                  <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *** my_new_igws, u_char my_bandwidth,</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                  <a class="code hl_struct" href="structmap__node.html">map_node</a> * cur_node, <a class="code hl_struct" href="structquadro__group.html">quadro_group</a> * qg);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="keywordtype">void</span> free_my_igws(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *** my_igs);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="keywordtype">void</span> init_internet_gateway_search(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="keywordtype">void</span> close_internet_gateway_search(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *igw_add_node(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <span class="keywordtype">int</span> level,</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                      <span class="keywordtype">int</span> gid, <a class="code hl_struct" href="structmap__node.html">map_node</a> * node, <span class="keywordtype">int</span> ip[MAX_IP_INT],</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a3df20b00e1530523fdddc24a9987a9b3">free_my_igws</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *** my_igs);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a184ab033bb2e2c1f856df5430ba87a80">init_internet_gateway_search</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a69dec3b6ff9453bc64d5b98f6b40e2aa">close_internet_gateway_search</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *<a class="code hl_function" href="igs_8h.html#a33a323d34427dc25e537d446e16f0330">igw_add_node</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <span class="keywordtype">int</span> level,</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                      <span class="keywordtype">int</span> gid, <a class="code hl_struct" href="structmap__node.html">map_node</a> * node, <span class="keywordtype">int</span> ip[<a class="code hl_define" href="inet_8h.html#a70f8406c9556460a606bee45306c5630">MAX_IP_INT</a>],</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                      u_char bandwidth);</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="keywordtype">int</span> igw_del(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> * igw, <span class="keywordtype">int</span> level);</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *igw_find_node(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> level, <a class="code hl_struct" href="structmap__node.html">map_node</a> * node);</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *igw_find_ip(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> level, u_int ip[MAX_IP_INT]);</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="keywordtype">int</span> igw_del_node(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> **, <span class="keywordtype">int</span> *, <span class="keywordtype">int</span>, <a class="code hl_struct" href="structmap__node.html">map_node</a> *);</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="keywordtype">void</span> igw_update_gnode_bw(<span class="keywordtype">int</span> *, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> **, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="keywordtype">void</span> igw_order(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** my_igws,</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#a46d6f806802d39aa290a387347a499d7">igw_del</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> * igw, <span class="keywordtype">int</span> level);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *<a class="code hl_function" href="igs_8h.html#a1d30fcb54a3ba33ce6ff94b7936e32ae">igw_find_node</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> level, <a class="code hl_struct" href="structmap__node.html">map_node</a> * node);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *<a class="code hl_function" href="igs_8h.html#aa546e1f521a2c122fe6946aceca9586f">igw_find_ip</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> level, u_int ip[<a class="code hl_define" href="inet_8h.html#a70f8406c9556460a606bee45306c5630">MAX_IP_INT</a>]);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#a247ee5efa43ff0d3537231ccbafafe89">igw_del_node</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> **, <span class="keywordtype">int</span> *, <span class="keywordtype">int</span>, <a class="code hl_struct" href="structmap__node.html">map_node</a> *);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a3e9300a55cc44d8ef6c843d971fd1486">igw_update_gnode_bw</a>(<span class="keywordtype">int</span> *, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> **, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a0631352217c3c9639e81de946f7af2e3">igw_order</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** my_igws,</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>               <span class="keywordtype">int</span> level);</div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="keywordtype">int</span> igw_check_inet_conn(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="keywordtype">void</span> *igw_check_inet_conn_t(<span class="keywordtype">void</span> *null);</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="keywordtype">void</span> *igw_monitor_igws_t(<span class="keywordtype">void</span> *null);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#a5855d790f8cd80495bf1962009b6cb7b">igw_check_inet_conn</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="keywordtype">void</span> *<a class="code hl_function" href="igs_8h.html#aab1c66a564133e2f1c978d5f6681ae7f">igw_check_inet_conn_t</a>(<span class="keywordtype">void</span> *null);</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="keywordtype">void</span> *<a class="code hl_function" href="igs_8h.html#aaadcb88cf94a58fb55907dd507d35e18">igw_monitor_igws_t</a>(<span class="keywordtype">void</span> *null);</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="keywordtype">int</span> igw_exec_masquerade_sh(<span class="keywordtype">char</span> *script, <span class="keywordtype">int</span> stop);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="keywordtype">int</span> igw_exec_tcshaper_sh(<span class="keywordtype">char</span> *script, <span class="keywordtype">int</span> stop,</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#a7b3d293ed96b781f5b351d0f054bbf0d">igw_exec_masquerade_sh</a>(<span class="keywordtype">char</span> *script, <span class="keywordtype">int</span> stop);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#a5cf5f370332317b793630c29f82414c3">igw_exec_tcshaper_sh</a>(<span class="keywordtype">char</span> *script, <span class="keywordtype">int</span> stop,</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                         <span class="keywordtype">char</span> *dev, <span class="keywordtype">int</span> upload_bw, <span class="keywordtype">int</span> dnload_bw);</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="keywordtype">void</span> reset_igw_nexthop(<a class="code hl_struct" href="structdefault__inet__gw__nexthop.html">igw_nexthop</a> * igwn);</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="keywordtype">void</span> reset_igw_rules(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="keywordtype">int</span> igw_replace_def_igws(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter,</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                         <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** my_igws, <span class="keywordtype">int</span> max_levels, <span class="keywordtype">int</span> family);</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#ab6e977b941c5031d125aed6513e19215">reset_igw_nexthop</a>(<a class="code hl_struct" href="structdefault__inet__gw__nexthop.html">igw_nexthop</a> * igwn);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="keywordtype">void</span> <a class="code hl_function" href="igs_8h.html#a8188aff5547e21daad2860d6bfdc7070">reset_igw_rules</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#a51d86ef21953a6f2d0231b9c83701ce6">igw_replace_def_igws</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter,</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                         <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** my_igws, <span class="keywordtype">int</span> max_levels, <span class="keywordtype">int</span> <a class="code hl_variable" href="if_8c.html#a4417150d9f858949bd9ea8794995ebcc">family</a>);</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="keywordtype">char</span> *igw_build_bentry(u_char level, <span class="keywordtype">size_t</span> * pack_sz, <span class="keywordtype">int</span> *new_bblocks);</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keywordtype">int</span> igw_store_bblock(bnode_hdr * bblock_hdr, bnode_chunk * bchunk,</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="keywordtype">char</span> *<a class="code hl_function" href="igs_8h.html#aa6f9c26474eb89658bc5afece1d08f27">igw_build_bentry</a>(u_char level, <span class="keywordtype">size_t</span> * pack_sz, <span class="keywordtype">int</span> *new_bblocks);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#a68583c93468fa447635d641f93b040ce">igw_store_bblock</a>(bnode_hdr * bblock_hdr, bnode_chunk * bchunk,</div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                     u_char level);</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="keywordtype">char</span> *pack_igws(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <span class="keywordtype">int</span> levels,</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="keywordtype">char</span> *<a class="code hl_function" href="igs_8h.html#a9cf1b8ae3ddd2beeb60f9671624c093b">pack_igws</a>(<a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> ** igws, <span class="keywordtype">int</span> *igws_counter, <span class="keywordtype">int</span> levels,</div>
 <div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                <span class="keywordtype">int</span> *pack_sz);</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="keywordtype">int</span> unpack_igws(<span class="keywordtype">char</span> *pack, <span class="keywordtype">size_t</span> pack_sz, <a class="code hl_struct" href="structmap__node.html">map_node</a> * int_map,</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="keywordtype">int</span> <a class="code hl_function" href="igs_8h.html#ac988c4e403d8e860068177e9c0358363">unpack_igws</a>(<span class="keywordtype">char</span> *pack, <span class="keywordtype">size_t</span> pack_sz, <a class="code hl_struct" href="structmap__node.html">map_node</a> * <a class="code hl_variable" href="qspn-empiric_8h.html#a275f0c34bee112fa32e4fc86586a19ad">int_map</a>,</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                <a class="code hl_struct" href="structmap__gnode.html">map_gnode</a> ** ext_map, <span class="keywordtype">int</span> levels, <a class="code hl_struct" href="structinternet__gateway.html">inet_gw</a> *** new_igws,</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                <span class="keywordtype">int</span> **new_igws_counter);</div>
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">#endif                          </span><span class="comment">/*IGS_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="astruct___p_a_c_k_e_d___html"><div class="ttname"><a href="struct___p_a_c_k_e_d__.html">_PACKED_</a></div><div class="ttdef"><b>Definition:</b> bmap.h:83</div></div>
+<div class="ttc" id="aendianness_8h_html_a3e44b8503d7a90af675c81800fe6d275"><div class="ttname"><a href="endianness_8h.html#a3e44b8503d7a90af675c81800fe6d275">INT_INFO</a></div><div class="ttdeci">#define INT_INFO</div><div class="ttdef"><b>Definition:</b> endianness.h:82</div></div>
+<div class="ttc" id="aendianness_8h_html_a66b75e81c28419f622f82e631e5da9bc"><div class="ttname"><a href="endianness_8h.html#a66b75e81c28419f622f82e631e5da9bc">INT_TYPE_16BIT</a></div><div class="ttdeci">#define INT_TYPE_16BIT</div><div class="ttdef"><b>Definition:</b> endianness.h:30</div></div>
+<div class="ttc" id="agmap_8h_html_add784659439a8dd6b1423406171414d3"><div class="ttname"><a href="gmap_8h.html#add784659439a8dd6b1423406171414d3">MAX_LEVELS</a></div><div class="ttdeci">#define MAX_LEVELS</div><div class="ttdef"><b>Definition:</b> gmap.h:108</div></div>
+<div class="ttc" id="aif_8c_html_a4417150d9f858949bd9ea8794995ebcc"><div class="ttname"><a href="if_8c.html#a4417150d9f858949bd9ea8794995ebcc">family</a></div><div class="ttdeci">int family</div><div class="ttdef"><b>Definition:</b> if.c:33</div></div>
+<div class="ttc" id="aigs_8h_html_a016c3a34a9dc7add88dd0bce88440e05"><div class="ttname"><a href="igs_8h.html#a016c3a34a9dc7add88dd0bce88440e05">str_to_inet_gw</a></div><div class="ttdeci">int str_to_inet_gw(char *str, inet_prefix *gw, char **dev)</div><div class="ttdef"><b>Definition:</b> igs.c:107</div></div>
+<div class="ttc" id="aigs_8h_html_a0631352217c3c9639e81de946f7af2e3"><div class="ttname"><a href="igs_8h.html#a0631352217c3c9639e81de946f7af2e3">igw_order</a></div><div class="ttdeci">void igw_order(inet_gw **igws, int *igws_counter, inet_gw **my_igws, int level)</div><div class="ttdef"><b>Definition:</b> igs.c:684</div></div>
+<div class="ttc" id="aigs_8h_html_a184ab033bb2e2c1f856df5430ba87a80"><div class="ttname"><a href="igs_8h.html#a184ab033bb2e2c1f856df5430ba87a80">init_internet_gateway_search</a></div><div class="ttdeci">void init_internet_gateway_search(void)</div><div class="ttdef"><b>Definition:</b> igs.c:290</div></div>
+<div class="ttc" id="aigs_8h_html_a1d30fcb54a3ba33ce6ff94b7936e32ae"><div class="ttname"><a href="igs_8h.html#a1d30fcb54a3ba33ce6ff94b7936e32ae">igw_find_node</a></div><div class="ttdeci">inet_gw * igw_find_node(inet_gw **igws, int level, map_node *node)</div><div class="ttdef"><b>Definition:</b> igs.c:568</div></div>
+<div class="ttc" id="aigs_8h_html_a247ee5efa43ff0d3537231ccbafafe89"><div class="ttname"><a href="igs_8h.html#a247ee5efa43ff0d3537231ccbafafe89">igw_del_node</a></div><div class="ttdeci">int igw_del_node(inet_gw **, int *, int, map_node *)</div><div class="ttdef"><b>Definition:</b> igs.c:596</div></div>
+<div class="ttc" id="aigs_8h_html_a319bad303b318822fe195f434e5b3ddc"><div class="ttname"><a href="igs_8h.html#a319bad303b318822fe195f434e5b3ddc">free_igws</a></div><div class="ttdeci">void free_igws(inet_gw **igws, int *igws_counter, int levels)</div><div class="ttdef"><b>Definition:</b> igs.c:219</div></div>
+<div class="ttc" id="aigs_8h_html_a33a323d34427dc25e537d446e16f0330"><div class="ttname"><a href="igs_8h.html#a33a323d34427dc25e537d446e16f0330">igw_add_node</a></div><div class="ttdeci">inet_gw * igw_add_node(inet_gw **igws, int *igws_counter, int level, int gid, map_node *node, int ip[MAX_IP_INT], u_char bandwidth)</div><div class="ttdef"><b>Definition:</b> igs.c:528</div></div>
+<div class="ttc" id="aigs_8h_html_a35c3e3ff94064955d6965ad87a95ab36"><div class="ttname"><a href="igs_8h.html#a35c3e3ff94064955d6965ad87a95ab36">init_my_igw</a></div><div class="ttdeci">void init_my_igw(void)</div></div>
+<div class="ttc" id="aigs_8h_html_a3df20b00e1530523fdddc24a9987a9b3"><div class="ttname"><a href="igs_8h.html#a3df20b00e1530523fdddc24a9987a9b3">free_my_igws</a></div><div class="ttdeci">void free_my_igws(inet_gw ***my_igs)</div><div class="ttdef"><b>Definition:</b> igs.c:278</div></div>
+<div class="ttc" id="aigs_8h_html_a3e9300a55cc44d8ef6c843d971fd1486"><div class="ttname"><a href="igs_8h.html#a3e9300a55cc44d8ef6c843d971fd1486">igw_update_gnode_bw</a></div><div class="ttdeci">void igw_update_gnode_bw(int *, inet_gw **, inet_gw *, int, int, int)</div><div class="ttdef"><b>Definition:</b> igs.c:613</div></div>
+<div class="ttc" id="aigs_8h_html_a46d6f806802d39aa290a387347a499d7"><div class="ttname"><a href="igs_8h.html#a46d6f806802d39aa290a387347a499d7">igw_del</a></div><div class="ttdeci">int igw_del(inet_gw **igws, int *igws_counter, inet_gw *igw, int level)</div><div class="ttdef"><b>Definition:</b> igs.c:548</div></div>
+<div class="ttc" id="aigs_8h_html_a51d86ef21953a6f2d0231b9c83701ce6"><div class="ttname"><a href="igs_8h.html#a51d86ef21953a6f2d0231b9c83701ce6">igw_replace_def_igws</a></div><div class="ttdeci">int igw_replace_def_igws(inet_gw **igws, int *igws_counter, inet_gw **my_igws, int max_levels, int family)</div><div class="ttdef"><b>Definition:</b> igs.c:1014</div></div>
+<div class="ttc" id="aigs_8h_html_a53c17c74d86e8cf6bdd47242002c8bef"><div class="ttname"><a href="igs_8h.html#a53c17c74d86e8cf6bdd47242002c8bef">free_internet_hosts</a></div><div class="ttdeci">void free_internet_hosts(char **hnames, int hosts)</div><div class="ttdef"><b>Definition:</b> igs.c:154</div></div>
+<div class="ttc" id="aigs_8h_html_a5855d790f8cd80495bf1962009b6cb7b"><div class="ttname"><a href="igs_8h.html#a5855d790f8cd80495bf1962009b6cb7b">igw_check_inet_conn</a></div><div class="ttdeci">int igw_check_inet_conn(void)</div><div class="ttdef"><b>Definition:</b> igs.c:724</div></div>
+<div class="ttc" id="aigs_8h_html_a5cf5f370332317b793630c29f82414c3"><div class="ttname"><a href="igs_8h.html#a5cf5f370332317b793630c29f82414c3">igw_exec_tcshaper_sh</a></div><div class="ttdeci">int igw_exec_tcshaper_sh(char *script, int stop, char *dev, int upload_bw, int dnload_bw)</div><div class="ttdef"><b>Definition:</b> igs.c:913</div></div>
+<div class="ttc" id="aigs_8h_html_a68583c93468fa447635d641f93b040ce"><div class="ttname"><a href="igs_8h.html#a68583c93468fa447635d641f93b040ce">igw_store_bblock</a></div><div class="ttdeci">int igw_store_bblock(bnode_hdr *bblock_hdr, bnode_chunk *bchunk, u_char level)</div><div class="ttdef"><b>Definition:</b> igs.c:1321</div></div>
+<div class="ttc" id="aigs_8h_html_a68b10196ae2d1b448a3097dbf254eb68"><div class="ttname"><a href="igs_8h.html#a68b10196ae2d1b448a3097dbf254eb68">reset_igws</a></div><div class="ttdeci">void reset_igws(inet_gw **igws, int *igws_counter, int levels)</div><div class="ttdef"><b>Definition:</b> igs.c:204</div></div>
+<div class="ttc" id="aigs_8h_html_a69dec3b6ff9453bc64d5b98f6b40e2aa"><div class="ttname"><a href="igs_8h.html#a69dec3b6ff9453bc64d5b98f6b40e2aa">close_internet_gateway_search</a></div><div class="ttdeci">void close_internet_gateway_search(void)</div><div class="ttdef"><b>Definition:</b> igs.c:491</div></div>
+<div class="ttc" id="aigs_8h_html_a78b98b691ec68cb68436720bdc7fca46"><div class="ttname"><a href="igs_8h.html#a78b98b691ec68cb68436720bdc7fca46">active_gws</a></div><div class="ttdeci">int active_gws</div><div class="ttdef"><b>Definition:</b> igs.h:171</div></div>
+<div class="ttc" id="aigs_8h_html_a7b3d293ed96b781f5b351d0f054bbf0d"><div class="ttname"><a href="igs_8h.html#a7b3d293ed96b781f5b351d0f054bbf0d">igw_exec_masquerade_sh</a></div><div class="ttdeci">int igw_exec_masquerade_sh(char *script, int stop)</div><div class="ttdef"><b>Definition:</b> igs.c:893</div></div>
+<div class="ttc" id="aigs_8h_html_a8188aff5547e21daad2860d6bfdc7070"><div class="ttname"><a href="igs_8h.html#a8188aff5547e21daad2860d6bfdc7070">reset_igw_rules</a></div><div class="ttdeci">void reset_igw_rules(void)</div><div class="ttdef"><b>Definition:</b> igs.c:996</div></div>
+<div class="ttc" id="aigs_8h_html_a8c2020a51620e48fe98fb21abb6b09d3"><div class="ttname"><a href="igs_8h.html#a8c2020a51620e48fe98fb21abb6b09d3">inet_gw_pack_hdr_iinfo</a></div><div class="ttdeci">INT_INFO inet_gw_pack_hdr_iinfo</div><div class="ttdef"><b>Definition:</b> igs.h:99</div></div>
+<div class="ttc" id="aigs_8h_html_a8f2b617dc42f9ab3075ff6e9d08b8893"><div class="ttname"><a href="igs_8h.html#a8f2b617dc42f9ab3075ff6e9d08b8893">_PACKED_</a></div><div class="ttdeci">struct inet_gw_pack_hdr _PACKED_</div></div>
+<div class="ttc" id="aigs_8h_html_a96f88cc795a0a08a7176d0c0af39e562"><div class="ttname"><a href="igs_8h.html#a96f88cc795a0a08a7176d0c0af39e562">init_my_igws</a></div><div class="ttdeci">void init_my_igws(inet_gw **igws, int *igws_counter, inet_gw ***my_new_igws, u_char my_bandwidth, map_node *cur_node, quadro_group *qg)</div><div class="ttdef"><b>Definition:</b> igs.c:242</div></div>
+<div class="ttc" id="aigs_8h_html_a981dc21821ba7cd93d607d1d2b3aa947"><div class="ttname"><a href="igs_8h.html#a981dc21821ba7cd93d607d1d2b3aa947">multigw_nh</a></div><div class="ttdeci">igw_nexthop multigw_nh[MAX_MULTIPATH_ROUTES]</div><div class="ttdef"><b>Definition:</b> igs.h:172</div></div>
+<div class="ttc" id="aigs_8h_html_a9cf1b8ae3ddd2beeb60f9671624c093b"><div class="ttname"><a href="igs_8h.html#a9cf1b8ae3ddd2beeb60f9671624c093b">pack_igws</a></div><div class="ttdeci">char * pack_igws(inet_gw **igws, int *igws_counter, int levels, int *pack_sz)</div><div class="ttdef"><b>Definition:</b> igs.c:1435</div></div>
+<div class="ttc" id="aigs_8h_html_a9ddd7d4ff55934ea1803e6b367e7358d"><div class="ttname"><a href="igs_8h.html#a9ddd7d4ff55934ea1803e6b367e7358d">parse_internet_hosts</a></div><div class="ttdeci">char ** parse_internet_hosts(char *str, int *hosts)</div><div class="ttdef"><b>Definition:</b> igs.c:144</div></div>
+<div class="ttc" id="aigs_8h_html_aa546e1f521a2c122fe6946aceca9586f"><div class="ttname"><a href="igs_8h.html#aa546e1f521a2c122fe6946aceca9586f">igw_find_ip</a></div><div class="ttdeci">inet_gw * igw_find_ip(inet_gw **igws, int level, u_int ip[MAX_IP_INT])</div><div class="ttdef"><b>Definition:</b> igs.c:580</div></div>
+<div class="ttc" id="aigs_8h_html_aa6de0936765376643c8726ca0eaf6dde"><div class="ttname"><a href="igs_8h.html#aa6de0936765376643c8726ca0eaf6dde">bandwidth_in_8bit</a></div><div class="ttdeci">u_char bandwidth_in_8bit(u_int x)</div><div class="ttdef"><b>Definition:</b> igs.c:62</div></div>
+<div class="ttc" id="aigs_8h_html_aa6f9c26474eb89658bc5afece1d08f27"><div class="ttname"><a href="igs_8h.html#aa6f9c26474eb89658bc5afece1d08f27">igw_build_bentry</a></div><div class="ttdeci">char * igw_build_bentry(u_char level, size_t *pack_sz, int *new_bblocks)</div><div class="ttdef"><b>Definition:</b> igs.c:1225</div></div>
+<div class="ttc" id="aigs_8h_html_aaadcb88cf94a58fb55907dd507d35e18"><div class="ttname"><a href="igs_8h.html#aaadcb88cf94a58fb55907dd507d35e18">igw_monitor_igws_t</a></div><div class="ttdeci">void * igw_monitor_igws_t(void *null)</div><div class="ttdef"><b>Definition:</b> igs.c:830</div></div>
+<div class="ttc" id="aigs_8h_html_aab1091590ed4414ea138fedb0d2982e3"><div class="ttname"><a href="igs_8h.html#aab1091590ed4414ea138fedb0d2982e3">init_igws</a></div><div class="ttdeci">void init_igws(inet_gw ***igws, int **igws_counter, int levels)</div><div class="ttdef"><b>Definition:</b> igs.c:195</div></div>
+<div class="ttc" id="aigs_8h_html_aab1c66a564133e2f1c978d5f6681ae7f"><div class="ttname"><a href="igs_8h.html#aab1c66a564133e2f1c978d5f6681ae7f">igw_check_inet_conn_t</a></div><div class="ttdeci">void * igw_check_inet_conn_t(void *null)</div><div class="ttdef"><b>Definition:</b> igs.c:745</div></div>
+<div class="ttc" id="aigs_8h_html_ab6e977b941c5031d125aed6513e19215"><div class="ttname"><a href="igs_8h.html#ab6e977b941c5031d125aed6513e19215">reset_igw_nexthop</a></div><div class="ttdeci">void reset_igw_nexthop(igw_nexthop *igwn)</div><div class="ttdef"><b>Definition:</b> igs.c:987</div></div>
+<div class="ttc" id="aigs_8h_html_ac988c4e403d8e860068177e9c0358363"><div class="ttname"><a href="igs_8h.html#ac988c4e403d8e860068177e9c0358363">unpack_igws</a></div><div class="ttdeci">int unpack_igws(char *pack, size_t pack_sz, map_node *int_map, map_gnode **ext_map, int levels, inet_gw ***new_igws, int **new_igws_counter)</div><div class="ttdef"><b>Definition:</b> igs.c:1481</div></div>
+<div class="ttc" id="ainet_8h_html_a70f8406c9556460a606bee45306c5630"><div class="ttname"><a href="inet_8h.html#a70f8406c9556460a606bee45306c5630">MAX_IP_INT</a></div><div class="ttdeci">#define MAX_IP_INT</div><div class="ttdef"><b>Definition:</b> inet.h:24</div></div>
+<div class="ttc" id="aqspn-empiric_8h_html_a275f0c34bee112fa32e4fc86586a19ad"><div class="ttname"><a href="qspn-empiric_8h.html#a275f0c34bee112fa32e4fc86586a19ad">int_map</a></div><div class="ttdeci">map_node * int_map</div><div class="ttdef"><b>Definition:</b> qspn-empiric.h:111</div></div>
+<div class="ttc" id="aroute_8h_html"><div class="ttname"><a href="route_8h.html">route.h</a></div></div>
+<div class="ttc" id="aroute_8h_html_a2dbb83f7996da5aa54f9890483f54c16"><div class="ttname"><a href="route_8h.html#a2dbb83f7996da5aa54f9890483f54c16">MAX_MULTIPATH_ROUTES</a></div><div class="ttdeci">#define MAX_MULTIPATH_ROUTES</div><div class="ttdef"><b>Definition:</b> route.h:26</div></div>
 <div class="ttc" id="astructdefault__inet__gw__nexthop_html"><div class="ttname"><a href="structdefault__inet__gw__nexthop.html">default_inet_gw_nexthop</a></div><div class="ttdef"><b>Definition:</b> igs.h:134</div></div>
+<div class="ttc" id="astructdefault__inet__gw__nexthop_html_a04d328b9e4a16a636d63dba2cc85d7f3"><div class="ttname"><a href="structdefault__inet__gw__nexthop.html#a04d328b9e4a16a636d63dba2cc85d7f3">default_inet_gw_nexthop::flags</a></div><div class="ttdeci">u_char flags</div><div class="ttdef"><b>Definition:</b> igs.h:137</div></div>
+<div class="ttc" id="astructdefault__inet__gw__nexthop_html_a1f63b2307a082083470cbb2e847acd09"><div class="ttname"><a href="structdefault__inet__gw__nexthop.html#a1f63b2307a082083470cbb2e847acd09">default_inet_gw_nexthop::nexthop</a></div><div class="ttdeci">inet_prefix nexthop</div><div class="ttdef"><b>Definition:</b> igs.h:135</div></div>
+<div class="ttc" id="astructdefault__inet__gw__nexthop_html_a39ca5e694312e485e48f680d272824fb"><div class="ttname"><a href="structdefault__inet__gw__nexthop.html#a39ca5e694312e485e48f680d272824fb">default_inet_gw_nexthop::tunl</a></div><div class="ttdeci">u_char tunl</div><div class="ttdef"><b>Definition:</b> igs.h:140</div></div>
+<div class="ttc" id="astructdefault__inet__gw__nexthop_html_ad04a61d6d62178151840ac39ef785a04"><div class="ttname"><a href="structdefault__inet__gw__nexthop.html#ad04a61d6d62178151840ac39ef785a04">default_inet_gw_nexthop::table</a></div><div class="ttdeci">u_char table</div><div class="ttdef"><b>Definition:</b> igs.h:139</div></div>
 <div class="ttc" id="astructinet__gw__pack__hdr_html"><div class="ttname"><a href="structinet__gw__pack__hdr.html">inet_gw_pack_hdr</a></div><div class="ttdef"><b>Definition:</b> igs.h:94</div></div>
+<div class="ttc" id="astructinet__gw__pack__hdr_html_a414ea8934d1799c848d4cc56341645a7"><div class="ttname"><a href="structinet__gw__pack__hdr.html#a414ea8934d1799c848d4cc56341645a7">inet_gw_pack_hdr::levels</a></div><div class="ttdeci">u_char levels</div><div class="ttdef"><b>Definition:</b> igs.h:97</div></div>
+<div class="ttc" id="astructinet__gw__pack__hdr_html_aad013384dcb53c203877aa7c18fbf5a4"><div class="ttname"><a href="structinet__gw__pack__hdr.html#aad013384dcb53c203877aa7c18fbf5a4">inet_gw_pack_hdr::gws</a></div><div class="ttdeci">int16_t gws[MAX_LEVELS]</div><div class="ttdef"><b>Definition:</b> igs.h:95</div></div>
 <div class="ttc" id="astructinet__prefix_html"><div class="ttname"><a href="structinet__prefix.html">inet_prefix</a></div><div class="ttdef"><b>Definition:</b> inet.h:73</div></div>
 <div class="ttc" id="astructinternet__gateway_html"><div class="ttname"><a href="structinternet__gateway.html">internet_gateway</a></div><div class="ttdef"><b>Definition:</b> igs.h:79</div></div>
+<div class="ttc" id="astructinternet__gateway_html_a35e54edf46d8776aaf8235ca254d1b91"><div class="ttname"><a href="structinternet__gateway.html#a35e54edf46d8776aaf8235ca254d1b91">internet_gateway::ip</a></div><div class="ttdeci">u_int ip[MAX_IP_INT]</div><div class="ttdef"><b>Definition:</b> igs.h:82</div></div>
+<div class="ttc" id="astructinternet__gateway_html_a639870aa0bd3049b341f02dd37e02f1f"><div class="ttname"><a href="structinternet__gateway.html#a639870aa0bd3049b341f02dd37e02f1f">internet_gateway::flags</a></div><div class="ttdeci">char flags</div><div class="ttdef"><b>Definition:</b> igs.h:86</div></div>
+<div class="ttc" id="astructinternet__gateway_html_a8374974faf8c9d35a998cfa17f87e3ba"><div class="ttname"><a href="structinternet__gateway.html#a8374974faf8c9d35a998cfa17f87e3ba">internet_gateway::bandwidth</a></div><div class="ttdeci">u_char bandwidth</div><div class="ttdef"><b>Definition:</b> igs.h:87</div></div>
+<div class="ttc" id="astructinternet__gateway_html_ad009a56fdef39a6a5680d17b7b4469f6"><div class="ttname"><a href="structinternet__gateway.html#ad009a56fdef39a6a5680d17b7b4469f6">internet_gateway::node</a></div><div class="ttdeci">map_node * node</div><div class="ttdef"><b>Definition:</b> igs.h:84</div></div>
+<div class="ttc" id="astructinternet__gateway_html_aeb3f9de6f781a9dd4afac562ee8311b3"><div class="ttname"><a href="structinternet__gateway.html#aeb3f9de6f781a9dd4afac562ee8311b3">internet_gateway::LLIST_HDR</a></div><div class="ttdeci">LLIST_HDR(struct internet_gateway)</div></div>
+<div class="ttc" id="astructinternet__gateway_html_af2629cd83455d8833085556bc48cbfed"><div class="ttname"><a href="structinternet__gateway.html#af2629cd83455d8833085556bc48cbfed">internet_gateway::gid</a></div><div class="ttdeci">u_char gid</div><div class="ttdef"><b>Definition:</b> igs.h:83</div></div>
 <div class="ttc" id="astructmap__gnode_html"><div class="ttname"><a href="structmap__gnode.html">map_gnode</a></div><div class="ttdef"><b>Definition:</b> gmap.h:37</div></div>
 <div class="ttc" id="astructmap__node_html"><div class="ttname"><a href="structmap__node.html">map_node</a></div><div class="ttdef"><b>Definition:</b> map.h:115</div></div>
-<div class="ttc" id="astructnexthop_html"><div class="ttname"><a href="structnexthop.html">nexthop</a></div><div class="ttdef"><b>Definition:</b> krnl_route.h:26</div></div>
 <div class="ttc" id="astructquadro__group_html"><div class="ttname"><a href="structquadro__group.html">quadro_group</a></div><div class="ttdef"><b>Definition:</b> gmap.h:128</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="igs_8h.html">igs.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

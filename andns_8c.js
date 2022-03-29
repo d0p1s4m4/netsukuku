@@ -1,0 +1,25 @@
+var andns_8c =
+[
+    [ "_GNU_SOURCE", "andns_8c.html#a369266c24eacffb87046522897a570d5", null ],
+    [ "andns_close", "andns_8c.html#a7d0899aadc62060e73c4ad5745dbfaad", null ],
+    [ "andns_gethostbyname", "andns_8c.html#ad2d760371a7d8f72ee021dcf12997c2d", null ],
+    [ "andns_init", "andns_8c.html#a5a4d6d7f4f8ffb407a416f1bab193258", null ],
+    [ "andns_realm", "andns_8c.html#a1dc287a0b8b0db15f31309ea0cb8e383", null ],
+    [ "andns_rslv", "andns_8c.html#a2a2f7851e18a4b31f391a8f239f7bec0", null ],
+    [ "apqsttodpqst", "andns_8c.html#ace63c5b658eb33f8b5076fa0506e8afb", null ],
+    [ "collect_resolv_conf", "andns_8c.html#a412c450840e3bb78ac14b32b3db878a8", null ],
+    [ "dns_forward", "andns_8c.html#aae58fed9c96a1eb5a5411c76510ba3ac", null ],
+    [ "dpanswtoapansw", "andns_8c.html#a1220da16c538185a3258cedab47c254a", null ],
+    [ "dpktacpy", "andns_8c.html#a4f773865e30cee5adfced0cd497c64e9", null ],
+    [ "dpktcpy", "andns_8c.html#a9e06171cb7f2cb139c5b5a2c42c7f1c3", null ],
+    [ "dpktcpy_rm_pref", "andns_8c.html#afe768aa6db2bfb53b0b05496bbc60e5a", null ],
+    [ "inet_rslv", "andns_8c.html#a81431a7e5716758c3bbefd17f8e68898", null ],
+    [ "is_prefixed", "andns_8c.html#ab43667541accf07092016e32181edf94", null ],
+    [ "nk_forward", "andns_8c.html#a36956c4fc77c5a1b3dfcda3cc0a9051e", null ],
+    [ "nk_rslv", "andns_8c.html#a77c1322dbf52a1bacabe97028c9ce8d2", null ],
+    [ "ns_general_send", "andns_8c.html#a65c36ebb80b180a09b9a78c73ee5c106", null ],
+    [ "qtype_a_to_d", "andns_8c.html#a21a8f0e04e19b66f878b3d4536c685ca", null ],
+    [ "reset_andns_ns", "andns_8c.html#a14f73f295437c3ab586d2f19cf20799f", null ],
+    [ "rm_realm_prefix", "andns_8c.html#a9013940c1fe5bc379bee1af5ca4ddcfc", null ],
+    [ "store_ns", "andns_8c.html#a06279c082d2dfb4436b0b575ee0bf485", null ]
+];

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('mark_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,101 +83,127 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">mark.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef MARK_H</span></div>
+<a href="mark_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef MARK_H</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define MARK_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;libiptc/libiptc.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="libiptc_8h.html">libiptc/libiptc.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;linux/netfilter/nf_conntrack_common.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;libiptc/ipt_conntrack.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;libiptc/ipt_connmark.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="ipt__conntrack_8h.html">libiptc/ipt_conntrack.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="ipt__connmark_8h.html">libiptc/ipt_connmark.h</a>&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define MANGLE_TABLE        &quot;mangle&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define FILTER_TABLE        &quot;filter&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define NTK_MARK_CHAIN      &quot;ntk_mark_chain&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define CHAIN_OUTPUT        &quot;OUTPUT&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="mark_8h.html#a41fc7a1230e9fc4703fa36a86438c16a">    9</a></span><span class="preprocessor">#define MANGLE_TABLE        &quot;mangle&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="mark_8h.html#aa92ca78f91d005337f0619e13dcbf4a4">   10</a></span><span class="preprocessor">#define FILTER_TABLE        &quot;filter&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="mark_8h.html#ae4e81f7be09c0099e216611d14eb0785">   11</a></span><span class="preprocessor">#define NTK_MARK_CHAIN      &quot;ntk_mark_chain&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="mark_8h.html#ab7639154e9813d9f8369f0809f7599b7">   12</a></span><span class="preprocessor">#define CHAIN_OUTPUT        &quot;OUTPUT&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define CHAIN_POSTROUTING   &quot;POSTROUTING&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define CHAIN_PREROUTING    &quot;PREROUTING&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define CHAIN_POSTROUTING   &quot;POSTROUTING&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define CHAIN_FORWARD       &quot;FORWARD&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="mark_8h.html#a26807446309325a9b545d388f58aeb91">   14</a></span><span class="preprocessor">#define CHAIN_PREROUTING    &quot;PREROUTING&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="mark_8h.html#ab5679c66707bfd2add5fc3423c1d08ca">   15</a></span><span class="preprocessor">#define CHAIN_POSTROUTING   &quot;POSTROUTING&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="mark_8h.html#a0a42a5c855e0b5569f9746cbbf471cb6">   16</a></span><span class="preprocessor">#define CHAIN_FORWARD       &quot;FORWARD&quot;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#define MOD_CONNTRACK       &quot;conntrack&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define MOD_CONNMARK        &quot;CONNMARK&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define MARK_TARGET     &quot;MARK&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="mark_8h.html#a110904c962e0d938983c9afe1811b25f">   18</a></span><span class="preprocessor">#define MOD_CONNTRACK       &quot;conntrack&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="mark_8h.html#af9c7b8b257825865592a6a9942e18bd8">   19</a></span><span class="preprocessor">#define MOD_CONNMARK        &quot;CONNMARK&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="mark_8h.html#a978fabf499a36d615e7ce8ab7867365a">   20</a></span><span class="preprocessor">#define MARK_TARGET     &quot;MARK&quot;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define NTK_NET_STR     &quot;10.0.0.0&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define NTK_NET_MASK_STR    &quot;255.0.0.0&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="mark_8h.html#ade8bba361d81793d9cca279860c36488">   22</a></span><span class="preprocessor">#define NTK_NET_STR     &quot;10.0.0.0&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="mark_8h.html#a02686adafcc67933bbf08a87f5c42edb">   23</a></span><span class="preprocessor">#define NTK_NET_MASK_STR    &quot;255.0.0.0&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define IPT_ENTRY_SZ        sizeof(struct ipt_entry)</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define IPT_ENTRY_MATCH_SZ  sizeof(struct ipt_entry_match)</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define IPT_ENTRY_TARGET_SZ sizeof(struct ipt_entry_target)</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define IPT_CT_INFO_SZ      sizeof(struct ipt_conntrack_info)</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define IPT_CM_TARGET_INFO_SZ   sizeof(struct ipt_connmark_target_info)</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="mark_8h.html#a23f4ae361454515c34d79dccf0a7ac83">   25</a></span><span class="preprocessor">#define IPT_ENTRY_SZ        sizeof(struct ipt_entry)</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="mark_8h.html#a3419b47e4ee4e2642f0b6437fae302bf">   26</a></span><span class="preprocessor">#define IPT_ENTRY_MATCH_SZ  sizeof(struct ipt_entry_match)</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="mark_8h.html#af294401f94d7069d124920fa6ec1215d">   27</a></span><span class="preprocessor">#define IPT_ENTRY_TARGET_SZ sizeof(struct ipt_entry_target)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="mark_8h.html#a6eb8e2a1524f921687ed4b5f018941e8">   28</a></span><span class="preprocessor">#define IPT_CT_INFO_SZ      sizeof(struct ipt_conntrack_info)</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="mark_8h.html#ab17faf26290c73b79e21b1fea17f07a2">   29</a></span><span class="preprocessor">#define IPT_CM_TARGET_INFO_SZ   sizeof(struct ipt_connmark_target_info)</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define MATCH_SZ        IPT_ENTRY_MATCH_SZ+IPT_CT_INFO_SZ</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define TARGET_SZ       IPT_ENTRY_TARGET_SZ+IPT_CM_TARGET_INFO_SZ</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="mark_8h.html#ad0d5c9bb8f80da83dd09c2289a4ee641">   31</a></span><span class="preprocessor">#define MATCH_SZ        IPT_ENTRY_MATCH_SZ+IPT_CT_INFO_SZ</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="mark_8h.html#a4c2e9d7267ef9662ea939278b7dc9d69">   32</a></span><span class="preprocessor">#define TARGET_SZ       IPT_ENTRY_TARGET_SZ+IPT_CM_TARGET_INFO_SZ</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define RESTORE_OUTPUT_RULE_SZ  IPT_ENTRY_SZ+MATCH_SZ+TARGET_SZ</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="mark_8h.html#a3ddd8afd46e7cd5f5d3bc8052a310e03">   34</a></span><span class="preprocessor">#define RESTORE_OUTPUT_RULE_SZ  IPT_ENTRY_SZ+MATCH_SZ+TARGET_SZ</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define OFFSET_MATCH        IPT_ENTRY_SZ</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define OFFSET_MATCH_INFO   OFFSET_MATCH+IPT_ENTRY_MATCH_SZ</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define OFFSET_TARGET       OFFSET_MATCH_INFO+IPT_CT_INFO_SZ</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define OFFSET_TARGET_INFO  OFFSET_TARGET+IPT_ENTRY_TARGET_SZ</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="mark_8h.html#a5f17e85db01580ef2510d16cd28c8e9c">   36</a></span><span class="preprocessor">#define OFFSET_MATCH        IPT_ENTRY_SZ</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="mark_8h.html#a655119eca9df37a0a1921fb60eecdca3">   37</a></span><span class="preprocessor">#define OFFSET_MATCH_INFO   OFFSET_MATCH+IPT_ENTRY_MATCH_SZ</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="mark_8h.html#a560d948b13ed2e1498a041bd2b0c95cc">   38</a></span><span class="preprocessor">#define OFFSET_TARGET       OFFSET_MATCH_INFO+IPT_CT_INFO_SZ</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="mark_8h.html#a0fce38cbbaa2a65f1ea936cdfcbeec1e">   39</a></span><span class="preprocessor">#define OFFSET_TARGET_INFO  OFFSET_TARGET+IPT_ENTRY_TARGET_SZ</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define MARK_RULE_SZ        IPT_ENTRY_SZ+TARGET_SZ</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define MAX_MARK_RULES      100</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="mark_8h.html#a75e4225ff09ece74a7cac3265a9fc13b">   41</a></span><span class="preprocessor">#define MARK_RULE_SZ        IPT_ENTRY_SZ+TARGET_SZ</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="mark_8h.html#a076d3c513f08bfb600ee2087b5241f1d">   42</a></span><span class="preprocessor">#define MAX_MARK_RULES      100</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#define NTK_FORWARD_RULE_SZ OFFSET_TARGET_INFO+4</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="mark_8h.html#ada3f9d5c7c73e78aee1403188b747849">   44</a></span><span class="preprocessor">#define NTK_FORWARD_RULE_SZ OFFSET_TARGET_INFO+4</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define IGW_FILTER_RULE_SZ  IPT_ENTRY_SZ+IPT_ENTRY_SZ+4</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define INET_MARK       25</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="mark_8h.html#a673f9af568ee9cf57cc7794d00433d55">   46</a></span><span class="preprocessor">#define IGW_FILTER_RULE_SZ  IPT_ENTRY_SZ+IPT_ENTRY_SZ+4</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="mark_8h.html#ab6a85c440cbe126697f3fc3217fb1fa6">   47</a></span><span class="preprocessor">#define INET_MARK       25</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define MAX_RULE_SZ     RESTORE_OUTPUT_RULE_SZ</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="mark_8h.html#a44e2ff9568b65325b5deeb440f1bc523">   49</a></span><span class="preprocessor">#define MAX_RULE_SZ     RESTORE_OUTPUT_RULE_SZ</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//struct in_addr inet_dst,inet_dst_mask;</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structrule__store.html">   53</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structrule__store.html">rule_store</a> {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">char</span> e[RESTORE_OUTPUT_RULE_SZ];</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">int</span> sz;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">char</span> *chain;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>} <a class="code hl_struct" href="structrule__store.html">rule_store</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structrule__store.html#a66efae4f20d853c38c41ca26f7d973ae">   54</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="structrule__store.html#a66efae4f20d853c38c41ca26f7d973ae">e</a>[<a class="code hl_define" href="mark_8h.html#a3ddd8afd46e7cd5f5d3bc8052a310e03">RESTORE_OUTPUT_RULE_SZ</a>];</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structrule__store.html#a0e1ea19fb9fa7881d15d84eff4c090e1">   55</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structrule__store.html#a0e1ea19fb9fa7881d15d84eff4c090e1">sz</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structrule__store.html#a1a2e600921a838625caf6c28eb97240c">   56</a></span>    <span class="keywordtype">char</span> *<a class="code hl_variable" href="structrule__store.html#a1a2e600921a838625caf6c28eb97240c">chain</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="mark_8h.html#abbc88f2a68e31820fa41e17673da35d5">   57</a></span>} <a class="code hl_typedef" href="mark_8h.html#abbc88f2a68e31820fa41e17673da35d5">rule_store</a>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">/* Functions */</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">int</span> table_init(<span class="keyword">const</span> <span class="keywordtype">char</span> *table, iptc_handle_t * t);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">int</span> insert_rule(<span class="keyword">const</span> <span class="keywordtype">char</span> *rule, iptc_handle_t * t, <span class="keyword">const</span> <span class="keywordtype">char</span> *chain,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a0c43ef6d239a67007d554dc82e2bf3f6">table_init</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *table, <a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a60f18561aa43df1660ba248a0d8b7e9a">insert_rule</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *rule, <a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t, <span class="keyword">const</span> <span class="keywordtype">char</span> *chain,</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keywordtype">int</span> pos);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">int</span> append_rule(<span class="keyword">const</span> <span class="keywordtype">char</span> *rule, iptc_handle_t * t, <span class="keyword">const</span> <span class="keywordtype">char</span> *chain);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">int</span> commit_rules(iptc_handle_t * t);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">void</span> restore_output_rule_init(<span class="keywordtype">char</span> *rule);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">void</span> ntk_forward_rule_init(<span class="keywordtype">char</span> *rule);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> mark_rule_init(<span class="keywordtype">char</span> *rule, <span class="keywordtype">char</span> *outiface, <span class="keywordtype">int</span> outiface_num);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">void</span> igw_mark_rule_init(<span class="keywordtype">char</span> *rule);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keywordtype">int</span> ntk_mark_chain_init(iptc_handle_t * t);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">int</span> store_rules();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">int</span> mark_init(<span class="keywordtype">int</span> igw);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keywordtype">int</span> count_ntk_mark_chain(iptc_handle_t * t);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> create_mark_rules(<span class="keywordtype">int</span> n);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">int</span> delete_ntk_forward_chain(iptc_handle_t * t);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">int</span> delete_first_rule(iptc_handle_t * t, <span class="keyword">const</span> <span class="keywordtype">char</span> *chain);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">int</span> rule_position(<a class="code hl_struct" href="structrule__store.html">rule_store</a> * rule, iptc_handle_t * t);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keywordtype">int</span> delete_rule(<a class="code hl_struct" href="structrule__store.html">rule_store</a> * rule, iptc_handle_t * t);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">int</span> mark_close();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#ad51a5da17eeb62f880494a790003d7dd">append_rule</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *rule, <a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t, <span class="keyword">const</span> <span class="keywordtype">char</span> *chain);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a26d05a69abbae35daae19fdbf6b0ed37">commit_rules</a>(<a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">void</span> <a class="code hl_function" href="mark_8h.html#a3e2f008ced2b3d6a4502ef9f8b5586e2">restore_output_rule_init</a>(<span class="keywordtype">char</span> *rule);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">void</span> <a class="code hl_function" href="mark_8h.html#aa2ac4a9fa8715a9bfa35588c986d666f">ntk_forward_rule_init</a>(<span class="keywordtype">char</span> *rule);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> <a class="code hl_function" href="mark_8h.html#ae25f34efd8149097818c5b089c91afd7">mark_rule_init</a>(<span class="keywordtype">char</span> *rule, <span class="keywordtype">char</span> *outiface, <span class="keywordtype">int</span> outiface_num);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">void</span> <a class="code hl_function" href="mark_8h.html#a50b80d32a52e77946550b618b423dc16">igw_mark_rule_init</a>(<span class="keywordtype">char</span> *rule);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#acc021e7bc72ddf7254f266632ffa8a52">ntk_mark_chain_init</a>(<a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a76823239efa7a0e6f5b55634dff9f53f">store_rules</a>();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a1241770376c64ee1ee386784a6e6c1d0">mark_init</a>(<span class="keywordtype">int</span> igw);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a21fd94f42c6edacfb0810ed03c6b726e">count_ntk_mark_chain</a>(<a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a5c3adca3da96bafac143438ab9b75f66">create_mark_rules</a>(<span class="keywordtype">int</span> n);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a155288a49eecef45917d64c265010e02">delete_ntk_forward_chain</a>(<a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a58b54808330aab0f5d6bba8ca58f86c6">delete_first_rule</a>(<a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t, <span class="keyword">const</span> <span class="keywordtype">char</span> *chain);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#a3ba74fd839273760b943435a4761b89d">rule_position</a>(<a class="code hl_struct" href="structrule__store.html">rule_store</a> * rule, <a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#ac8de283fd015ee2dc49c172db4e7dab9">delete_rule</a>(<a class="code hl_struct" href="structrule__store.html">rule_store</a> * rule, <a class="code hl_typedef" href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a> * t);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">int</span> <a class="code hl_function" href="mark_8h.html#abce88ee61b36a36e1e58278165d6004d">mark_close</a>();</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#endif                          </span><span class="comment">/* MARK_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aipt__connmark_8h_html"><div class="ttname"><a href="ipt__connmark_8h.html">ipt_connmark.h</a></div></div>
+<div class="ttc" id="aipt__conntrack_8h_html"><div class="ttname"><a href="ipt__conntrack_8h.html">ipt_conntrack.h</a></div></div>
+<div class="ttc" id="alibiptc_8h_html"><div class="ttname"><a href="libiptc_8h.html">libiptc.h</a></div></div>
+<div class="ttc" id="alibiptc_8h_html_a2748325528965622493003928cfaf6fd"><div class="ttname"><a href="libiptc_8h.html#a2748325528965622493003928cfaf6fd">iptc_handle_t</a></div><div class="ttdeci">struct iptc_handle * iptc_handle_t</div><div class="ttdef"><b>Definition:</b> libiptc.h:51</div></div>
+<div class="ttc" id="amark_8h_html_a0c43ef6d239a67007d554dc82e2bf3f6"><div class="ttname"><a href="mark_8h.html#a0c43ef6d239a67007d554dc82e2bf3f6">table_init</a></div><div class="ttdeci">int table_init(const char *table, iptc_handle_t *t)</div><div class="ttdef"><b>Definition:</b> mark.c:56</div></div>
+<div class="ttc" id="amark_8h_html_a1241770376c64ee1ee386784a6e6c1d0"><div class="ttname"><a href="mark_8h.html#a1241770376c64ee1ee386784a6e6c1d0">mark_init</a></div><div class="ttdeci">int mark_init(int igw)</div><div class="ttdef"><b>Definition:</b> mark.c:436</div></div>
+<div class="ttc" id="amark_8h_html_a155288a49eecef45917d64c265010e02"><div class="ttname"><a href="mark_8h.html#a155288a49eecef45917d64c265010e02">delete_ntk_forward_chain</a></div><div class="ttdeci">int delete_ntk_forward_chain(iptc_handle_t *t)</div><div class="ttdef"><b>Definition:</b> mark.c:607</div></div>
+<div class="ttc" id="amark_8h_html_a21fd94f42c6edacfb0810ed03c6b726e"><div class="ttname"><a href="mark_8h.html#a21fd94f42c6edacfb0810ed03c6b726e">count_ntk_mark_chain</a></div><div class="ttdeci">int count_ntk_mark_chain(iptc_handle_t *t)</div><div class="ttdef"><b>Definition:</b> mark.c:528</div></div>
+<div class="ttc" id="amark_8h_html_a26d05a69abbae35daae19fdbf6b0ed37"><div class="ttname"><a href="mark_8h.html#a26d05a69abbae35daae19fdbf6b0ed37">commit_rules</a></div><div class="ttdeci">int commit_rules(iptc_handle_t *t)</div><div class="ttdef"><b>Definition:</b> mark.c:118</div></div>
+<div class="ttc" id="amark_8h_html_a3ba74fd839273760b943435a4761b89d"><div class="ttname"><a href="mark_8h.html#a3ba74fd839273760b943435a4761b89d">rule_position</a></div><div class="ttdeci">int rule_position(rule_store *rule, iptc_handle_t *t)</div><div class="ttdef"><b>Definition:</b> mark.c:656</div></div>
+<div class="ttc" id="amark_8h_html_a3ddd8afd46e7cd5f5d3bc8052a310e03"><div class="ttname"><a href="mark_8h.html#a3ddd8afd46e7cd5f5d3bc8052a310e03">RESTORE_OUTPUT_RULE_SZ</a></div><div class="ttdeci">#define RESTORE_OUTPUT_RULE_SZ</div><div class="ttdef"><b>Definition:</b> mark.h:34</div></div>
+<div class="ttc" id="amark_8h_html_a3e2f008ced2b3d6a4502ef9f8b5586e2"><div class="ttname"><a href="mark_8h.html#a3e2f008ced2b3d6a4502ef9f8b5586e2">restore_output_rule_init</a></div><div class="ttdeci">void restore_output_rule_init(char *rule)</div><div class="ttdef"><b>Definition:</b> mark.c:142</div></div>
+<div class="ttc" id="amark_8h_html_a50b80d32a52e77946550b618b423dc16"><div class="ttname"><a href="mark_8h.html#a50b80d32a52e77946550b618b423dc16">igw_mark_rule_init</a></div><div class="ttdeci">void igw_mark_rule_init(char *rule)</div><div class="ttdef"><b>Definition:</b> mark.c:268</div></div>
+<div class="ttc" id="amark_8h_html_a58b54808330aab0f5d6bba8ca58f86c6"><div class="ttname"><a href="mark_8h.html#a58b54808330aab0f5d6bba8ca58f86c6">delete_first_rule</a></div><div class="ttdeci">int delete_first_rule(iptc_handle_t *t, const char *chain)</div><div class="ttdef"><b>Definition:</b> mark.c:631</div></div>
+<div class="ttc" id="amark_8h_html_a5c3adca3da96bafac143438ab9b75f66"><div class="ttname"><a href="mark_8h.html#a5c3adca3da96bafac143438ab9b75f66">create_mark_rules</a></div><div class="ttdeci">int create_mark_rules(int n)</div><div class="ttdef"><b>Definition:</b> mark.c:560</div></div>
+<div class="ttc" id="amark_8h_html_a60f18561aa43df1660ba248a0d8b7e9a"><div class="ttname"><a href="mark_8h.html#a60f18561aa43df1660ba248a0d8b7e9a">insert_rule</a></div><div class="ttdeci">int insert_rule(const char *rule, iptc_handle_t *t, const char *chain, int pos)</div><div class="ttdef"><b>Definition:</b> mark.c:77</div></div>
+<div class="ttc" id="amark_8h_html_a76823239efa7a0e6f5b55634dff9f53f"><div class="ttname"><a href="mark_8h.html#a76823239efa7a0e6f5b55634dff9f53f">store_rules</a></div><div class="ttdeci">int store_rules()</div><div class="ttdef"><b>Definition:</b> mark.c:326</div></div>
+<div class="ttc" id="amark_8h_html_aa2ac4a9fa8715a9bfa35588c986d666f"><div class="ttname"><a href="mark_8h.html#aa2ac4a9fa8715a9bfa35588c986d666f">ntk_forward_rule_init</a></div><div class="ttdeci">void ntk_forward_rule_init(char *rule)</div><div class="ttdef"><b>Definition:</b> mark.c:189</div></div>
+<div class="ttc" id="amark_8h_html_abbc88f2a68e31820fa41e17673da35d5"><div class="ttname"><a href="mark_8h.html#abbc88f2a68e31820fa41e17673da35d5">rule_store</a></div><div class="ttdeci">struct rule_store rule_store</div></div>
+<div class="ttc" id="amark_8h_html_abce88ee61b36a36e1e58278165d6004d"><div class="ttname"><a href="mark_8h.html#abce88ee61b36a36e1e58278165d6004d">mark_close</a></div><div class="ttdeci">int mark_close()</div><div class="ttdef"><b>Definition:</b> mark.c:709</div></div>
+<div class="ttc" id="amark_8h_html_ac8de283fd015ee2dc49c172db4e7dab9"><div class="ttname"><a href="mark_8h.html#ac8de283fd015ee2dc49c172db4e7dab9">delete_rule</a></div><div class="ttdeci">int delete_rule(rule_store *rule, iptc_handle_t *t)</div><div class="ttdef"><b>Definition:</b> mark.c:682</div></div>
+<div class="ttc" id="amark_8h_html_acc021e7bc72ddf7254f266632ffa8a52"><div class="ttname"><a href="mark_8h.html#acc021e7bc72ddf7254f266632ffa8a52">ntk_mark_chain_init</a></div><div class="ttdeci">int ntk_mark_chain_init(iptc_handle_t *t)</div><div class="ttdef"><b>Definition:</b> mark.c:295</div></div>
+<div class="ttc" id="amark_8h_html_ad51a5da17eeb62f880494a790003d7dd"><div class="ttname"><a href="mark_8h.html#ad51a5da17eeb62f880494a790003d7dd">append_rule</a></div><div class="ttdeci">int append_rule(const char *rule, iptc_handle_t *t, const char *chain)</div><div class="ttdef"><b>Definition:</b> mark.c:98</div></div>
+<div class="ttc" id="amark_8h_html_ae25f34efd8149097818c5b089c91afd7"><div class="ttname"><a href="mark_8h.html#ae25f34efd8149097818c5b089c91afd7">mark_rule_init</a></div><div class="ttdeci">void mark_rule_init(char *rule, char *outiface, int outiface_num)</div><div class="ttdef"><b>Definition:</b> mark.c:230</div></div>
 <div class="ttc" id="astructrule__store_html"><div class="ttname"><a href="structrule__store.html">rule_store</a></div><div class="ttdef"><b>Definition:</b> mark.h:53</div></div>
+<div class="ttc" id="astructrule__store_html_a0e1ea19fb9fa7881d15d84eff4c090e1"><div class="ttname"><a href="structrule__store.html#a0e1ea19fb9fa7881d15d84eff4c090e1">rule_store::sz</a></div><div class="ttdeci">int sz</div><div class="ttdef"><b>Definition:</b> mark.h:55</div></div>
+<div class="ttc" id="astructrule__store_html_a1a2e600921a838625caf6c28eb97240c"><div class="ttname"><a href="structrule__store.html#a1a2e600921a838625caf6c28eb97240c">rule_store::chain</a></div><div class="ttdeci">char * chain</div><div class="ttdef"><b>Definition:</b> mark.h:56</div></div>
+<div class="ttc" id="astructrule__store_html_a66efae4f20d853c38c41ca26f7d973ae"><div class="ttname"><a href="structrule__store.html#a66efae4f20d853c38c41ca26f7d973ae">rule_store::e</a></div><div class="ttdeci">char e[RESTORE_OUTPUT_RULE_SZ]</div><div class="ttdef"><b>Definition:</b> mark.h:54</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="mark_8h.html">mark.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

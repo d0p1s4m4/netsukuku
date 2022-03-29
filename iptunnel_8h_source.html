@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('iptunnel_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">iptunnel.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="iptunnel_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2005 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,18 +108,18 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef IPTUNNEL_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define IPTUNNEL_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;if.h&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="if_8h.html">if.h</a>&quot;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define DEFAULT_TUNL_PREFIX &quot;tunl&quot;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define DEFAULT_TUNL_NUMBER 0   </span><span class="comment">/* The permanent tunl0 device */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define DEFAULT_TUNL_IF     &quot;tunl0&quot;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define NTK_TUNL_PREFIX     &quot;ntk_tunl&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="iptunnel_8h.html#a9e016b965ffdc238961977d6f36179b0">   24</a></span><span class="preprocessor">#define DEFAULT_TUNL_PREFIX &quot;tunl&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="iptunnel_8h.html#ac05d27e9fe08cb86715d719d58c7c830">   25</a></span><span class="preprocessor">#define DEFAULT_TUNL_NUMBER 0   </span><span class="comment">/* The permanent tunl0 device */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="iptunnel_8h.html#ae80c36a5a4809e675087a33d13f0f992">   26</a></span><span class="preprocessor">#define DEFAULT_TUNL_IF     &quot;tunl0&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="iptunnel_8h.html#a39f4d8ea372cffcb3758c6818ff9fea4">   27</a></span><span class="preprocessor">#define NTK_TUNL_PREFIX     &quot;ntk_tunl&quot;</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">/* Usage: printf(TUNL_STRING, TUNL_NUMBER(&quot;tunl&quot;, x)); */</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define TUNL_STRING     &quot;%s%d&quot;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define TUNL_N(prefix, x)   prefix, x</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="iptunnel_8h.html#a8c008d167f2195834e054fb3975995a1">   30</a></span><span class="preprocessor">#define TUNL_STRING     &quot;%s%d&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="iptunnel_8h.html#a3a99f4c768e54244daf60ed7dc50ab55">   31</a></span><span class="preprocessor">#define TUNL_N(prefix, x)   prefix, x</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define MAX_TUNNEL_IFS      24  </span><span class="comment">/* it must be &gt;= MAX_MULTIPATH_ROUTES,</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="iptunnel_8h.html#a28878215dd74fb1b9a8fe990e5578c8b">   33</a></span><span class="preprocessor">#define MAX_TUNNEL_IFS      24  </span><span class="comment">/* it must be &gt;= MAX_MULTIPATH_ROUTES,</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">                                   since in igs.c we are using a tunnel</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">                                   for each nexthop inet-gw */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
@@ -111,7 +127,7 @@ $(function() {
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> * * Globals * *</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">interface </span>tunnel_ifs[MAX_TUNNEL_IFS];</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">interface </span>tunnel_ifs[<a class="code hl_define" href="iptunnel_8h.html#a28878215dd74fb1b9a8fe990e5578c8b">MAX_TUNNEL_IFS</a>];</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">/*</span></div>
@@ -119,34 +135,52 @@ $(function() {
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">int</span> tunnel_add(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#a8d836353486990302d5e9ab4782ad04f">tunnel_add</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>               <span class="keywordtype">char</span> *tunl_prefix, <span class="keywordtype">int</span> tunl_number);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">int</span> tunnel_change(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#ae26d3bdbda86ef56b85bce67f3cb622e">tunnel_change</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                  <span class="keywordtype">char</span> *tunl_prefix, <span class="keywordtype">int</span> tunl_number);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keywordtype">int</span> tunnel_del(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#a770f08840a609f19a4db7cfc47e66778">tunnel_del</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>               <span class="keywordtype">char</span> *tunl_prefix, <span class="keywordtype">int</span> tunl_number);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">int</span> tun_add_tunl(<a class="code hl_struct" href="structinterface.html">interface</a> * ifs, <span class="keywordtype">char</span> *tunl_prefix, u_char tunl_number);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">int</span> tun_del_tunl(<a class="code hl_struct" href="structinterface.html">interface</a> * ifs, <span class="keywordtype">char</span> *tunl_prefix, u_char tunl_number);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">void</span> init_tunnels_ifs(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">int</span> set_tunnel_ip(<span class="keywordtype">char</span> *tunl_prefix, <span class="keywordtype">int</span> tunl_number,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#a6cb423d75645f7b9fc5d50bd482de44d">tun_add_tunl</a>(<a class="code hl_struct" href="structinterface.html">interface</a> * ifs, <span class="keywordtype">char</span> *tunl_prefix, u_char tunl_number);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#ae2688c7c3ee7d1d10a646644e08f66b5">tun_del_tunl</a>(<a class="code hl_struct" href="structinterface.html">interface</a> * ifs, <span class="keywordtype">char</span> *tunl_prefix, u_char tunl_number);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">void</span> <a class="code hl_function" href="iptunnel_8h.html#adfce586da0d4e2ab0da7c59840bd1fa2">init_tunnels_ifs</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#ac1530909b70d5c7d0d743a455231ab4e">set_tunnel_ip</a>(<span class="keywordtype">char</span> *tunl_prefix, <span class="keywordtype">int</span> tunl_number,</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                  <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * tunl_ip);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">int</span> first_free_tunnel_if(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">int</span> do_get(<span class="keywordtype">char</span> *dev);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">int</span> add_tunnel_if(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#a2c789631c5972d028bb5a31079ad55fc">first_free_tunnel_if</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#a2ad06b901b6a0d7c0f59f82c9762a27f">do_get</a>(<span class="keywordtype">char</span> *dev);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#ade446676cc0926692889f6f6efc3a7ba">add_tunnel_if</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                  <span class="keywordtype">char</span> *tunl_prefix, <span class="keywordtype">int</span> tunl_number,</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                  <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * tunl_ip);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">int</span> del_tunnel_if(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">int</span> <a class="code hl_function" href="iptunnel_8h.html#ac4140773b9400374d8142caa1cc14b55">del_tunnel_if</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local, <span class="keywordtype">char</span> *dev,</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                  <span class="keywordtype">char</span> *tunl_prefix, <span class="keywordtype">int</span> tunl_number);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> del_all_tunnel_ifs(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> <a class="code hl_function" href="iptunnel_8h.html#ade2b2a63699f0fc83f3e4746afd97c2e">del_all_tunnel_ifs</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * remote, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * local,</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                        <span class="keywordtype">char</span> *dev, <span class="keywordtype">char</span> *tunl_prefix);</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif                          </span><span class="comment">/* IPTUNNEL_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aif_8h_html"><div class="ttname"><a href="if_8h.html">if.h</a></div></div>
+<div class="ttc" id="aiptunnel_8h_html_a28878215dd74fb1b9a8fe990e5578c8b"><div class="ttname"><a href="iptunnel_8h.html#a28878215dd74fb1b9a8fe990e5578c8b">MAX_TUNNEL_IFS</a></div><div class="ttdeci">#define MAX_TUNNEL_IFS</div><div class="ttdef"><b>Definition:</b> iptunnel.h:33</div></div>
+<div class="ttc" id="aiptunnel_8h_html_a2ad06b901b6a0d7c0f59f82c9762a27f"><div class="ttname"><a href="iptunnel_8h.html#a2ad06b901b6a0d7c0f59f82c9762a27f">do_get</a></div><div class="ttdeci">int do_get(char *dev)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:248</div></div>
+<div class="ttc" id="aiptunnel_8h_html_a2c789631c5972d028bb5a31079ad55fc"><div class="ttname"><a href="iptunnel_8h.html#a2c789631c5972d028bb5a31079ad55fc">first_free_tunnel_if</a></div><div class="ttdeci">int first_free_tunnel_if(void)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:354</div></div>
+<div class="ttc" id="aiptunnel_8h_html_a6cb423d75645f7b9fc5d50bd482de44d"><div class="ttname"><a href="iptunnel_8h.html#a6cb423d75645f7b9fc5d50bd482de44d">tun_add_tunl</a></div><div class="ttdeci">int tun_add_tunl(interface *ifs, char *tunl_prefix, u_char tunl_number)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:305</div></div>
+<div class="ttc" id="aiptunnel_8h_html_a770f08840a609f19a4db7cfc47e66778"><div class="ttname"><a href="iptunnel_8h.html#a770f08840a609f19a4db7cfc47e66778">tunnel_del</a></div><div class="ttdeci">int tunnel_del(inet_prefix *remote, inet_prefix *local, char *dev, char *tunl_prefix, int tunl_number)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:66</div></div>
+<div class="ttc" id="aiptunnel_8h_html_a8d836353486990302d5e9ab4782ad04f"><div class="ttname"><a href="iptunnel_8h.html#a8d836353486990302d5e9ab4782ad04f">tunnel_add</a></div><div class="ttdeci">int tunnel_add(inet_prefix *remote, inet_prefix *local, char *dev, char *tunl_prefix, int tunl_number)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:50</div></div>
+<div class="ttc" id="aiptunnel_8h_html_ac1530909b70d5c7d0d743a455231ab4e"><div class="ttname"><a href="iptunnel_8h.html#ac1530909b70d5c7d0d743a455231ab4e">set_tunnel_ip</a></div><div class="ttdeci">int set_tunnel_ip(char *tunl_prefix, int tunl_number, inet_prefix *tunl_ip)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:369</div></div>
+<div class="ttc" id="aiptunnel_8h_html_ac4140773b9400374d8142caa1cc14b55"><div class="ttname"><a href="iptunnel_8h.html#ac4140773b9400374d8142caa1cc14b55">del_tunnel_if</a></div><div class="ttdeci">int del_tunnel_if(inet_prefix *remote, inet_prefix *local, char *dev, char *tunl_prefix, int tunl_number)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:441</div></div>
+<div class="ttc" id="aiptunnel_8h_html_ade2b2a63699f0fc83f3e4746afd97c2e"><div class="ttname"><a href="iptunnel_8h.html#ade2b2a63699f0fc83f3e4746afd97c2e">del_all_tunnel_ifs</a></div><div class="ttdeci">void del_all_tunnel_ifs(inet_prefix *remote, inet_prefix *local, char *dev, char *tunl_prefix)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:461</div></div>
+<div class="ttc" id="aiptunnel_8h_html_ade446676cc0926692889f6f6efc3a7ba"><div class="ttname"><a href="iptunnel_8h.html#ade446676cc0926692889f6f6efc3a7ba">add_tunnel_if</a></div><div class="ttdeci">int add_tunnel_if(inet_prefix *remote, inet_prefix *local, char *dev, char *tunl_prefix, int tunl_number, inet_prefix *tunl_ip)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:389</div></div>
+<div class="ttc" id="aiptunnel_8h_html_adfce586da0d4e2ab0da7c59840bd1fa2"><div class="ttname"><a href="iptunnel_8h.html#adfce586da0d4e2ab0da7c59840bd1fa2">init_tunnels_ifs</a></div><div class="ttdeci">void init_tunnels_ifs(void)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:343</div></div>
+<div class="ttc" id="aiptunnel_8h_html_ae2688c7c3ee7d1d10a646644e08f66b5"><div class="ttname"><a href="iptunnel_8h.html#ae2688c7c3ee7d1d10a646644e08f66b5">tun_del_tunl</a></div><div class="ttdeci">int tun_del_tunl(interface *ifs, char *tunl_prefix, u_char tunl_number)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:324</div></div>
+<div class="ttc" id="aiptunnel_8h_html_ae26d3bdbda86ef56b85bce67f3cb622e"><div class="ttname"><a href="iptunnel_8h.html#ae26d3bdbda86ef56b85bce67f3cb622e">tunnel_change</a></div><div class="ttdeci">int tunnel_change(inet_prefix *remote, inet_prefix *local, char *dev, char *tunl_prefix, int tunl_number)</div><div class="ttdef"><b>Definition:</b> iptunnel.c:58</div></div>
 <div class="ttc" id="astructinet__prefix_html"><div class="ttname"><a href="structinet__prefix.html">inet_prefix</a></div><div class="ttdef"><b>Definition:</b> inet.h:73</div></div>
 <div class="ttc" id="astructinterface_html"><div class="ttname"><a href="structinterface.html">interface</a></div><div class="ttdef"><b>Definition:</b> if.h:27</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="iptunnel_8h.html">iptunnel.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

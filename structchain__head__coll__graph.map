@@ -1,5 +1,5 @@
 <map id="chain_head" name="chain_head">
-<area shape="rect" id="node1" title=" " alt="" coords="80,112,168,139"/>
-<area shape="rect" id="node2" href="$structlist__head.html" title=" " alt="" coords="5,7,80,33"/>
-<area shape="rect" id="node3" href="$structcounter__map.html" title=" " alt="" coords="157,7,254,33"/>
+<area shape="rect" id="node1" title=" " alt="" coords="78,175,178,384"/>
+<area shape="rect" id="node2" href="$structlist__head.html" title=" " alt="" coords="5,13,80,90"/>
+<area shape="rect" id="node3" href="$structcounter__map.html" title=" " alt="" coords="165,5,262,97"/>
 </map>

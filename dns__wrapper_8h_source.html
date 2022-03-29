@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('dns__wrapper_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">dns_wrapper.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="dns__wrapper_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2005 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,12 +108,12 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef DNS_WRAPPER_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define DNS_WRAPPER_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define DNS_WRAPPER_PORT    53</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define MAX_DNS_PKT_SZ      512</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define MIN_PKT_SZ      7</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="dns__wrapper_8h.html#aea9a73d0a0c3953ff261db9c83535141">   22</a></span><span class="preprocessor">#define DNS_WRAPPER_PORT    53</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="dns__wrapper_8h.html#acde1176e5787969718fbf89c706082f2">   23</a></span><span class="preprocessor">#define MAX_DNS_PKT_SZ      512</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="dns__wrapper_8h.html#aa1a47e9b091958fe090292b8273304df">   24</a></span><span class="preprocessor">#define MIN_PKT_SZ      7</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">/* DNS wrapper resolver api */</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keywordtype">void</span> resolver_process(<span class="keyword">const</span> <span class="keywordtype">char</span> *question, <span class="keywordtype">unsigned</span> question_length,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="dns__wrapper_8h.html#ac8245ce7159fed5e198b8f5eab44ab4e">   27</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="dns__wrapper_8h.html#ac8245ce7159fed5e198b8f5eab44ab4e">resolver_process</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *question, <span class="keywordtype">unsigned</span> question_length,</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                      <span class="keywordtype">char</span> *answer, <span class="keywordtype">unsigned</span> *answer_length,</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                      <span class="keywordtype">int</span> (*callback) (<span class="keyword">const</span> <span class="keywordtype">char</span> *name, uint32_t * ip));</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
@@ -105,26 +121,39 @@ $(function() {
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> * dns_exec_pkt_argv is the struct passed to dns_exec_pkt() as argument </span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structdns__exec__pkt__argv.html">   34</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structdns__exec__pkt__argv.html">dns_exec_pkt_argv</a> {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">char</span> *rpkt;                 <span class="comment">/* Received dns query pkt */</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    ssize_t rpkt_sz;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structdns__exec__pkt__argv.html#ac16f8a795e478fbd250e7a6959406c00">   35</a></span>    <span class="keywordtype">char</span> *<a class="code hl_variable" href="structdns__exec__pkt__argv.html#ac16f8a795e478fbd250e7a6959406c00">rpkt</a>;                 <span class="comment">/* Received dns query pkt */</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structdns__exec__pkt__argv.html#a107790827648fb92f270e397225d883f">   36</a></span>    ssize_t <a class="code hl_variable" href="structdns__exec__pkt__argv.html#a107790827648fb92f270e397225d883f">rpkt_sz</a>;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">int</span> sk;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">struct </span>sockaddr from;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    socklen_t from_len;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structdns__exec__pkt__argv.html#a603590eee2547ee63c19918de7076b8a">   38</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structdns__exec__pkt__argv.html#a603590eee2547ee63c19918de7076b8a">sk</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structdns__exec__pkt__argv.html#a5ae5e723fe55e271cab57762edc3b6b9">   39</a></span>    <span class="keyword">struct </span>sockaddr <a class="code hl_variable" href="structdns__exec__pkt__argv.html#a5ae5e723fe55e271cab57762edc3b6b9">from</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structdns__exec__pkt__argv.html#ab269ecfb3eaf627a6b12e0a03fb7b036">   40</a></span>    <a class="code hl_typedef" href="libip4tc_8c.html#aae83a93236e01902b58ec3f197a17f7c">socklen_t</a> <a class="code hl_variable" href="structdns__exec__pkt__argv.html#ab269ecfb3eaf627a6b12e0a03fb7b036">from_len</a>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>pthread_mutex_t dns_exec_lock;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="dns__wrapper_8h.html#a01ec300bc466ce2ce22afaf8615060f8">   43</a></span>pthread_mutex_t <a class="code hl_variable" href="dns__wrapper_8h.html#a01ec300bc466ce2ce22afaf8615060f8">dns_exec_lock</a>;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">/* * * Functions declarations * * */</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keywordtype">void</span> *dns_wrapper_thread(<span class="keywordtype">void</span> *null);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keywordtype">void</span> *<a class="code hl_function" href="dns__wrapper_8h.html#a433254d4d6cb0de2fd322e98302883b5">dns_wrapper_thread</a>(<span class="keywordtype">void</span> *null);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif                          </span><span class="comment">/*DNS_WRAPPER_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="adns__wrapper_8h_html_a01ec300bc466ce2ce22afaf8615060f8"><div class="ttname"><a href="dns__wrapper_8h.html#a01ec300bc466ce2ce22afaf8615060f8">dns_exec_lock</a></div><div class="ttdeci">pthread_mutex_t dns_exec_lock</div><div class="ttdef"><b>Definition:</b> dns_wrapper.h:43</div></div>
+<div class="ttc" id="adns__wrapper_8h_html_a433254d4d6cb0de2fd322e98302883b5"><div class="ttname"><a href="dns__wrapper_8h.html#a433254d4d6cb0de2fd322e98302883b5">dns_wrapper_thread</a></div><div class="ttdeci">void * dns_wrapper_thread(void *null)</div><div class="ttdef"><b>Definition:</b> dns_wrapper.c:180</div></div>
+<div class="ttc" id="adns__wrapper_8h_html_ac8245ce7159fed5e198b8f5eab44ab4e"><div class="ttname"><a href="dns__wrapper_8h.html#ac8245ce7159fed5e198b8f5eab44ab4e">resolver_process</a></div><div class="ttdeci">void resolver_process(const char *question, unsigned question_length, char *answer, unsigned *answer_length, int(*callback)(const char *name, uint32_t *ip))</div></div>
+<div class="ttc" id="alibip4tc_8c_html_aae83a93236e01902b58ec3f197a17f7c"><div class="ttname"><a href="libip4tc_8c.html#aae83a93236e01902b58ec3f197a17f7c">socklen_t</a></div><div class="ttdeci">unsigned int socklen_t</div><div class="ttdef"><b>Definition:</b> libip4tc.c:26</div></div>
 <div class="ttc" id="astructdns__exec__pkt__argv_html"><div class="ttname"><a href="structdns__exec__pkt__argv.html">dns_exec_pkt_argv</a></div><div class="ttdef"><b>Definition:</b> dns_wrapper.h:34</div></div>
+<div class="ttc" id="astructdns__exec__pkt__argv_html_a107790827648fb92f270e397225d883f"><div class="ttname"><a href="structdns__exec__pkt__argv.html#a107790827648fb92f270e397225d883f">dns_exec_pkt_argv::rpkt_sz</a></div><div class="ttdeci">ssize_t rpkt_sz</div><div class="ttdef"><b>Definition:</b> dns_wrapper.h:36</div></div>
+<div class="ttc" id="astructdns__exec__pkt__argv_html_a5ae5e723fe55e271cab57762edc3b6b9"><div class="ttname"><a href="structdns__exec__pkt__argv.html#a5ae5e723fe55e271cab57762edc3b6b9">dns_exec_pkt_argv::from</a></div><div class="ttdeci">struct sockaddr from</div><div class="ttdef"><b>Definition:</b> dns_wrapper.h:39</div></div>
+<div class="ttc" id="astructdns__exec__pkt__argv_html_a603590eee2547ee63c19918de7076b8a"><div class="ttname"><a href="structdns__exec__pkt__argv.html#a603590eee2547ee63c19918de7076b8a">dns_exec_pkt_argv::sk</a></div><div class="ttdeci">int sk</div><div class="ttdef"><b>Definition:</b> dns_wrapper.h:38</div></div>
+<div class="ttc" id="astructdns__exec__pkt__argv_html_ab269ecfb3eaf627a6b12e0a03fb7b036"><div class="ttname"><a href="structdns__exec__pkt__argv.html#ab269ecfb3eaf627a6b12e0a03fb7b036">dns_exec_pkt_argv::from_len</a></div><div class="ttdeci">socklen_t from_len</div><div class="ttdef"><b>Definition:</b> dns_wrapper.h:40</div></div>
+<div class="ttc" id="astructdns__exec__pkt__argv_html_ac16f8a795e478fbd250e7a6959406c00"><div class="ttname"><a href="structdns__exec__pkt__argv.html#ac16f8a795e478fbd250e7a6959406c00">dns_exec_pkt_argv::rpkt</a></div><div class="ttdeci">char * rpkt</div><div class="ttdef"><b>Definition:</b> dns_wrapper.h:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dns__wrapper_8h.html">dns_wrapper.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

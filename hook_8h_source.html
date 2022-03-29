@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('hook_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">hook.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="hook_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2004 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,33 +108,33 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef HOOK_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define HOOK_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;qspn.h&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="qspn_8h.html">qspn.h</a>&quot;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define MAX_FIRST_RADAR_SCANS   1   </span><span class="comment">/* How many time we have to retry </span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="hook_8h.html#a86a8367bc85c4ff3b609ce7b947b17ba">   24</a></span><span class="preprocessor">#define MAX_FIRST_RADAR_SCANS   1   </span><span class="comment">/* How many time we have to retry </span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">                                       the first radar_scan if we</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">                                       didn&#39;t found anything */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#ifdef DEBUG</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#undef  MAX_FIRST_RADAR_SCANS</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define MAX_FIRST_RADAR_SCANS   1</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/* The IP class used during the hook */</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define HOOKING_IP_10       0xa000001   </span><span class="comment">/* 10.0.0.1 */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="hook_8h.html#aea6244f0ec280e16d0bd132867adacda">   31</a></span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="hook_8h.html#ab922fdb592c292d5c3a839f443e93ae6">   32</a></span><span class="comment">/* The IP class used during the hook */</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="hook_8h.html#a9ad99da0a0ab3bf70a9f44de0373b081">   33</a></span><span class="preprocessor">#define HOOKING_IP_10       0xa000001   </span><span class="comment">/* 10.0.0.1 */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define HOOKING_IP_172      0xac100001  </span><span class="comment">/* 172.16.0.1 */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define HOOKING_IPV6        0xfec00000  </span><span class="comment">/* fec0:: */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="hook_8h.html#af99bef32c0423d237756999f35d7b554">   35</a></span><span class="preprocessor">#define HOOKING_IPV6        0xfec00000  </span><span class="comment">/* fec0:: */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define HOOK_RQ_TIMEOUT     8   </span><span class="comment">/* seconds */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"> * * *  Global vars  * * *</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="hook_8h.html#a02d00308296b3bf01fb0c537f356dc9b">   42</a></span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/* How many times netsukuku_hook() was launched */</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keywordtype">int</span> total_hooks;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">/* Current join_rate */</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>u_int hook_join_rate;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>u_int rnodes_rehooked;          <span class="comment">/* How many rnodes have rehooked with us */</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keywordtype">int</span> <a class="code hl_variable" href="hook_8h.html#a02d00308296b3bf01fb0c537f356dc9b">total_hooks</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="hook_8h.html#ab9316eed1d091f99fc4884a2863c4553">   45</a></span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="hook_8h.html#a12af4a7ec9fc3795e61018514fcfbf64">   46</a></span><span class="comment">/* Current join_rate */</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>u_int <a class="code hl_variable" href="hook_8h.html#ab9316eed1d091f99fc4884a2863c4553">hook_join_rate</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>u_int <a class="code hl_variable" href="hook_8h.html#a12af4a7ec9fc3795e61018514fcfbf64">rnodes_rehooked</a>;          <span class="comment">/* How many rnodes have rehooked with us */</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">/*</span></div>
@@ -134,21 +150,21 @@ $(function() {
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"> * If level is &gt; 0 then it contains the list of free gnodes which are inside</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment"> * the gnode with `fn_hdr.gid&#39; gid of the `fn_hdr.level&#39;th level. So the free gnodes</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structfree__nodes__hdr.html">   63</a></span><span class="comment"> * are part of the (fn_hdr.level - 1)th level.</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structfree__nodes__hdr.html#a0bb30900a8b7d55b06dad20bcf24df78">   64</a></span><span class="comment"> */</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">struct </span><a class="code hl_struct" href="structfree__nodes__hdr.html">free_nodes_hdr</a> {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    u_char max_levels;          <span class="comment">/* How many levels we are managing */</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    uint32_t ipstart[MAX_IP_INT];   <span class="comment">/* The ipstart of the gnode */</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    u_char level;               <span class="comment">/* The level where the gnode belongs */</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    u_char gid;                 <span class="comment">/* The gnode id */</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    u_char nodes;               <span class="comment">/* The number of free (g)nodes - 1 */</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    uint32_t join_rate;         <span class="comment">/* Join_rate of `level&#39; */</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <a class="code hl_struct" href="struct___p_a_c_k_e_d__.html">_PACKED_</a>;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>INT_INFO free_nodes_hdr_iinfo = { 1, {INT_TYPE_32BIT},</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structfree__nodes__hdr.html#a6dec679f9ab1459d16e51d879a532c60">   66</a></span>    u_char <a class="code hl_variable" href="structfree__nodes__hdr.html#a0bb30900a8b7d55b06dad20bcf24df78">max_levels</a>;          <span class="comment">/* How many levels we are managing */</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structfree__nodes__hdr.html#a0a275ff6ae7499959f2342bb71d33c85">   67</a></span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structfree__nodes__hdr.html#af2629cd83455d8833085556bc48cbfed">   68</a></span>    uint32_t <a class="code hl_variable" href="structfree__nodes__hdr.html#a6dec679f9ab1459d16e51d879a532c60">ipstart</a>[<a class="code hl_define" href="inet_8h.html#a70f8406c9556460a606bee45306c5630">MAX_IP_INT</a>];   <span class="comment">/* The ipstart of the gnode */</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structfree__nodes__hdr.html#aa7e6e22ea2c0fd656979182fd7b00177">   69</a></span>    u_char <a class="code hl_variable" href="structfree__nodes__hdr.html#a0a275ff6ae7499959f2342bb71d33c85">level</a>;               <span class="comment">/* The level where the gnode belongs */</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structfree__nodes__hdr.html#a09156528e4d26b1d4b836920a63b40d0">   70</a></span>    u_char <a class="code hl_variable" href="structfree__nodes__hdr.html#af2629cd83455d8833085556bc48cbfed">gid</a>;                 <span class="comment">/* The gnode id */</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="hook_8h.html#a14d32f6676649eb9afc8c122ddceca7e">   71</a></span>    u_char <a class="code hl_variable" href="structfree__nodes__hdr.html#aa7e6e22ea2c0fd656979182fd7b00177">nodes</a>;               <span class="comment">/* The number of free (g)nodes - 1 */</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="hook_8h.html#aaa286ec6b004f727c668e97dff115f1d">   72</a></span>    uint32_t <a class="code hl_variable" href="structfree__nodes__hdr.html#a09156528e4d26b1d4b836920a63b40d0">join_rate</a>;         <span class="comment">/* Join_rate of `level&#39; */</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <a class="code hl_variable" href="hook_8h.html#a14d32f6676649eb9afc8c122ddceca7e">_PACKED_</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><a class="code hl_define" href="endianness_8h.html#a3e44b8503d7a90af675c81800fe6d275">INT_INFO</a> <a class="code hl_variable" href="hook_8h.html#aaa286ec6b004f727c668e97dff115f1d">free_nodes_hdr_iinfo</a> = { 1, {<a class="code hl_define" href="endianness_8h.html#acc663d0291dd4a32c1dfbed3167bd58b">INT_TYPE_32BIT</a>},</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>{<span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structfree__nodes__hdr.html">free_nodes_hdr</a>) - sizeof(uint32_t)}</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>,</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>{1}</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>};</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="hook_8h.html#a3368325212747abd7bda568aecd36fb6">   78</a></span>};</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#define FREE_NODES_SZ(nodes) (sizeof(struct free_nodes_hdr)           +\</span></div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">                        (sizeof(u_char) * (nodes)))</span></div>
@@ -177,14 +193,14 @@ $(function() {
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment"> *                         for each fn_hdr.max_levels level</span></div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment"> *  u_int       gcount[GCOUNT_LEVELS];     current qspn_gnode_count.</span></div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">/* Note: for this int_info we are considering the timeval array as one int</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="hook_8h.html#ab38e0bc8cbae0f05199a8f62a08f14c3">  107</a></span><span class="comment">/* Note: for this int_info we are considering the timeval array as one int</span></div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment"> * with `max_levels&#39;*2 members */</span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>INT_INFO qspn_round_pkt_iinfo = { 3,</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    {INT_TYPE_32BIT, INT_TYPE_32BIT, INT_TYPE_32BIT}</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><a class="code hl_define" href="endianness_8h.html#a3e44b8503d7a90af675c81800fe6d275">INT_INFO</a> <a class="code hl_variable" href="hook_8h.html#ab38e0bc8cbae0f05199a8f62a08f14c3">qspn_round_pkt_iinfo</a> = { 3,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    {<a class="code hl_define" href="endianness_8h.html#acc663d0291dd4a32c1dfbed3167bd58b">INT_TYPE_32BIT</a>, <a class="code hl_define" href="endianness_8h.html#acc663d0291dd4a32c1dfbed3167bd58b">INT_TYPE_32BIT</a>, <a class="code hl_define" href="endianness_8h.html#acc663d0291dd4a32c1dfbed3167bd58b">INT_TYPE_32BIT</a>}</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    ,</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    {<span class="keyword">sizeof</span>(char), IINFO_DYNAMIC_VALUE, IINFO_DYNAMIC_VALUE},</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    {IINFO_DYNAMIC_VALUE, IINFO_DYNAMIC_VALUE, GCOUNT_LEVELS}</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>};</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    {<span class="keyword">sizeof</span>(char), <a class="code hl_define" href="endianness_8h.html#aab0cb83658366f074119d70b2838c7d2">IINFO_DYNAMIC_VALUE</a>, <a class="code hl_define" href="endianness_8h.html#aab0cb83658366f074119d70b2838c7d2">IINFO_DYNAMIC_VALUE</a>},</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    {<a class="code hl_define" href="endianness_8h.html#aab0cb83658366f074119d70b2838c7d2">IINFO_DYNAMIC_VALUE</a>, <a class="code hl_define" href="endianness_8h.html#aab0cb83658366f074119d70b2838c7d2">IINFO_DYNAMIC_VALUE</a>, <a class="code hl_define" href="qspn_8h.html#ae43980163dccdef6bba0624790470ac3">GCOUNT_LEVELS</a>}</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="hook_8h.html#a22191ec70af999dbf1a806a13682bd01">  114</a></span>};</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#define QSPN_ROUND_PKT_SZ(levels)   (sizeof(u_char) +           \</span></div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">                        ((levels) * sizeof(int32_t)) +  \</span></div>
@@ -196,28 +212,58 @@ $(function() {
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment"> * * * Functions declaration * * *</span></div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keywordtype">int</span> put_free_nodes(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keywordtype">int</span> put_qspn_round(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keywordtype">int</span> put_ext_map(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keywordtype">int</span> put_int_map(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="keywordtype">int</span> put_bnode_map(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="keywordtype">int</span> create_gnodes(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * ip, <span class="keywordtype">int</span> final_level);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keywordtype">void</span> set_ip_and_def_gw(<span class="keywordtype">char</span> *dev, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> ip);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keywordtype">int</span> <a class="code hl_function" href="hook_8h.html#a7da6546e5822e282b57e5aee17e0c80c">put_free_nodes</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keywordtype">int</span> <a class="code hl_function" href="hook_8h.html#a14eec030eb6098fc9cc4a8609b19bd00">put_qspn_round</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keywordtype">int</span> <a class="code hl_function" href="hook_8h.html#aa99944b9d6345e33be0bf1c850380228">put_ext_map</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keywordtype">int</span> <a class="code hl_function" href="hook_8h.html#ab08a91850a188145dc3f039300aeca8b">put_int_map</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="keywordtype">int</span> <a class="code hl_function" href="hook_8h.html#a63187dcc3bfeb1895aed9385c06ed714">put_bnode_map</a>(<a class="code hl_struct" href="struct_p_a_c_k_e_t.html">PACKET</a> rq_pkt);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="hook_8h.html#adbf24b12ebeeeb408627e1d523b8eea0">  131</a></span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="keywordtype">int</span> <a class="code hl_function" href="hook_8h.html#ab49323f81163c48f70eacb3bd5a5eec4">create_gnodes</a>(<a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> * ip, <span class="keywordtype">int</span> final_level);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keywordtype">void</span> <a class="code hl_function" href="hook_8h.html#adbf24b12ebeeeb408627e1d523b8eea0">set_ip_and_def_gw</a>(<span class="keywordtype">char</span> *dev, <a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> ip);</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keywordtype">int</span> hook_init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keywordtype">int</span> netsukuku_hook(<a class="code hl_struct" href="structmap__gnode.html">map_gnode</a> * hook_gnode, <span class="keywordtype">int</span> hook_level);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keywordtype">int</span> <a class="code hl_function" href="hook_8h.html#af541d5ab5dd6596b12342140f4094dee">hook_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keywordtype">int</span> <a class="code hl_function" href="hook_8h.html#af10a487801fab9a28a3cfb6759fe138f">netsukuku_hook</a>(<a class="code hl_struct" href="structmap__gnode.html">map_gnode</a> * hook_gnode, <span class="keywordtype">int</span> hook_level);</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">#endif                          </span><span class="comment">/*HOOK_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="astruct___p_a_c_k_e_d___html"><div class="ttname"><a href="struct___p_a_c_k_e_d__.html">_PACKED_</a></div><div class="ttdef"><b>Definition:</b> bmap.h:83</div></div>
+<div class="ttc" id="aendianness_8h_html_a3e44b8503d7a90af675c81800fe6d275"><div class="ttname"><a href="endianness_8h.html#a3e44b8503d7a90af675c81800fe6d275">INT_INFO</a></div><div class="ttdeci">#define INT_INFO</div><div class="ttdef"><b>Definition:</b> endianness.h:82</div></div>
+<div class="ttc" id="aendianness_8h_html_aab0cb83658366f074119d70b2838c7d2"><div class="ttname"><a href="endianness_8h.html#aab0cb83658366f074119d70b2838c7d2">IINFO_DYNAMIC_VALUE</a></div><div class="ttdeci">#define IINFO_DYNAMIC_VALUE</div><div class="ttdef"><b>Definition:</b> endianness.h:24</div></div>
+<div class="ttc" id="aendianness_8h_html_acc663d0291dd4a32c1dfbed3167bd58b"><div class="ttname"><a href="endianness_8h.html#acc663d0291dd4a32c1dfbed3167bd58b">INT_TYPE_32BIT</a></div><div class="ttdeci">#define INT_TYPE_32BIT</div><div class="ttdef"><b>Definition:</b> endianness.h:29</div></div>
+<div class="ttc" id="ahook_8h_html_a02d00308296b3bf01fb0c537f356dc9b"><div class="ttname"><a href="hook_8h.html#a02d00308296b3bf01fb0c537f356dc9b">total_hooks</a></div><div class="ttdeci">int total_hooks</div><div class="ttdef"><b>Definition:</b> hook.h:42</div></div>
+<div class="ttc" id="ahook_8h_html_a12af4a7ec9fc3795e61018514fcfbf64"><div class="ttname"><a href="hook_8h.html#a12af4a7ec9fc3795e61018514fcfbf64">rnodes_rehooked</a></div><div class="ttdeci">u_int rnodes_rehooked</div><div class="ttdef"><b>Definition:</b> hook.h:46</div></div>
+<div class="ttc" id="ahook_8h_html_a14d32f6676649eb9afc8c122ddceca7e"><div class="ttname"><a href="hook_8h.html#a14d32f6676649eb9afc8c122ddceca7e">_PACKED_</a></div><div class="ttdeci">struct free_nodes_hdr _PACKED_</div></div>
+<div class="ttc" id="ahook_8h_html_a14eec030eb6098fc9cc4a8609b19bd00"><div class="ttname"><a href="hook_8h.html#a14eec030eb6098fc9cc4a8609b19bd00">put_qspn_round</a></div><div class="ttdeci">int put_qspn_round(PACKET rq_pkt)</div><div class="ttdef"><b>Definition:</b> hook.c:382</div></div>
+<div class="ttc" id="ahook_8h_html_a63187dcc3bfeb1895aed9385c06ed714"><div class="ttname"><a href="hook_8h.html#a63187dcc3bfeb1895aed9385c06ed714">put_bnode_map</a></div><div class="ttdeci">int put_bnode_map(PACKET rq_pkt)</div><div class="ttdef"><b>Definition:</b> hook.c:618</div></div>
+<div class="ttc" id="ahook_8h_html_a7da6546e5822e282b57e5aee17e0c80c"><div class="ttname"><a href="hook_8h.html#a7da6546e5822e282b57e5aee17e0c80c">put_free_nodes</a></div><div class="ttdeci">int put_free_nodes(PACKET rq_pkt)</div><div class="ttdef"><b>Definition:</b> hook.c:186</div></div>
+<div class="ttc" id="ahook_8h_html_aa99944b9d6345e33be0bf1c850380228"><div class="ttname"><a href="hook_8h.html#aa99944b9d6345e33be0bf1c850380228">put_ext_map</a></div><div class="ttdeci">int put_ext_map(PACKET rq_pkt)</div><div class="ttdef"><b>Definition:</b> hook.c:472</div></div>
+<div class="ttc" id="ahook_8h_html_aaa286ec6b004f727c668e97dff115f1d"><div class="ttname"><a href="hook_8h.html#aaa286ec6b004f727c668e97dff115f1d">free_nodes_hdr_iinfo</a></div><div class="ttdeci">INT_INFO free_nodes_hdr_iinfo</div><div class="ttdef"><b>Definition:</b> hook.h:72</div></div>
+<div class="ttc" id="ahook_8h_html_ab08a91850a188145dc3f039300aeca8b"><div class="ttname"><a href="hook_8h.html#ab08a91850a188145dc3f039300aeca8b">put_int_map</a></div><div class="ttdeci">int put_int_map(PACKET rq_pkt)</div><div class="ttdef"><b>Definition:</b> hook.c:543</div></div>
+<div class="ttc" id="ahook_8h_html_ab38e0bc8cbae0f05199a8f62a08f14c3"><div class="ttname"><a href="hook_8h.html#ab38e0bc8cbae0f05199a8f62a08f14c3">qspn_round_pkt_iinfo</a></div><div class="ttdeci">INT_INFO qspn_round_pkt_iinfo</div><div class="ttdef"><b>Definition:</b> hook.h:107</div></div>
+<div class="ttc" id="ahook_8h_html_ab49323f81163c48f70eacb3bd5a5eec4"><div class="ttname"><a href="hook_8h.html#ab49323f81163c48f70eacb3bd5a5eec4">create_gnodes</a></div><div class="ttdeci">int create_gnodes(inet_prefix *ip, int final_level)</div><div class="ttdef"><b>Definition:</b> hook.c:821</div></div>
+<div class="ttc" id="ahook_8h_html_ab9316eed1d091f99fc4884a2863c4553"><div class="ttname"><a href="hook_8h.html#ab9316eed1d091f99fc4884a2863c4553">hook_join_rate</a></div><div class="ttdeci">u_int hook_join_rate</div><div class="ttdef"><b>Definition:</b> hook.h:45</div></div>
+<div class="ttc" id="ahook_8h_html_adbf24b12ebeeeb408627e1d523b8eea0"><div class="ttname"><a href="hook_8h.html#adbf24b12ebeeeb408627e1d523b8eea0">set_ip_and_def_gw</a></div><div class="ttdeci">void set_ip_and_def_gw(char *dev, inet_prefix ip)</div></div>
+<div class="ttc" id="ahook_8h_html_af10a487801fab9a28a3cfb6759fe138f"><div class="ttname"><a href="hook_8h.html#af10a487801fab9a28a3cfb6759fe138f">netsukuku_hook</a></div><div class="ttdeci">int netsukuku_hook(map_gnode *hook_gnode, int hook_level)</div><div class="ttdef"><b>Definition:</b> hook.c:1621</div></div>
+<div class="ttc" id="ahook_8h_html_af541d5ab5dd6596b12342140f4094dee"><div class="ttname"><a href="hook_8h.html#af541d5ab5dd6596b12342140f4094dee">hook_init</a></div><div class="ttdeci">int hook_init(void)</div><div class="ttdef"><b>Definition:</b> hook.c:997</div></div>
+<div class="ttc" id="ainet_8h_html_a70f8406c9556460a606bee45306c5630"><div class="ttname"><a href="inet_8h.html#a70f8406c9556460a606bee45306c5630">MAX_IP_INT</a></div><div class="ttdeci">#define MAX_IP_INT</div><div class="ttdef"><b>Definition:</b> inet.h:24</div></div>
+<div class="ttc" id="aqspn_8h_html"><div class="ttname"><a href="qspn_8h.html">qspn.h</a></div></div>
+<div class="ttc" id="aqspn_8h_html_ae43980163dccdef6bba0624790470ac3"><div class="ttname"><a href="qspn_8h.html#ae43980163dccdef6bba0624790470ac3">GCOUNT_LEVELS</a></div><div class="ttdeci">#define GCOUNT_LEVELS</div><div class="ttdef"><b>Definition:</b> qspn.h:64</div></div>
 <div class="ttc" id="astruct_p_a_c_k_e_t_html"><div class="ttname"><a href="struct_p_a_c_k_e_t.html">PACKET</a></div><div class="ttdef"><b>Definition:</b> pkts.h:107</div></div>
 <div class="ttc" id="astructfree__nodes__hdr_html"><div class="ttname"><a href="structfree__nodes__hdr.html">free_nodes_hdr</a></div><div class="ttdef"><b>Definition:</b> hook.h:63</div></div>
+<div class="ttc" id="astructfree__nodes__hdr_html_a09156528e4d26b1d4b836920a63b40d0"><div class="ttname"><a href="structfree__nodes__hdr.html#a09156528e4d26b1d4b836920a63b40d0">free_nodes_hdr::join_rate</a></div><div class="ttdeci">uint32_t join_rate</div><div class="ttdef"><b>Definition:</b> hook.h:70</div></div>
+<div class="ttc" id="astructfree__nodes__hdr_html_a0a275ff6ae7499959f2342bb71d33c85"><div class="ttname"><a href="structfree__nodes__hdr.html#a0a275ff6ae7499959f2342bb71d33c85">free_nodes_hdr::level</a></div><div class="ttdeci">u_char level</div><div class="ttdef"><b>Definition:</b> hook.h:67</div></div>
+<div class="ttc" id="astructfree__nodes__hdr_html_a0bb30900a8b7d55b06dad20bcf24df78"><div class="ttname"><a href="structfree__nodes__hdr.html#a0bb30900a8b7d55b06dad20bcf24df78">free_nodes_hdr::max_levels</a></div><div class="ttdeci">u_char max_levels</div><div class="ttdef"><b>Definition:</b> hook.h:64</div></div>
+<div class="ttc" id="astructfree__nodes__hdr_html_a6dec679f9ab1459d16e51d879a532c60"><div class="ttname"><a href="structfree__nodes__hdr.html#a6dec679f9ab1459d16e51d879a532c60">free_nodes_hdr::ipstart</a></div><div class="ttdeci">uint32_t ipstart[MAX_IP_INT]</div><div class="ttdef"><b>Definition:</b> hook.h:66</div></div>
+<div class="ttc" id="astructfree__nodes__hdr_html_aa7e6e22ea2c0fd656979182fd7b00177"><div class="ttname"><a href="structfree__nodes__hdr.html#aa7e6e22ea2c0fd656979182fd7b00177">free_nodes_hdr::nodes</a></div><div class="ttdeci">u_char nodes</div><div class="ttdef"><b>Definition:</b> hook.h:69</div></div>
+<div class="ttc" id="astructfree__nodes__hdr_html_af2629cd83455d8833085556bc48cbfed"><div class="ttname"><a href="structfree__nodes__hdr.html#af2629cd83455d8833085556bc48cbfed">free_nodes_hdr::gid</a></div><div class="ttdeci">u_char gid</div><div class="ttdef"><b>Definition:</b> hook.h:68</div></div>
 <div class="ttc" id="astructinet__prefix_html"><div class="ttname"><a href="structinet__prefix.html">inet_prefix</a></div><div class="ttdef"><b>Definition:</b> inet.h:73</div></div>
 <div class="ttc" id="astructmap__gnode_html"><div class="ttname"><a href="structmap__gnode.html">map_gnode</a></div><div class="ttdef"><b>Definition:</b> gmap.h:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="hook_8h.html">hook.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

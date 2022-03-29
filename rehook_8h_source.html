@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('rehook_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">rehook.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
+<a href="rehook_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2005 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -92,7 +108,7 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef REHOOK_H</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define REHOOK_H</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">int</span> rehook_mutex;               <span class="comment">/* The can be only one rehook at the same time */</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="rehook_8h.html#ab550ecd914996e316fa3fb5e52aa3847">   22</a></span><span class="keywordtype">int</span> <a class="code hl_variable" href="rehook_8h.html#ab550ecd914996e316fa3fb5e52aa3847">rehook_mutex</a>;               <span class="comment">/* The can be only one rehook at the same time */</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * REHOOK_PER_INSTANCE the is total number of rehooks allowed in</span></div>
@@ -103,39 +119,50 @@ $(function() {
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * REHOOK_WAIT_TIME is calculated in this way:</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> *  ((8&lt;&lt;level) - (1&lt;&lt;level)) * 60</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define REHOOK_PER_INSTANCE     8</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define REHOOK_INSTANCE_TIME(level) (REHOOK_PER_INSTANCE*(level)*60)</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define REHOOK_WAIT_TIME(level)     (( (8&lt;&lt;(level)) - (1&lt;&lt;(level)) ) * 60)</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="rehook_8h.html#ade6dba19bf70e7126a0b3f286fbe55d8">   33</a></span><span class="preprocessor">#define REHOOK_PER_INSTANCE     8</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="rehook_8h.html#a144a14e08114b6eb6e911ebbfd3914b9">   34</a></span><span class="preprocessor">#define REHOOK_INSTANCE_TIME(level) (REHOOK_PER_INSTANCE*(level)*60)</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="rehook_8h.html#ae3cb5602242201354e7414e1f4624792">   35</a></span><span class="preprocessor">#define REHOOK_WAIT_TIME(level)     (( (8&lt;&lt;(level)) - (1&lt;&lt;(level)) ) * 60)</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>time_t last_instance_rehook;    <span class="comment">/* When the first rehook of the latest</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="rehook_8h.html#a0285644353cb7385e181a63777fca255">   38</a></span>time_t <a class="code hl_variable" href="rehook_8h.html#a0285644353cb7385e181a63777fca255">last_instance_rehook</a>;    <span class="comment">/* When the first rehook of the latest</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">                                   instance occurred */</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keywordtype">int</span> total_rehooks;              <span class="comment">/* Number of rehooks made in the current </span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="rehook_8h.html#a419acc34bafd06235d0533d8d7d3c815">   40</a></span><span class="keywordtype">int</span> <a class="code hl_variable" href="rehook_8h.html#a419acc34bafd06235d0533d8d7d3c815">total_rehooks</a>;              <span class="comment">/* Number of rehooks made in the current </span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">                                   instance. </span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">                                   It cannot be &gt; REHOOK_PER_INSTANCE */</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define CHALLENGE_THRESHOLD (1&lt;&lt;16) </span><span class="comment">/* When the gnode X, which must</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="rehook_8h.html#a95e8cb2031864165725b4cecebb897e4">   46</a></span><span class="preprocessor">#define CHALLENGE_THRESHOLD (1&lt;&lt;16) </span><span class="comment">/* When the gnode X, which must</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">                                       rehook, has a gnode_count &gt;= (1&lt;&lt;16) </span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">                                       it sends a new challenge. */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">/* `rk_gnode_ip&#39; is the ip that will be used if we cannot rehook directly to </span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="rehook_8h.html#abb641e18662d878cd1547a7852d61a59">   50</a></span><span class="comment">/* `rk_gnode_ip&#39; is the ip that will be used if we cannot rehook directly to </span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * any gnode: a new gnode is created with the ip equal to `rk_gnode_ip&#39;. */</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> rk_gnode_ip;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><a class="code hl_struct" href="structinet__prefix.html">inet_prefix</a> <a class="code hl_variable" href="rehook_8h.html#abb641e18662d878cd1547a7852d61a59">rk_gnode_ip</a>;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">/*  *  *  Functions declaration  *  *  */</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> rehook_init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">void</span> new_rehook(<a class="code hl_struct" href="structmap__gnode.html">map_gnode</a> * gnode, <span class="keywordtype">int</span> gid, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> gnode_count);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">int</span> rehook(<a class="code hl_struct" href="structmap__gnode.html">map_gnode</a> * hook_gnode, <span class="keywordtype">int</span> hook_level);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> <a class="code hl_function" href="rehook_8h.html#a0aa68ed5280644af1a48dfc6bc67cb40">rehook_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">void</span> <a class="code hl_function" href="rehook_8h.html#acd9ab3b97734c31a06ae3dcf475a1b39">new_rehook</a>(<a class="code hl_struct" href="structmap__gnode.html">map_gnode</a> * gnode, <span class="keywordtype">int</span> gid, <span class="keywordtype">int</span> level, <span class="keywordtype">int</span> gnode_count);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">int</span> <a class="code hl_function" href="rehook_8h.html#ae6ae2d4b03e5a8cc1891cbf553ebb913">rehook</a>(<a class="code hl_struct" href="structmap__gnode.html">map_gnode</a> * hook_gnode, <span class="keywordtype">int</span> hook_level);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#endif                          </span><span class="comment">/*REHOOK_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="arehook_8h_html_a0285644353cb7385e181a63777fca255"><div class="ttname"><a href="rehook_8h.html#a0285644353cb7385e181a63777fca255">last_instance_rehook</a></div><div class="ttdeci">time_t last_instance_rehook</div><div class="ttdef"><b>Definition:</b> rehook.h:38</div></div>
+<div class="ttc" id="arehook_8h_html_a0aa68ed5280644af1a48dfc6bc67cb40"><div class="ttname"><a href="rehook_8h.html#a0aa68ed5280644af1a48dfc6bc67cb40">rehook_init</a></div><div class="ttdeci">void rehook_init(void)</div><div class="ttdef"><b>Definition:</b> rehook.c:62</div></div>
+<div class="ttc" id="arehook_8h_html_a419acc34bafd06235d0533d8d7d3c815"><div class="ttname"><a href="rehook_8h.html#a419acc34bafd06235d0533d8d7d3c815">total_rehooks</a></div><div class="ttdeci">int total_rehooks</div><div class="ttdef"><b>Definition:</b> rehook.h:40</div></div>
+<div class="ttc" id="arehook_8h_html_ab550ecd914996e316fa3fb5e52aa3847"><div class="ttname"><a href="rehook_8h.html#ab550ecd914996e316fa3fb5e52aa3847">rehook_mutex</a></div><div class="ttdeci">int rehook_mutex</div><div class="ttdef"><b>Definition:</b> rehook.h:22</div></div>
+<div class="ttc" id="arehook_8h_html_abb641e18662d878cd1547a7852d61a59"><div class="ttname"><a href="rehook_8h.html#abb641e18662d878cd1547a7852d61a59">rk_gnode_ip</a></div><div class="ttdeci">inet_prefix rk_gnode_ip</div><div class="ttdef"><b>Definition:</b> rehook.h:50</div></div>
+<div class="ttc" id="arehook_8h_html_acd9ab3b97734c31a06ae3dcf475a1b39"><div class="ttname"><a href="rehook_8h.html#acd9ab3b97734c31a06ae3dcf475a1b39">new_rehook</a></div><div class="ttdeci">void new_rehook(map_gnode *gnode, int gid, int level, int gnode_count)</div><div class="ttdef"><b>Definition:</b> rehook.c:275</div></div>
+<div class="ttc" id="arehook_8h_html_ae6ae2d4b03e5a8cc1891cbf553ebb913"><div class="ttname"><a href="rehook_8h.html#ae6ae2d4b03e5a8cc1891cbf553ebb913">rehook</a></div><div class="ttdeci">int rehook(map_gnode *hook_gnode, int hook_level)</div><div class="ttdef"><b>Definition:</b> rehook.c:361</div></div>
 <div class="ttc" id="astructinet__prefix_html"><div class="ttname"><a href="structinet__prefix.html">inet_prefix</a></div><div class="ttdef"><b>Definition:</b> inet.h:73</div></div>
 <div class="ttc" id="astructmap__gnode_html"><div class="ttname"><a href="structmap__gnode.html">map_gnode</a></div><div class="ttdef"><b>Definition:</b> gmap.h:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="rehook_8h.html">rehook.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

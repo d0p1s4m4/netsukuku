@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structradar__queue.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,7 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -70,67 +90,222 @@ $(function() {
   <div class="headertitle"><div class="title">radar_queue Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="radar_8h_source.html">radar.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for radar_queue:</div>
 <div class="dyncontent">
 <div class="center"><img src="structradar__queue__coll__graph.png" border="0" usemap="#aradar__queue_coll__map" alt="Collaboration graph"/></div>
 <map name="aradar__queue_coll__map" id="aradar__queue_coll__map">
-<area shape="rect" title=" " alt="" coords="163,363,256,389"/>
-<area shape="rect" href="structinet__prefix.html" title=" " alt="" coords="5,184,85,211"/>
-<area shape="rect" href="structquadro__group.html" title=" " alt="" coords="101,273,201,300"/>
-<area shape="rect" href="structinterface.html" title=" " alt="" coords="276,273,348,300"/>
-<area shape="rect" href="structmap__node.html" title=" " alt="" coords="156,95,239,121"/>
-<area shape="rect" href="structmap__gnode.html" title=" " alt="" coords="111,184,201,211"/>
-<area shape="rect" href="structmap__rnode.html" title=" " alt="" coords="154,5,241,32"/>
+<area shape="rect" title=" " alt="" coords="151,727,265,877"/>
+<area shape="rect" href="structinet__prefix.html" title=" " alt="" coords="5,388,85,509"/>
+<area shape="rect" href="structquadro__group.html" title=" " alt="" coords="103,572,203,664"/>
+<area shape="rect" href="structinterface.html" title=" " alt="" coords="279,572,372,664"/>
+<area shape="rect" href="structmap__node.html" title=" " alt="" coords="159,204,241,325"/>
+<area shape="rect" href="structmap__gnode.html" title=" " alt="" coords="114,395,203,502"/>
+<area shape="rect" href="structmap__rnode.html" title=" " alt="" coords="157,5,243,141"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afd48295fda1641c4cfcf09c1883e0a2d"><td class="memItemLeft" align="right" valign="top"><a id="afd48295fda1641c4cfcf09c1883e0a2d" name="afd48295fda1641c4cfcf09c1883e0a2d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LLIST_HDR</b> (struct <a class="el" href="structradar__queue.html">radar_queue</a>)</td></tr>
+<tr class="memitem:afd48295fda1641c4cfcf09c1883e0a2d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#afd48295fda1641c4cfcf09c1883e0a2d">LLIST_HDR</a> (struct <a class="el" href="structradar__queue.html">radar_queue</a>)</td></tr>
 <tr class="separator:afd48295fda1641c4cfcf09c1883e0a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a13c202ab92e8fb89876769d5eabe03ad"><td class="memItemLeft" align="right" valign="top"><a id="a13c202ab92e8fb89876769d5eabe03ad" name="a13c202ab92e8fb89876769d5eabe03ad"></a>
-<a class="el" href="structinet__prefix.html">inet_prefix</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ip</b></td></tr>
+<tr class="memitem:a13c202ab92e8fb89876769d5eabe03ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structinet__prefix.html">inet_prefix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#a13c202ab92e8fb89876769d5eabe03ad">ip</a></td></tr>
 <tr class="separator:a13c202ab92e8fb89876769d5eabe03ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbb8834924199241c4a50675016867c4"><td class="memItemLeft" align="right" valign="top"><a id="acbb8834924199241c4a50675016867c4" name="acbb8834924199241c4a50675016867c4"></a>
-<a class="el" href="structinterface.html">interface</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>dev</b> [MAX_INTERFACES]</td></tr>
+<tr class="memitem:acbb8834924199241c4a50675016867c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structinterface.html">interface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#acbb8834924199241c4a50675016867c4">dev</a> [<a class="el" href="if_8h.html#a10bf2917a6a4297e21e03f60c487f591">MAX_INTERFACES</a>]</td></tr>
 <tr class="separator:acbb8834924199241c4a50675016867c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab050764c576230f97c8a91b7ef74ca6e"><td class="memItemLeft" align="right" valign="top"><a id="ab050764c576230f97c8a91b7ef74ca6e" name="ab050764c576230f97c8a91b7ef74ca6e"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dev_n</b></td></tr>
+<tr class="memitem:ab050764c576230f97c8a91b7ef74ca6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#ab050764c576230f97c8a91b7ef74ca6e">dev_n</a></td></tr>
 <tr class="separator:ab050764c576230f97c8a91b7ef74ca6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad009a56fdef39a6a5680d17b7b4469f6"><td class="memItemLeft" align="right" valign="top"><a id="ad009a56fdef39a6a5680d17b7b4469f6" name="ad009a56fdef39a6a5680d17b7b4469f6"></a>
-<a class="el" href="structmap__node.html">map_node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>node</b></td></tr>
+<tr class="memitem:ad009a56fdef39a6a5680d17b7b4469f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmap__node.html">map_node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#ad009a56fdef39a6a5680d17b7b4469f6">node</a></td></tr>
 <tr class="separator:ad009a56fdef39a6a5680d17b7b4469f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66b4a1c7f894582bb219b18ae8bece00"><td class="memItemLeft" align="right" valign="top"><a id="a66b4a1c7f894582bb219b18ae8bece00" name="a66b4a1c7f894582bb219b18ae8bece00"></a>
-<a class="el" href="structquadro__group.html">quadro_group</a>&#160;</td><td class="memItemRight" valign="bottom"><b>quadg</b></td></tr>
+<tr class="memitem:a66b4a1c7f894582bb219b18ae8bece00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structquadro__group.html">quadro_group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#a66b4a1c7f894582bb219b18ae8bece00">quadg</a></td></tr>
 <tr class="separator:a66b4a1c7f894582bb219b18ae8bece00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a353e8bbaac51b91fd74149d85a233a5a"><td class="memItemLeft" align="right" valign="top"><a id="a353e8bbaac51b91fd74149d85a233a5a" name="a353e8bbaac51b91fd74149d85a233a5a"></a>
-u_short&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="memitem:a353e8bbaac51b91fd74149d85a233a5a"><td class="memItemLeft" align="right" valign="top">u_short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#a353e8bbaac51b91fd74149d85a233a5a">flags</a></td></tr>
 <tr class="separator:a353e8bbaac51b91fd74149d85a233a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8658689650a80dd37a903ae2898f61b0"><td class="memItemLeft" align="right" valign="top"><a id="a8658689650a80dd37a903ae2898f61b0" name="a8658689650a80dd37a903ae2898f61b0"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>pings</b></td></tr>
+<tr class="memitem:a8658689650a80dd37a903ae2898f61b0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#a8658689650a80dd37a903ae2898f61b0">pings</a></td></tr>
 <tr class="separator:a8658689650a80dd37a903ae2898f61b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab031c273c2a25b94c35158286059b8fb"><td class="memItemLeft" align="right" valign="top"><a id="ab031c273c2a25b94c35158286059b8fb" name="ab031c273c2a25b94c35158286059b8fb"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>pongs</b></td></tr>
+<tr class="memitem:ab031c273c2a25b94c35158286059b8fb"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#ab031c273c2a25b94c35158286059b8fb">pongs</a></td></tr>
 <tr class="separator:ab031c273c2a25b94c35158286059b8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91437cf03b2057968d549f4f548fc1b6"><td class="memItemLeft" align="right" valign="top"><a id="a91437cf03b2057968d549f4f548fc1b6" name="a91437cf03b2057968d549f4f548fc1b6"></a>
-struct timeval&#160;</td><td class="memItemRight" valign="bottom"><b>rtt</b> [MAX_RADAR_SCANS]</td></tr>
+<tr class="memitem:a91437cf03b2057968d549f4f548fc1b6"><td class="memItemLeft" align="right" valign="top">struct timeval&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#a91437cf03b2057968d549f4f548fc1b6">rtt</a> [<a class="el" href="radar_8h.html#a5993087449692e017df5da39f0e41dcc">MAX_RADAR_SCANS</a>]</td></tr>
 <tr class="separator:a91437cf03b2057968d549f4f548fc1b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27e203c25adb8e45190a87cf22fd12e6"><td class="memItemLeft" align="right" valign="top"><a id="a27e203c25adb8e45190a87cf22fd12e6" name="a27e203c25adb8e45190a87cf22fd12e6"></a>
-struct timeval&#160;</td><td class="memItemRight" valign="bottom"><b>final_rtt</b></td></tr>
+<tr class="memitem:a27e203c25adb8e45190a87cf22fd12e6"><td class="memItemLeft" align="right" valign="top">struct timeval&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structradar__queue.html#a27e203c25adb8e45190a87cf22fd12e6">final_rtt</a></td></tr>
 <tr class="separator:a27e203c25adb8e45190a87cf22fd12e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="afd48295fda1641c4cfcf09c1883e0a2d" name="afd48295fda1641c4cfcf09c1883e0a2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd48295fda1641c4cfcf09c1883e0a2d">&#9670;&nbsp;</a></span>LLIST_HDR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LLIST_HDR </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structradar__queue.html">radar_queue</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="acbb8834924199241c4a50675016867c4" name="acbb8834924199241c4a50675016867c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb8834924199241c4a50675016867c4">&#9670;&nbsp;</a></span>dev</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structinterface.html">interface</a>* dev[<a class="el" href="if_8h.html#a10bf2917a6a4297e21e03f60c487f591">MAX_INTERFACES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab050764c576230f97c8a91b7ef74ca6e" name="ab050764c576230f97c8a91b7ef74ca6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab050764c576230f97c8a91b7ef74ca6e">&#9670;&nbsp;</a></span>dev_n</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dev_n</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a27e203c25adb8e45190a87cf22fd12e6" name="a27e203c25adb8e45190a87cf22fd12e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27e203c25adb8e45190a87cf22fd12e6">&#9670;&nbsp;</a></span>final_rtt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct timeval final_rtt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a353e8bbaac51b91fd74149d85a233a5a" name="a353e8bbaac51b91fd74149d85a233a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a353e8bbaac51b91fd74149d85a233a5a">&#9670;&nbsp;</a></span>flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_short flags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13c202ab92e8fb89876769d5eabe03ad" name="a13c202ab92e8fb89876769d5eabe03ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13c202ab92e8fb89876769d5eabe03ad">&#9670;&nbsp;</a></span>ip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structinet__prefix.html">inet_prefix</a> ip</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad009a56fdef39a6a5680d17b7b4469f6" name="ad009a56fdef39a6a5680d17b7b4469f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad009a56fdef39a6a5680d17b7b4469f6">&#9670;&nbsp;</a></span>node</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structmap__node.html">map_node</a>* node</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8658689650a80dd37a903ae2898f61b0" name="a8658689650a80dd37a903ae2898f61b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8658689650a80dd37a903ae2898f61b0">&#9670;&nbsp;</a></span>pings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char pings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab031c273c2a25b94c35158286059b8fb" name="ab031c273c2a25b94c35158286059b8fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab031c273c2a25b94c35158286059b8fb">&#9670;&nbsp;</a></span>pongs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char pongs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66b4a1c7f894582bb219b18ae8bece00" name="a66b4a1c7f894582bb219b18ae8bece00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66b4a1c7f894582bb219b18ae8bece00">&#9670;&nbsp;</a></span>quadg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structquadro__group.html">quadro_group</a> quadg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a91437cf03b2057968d549f4f548fc1b6" name="a91437cf03b2057968d549f4f548fc1b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91437cf03b2057968d549f4f548fc1b6">&#9670;&nbsp;</a></span>rtt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct timeval rtt[<a class="el" href="radar_8h.html#a5993087449692e017df5da39f0e41dcc">MAX_RADAR_SCANS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="radar_8h_source.html">radar.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structradar__queue.html">radar_queue</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

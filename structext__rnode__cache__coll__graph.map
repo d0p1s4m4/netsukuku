@@ -1,9 +1,9 @@
 <map id="ext_rnode_cache" name="ext_rnode_cache">
-<area shape="rect" id="node1" title=" " alt="" coords="133,452,253,479"/>
-<area shape="rect" id="node2" href="$structext__rnode.html" title=" " alt="" coords="154,363,233,389"/>
-<area shape="rect" id="node3" href="$structmap__node.html" title=" " alt="" coords="155,95,237,121"/>
-<area shape="rect" id="node6" href="$structmap__gnode.html" title=" " alt="" coords="110,184,199,211"/>
-<area shape="rect" id="node4" href="$structmap__rnode.html" title=" " alt="" coords="153,5,239,32"/>
-<area shape="rect" id="node5" href="$structquadro__group.html" title=" " alt="" coords="99,273,199,300"/>
-<area shape="rect" id="node7" href="$structinet__prefix.html" title=" " alt="" coords="5,184,85,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="133,867,253,944"/>
+<area shape="rect" id="node2" href="$structext__rnode.html" title=" " alt="" coords="154,727,233,804"/>
+<area shape="rect" id="node3" href="$structmap__node.html" title=" " alt="" coords="155,204,237,325"/>
+<area shape="rect" id="node6" href="$structmap__gnode.html" title=" " alt="" coords="110,395,199,502"/>
+<area shape="rect" id="node4" href="$structmap__rnode.html" title=" " alt="" coords="153,5,239,141"/>
+<area shape="rect" id="node5" href="$structquadro__group.html" title=" " alt="" coords="99,572,199,664"/>
+<area shape="rect" id="node7" href="$structinet__prefix.html" title=" " alt="" coords="5,388,85,509"/>
 </map>

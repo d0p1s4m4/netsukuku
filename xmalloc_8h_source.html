@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('xmalloc_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,16 +83,11 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">xmalloc.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku system</span></div>
+<a href="xmalloc_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/* This file is part of Netsukuku system</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * (c) Copyright 2005 Andrea Lo Pumo aka AlpT &lt;alpt@freaknet.org&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * This source code is free software; you can redistribute it and/or</span></div>
@@ -119,7 +135,7 @@ $(function() {
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> * It is safe, you can use it also with expressions:</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> *  xfree(a++);</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define xfree(__pptr)                           \</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="xmalloc_8h.html#ab8c39548bd8e1164490b0194e6d44e3e">   49</a></span><span class="preprocessor">#define xfree(__pptr)                           \</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">do{                                 \</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">    char **_p=(char **)&amp;(__pptr);                   \</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">    _xfree(*_p);                            \</span></div>
@@ -127,21 +143,32 @@ $(function() {
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">}while(0)</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">/* Functions declaration */</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">void</span> *xmalloc(<span class="keywordtype">size_t</span>);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">void</span> *xzalloc(<span class="keywordtype">size_t</span> size);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> *xrealloc(<span class="keywordtype">void</span> *, <span class="keywordtype">size_t</span>);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keywordtype">void</span> *xcalloc(<span class="keywordtype">size_t</span> nmemb, <span class="keywordtype">size_t</span> size);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">void</span> _xfree(<span class="keywordtype">void</span> *);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">char</span> *xstrndup(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, <span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">char</span> *xstrdup(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">void</span> *<a class="code hl_function" href="xmalloc_8h.html#a307a2ba6d2366704dc1d57b8d20b37ef">xmalloc</a>(<span class="keywordtype">size_t</span>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">void</span> *<a class="code hl_function" href="xmalloc_8h.html#a578917cd815d4c80a0609917c3631535">xzalloc</a>(<span class="keywordtype">size_t</span> size);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> *<a class="code hl_function" href="xmalloc_8h.html#ab7604d949a97ccec46f8174aa18b8a2a">xrealloc</a>(<span class="keywordtype">void</span> *, <span class="keywordtype">size_t</span>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keywordtype">void</span> *<a class="code hl_function" href="xmalloc_8h.html#a64dbeff7c3555eb2cb5991583d733f5a">xcalloc</a>(<span class="keywordtype">size_t</span> nmemb, <span class="keywordtype">size_t</span> size);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">void</span> <a class="code hl_function" href="xmalloc_8h.html#a252c0d36b72f1fbfb70bdee95cf56cd2">_xfree</a>(<span class="keywordtype">void</span> *);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">char</span> *<a class="code hl_function" href="xmalloc_8h.html#a7da8df093efd32654717a58a5f0cfd16">xstrndup</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">char</span> *<a class="code hl_function" href="xmalloc_8h.html#a99b496b515fbeffe4ae72e1602a1143e">xstrdup</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif                          </span><span class="comment">/*XMALLOC_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="axmalloc_8h_html_a252c0d36b72f1fbfb70bdee95cf56cd2"><div class="ttname"><a href="xmalloc_8h.html#a252c0d36b72f1fbfb70bdee95cf56cd2">_xfree</a></div><div class="ttdeci">void _xfree(void *)</div><div class="ttdef"><b>Definition:</b> xmalloc.c:106</div></div>
+<div class="ttc" id="axmalloc_8h_html_a307a2ba6d2366704dc1d57b8d20b37ef"><div class="ttname"><a href="xmalloc_8h.html#a307a2ba6d2366704dc1d57b8d20b37ef">xmalloc</a></div><div class="ttdeci">void * xmalloc(size_t)</div><div class="ttdef"><b>Definition:</b> xmalloc.c:45</div></div>
+<div class="ttc" id="axmalloc_8h_html_a578917cd815d4c80a0609917c3631535"><div class="ttname"><a href="xmalloc_8h.html#a578917cd815d4c80a0609917c3631535">xzalloc</a></div><div class="ttdeci">void * xzalloc(size_t size)</div><div class="ttdef"><b>Definition:</b> xmalloc.c:64</div></div>
+<div class="ttc" id="axmalloc_8h_html_a64dbeff7c3555eb2cb5991583d733f5a"><div class="ttname"><a href="xmalloc_8h.html#a64dbeff7c3555eb2cb5991583d733f5a">xcalloc</a></div><div class="ttdeci">void * xcalloc(size_t nmemb, size_t size)</div><div class="ttdef"><b>Definition:</b> xmalloc.c:74</div></div>
+<div class="ttc" id="axmalloc_8h_html_a7da8df093efd32654717a58a5f0cfd16"><div class="ttname"><a href="xmalloc_8h.html#a7da8df093efd32654717a58a5f0cfd16">xstrndup</a></div><div class="ttdeci">char * xstrndup(const char *str, size_t n)</div><div class="ttdef"><b>Definition:</b> xmalloc.c:114</div></div>
+<div class="ttc" id="axmalloc_8h_html_a99b496b515fbeffe4ae72e1602a1143e"><div class="ttname"><a href="xmalloc_8h.html#a99b496b515fbeffe4ae72e1602a1143e">xstrdup</a></div><div class="ttdeci">char * xstrdup(const char *)</div><div class="ttdef"><b>Definition:</b> xmalloc.c:128</div></div>
+<div class="ttc" id="axmalloc_8h_html_ab7604d949a97ccec46f8174aa18b8a2a"><div class="ttname"><a href="xmalloc_8h.html#ab7604d949a97ccec46f8174aa18b8a2a">xrealloc</a></div><div class="ttdeci">void * xrealloc(void *, size_t)</div><div class="ttdef"><b>Definition:</b> xmalloc.c:88</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="xmalloc_8h.html">xmalloc.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

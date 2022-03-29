@@ -1,5 +1,5 @@
 <map id="internet_gateway" name="internet_gateway">
-<area shape="rect" id="node1" title=" " alt="" coords="5,184,125,211"/>
-<area shape="rect" id="node2" href="$structmap__node.html" title=" " alt="" coords="24,95,107,121"/>
-<area shape="rect" id="node3" href="$structmap__rnode.html" title=" " alt="" coords="22,5,109,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,388,125,509"/>
+<area shape="rect" id="node2" href="$structmap__node.html" title=" " alt="" coords="24,204,107,325"/>
+<area shape="rect" id="node3" href="$structmap__rnode.html" title=" " alt="" coords="22,5,109,141"/>
 </map>

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -48,6 +52,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structipt__conntrack__info.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,60 +83,183 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle"><div class="title">ipt_conntrack_info Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="ipt__conntrack_8h_source.html">ipt_conntrack.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for ipt_conntrack_info:</div>
 <div class="dyncontent">
 <div class="center"><img src="structipt__conntrack__info__coll__graph.png" border="0" usemap="#aipt__conntrack__info_coll__map" alt="Collaboration graph"/></div>
 <map name="aipt__conntrack__info_coll__map" id="aipt__conntrack__info_coll__map">
-<area shape="rect" title=" " alt="" coords="19,95,147,121"/>
-<area shape="rect" href="structip__conntrack__old__tuple.html" title=" " alt="" coords="5,5,160,32"/>
+<area shape="rect" title=" " alt="" coords="19,233,147,413"/>
+<area shape="rect" href="structip__conntrack__old__tuple.html" title=" " alt="" coords="5,5,160,171"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a5e077e7eed7311e59d3dde5c53a09ea0"><td class="memItemLeft" align="right" valign="top"><a id="a5e077e7eed7311e59d3dde5c53a09ea0" name="a5e077e7eed7311e59d3dde5c53a09ea0"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>statemask</b></td></tr>
+<tr class="memitem:a5e077e7eed7311e59d3dde5c53a09ea0"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#a5e077e7eed7311e59d3dde5c53a09ea0">statemask</a></td></tr>
 <tr class="separator:a5e077e7eed7311e59d3dde5c53a09ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aef4c0c858d7d18b984a369c68f88aa"><td class="memItemLeft" align="right" valign="top"><a id="a5aef4c0c858d7d18b984a369c68f88aa" name="a5aef4c0c858d7d18b984a369c68f88aa"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>statusmask</b></td></tr>
+<tr class="memitem:a5aef4c0c858d7d18b984a369c68f88aa"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#a5aef4c0c858d7d18b984a369c68f88aa">statusmask</a></td></tr>
 <tr class="separator:a5aef4c0c858d7d18b984a369c68f88aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adef06a4e80dd0efad6b9604aedfe83ea"><td class="memItemLeft" align="right" valign="top"><a id="adef06a4e80dd0efad6b9604aedfe83ea" name="adef06a4e80dd0efad6b9604aedfe83ea"></a>
-struct <a class="el" href="structip__conntrack__old__tuple.html">ip_conntrack_old_tuple</a>&#160;</td><td class="memItemRight" valign="bottom"><b>tuple</b> [IP_CT_DIR_MAX]</td></tr>
+<tr class="memitem:adef06a4e80dd0efad6b9604aedfe83ea"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structip__conntrack__old__tuple.html">ip_conntrack_old_tuple</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#adef06a4e80dd0efad6b9604aedfe83ea">tuple</a> [<a class="el" href="ipt__conntrack_8h.html#a725263a41e2ab00bbf651439f4ea30d3">IP_CT_DIR_MAX</a>]</td></tr>
 <tr class="separator:adef06a4e80dd0efad6b9604aedfe83ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c947549f8aa5f19b1c2d55f4d71d30a"><td class="memItemLeft" align="right" valign="top"><a id="a9c947549f8aa5f19b1c2d55f4d71d30a" name="a9c947549f8aa5f19b1c2d55f4d71d30a"></a>
-struct in_addr&#160;</td><td class="memItemRight" valign="bottom"><b>sipmsk</b> [IP_CT_DIR_MAX]</td></tr>
+<tr class="memitem:a9c947549f8aa5f19b1c2d55f4d71d30a"><td class="memItemLeft" align="right" valign="top">struct in_addr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#a9c947549f8aa5f19b1c2d55f4d71d30a">sipmsk</a> [<a class="el" href="ipt__conntrack_8h.html#a725263a41e2ab00bbf651439f4ea30d3">IP_CT_DIR_MAX</a>]</td></tr>
 <tr class="separator:a9c947549f8aa5f19b1c2d55f4d71d30a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af85c971c360350fd91837f2ca8024ba1"><td class="memItemLeft" align="right" valign="top"><a id="af85c971c360350fd91837f2ca8024ba1" name="af85c971c360350fd91837f2ca8024ba1"></a>
-struct in_addr&#160;</td><td class="memItemRight" valign="bottom"><b>dipmsk</b> [IP_CT_DIR_MAX]</td></tr>
+<tr class="memitem:af85c971c360350fd91837f2ca8024ba1"><td class="memItemLeft" align="right" valign="top">struct in_addr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#af85c971c360350fd91837f2ca8024ba1">dipmsk</a> [<a class="el" href="ipt__conntrack_8h.html#a725263a41e2ab00bbf651439f4ea30d3">IP_CT_DIR_MAX</a>]</td></tr>
 <tr class="separator:af85c971c360350fd91837f2ca8024ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c2262fbf55b2e5a1a541a8ea374d667"><td class="memItemLeft" align="right" valign="top"><a id="a7c2262fbf55b2e5a1a541a8ea374d667" name="a7c2262fbf55b2e5a1a541a8ea374d667"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>expires_min</b></td></tr>
+<tr class="memitem:a7c2262fbf55b2e5a1a541a8ea374d667"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#a7c2262fbf55b2e5a1a541a8ea374d667">expires_min</a></td></tr>
 <tr class="separator:a7c2262fbf55b2e5a1a541a8ea374d667"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a553233696adf615575916e9400ae6a59"><td class="memItemLeft" align="right" valign="top"><a id="a553233696adf615575916e9400ae6a59" name="a553233696adf615575916e9400ae6a59"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>expires_max</b></td></tr>
+<tr class="memitem:a553233696adf615575916e9400ae6a59"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#a553233696adf615575916e9400ae6a59">expires_max</a></td></tr>
 <tr class="separator:a553233696adf615575916e9400ae6a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff1a49ace550ffdd4860e52422343ba5"><td class="memItemLeft" align="right" valign="top"><a id="aff1a49ace550ffdd4860e52422343ba5" name="aff1a49ace550ffdd4860e52422343ba5"></a>
-u_int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="memitem:aff1a49ace550ffdd4860e52422343ba5"><td class="memItemLeft" align="right" valign="top">u_int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#aff1a49ace550ffdd4860e52422343ba5">flags</a></td></tr>
 <tr class="separator:aff1a49ace550ffdd4860e52422343ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6591db35c8021739e2455b42daa3b531"><td class="memItemLeft" align="right" valign="top"><a id="a6591db35c8021739e2455b42daa3b531" name="a6591db35c8021739e2455b42daa3b531"></a>
-u_int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>invflags</b></td></tr>
+<tr class="memitem:a6591db35c8021739e2455b42daa3b531"><td class="memItemLeft" align="right" valign="top">u_int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structipt__conntrack__info.html#a6591db35c8021739e2455b42daa3b531">invflags</a></td></tr>
 <tr class="separator:a6591db35c8021739e2455b42daa3b531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="af85c971c360350fd91837f2ca8024ba1" name="af85c971c360350fd91837f2ca8024ba1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af85c971c360350fd91837f2ca8024ba1">&#9670;&nbsp;</a></span>dipmsk</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct in_addr dipmsk[<a class="el" href="ipt__conntrack_8h.html#a725263a41e2ab00bbf651439f4ea30d3">IP_CT_DIR_MAX</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a553233696adf615575916e9400ae6a59" name="a553233696adf615575916e9400ae6a59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a553233696adf615575916e9400ae6a59">&#9670;&nbsp;</a></span>expires_max</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long expires_max</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c2262fbf55b2e5a1a541a8ea374d667" name="a7c2262fbf55b2e5a1a541a8ea374d667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c2262fbf55b2e5a1a541a8ea374d667">&#9670;&nbsp;</a></span>expires_min</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long expires_min</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aff1a49ace550ffdd4860e52422343ba5" name="aff1a49ace550ffdd4860e52422343ba5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff1a49ace550ffdd4860e52422343ba5">&#9670;&nbsp;</a></span>flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_int8_t flags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6591db35c8021739e2455b42daa3b531" name="a6591db35c8021739e2455b42daa3b531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6591db35c8021739e2455b42daa3b531">&#9670;&nbsp;</a></span>invflags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_int8_t invflags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9c947549f8aa5f19b1c2d55f4d71d30a" name="a9c947549f8aa5f19b1c2d55f4d71d30a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c947549f8aa5f19b1c2d55f4d71d30a">&#9670;&nbsp;</a></span>sipmsk</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct in_addr sipmsk[<a class="el" href="ipt__conntrack_8h.html#a725263a41e2ab00bbf651439f4ea30d3">IP_CT_DIR_MAX</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e077e7eed7311e59d3dde5c53a09ea0" name="a5e077e7eed7311e59d3dde5c53a09ea0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e077e7eed7311e59d3dde5c53a09ea0">&#9670;&nbsp;</a></span>statemask</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int statemask</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5aef4c0c858d7d18b984a369c68f88aa" name="a5aef4c0c858d7d18b984a369c68f88aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aef4c0c858d7d18b984a369c68f88aa">&#9670;&nbsp;</a></span>statusmask</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int statusmask</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adef06a4e80dd0efad6b9604aedfe83ea" name="adef06a4e80dd0efad6b9604aedfe83ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adef06a4e80dd0efad6b9604aedfe83ea">&#9670;&nbsp;</a></span>tuple</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structip__conntrack__old__tuple.html">ip_conntrack_old_tuple</a> tuple[<a class="el" href="ipt__conntrack_8h.html#a725263a41e2ab00bbf651439f4ea30d3">IP_CT_DIR_MAX</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/libiptc/<a class="el" href="ipt__conntrack_8h_source.html">ipt_conntrack.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structipt__conntrack__info.html">ipt_conntrack_info</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

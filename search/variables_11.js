@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['q_0',['q',['../structq__opt.html#a2e6980a599584dc431cc77d610c9d1ef',1,'q_opt::q()'],['../structntkresolv__opts.html#a25808677ea8bfc68a6063b71317d13fa',1,'ntkresolv_opts::q()']]],
+  ['q_5fid_1',['q_id',['../structqspn__queue.html#a5648bbaf86e5eedb1972a994eda3677c',1,'qspn_queue::q_id()'],['../structq__pkt.html#a5648bbaf86e5eedb1972a994eda3677c',1,'q_pkt::q_id()']]],
+  ['q_5fsub_5fid_2',['q_sub_id',['../structq__pkt.html#a6fd8f82df4d4316019c26909f4733356',1,'q_pkt']]],
+  ['qclass_3',['qclass',['../structdns__pkt__qst.html#ac94c665afc6c72c418f3caa344bc480e',1,'dns_pkt_qst']]],
+  ['qdcount_4',['qdcount',['../structdns__pkt__hdr.html#a25cdebc9a2db10deae5c802a14ddcb46',1,'dns_pkt_hdr']]],
+  ['qname_5',['qname',['../structdns__pkt__qst.html#ac264e437c486d926c10f6f5e8a14b11f',1,'dns_pkt_qst']]],
+  ['qr_6',['qr',['../structandns__pkt.html#a546c9e75516a23a77c420f5cf3db2491',1,'andns_pkt::qr()'],['../structdns__pkt__hdr.html#a546c9e75516a23a77c420f5cf3db2491',1,'dns_pkt_hdr::qr()']]],
+  ['qspn_5fb_7',['qspn_b',['../qspn_8h.html#a1f03e7fddbc0d8b9a547fbc8ae1d1838',1,'qspn.h']]],
+  ['qspn_5fbackpro_8',['qspn_backpro',['../structqstat.html#a8caa9cac92369e1c8b4321519b12c663',1,'qstat']]],
+  ['qspn_5fgnode_5fcount_9',['qspn_gnode_count',['../qspn_8h.html#a388441c5ed5a4a4928808761b21be7f9',1,'qspn.h']]],
+  ['qspn_5fold_5fgcount_10',['qspn_old_gcount',['../qspn_8h.html#a0dca986e26225bf2bb53737721da97e4',1,'qspn.h']]],
+  ['qspn_5fq_11',['qspn_q',['../qspn-empiric_8h.html#aafed7da65a2513cbfc68c2b3398e5a56',1,'qspn-empiric.h']]],
+  ['qspn_5freplies_12',['qspn_replies',['../structqstat.html#a2cb9c5a4d5b99ac132dce3b1957604ac',1,'qstat']]],
+  ['qspn_5frequests_13',['qspn_requests',['../structqstat.html#a467a370556ce9f07bd52bdb5cb3ce76d',1,'qstat']]],
+  ['qspn_5fround_5fpkt_5fiinfo_14',['qspn_round_pkt_iinfo',['../hook_8h.html#ab38e0bc8cbae0f05199a8f62a08f14c3',1,'hook.h']]],
+  ['qspn_5fsend_5fmutex_15',['qspn_send_mutex',['../qspn_8h.html#a7376bee5662f5931615b3648fb8e21b5',1,'qspn.h']]],
+  ['qstdata_16',['qstdata',['../structandns__pkt.html#a8cb2cca9dc2a02695724738f001aac50',1,'andns_pkt']]],
+  ['qstlength_17',['qstlength',['../structandns__pkt.html#a560bdc0ca409e03364ce0a03bcbe7f0b',1,'andns_pkt']]],
+  ['qt_5flen_18',['QT_LEN',['../ntkresolv_8h.html#aebaff2c5e182f385ff36a100acf6eda9',1,'ntkresolv.h']]],
+  ['qtype_19',['qtype',['../structandns__pkt.html#a665a68442052df65fbca5cb7c36b290d',1,'andns_pkt::qtype()'],['../structdns__pkt__qst.html#a92ac313e0c65dcd831a91b495aa7b282',1,'dns_pkt_qst::qtype()']]],
+  ['qtype_5fstr_5flist_20',['QTYPE_STR_LIST',['../ntkresolv_8h.html#a42c357180e5545cd19e4a233245e97f5',1,'ntkresolv.h']]],
+  ['quadg_21',['quadg',['../structradar__queue.html#a66b4a1c7f894582bb219b18ae8bece00',1,'radar_queue::quadg()'],['../structext__rnode.html#a66b4a1c7f894582bb219b18ae8bece00',1,'ext_rnode::quadg()'],['../structext__map__hdr.html#a74d8c0b881f9ed426aeec365c8406301',1,'ext_map_hdr::quadg()']]],
+  ['quadro_5fgroup_5fiinfo_22',['quadro_group_iinfo',['../gmap_8h.html#a9aa687d4905a9bf17e7bab0d8144ea33',1,'gmap.h']]],
+  ['queue_5fcounter_23',['queue_counter',['../structandna__cache.html#a700c4d6ad3a733e4d88531a3a80b338f',1,'andna_cache']]]
+];
