@@ -3,7 +3,7 @@
 ![Netsukuku](.github/logo.jpg)
 
 [🌐Website (archive)](https://web.archive.org/web/20170602105941/http://netsukuku.freaknet.org/)
-[📖Documentation](https://d0p1s4m4.github.io/netsukuku/)
+[📖Documentation](https://doc.netsukuku.net/)
 [![License](https://img.shields.io/github/license/d0p1s4m4/Netsukuku?logo=gnu&style=flat-square)](./LICENSE)
 [![Build](https://img.shields.io/github/workflow/status/d0p1s4m4/netsukuku/CI?style=flat-square)](https://github.com/d0p1s4m4/netsukuku/actions/workflows/ci.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/d0p1s4m4/netsukuku?logo=codecov&style=flat-square)](https://app.codecov.io/gh/d0p1s4m4/netsukuku)
