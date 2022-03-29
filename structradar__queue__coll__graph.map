@@ -1,0 +1,9 @@
+<map id="radar_queue" name="radar_queue">
+<area shape="rect" id="node1" title=" " alt="" coords="163,363,256,389"/>
+<area shape="rect" id="node2" href="$structinet__prefix.html" title=" " alt="" coords="5,184,85,211"/>
+<area shape="rect" id="node6" href="$structquadro__group.html" title=" " alt="" coords="101,273,201,300"/>
+<area shape="rect" id="node3" href="$structinterface.html" title=" " alt="" coords="276,273,348,300"/>
+<area shape="rect" id="node4" href="$structmap__node.html" title=" " alt="" coords="156,95,239,121"/>
+<area shape="rect" id="node7" href="$structmap__gnode.html" title=" " alt="" coords="111,184,201,211"/>
+<area shape="rect" id="node5" href="$structmap__rnode.html" title=" " alt="" coords="154,5,241,32"/>
+</map>

@@ -1,9 +1,12 @@
 var searchData=
 [
-  ['chain_5fhead',['chain_head',['../db/da3/structchain__head.html',1,'']]],
-  ['counter_5fc',['counter_c',['../d3/dae/structcounter__c.html',1,'']]],
-  ['counter_5fc_5fhashes',['counter_c_hashes',['../d6/d01/structcounter__c__hashes.html',1,'']]],
-  ['counter_5fc_5fpkt_5fhdr',['counter_c_pkt_hdr',['../d0/db2/structcounter__c__pkt__hdr.html',1,'']]],
-  ['counter_5fmap',['counter_map',['../d9/d2a/structcounter__map.html',1,'']]],
-  ['current_5fglobals',['current_globals',['../d6/d11/structcurrent__globals.html',1,'']]]
+  ['chain_5fhead_0',['chain_head',['../structchain__head.html',1,'']]],
+  ['cmd_5fpacket_5ft_1',['cmd_packet_t',['../structcmd__packet__t.html',1,'']]],
+  ['command_2',['Command',['../struct_command.html',1,'']]],
+  ['consolecontext_3',['ConsoleContext',['../struct_console_context.html',1,'']]],
+  ['counter_5fc_4',['counter_c',['../structcounter__c.html',1,'']]],
+  ['counter_5fc_5fhashes_5',['counter_c_hashes',['../structcounter__c__hashes.html',1,'']]],
+  ['counter_5fc_5fpkt_5fhdr_6',['counter_c_pkt_hdr',['../structcounter__c__pkt__hdr.html',1,'']]],
+  ['counter_5fmap_7',['counter_map',['../structcounter__map.html',1,'']]],
+  ['current_5fglobals_8',['current_globals',['../structcurrent__globals.html',1,'']]]
 ];
