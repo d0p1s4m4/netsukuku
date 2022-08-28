@@ -1,10 +1,14 @@
 #ifndef CONFIG_H
-#define CONFIG_H
+# define CONFIG_H
 
-#define CONF_DIR "%(CONF_DIR)"
-#define DATA_DIR "%(DATA_DIR)"
-#define PID_DIR "%(PID_DIR)"
+# define CONF_DIR "%(CONF_DIR)"
+# define DATA_DIR "%(DATA_DIR)"
+# define PID_DIR  "%(PID_DIR)"
 
-#define VERSION "%(VERSION)"
+# ifndef NDEBUG
+#  define VERSION  "%(VERSION) (debug)"
+# else
+#  define VERSION  "%(VERSION)"
+# endif /*!NDEBUG */
 
 #endif /* !CONFIG_H */

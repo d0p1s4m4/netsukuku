@@ -32,8 +32,8 @@
 
 #include "crypto.h"
 
-#include "log.h"
-#include "xmalloc.h"
+#include <netsukuku/log.h>
+#include <netsukuku/utils/xmalloc.h>
 
 void
 init_crypto(void)

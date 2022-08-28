@@ -18,8 +18,8 @@
 *									*
 ************************************************************************/
 
-#include "log.h"
-#include "andns_net.h"
+#include <netsukuku/log.h>
+#include "../../andns_net.h"
 
 int
 idp_inet_ntop(int family, struct sockaddr *addr, char *buf, int buflen)
@@ -50,7 +50,7 @@ idp_inet_ntop(int family, struct sockaddr *addr, char *buf, int buflen)
 
 /* Connection Layer */
 
-int
+static int
 w_socket(int family, int type, int proto, int die)
 {
 	int sk;
@@ -64,7 +64,7 @@ w_socket(int family, int type, int proto, int die)
 	return sk;
 }
 
-int
+static int
 w_connect(struct addrinfo *ai, int die)
 {
 	int sk, res;
@@ -79,7 +79,7 @@ w_connect(struct addrinfo *ai, int die)
 	return -1;
 }
 
-int
+static int
 serial_connect(struct addrinfo *ai, int die)
 {
 	int res;
@@ -110,7 +110,7 @@ serial_connect(struct addrinfo *ai, int die)
  * endpoint. It is protocol independent.
  * -1 on error.
  */
-int
+static int
 host_connect(const char *host, uint16_t port, int type, int die)
 {
 	int res;
@@ -137,7 +137,7 @@ host_connect(const char *host, uint16_t port, int type, int die)
 	return res;
 }
 
-int
+static int
 ai_connect(struct addrinfo *ai, int die, int free_ai)
 {
 	int res;
@@ -150,8 +150,8 @@ ai_connect(struct addrinfo *ai, int die, int free_ai)
 
 /* Communication Layer */
 
-ssize_t
-w_send(int sk, const void *buf, size_t len, int die)
+static ssize_t
+w_send(int sk, const void *buf, ssize_t len, int die)
 {
 	ssize_t ret;
 
@@ -164,7 +164,7 @@ w_send(int sk, const void *buf, size_t len, int die)
 	return ret;
 }
 
-ssize_t
+static ssize_t
 w_recv(int sk, void *buf, size_t len, int die)
 {
 	ssize_t ret;
@@ -191,7 +191,7 @@ do{                                                                     \
         (t).tv_usec=((x) - ((x)/1000)*1000)*1000;                       \
 }while(0)
 
-ssize_t
+static ssize_t
 w_send_timeout(int s, const void *buf, size_t len, int die, int timeout)
 {
 	struct timeval timeout_t;
@@ -216,7 +216,7 @@ w_send_timeout(int s, const void *buf, size_t len, int die, int timeout)
 	return -1;
 }
 
-ssize_t
+static ssize_t
 w_recv_timeout(int s, void *buf, size_t len, int die, int timeout)
 {
 	struct timeval timeout_t;

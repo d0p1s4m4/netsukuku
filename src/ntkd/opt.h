@@ -1,4 +1,5 @@
-/* This file is part of Netsukuku
+/* This file is part of Netsukuku*
+ * (c) Copyright 2004 Andrea Lo Pumo aka AlpT <alpt@freaknet.org>
  * Copyright (c) 2022 d0p1
  *
  * This source code is free software; you can redistribute it and/or
@@ -17,31 +18,26 @@
  *
  */
 
-#ifndef NTKCONSOLE_H
-# define NTKCONSOLE_H
+#ifndef NTKD_OPT_H
+# define NTKD_OPT_H 1
 
-# include <json-c/json_object.h>
-# include <time.h>
+# include <stdint.h>
+# include "../config.h"
 
-# define CONSOLE_VERSION_MAJOR 0
-# define CONSOLE_VERSION_MINOR 3
-# define CONSOLE_VERSION_PATCH 0
+# define OPT_DEFAULT_CONFIG_FILE CONF_DIR "/netsukuku.conf"
+# define OPT_DEFAULT_PID_FILE    PID_DIR "/ntkd.pid"
 
-typedef struct {
-	char *socket_path;
-} ConsoleContext;
+typedef struct
+{
+    char *config_file;
+    char *pid_file;
 
-typedef void (*Callback)(ConsoleContext *);
+    int log_level;
 
-typedef struct {
-	char *cmd;
-	char *help;
-	Callback cb;
-} Command;
+    int8_t daemonize;
+} Opt;
 
-json_object *request_send(ConsoleContext *, char const *);
-void console_context_destroy(ConsoleContext *ctx);
+void opt_fill_default(Opt *opt);
+void opt_parse(Opt *opt, int argc, char *const *argv);
 
-extern const Command COMMANDS[];
-
-#endif /* !NTKCONSOLE_H */
+#endif /* !NTKD_OPT_H */

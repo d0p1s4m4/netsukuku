@@ -30,8 +30,8 @@
 #include <stdlib.h>
 
 #include "libping.h"
-#include "xmalloc.h"
-#include "log.h"
+#include <netsukuku/utils/xmalloc.h>
+#include <netsukuku/log.h>
 
 #define  MAXPACKET   65535
 #define  PKTSIZE     64

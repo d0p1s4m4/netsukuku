@@ -18,17 +18,15 @@
 *                                                                       *
 ************************************************************************/
 
-#include "andns_lib.h"
-#include "andns_net.h"
-#include "log.h"
-#include "err_errno.h"
-#include "xmalloc.h"
+#include "../../andns_lib.h"
+#include <netsukuku/log.h>
+#include <netsukuku/utils/xmalloc.h>
 
 #include <arpa/inet.h>
 #include <zlib.h>
 
 int
-andns_compress(char *src, int srclen)
+andns_compress(char *src, size_t srclen)
 {
 	int res;
 	uLongf space;
@@ -44,16 +42,21 @@ andns_compress(char *src, int srclen)
 	res = compress2(dst + ANDNS_HDR_Z, &space, (u_char *) src, srclen,
 					ANDNS_COMPR_LEVEL);
 	if (res != Z_OK)
-		err_ret(ERR_ZLIBCP, -1);
-	if (space >= srclen - ANDNS_HDR_Z)	/* We have to consider the four
-										   bytes too */
-		err_ret(ERR_ZLIBNU, -1);	/* This is a
-									   silent return */
+	{
+		error$("Zlib Compression Fail.");
+		return (-1);
+	}
+	if (space >= (srclen - ANDNS_HDR_Z))	/* We have to consider the four bytes too */
+	{
+		error$("Zlib compression is useless.");
+		return (-1);
+	}
+
 	res = htonl(srclen);
 	memcpy(dst, &res, ANDNS_HDR_Z);
 	memcpy(src, dst, space);
 
-	return (int) space;
+	return ((int)space);
 }
 
 char *
@@ -74,19 +77,22 @@ andns_uncompress(char *src, int srclen, int *dstlen)
 	res =
 		uncompress(dst + ANDNS_HDR_SZ, &space, (u_char *) src + hdrsz,
 				   srclen - hdrsz);
-	if (res != Z_OK) {
+	if (res != Z_OK)
+	{
 		xfree(dst);
-		err_ret(ERR_ZLIBUP, NULL);
+		error$("Zlib Uncompression Fail.");
+		return (NULL);
 	}
-	if ((int) space != c_len) {
+	if ((int)space != c_len) {
 		xfree(dst);
-		err_ret(ERR_ANDMAP, NULL);
+		error$("Malformed Andna Packet.");
+		return (NULL);
 	}
 
 	memcpy(dst, src, ANDNS_HDR_SZ);
 	*dstlen = c_len + ANDNS_HDR_SZ;
 
-	return (char *) dst;
+	return ((char *)dst);
 }
 
 /*
@@ -95,14 +101,11 @@ andns_uncompress(char *src, int srclen, int *dstlen)
  * Returns ALWAYS 4. The pkt_len has to be controlled
  * elsewhere.
  */
-int
+static int
 a_hdr_u(char *buf, andns_pkt * ap)
 {
 	uint8_t c;
 	uint16_t s;
-	char *start_buf;
-
-	start_buf = buf;
 
 	ap->r = *(buf + 1) & 0x01;
 	memcpy(&s, buf, 2);
@@ -120,8 +123,9 @@ a_hdr_u(char *buf, andns_pkt * ap)
 	buf++;
 	memcpy(&c, buf, sizeof(uint8_t));
 	if (((*buf) & 0x80))
+	{
 		ap->ancount++;
-
+	}
 	ap->ipv = (c >> 6) & 0x01;
 	ap->nk = (c >> 4) & 0x03;
 	ap->rcode = c & 0x0f;
@@ -135,13 +139,16 @@ a_hdr_u(char *buf, andns_pkt * ap)
  *  this control.
  */
 int
-a_qst_u(char *buf, andns_pkt * ap, int limitlen)
+a_qst_u(char *buf, andns_pkt *ap, int limitlen)
 {
 	int ret;
 	uint16_t s;
 
 	if (limitlen < 3)
-		err_ret(ERR_ANDMAP, -1);
+	{
+		error$("Malformed Andna Packet.");
+		return (-1);
+	}
 
 	switch (ap->qtype) {
 	case AT_A:
@@ -151,7 +158,10 @@ a_qst_u(char *buf, andns_pkt * ap, int limitlen)
 		if (ap->nk == NTK_REALM) {
 			ap->qstlength = ANDNS_HASH_H;
 			if (ap->qstlength > limitlen - 2)
-				err_ret(ERR_ANDPLB, -1);
+			{
+				error$("Andns Packet Len Break.");
+				return (-1);
+			}
 			AP_ALIGN(ap);
 			memcpy(ap->qstdata, buf, ANDNS_HASH_H);
 			ret = ANDNS_HASH_H + 2;
@@ -161,7 +171,10 @@ a_qst_u(char *buf, andns_pkt * ap, int limitlen)
 			buf += 2;
 			if (ap->qstlength >= ANDNS_MAX_QST_LEN ||
 				ap->qstlength > limitlen - 4)
-				err_ret(ERR_ANDPLB, -1);
+				{
+					error$("Andns Packet Len Break.");
+					return (-1);
+				}
 			AP_ALIGN(ap);
 			memcpy(ap->qstdata, buf, ap->qstlength);
 			ret = ap->qstlength + 4;
@@ -171,24 +184,34 @@ a_qst_u(char *buf, andns_pkt * ap, int limitlen)
 	case AT_PTR:
 		ap->qstlength = ap->ipv ? 16 : 4;
 		if (ap->qstlength > limitlen)
-			err_ret(ERR_ANDMAP, -1)
-				AP_ALIGN(ap);
+		{
+			error$("Malformed Andna Packet.");
+			return (-1);
+		}
+		AP_ALIGN(ap);
 		memcpy(ap->qstdata, buf, ap->qstlength);
 		ret = ap->qstlength;
 		break;
 	case AT_G:
 		if (ap->nk != NTK_REALM)
-			err_ret(ERR_ANDMAP, -1);
+		{
+			error$("Malformed Andna Packet.");
+			return (-1);
+		}
 		ap->qstlength = ANDNS_HASH_H;
 		if (ap->qstlength > limitlen)
-			err_ret(ERR_ANDPLB, -1);
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		AP_ALIGN(ap);
 		memcpy(ap->qstdata, buf, ANDNS_HASH_H);
 		ret = ap->qstlength;
 		break;
 	default:
 		debug$("In a_qst_u: unknow query type.");
-		err_ret(ERR_ANDMAP, -1)
+		error$("Malformed Andna Packet.");
+		return (-1);
 	}
 	return ret;
 }
@@ -201,12 +224,18 @@ a_answ_u(char *buf, andns_pkt * ap, int limitlen)
 	int limit;
 
 	if (limitlen < 3)
-		err_ret(ERR_ANDMAP, -1);
+	{
+		error$("Malformed Andna Packet.");
+		return (-1);
+	}
 	switch (ap->qtype) {
 	case AT_A:
 		limit = 2;
 		if (limitlen < limit)
-			err_ret(ERR_ANDPLB, -1);
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		apd = andns_add_answ(ap);
 		if (*buf & 0x40) {
 			apd->m |= APD_IP;
@@ -216,7 +245,10 @@ a_answ_u(char *buf, andns_pkt * ap, int limitlen)
 		} else
 			limit = ANDNS_HASH_H;
 		if (limitlen < limit + 2)
-			err_ret(ERR_ANDPLB, -1);
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		apd->wg = (*buf & 0x3f);
 		apd->prio = (*(buf + 1));
 		apd->rdlength = limit;
@@ -227,10 +259,11 @@ a_answ_u(char *buf, andns_pkt * ap, int limitlen)
 	case AT_PTR:
 		memcpy(&alen, buf, 2);
 		alen = ntohs(alen);
-		if (alen + 2 > limitlen)
-			err_ret(ERR_ANDPLB, -1);
-		if (alen > ANDNS_MAX_DATA_LEN)
-			err_ret(ERR_ANDPLB, -1);
+		if (alen + 2 > limitlen || alen > ANDNS_MAX_DATA_LEN)
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		apd = andns_add_answ(ap);
 		apd->rdlength = alen;
 		APD_ALIGN(apd);
@@ -239,7 +272,10 @@ a_answ_u(char *buf, andns_pkt * ap, int limitlen)
 		break;
 	case AT_G:
 		if (limitlen < 8)
-			err_ret(ERR_ANDMAP, -1);
+		{
+			error$("Malformed Andna Packet.");
+			return (-1);
+		}
 		apd = andns_add_answ(ap);
 		if (*buf & 0x40) {
 			apd->m |= APD_IP;
@@ -259,12 +295,16 @@ a_answ_u(char *buf, andns_pkt * ap, int limitlen)
 			apd->rdlength = ANDNS_HASH_H;
 		limit = 4 + apd->rdlength;
 		if (limitlen < limit)
-			err_ret(ERR_ANDPLB, -1);
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		APD_ALIGN(apd);
 		memcpy(apd->rdata, buf, apd->rdlength);
 		break;
 	default:
-		err_ret(ERR_ANDMAP, -1);
+		error$("Malformed Andna Packet.");
+		return (-1);
 	}
 	return limit;
 }
@@ -285,8 +325,8 @@ a_answs_u(char *buf, andns_pkt * ap, int limitlen)
 	for (i = 0; i < ancount; i++) {
 		res = a_answ_u(buf + offset, ap, limitlen - offset);
 		if (res == -1) {
-			error$(err_str);
-			err_ret(ERR_ANDMAD, -1);
+			error$("Malformed Andns Data.");
+			return (-1);
 		}
 		offset += res;
 	}
@@ -313,15 +353,20 @@ a_u(char *buf, int pktlen, andns_pkt ** app)
 	char *u_buf;
 
 	if (pktlen < ANDNS_HDR_SZ)
-		err_ret(ERR_ANDPLB, 0);
+	{
+		error$("Andns Packet Len Break.");
+		return (0);
+	}
 	*app = ap = create_andns_pkt();
 	offset = a_hdr_u(buf, ap);
 
 	if (ap->z) {				/* Controls the space to read
 								   uncompressed size */
-		if (pktlen < ANDNS_HDR_SZ + ANDNS_HDR_Z) {
+		if (pktlen < ANDNS_HDR_SZ + ANDNS_HDR_Z)
+		{
 			destroy_andns_pkt(ap);
-			err_ret(ERR_ANDPLB, 0);
+			error$("Andns Packet Len Break.");
+			return (0);
 		}
 		if (!(u_buf = andns_uncompress(buf, pktlen, &u_len)))
 			goto andmap;
@@ -349,11 +394,11 @@ a_u(char *buf, int pktlen, andns_pkt ** app)
 	return offset;
   andmap:
 	destroy_andns_pkt(ap);
-	error$(err_str);
-	err_ret(ERR_ANDMAP, -1);
+	error$("Malformed Andna Packet.");
+	return (-1);
 }
 
-int
+static int
 a_hdr_p(andns_pkt * ap, char *buf)
 {
 	uint16_t s;
@@ -384,7 +429,7 @@ a_hdr_p(andns_pkt * ap, char *buf)
 	return ANDNS_HDR_SZ;
 }
 
-int
+static int
 a_qst_p(andns_pkt * ap, char *buf, int limitlen)
 {
 	int ret = 0;
@@ -395,7 +440,10 @@ a_qst_p(andns_pkt * ap, char *buf, int limitlen)
 	case AT_A:
 		limit = ap->nk == NTK_REALM ? ANDNS_HASH_H + 2 : ap->qstlength + 4;
 		if (limitlen < limit)
-			err_ret(ERR_ANDMAD, -1);
+		{
+			error$("Malformed Andns Data.");
+			return (-1);
+		}
 		s = htons(ap->service);
 		memcpy(buf, &s, 2);
 		buf += 2;				/* here INET and NTK REALM change */
@@ -409,31 +457,41 @@ a_qst_p(andns_pkt * ap, char *buf, int limitlen)
 			memcpy(buf, ap->qstdata, ap->qstlength);
 			ret = ap->qstlength + 4;
 		} else
-			err_ret(ERR_ANDMAD, -1);
+		{
+			error$("Malformed Andns Data.");
+			return (-1);
+		}
 		break;
 	case AT_PTR:
 		limit = ap->ipv ? 16 : 4;
 		if (limitlen < limit)
-			err_ret(ERR_ANDMAD, -1);
+		{
+			error$("Malformed Andns Data.");
+			return (-1);
+		}
 		memcpy(buf, ap->qstdata, limit);
 		ret = limit;
 		break;
 	case AT_G:
 		limit = ANDNS_HASH_H;
 		if (limitlen < limit)
-			err_ret(ERR_ANDMAD, -1);
+		{
+			error$("Malformed Andns Data.");
+			return (-1);
+		}
 		memcpy(buf, ap->qstdata, ANDNS_HASH_H);
 		ret = ANDNS_HASH_H;
 		break;
 	default:
 		debug$("In a_qst_p: unknow query type.");
-		err_ret(ERR_ANDMAD, -1);
+		error$("Malformed Andns Data.");
+		return (-1);
 		break;
 	}
 	return ret;
 }
 
-int
+static int
 a_answ_p(andns_pkt * ap, andns_pkt_data * apd, char *buf, int limitlen)
 {
 	uint16_t s;
@@ -444,7 +502,10 @@ a_answ_p(andns_pkt * ap, andns_pkt_data * apd, char *buf, int limitlen)
 	case AT_A:
 		limit = ap->ipv ? 16 : 4;
 		if (limitlen < limit + 2)
-			err_ret(ERR_ANDPLB, -1);
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		if (apd->m)
 			*buf |= 0x80;
 		*buf++ |= (apd->wg & 0x7f);
@@ -454,7 +515,10 @@ a_answ_p(andns_pkt * ap, andns_pkt_data * apd, char *buf, int limitlen)
 		break;
 	case AT_PTR:
 		if (limitlen < apd->rdlength + 2)
-			err_ret(ERR_ANDPLB, -1);
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		s = htons(apd->rdlength);
 		memcpy(buf, &s, sizeof(uint16_t));
 		buf += 2;
@@ -463,7 +527,10 @@ a_answ_p(andns_pkt * ap, andns_pkt_data * apd, char *buf, int limitlen)
 		break;
 	case AT_G:					/* TODO */
 		if (limitlen < 4)
-			err_ret(ERR_ANDPLB, -1);
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		if (apd->m == 1)
 			(*buf) |= 0xc0;
 		else if (apd->m)
@@ -475,13 +542,19 @@ a_answ_p(andns_pkt * ap, andns_pkt_data * apd, char *buf, int limitlen)
 		if (apd->m) {
 			limit = ap->ipv ? 16 : 4;
 			if (limitlen < limit + 4)
-				err_ret(ERR_ANDPLB, -1);
+			{
+				error$("Andns Packet Len Break.");
+				return (-1);
+			}
 			memcpy(buf, apd->rdata, limit);
 			ret = limit + 4;
 		} else {
 			limit = strlen(apd->rdata);
 			if (limitlen < limit + 6)
-				err_ret(ERR_ANDPLB, -1);
+			{
+				error$("Andns Packet Len Break.");
+				return (-1);
+			}
 			s = htons(limit);
 			memcpy(buf, &s, 2);
 			buf += 2;
@@ -491,13 +564,14 @@ a_answ_p(andns_pkt * ap, andns_pkt_data * apd, char *buf, int limitlen)
 		break;
 	default:
 		debug$("In a_answ_p(): unknow query type.");
-		err_ret(ERR_ANDMAD, -1);
+		error$("Malformed Andns Data.");
+		return (-1);
 		break;
 	}
 	return ret;
 }
 
-int
+static int
 a_answs_p(andns_pkt * ap, char *buf, int limitlen)
 {
 	andns_pkt_data *apd;
@@ -507,7 +581,10 @@ a_answs_p(andns_pkt * ap, char *buf, int limitlen)
 
 	if (ap->qtype == AT_G) {
 		if (limitlen < 2)
-			err_ret(ERR_ANDPLB, -1);
+		{
+			error$("Andns Packet Len Break.");
+			return (-1);
+		}
 		s = htons(ap->ancount);
 		memcpy(buf, &s, 2);
 		offset += 2;
@@ -516,8 +593,8 @@ a_answs_p(andns_pkt * ap, char *buf, int limitlen)
 	for (i = 0; i < ap->ancount && apd; i++) {
 		if ((res =
 			 a_answ_p(ap, apd, buf + offset, limitlen - offset)) == -1) {
-			error$(err_str);
-			err_ret(ERR_ANDMAD, -1);
+			error$("Malformed Andns Data.");
+			return (-1);
 		}
 		offset += res;
 		apd = apd->next;
@@ -548,7 +625,7 @@ a_p(andns_pkt * ap, char *buf)
 	if (offset > ANDNS_COMPR_THRESHOLD) {
 		res = andns_compress(buf, offset);
 		if (res == -1)
-			error$(err_str);
+			error$("andns_compress failed");
 		else
 			return res;
 	}
@@ -556,8 +633,8 @@ a_p(andns_pkt * ap, char *buf)
 	return offset;
   server_fail:
 	destroy_andns_pkt(ap);
-	error$(err_str);
-	err_ret(ERR_ANDMAD, -1);
+	error$("Malformed Andns Data.");
+	return (-1);
 }
 
 

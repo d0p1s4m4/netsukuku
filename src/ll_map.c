@@ -16,8 +16,8 @@
 
 #include "libnetlink.h"
 #include "ll_map.h"
-#include "xmalloc.h"
-#include "log.h"
+#include <netsukuku/utils/xmalloc.h>
+#include <netsukuku/log.h>
 
 struct idxmap {
 	struct idxmap *next;

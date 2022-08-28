@@ -18,7 +18,7 @@
 *                                                                       *
 ************************************************************************/
 
-#include "err_errno.h"
+#include "../err_errno.h"
 
 static const char *err_strings[] = {
 	"UFO error -o-",			/* ERR_UFOERR */
@@ -55,6 +55,9 @@ static const char *err_strings[] = {
 	"Zlib Uncompression Fail.",	/* ERR_ZLIBUP */
 	"Zlib compression is useless.",	/* ERR_ZLIBNU */
 };
+
+const char *err_func = NULL;
+const char *err_file = NULL;
 
 const char *
 __err_strerror(int n)

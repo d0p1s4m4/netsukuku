@@ -1,5 +1,5 @@
 /* This file is part of Netsukuku
- * Copyright (c) 2022 d0p1
+ * (c) Copyright 2022 d0p1 <contact[AT]d0p1[DOT].eu>
  *
  * This source code is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as published
@@ -17,31 +17,24 @@
  *
  */
 
-#ifndef NTKCONSOLE_H
-# define NTKCONSOLE_H
+#include <stdlib.h>
+#include <stdio.h>
 
-# include <json-c/json_object.h>
-# include <time.h>
+#include <netsukuku/log.h>
+#include "opt.h"
 
-# define CONSOLE_VERSION_MAJOR 0
-# define CONSOLE_VERSION_MINOR 3
-# define CONSOLE_VERSION_PATCH 0
+int
+main(int argc, char *const *argv)
+{
+	Opt opt;
 
-typedef struct {
-	char *socket_path;
-} ConsoleContext;
+	log_initialize(argv[0]);
+	log_set_output_fd(stdout);
 
-typedef void (*Callback)(ConsoleContext *);
+	opt_fill_default(&opt);
+	opt_parse(&opt, argc, argv);
 
-typedef struct {
-	char *cmd;
-	char *help;
-	Callback cb;
-} Command;
+	log_set_level(opt.log_level);
 
-json_object *request_send(ConsoleContext *, char const *);
-void console_context_destroy(ConsoleContext *ctx);
-
-extern const Command COMMANDS[];
-
-#endif /* !NTKCONSOLE_H */
+	return (EXIT_SUCCESS);
+}

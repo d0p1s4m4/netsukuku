@@ -21,8 +21,8 @@
 #include <string.h>
 #include "dnslib.h"
 #include "err_errno.h"
-#include "log.h"
-#include "xmalloc.h"
+#include <netsukuku/log.h>
+#include <netsukuku/utils/xmalloc.h>
 
 /*
  * Takes a label: is there a ptr?

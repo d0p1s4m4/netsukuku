@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         cc: [gcc, clang]
@@ -14,7 +14,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install build-essential zlibc libgmp-dev openssl libssl-dev
-        sudo apt-get install libpth-dev perl
+        sudo apt-get install libpth-dev perl libjson-c-dev
         sudo apt-get install clang
     - name: Build with ${{ matrix.cc }}
       run: |

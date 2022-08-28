@@ -74,7 +74,8 @@
  /*
   * Core
   */
-const char *err_func, *err_file;
+extern const char *err_func;
+extern const char *err_file;
 #define ERR_NERR                (ERR_TOTAL_ERRS)
 #define err_seterrno(n)         errno=(n);err_func=__func__;	\
                                 err_file=__FILE__

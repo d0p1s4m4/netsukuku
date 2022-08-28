@@ -29,7 +29,7 @@
 #include <stdarg.h>
 
 #include "libnetlink.h"
-#include "log.h"
+#include <netsukuku/log.h>
 
 void
 rtnl_close(struct rtnl_handle *rth)

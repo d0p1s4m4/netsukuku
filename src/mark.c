@@ -40,7 +40,7 @@
 #include "iptunnel.h"
 #include "mark.h"
 #include "err_errno.h"
-#include "log.h"
+#include <netsukuku/log.h>
 
 static int death_loop_rule;
 static int clean_on_exit;

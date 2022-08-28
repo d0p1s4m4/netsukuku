@@ -18,8 +18,8 @@
 
 #include "includes.h"
 #include "request.h"
-#include "xmalloc.h"
-#include "log.h"
+#include <netsukuku/utils/xmalloc.h>
+#include <netsukuku/log.h>
 
 const static u_char request_str[][30] = {
 	{"ECHO_ME"},

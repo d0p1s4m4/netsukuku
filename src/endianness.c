@@ -23,7 +23,7 @@
 #include "includes.h"
 
 #include "common.h"
-#include "log.h"
+#include <netsukuku/log.h>
 #include "endianness.h"
 
 #ifdef DEBUG

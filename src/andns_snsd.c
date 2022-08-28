@@ -24,7 +24,7 @@
 #include "andns_snsd.h"
 #include "err_errno.h"
 #include "andna.h"
-#include "log.h"
+#include <netsukuku/log.h>
 
 
 

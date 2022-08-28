@@ -21,7 +21,7 @@
 
 #include "misc.h"
 #include "buffer.h"
-#include "xmalloc.h"
-#include "log.h"
+#include <netsukuku/utils/xmalloc.h>
+#include <netsukuku/log.h>
 
 #endif

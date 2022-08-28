@@ -111,18 +111,12 @@ typedef struct andns_pkt {
 #define ANDNS_IPV4		0
 #define ANDNS_IPV6		1
 
-int andns_compress(char *src, int srclen);
+int andns_compress(char *src, size_t srclen);
 char *andns_uncompress(char *src, int srclen, int *dstlen);
-int a_hdr_u(char *buf, andns_pkt * ap);
 int a_qst_u(char *buf, andns_pkt * ap, int limitlen);
 int a_answ_u(char *buf, andns_pkt * ap, int limitlen);
 int a_answs_u(char *buf, andns_pkt * ap, int limitlen);
 int a_u(char *buf, int pktlen, andns_pkt ** app);
-int a_hdr_p(andns_pkt * ap, char *buf);
-int a_qst_p(andns_pkt * ap, char *buf, int limitlen);
-int a_answ_p(andns_pkt * ap, andns_pkt_data * apd, char *buf,
-			 int limitlen);
-int a_answs_p(andns_pkt * ap, char *buf, int limitlen);
 int a_p(andns_pkt * ap, char *buf);
 andns_pkt *create_andns_pkt(void);
 andns_pkt_data *create_andns_pkt_data(void);

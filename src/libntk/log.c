@@ -23,7 +23,7 @@
 #include <sys/syslog.h>
 #include <syslog.h>
 
-#include "log.h"
+#include <netsukuku/log.h>
 
 static LogConfig log_config = {
 	.name = NULL,

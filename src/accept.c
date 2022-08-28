@@ -31,8 +31,8 @@
 #include "request.h"
 #include "inet.h"
 #include "accept.h"
-#include "xmalloc.h"
-#include "log.h"
+#include <netsukuku/utils/xmalloc.h>
+#include <netsukuku/log.h>
 
 
 void
