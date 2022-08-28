@@ -18,19 +18,19 @@
 CC	?= gcc
 RM	= rm -f
 
-CFLAGS	+= %(CFLAGS) -Wall -Wextra -Isrc/
-LDFLAGS	+= 	-lgmp -lpthread -lcrypto -lz
+CFLAGS	+= %(CFLAGS) -Wall -Wextra -Isrc/ -Iinclude
+LDFLAGS	+= %(LDFLAGS) -lgmp -lpthread -lcrypto -lz
 
-SRCS_COMMON	= xmalloc.c log.c misc.c buffer.c endianness.c
+SRCS_COMMON	= buffer.c endianness.c log.c misc.c xmalloc.c
 SRCS_QSPN	= qspn-empiric.c
-SRCS_NETSUKUKU	= accept.c llist.c ipv6-gmp.c inet.c request.c map.c gmap.c \
-					bmap.c pkts.c radar.c hook.c rehook.c tracer.c qspn.c \
-					hash.c daemon.c crypto.c snsd_cache.c andna_cache.c \
-					andna.c andns_lib.c err_errno.c dnslib.c andns.c \
-					andns_net.c andns_snsd.c ll_map.c libnetlink.c if.c \
-					krnl_route.c krnl_rule.c iptunnel.c route.c conf.c \
-					dns_wrapper.c igs.c mark.c libiptc/libip4tc.c libping.c \
-					ntk-console-server.c netsukuku.c
+SRCS_NETSUKUKU	= accept.c andna.c andna_cache.c andns.c andns_lib.c \
+					andns_net.c andns_snsd.c bmap.c conf.c crypto.c \
+					daemon.c dns_wrapper.c dnslib.c err_errno.c gmap.c \
+					hash.c hook.c if.c igs.c inet.c iptunnel.c ipv6-gmp.c \
+					krnl_route.c krnl_rule.c libiptc/libip4tc.c libnetlink.c \
+					libping.c ll_map.c llist.c map.c mark.c netsukuku.c \
+					ntk-console-server.c pkts.c qspn.c radar.c rehook.c \
+					request.c route.c snsd_cache.c tracer.c
 SRCS_NTKRESOLV	= andns_lib.c andns_net.c crypto.c snsd_cache.c inet.c \
 					ll_map.c libnetlink.c err_errno.c ntkresolv.c
 SRCS_NTKCONSOLE	= ntkconsole/main.c ntkconsole/cmd.c ntkconsole/request.c

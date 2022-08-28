@@ -66,7 +66,7 @@ cmd_shutdown(ConsoleContext *ctx)
 	obj = request_send(ctx, "shutdown");
 	if (obj)
 	{
-		if (json_object_get_boolean(obj) == TRUE)
+		if (json_object_get_boolean(obj) == 1)
 		{
 			puts("Shutting down ntkd");
 		}

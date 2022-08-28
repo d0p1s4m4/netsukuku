@@ -73,7 +73,12 @@ GetOptions(
 pod2usage(0) if $help;
 
 if ($debug) {
-    $env{'CFLAGS'} = "-DDEBUG -ggdb -fsanitize=address -fsanitize=undefined $env{'CFLAGS'}";
+    $env{'CFLAGS'} = "-DDEBUG -ggdb " .
+                     "-fsanitize=address -fsanitize=pointer-compare " .
+                     "-fsanitize=pointer-subtract -fsanitize=leak " .
+                     " -fno-omit-frame-pointer -fsanitize=undefined " .
+                     "-fsanitize=bounds-strict -fsanitize=float-divide-by-zero " .
+                     "-fsanitize=float-cast-overflow $env{'CFLAGS'}";
     $env{'LDFLAGS'} = "-lasan -lubsan $env{'LDFLAGS'}"
 } else {
     $env{'CFLAGS'} = "-DNDEBUG";
