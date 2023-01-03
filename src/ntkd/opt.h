@@ -1,4 +1,4 @@
-/* This file is part of Netsukuku*
+/* This file is part of Netsukuku
  * (c) Copyright 2004 Andrea Lo Pumo aka AlpT <alpt@freaknet.org>
  * Copyright (c) 2022 d0p1
  *
@@ -29,12 +29,12 @@
 
 typedef struct
 {
-    char *config_file;
-    char *pid_file;
+	char *config_file;
+	char *pid_file;
 
-    int log_level;
+	int log_level;
 
-    int8_t daemonize;
+	int8_t daemonize;
 } Opt;
 
 void opt_fill_default(Opt *opt);

@@ -21,6 +21,7 @@
 #include <stdio.h>
 
 #include <netsukuku/log.h>
+#include "net/interface.h"
 #include "opt.h"
 
 int
@@ -30,6 +31,11 @@ main(int argc, char *const *argv)
 
 	log_initialize(argv[0]);
 	log_set_output_fd(stdout);
+#ifndef NDEBUG
+	log_set_level(LOG_DEBUG);
+#endif
+
+	interface_scan();
 
 	opt_fill_default(&opt);
 	opt_parse(&opt, argc, argv);
