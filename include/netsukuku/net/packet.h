@@ -1,5 +1,5 @@
 /* This file is part of Netsukuku
- * (c) Copyright 2022 d0p1 <contact[AT]d0p1[DOT].eu>
+ * Copyright (c) 2023 d0p1
  *
  * This source code is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as published
@@ -17,30 +17,46 @@
  *
  */
 
-#include <stdlib.h>
-#include <stdio.h>
+/**
+ * @file "netstukuku/net/packet.h"
+ * 
+ */
+#ifndef NETSUKUKU_NET_PACKET_H
+# define NETSUKUKU_NET_PACKET_H 1
 
-#include <netsukuku/log.h>
-#include "net/interface.h"
-#include "opt.h"
+# include <stdint.h>
 
-int
-main(int argc, char *const *argv)
-{
-	Opt opt;
+# define PACKET_MAGIC 0x6e746b31
 
-	log_initialize(argv[0]);
-	log_set_output_fd(stdout);
-#ifndef NDEBUG
-	log_set_level(LOG_DEBUG);
-#endif
+/**
+ * Packet Header
+ */
+typedef struct {
+	uint8_t magic[4]; /**< "ntk1" */
+	uint32_t id;
+	uint8_t flags;
+	uint8_t op;
+	uint16_t chksum; /**< Checksum */
+	uint32_t size;  /**< Size of the whole packet */
+} __attribute__((packed)) PacketHeader;
 
-	opt_fill_default(&opt);
-	interface_scan();
+typedef enum {
+	PACKET_COMPRESSED,
+} PacketFlags;
 
-	opt_parse(&opt, argc, argv);
+typedef enum {
+	E_NONE,
+} PacketOp;
 
-	log_set_level(opt.log_level);
+typedef struct {
+	uint8_t g_node;
+	uint8_t level;
+	uint8_t g_ttl;
+	uint8_t pad;
+} __attribute__((packed)) BroadcastHeader;
 
-	return (EXIT_SUCCESS);
-}
+typedef struct {
+	uint8_t flags;
+} TracerHeader;
+
+#endif /* !NETSUKUKU_NET_PACKET_H */

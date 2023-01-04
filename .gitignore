@@ -29,14 +29,21 @@ config.h
 netsukuku.conf
 
 # build result
-./ntkconsole
-./ntkresolv
-./ntkd
-./qspn-empiric
-unittest
 QSPN-map*
 QSPN1
 
 # coverage
 *.gcno
 *.gcda
+
+Makefile.in
+configure
+aclocal.m4
+*.cache
+config.h.in
+
+build/
+build-aux/compile
+build-aux/depcomp
+build-aux/install-sh
+build-aux/missing

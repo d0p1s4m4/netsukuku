@@ -22,6 +22,7 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <syslog.h>
 
 # define LOG_FILE (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)

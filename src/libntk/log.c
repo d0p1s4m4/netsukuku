@@ -27,7 +27,11 @@
 
 static LogConfig log_config = {
 	.name = NULL,
+#ifndef NDEBUG
 	.level = LOG_DEBUG,
+#else 
+	.level = LOG_WARNING,
+#endif /* !NDEBUG */
 	.fd = NULL
 };
 

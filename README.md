@@ -48,10 +48,11 @@ nodes together as you want!
 The dependencies of netsukuku can be installed by running this command
 for debian-based distros.
 
-    sudo apt-get install zlibc libgmp-dev openssl libssl-dev libpth-dev perl git
+    sudo apt-get install zlibc libgmp-dev openssl libssl-dev libpth-dev perl git libjson-c-dev
 
 To compile the code you can do this:
    
+    autoreconf -i -f
     ./configure
     make
     sudo make install 

@@ -119,6 +119,8 @@ way, by specifing univoque abbreviation of argument. So, there is the equivalenc
 
 with the exception of option -s, wich requires a valid service.
 
+=back
+
 =head1 QUERY TYPE
 
 You can formule different kind of queries.
