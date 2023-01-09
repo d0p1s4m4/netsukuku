@@ -1,0 +1,133 @@
+{{{
+. Ntk, NDN/CCNx some critical observations
+
+
+  . Introduction
+
+
+    NDN (Named Data Networking) [1,2] is an Information Centric Network
+    architecture. The aim of the NDN project is "to arrive at a design of
+    a new network architecture for the Internet that incorporates content
+    delivery in its primitive functions while at the same time removing
+    the need of relying on costly third-parties like CDNs [Content
+    Distribution Networks] or on inefficient P2P systems"[3].
+    
+    Both Netsukuku and NDN have ambitious goals. NDN aims to be a
+    next-generation Internet architecture, while Netsukuku aims to bring
+    forth an alternative socio-economic model for the Internet.
+
+    For what regards NDN, the NDN project has gained international
+    attention from academic research and private research of various
+    tele-communication companies[4-11].
+
+    The Netsukuku project was born and developed as a grass-root
+    hacktivist project.
+
+    In this document you can find thoughts and observations about how
+    the NDN/CCNx project could benefit the Netsukuku project.
+
+
+    
+    [1] http://www.named-data.net/
+    [2] http://en.wikipedia.org/wiki/Named_data_networking 
+    [3] Inter-Domain Named Data Networking, Andrea Lo Pumo, 2011
+    [4] Named Data Networking. http://www.named-data.net, 2012.
+    [5] CAIDA. Named Data Networking (NDN). http://www.caida.org/ projects/ndn-fia/, September 2012.
+    [6] AsiaFI. Asia Future Internet ICN working group. http://www.asiafi.  net/org/ndn/, October 2011.
+    [7] ANR. Content oriented networking (CONNECT).  http://www.anr-connect.org, 2011.
+    [8] PARC. PARC content-centric networking. http://www.parc.com/publications/focus-area/content-centric-networking/, 2009.
+    [9] PARC. CCNx. http://www.ccnx.org, 2012.
+    [10] A. Afanasyev, I. Moiseenko, and L. Zhang. ndnSIM: NDN simulator for NS-3. Technical report, Tech. Rep. NDN-0005, NDN Project (July 2012). URL http://irl.cs.ucla.edu/ndnSIM.html.
+    [11] A. Ghodsi, S. Shenker, T. Koponen, A. Singla, B. Raghavan, and J. Wilcox. Information-centric networking: seeing the forest for the trees. In Proceedings of the 10th ACM Workshop on Hot Topics in Networks, page 1. ACM, 2011.
+
+
+
+
+  . Observations
+
+
+    . At a very high-level, Netsukuku could implement NDN features by
+      recurring to ANDNA[12] for dealing with names and by introducing a
+      Content Store for enabling caching of forwarded contents. Vice-versa,
+      NDN could implement Netsukuku features by adopting Netsukuku routing
+      protocols, which would have to be opportunely adjusted to deal with
+      names rather than addresses.
+
+        Both Netsukuku and NDN needs a scalable routing protocol to meet
+      their objectives. The Netsukuku project, made various efforts
+      researching a suitable routing protocol, i.e. a routing protocol
+      that could be dynamic and scalable up to a network of 2^32 routers
+      (2^32 is the number of IPv4 addresses), see [13,14,15].
+        On the contrary, the NDN protocol is defined by assuming the
+      existence of a suitable routing protocol and it does not itself
+      provide one. The NDN project does in fact rely on the successful
+      outcome of other independent research efforts regarding scalable
+      routing protocols[16,17,20-22].
+        A research about scalable routing that is independent from
+      considerations on how the network architecture should be implemented
+      is Compact Routing[18,19]. Compact Routing explores different
+      schemes for routing in order to achieve routing table sizes that
+      scale sub-linearly with the number of nodes.
+        For what regards Compact Routing efforts [18,19], as of summer
+      2010 they did not provide a dynamic compact routing scheme,
+      i.e. "the design of an efficient dynamic scheme that is updated
+      incrementally as the network evolves [was] an open problem [and
+      perhaps as of now (summer 2013) still is]"[13].
+        To some the most promising class of routing architectures
+      seems to be hybdrid ones where multiple servers scattered in the
+      network, like super-nodes in  P2P networks, serve to digest the
+      load of the routing protocol and make it scale, see as example [16].
+      
+
+    [12] A Netsukuku Domain Name Architecture, http://netsukuku.freaknet.org, AlpT (@freaknet.org), July 3, 2008, http://netsukuku.freaknet.org/doc/main_doc/andna.pdf
+    [13] The address space balancing problem, Andrea Lo Pumo, 2010, http://www.cl.cam.ac.uk/~al565/output/interests.html
+    [14] The QSPN - routing discovery algorithm, http://netsukuku.freaknet.org/doc/main_doc/qspn.pdf
+    [15] Netsukuku topology, http://netsukuku.freaknet.org/doc/main_doc/topology.pdf
+    [16] NDN and IP routing, can it scale? Ashok Narayanan, David Oran, Cisco (2012) http://trac.tools.ietf.org/group/irtf/trac/raw-attachment/wiki/icnrg/IRTF%20-%20CCN%20And%20IP%20Routing%20-%202.pdf (mirror) http://dl.dropbox.com/u/78619439/mirrored-papers/ndn-and-ip-routing-can-it-scale-qm.pdf
+    [17] D. Perino and M. Varvello. A Reality Check for Content-Centric Networking, Proc. of ACM Sigcomm ICN 2011. August 2011.
+    [18] Papadimitriou, D. and NV, A.L.B. Compact Routing: Challenges, Perspectives, and Beyond.  http://streaming.info.ucl.ac.be/data/grascomp/pdf/TFISS09-Papadimitriou.pdf
+    [19] A.Korman and D.Peleg, Dynamic routing schemes for general graphs, In Proc. of ICALP 2006, Part I, LNCS 4051, pp. 619-630, Springer-Verlag Berlin Heidelberg 2006.
+    [20] D. Krioukov, F. Papadopoulos, M. Kitsak, A. Vahdat, and M. Bogu. Hyperbolic Geometry of Complex Networks, Physical Review E, vol. 82, no. 036106, Oct 2010.
+    [21] Potential based routing for ICN, Suyong Eum, Kiyohide Nakauchi, Takeshi Usui, Masayuki Murata, Nozomu Nishinaga, Proceeding AINTEC â€™11 Proceedings of the 7th Asian Internet Engineering Conference Pages 116-119 ACM New York, NY, USA 2011, doi 10.1145/2089016.2089035
+    [22] J. Rajahalme, M. Srel, K. Visala, and J. Riihijrvi. On Name-based Inter-domain Routing.  Comput. Netw., December 2010.
+
+
+    . Both NDN and Netsukuku leave aside MAC considerations, i.e. what
+      physical technologies allow nodes to exchange data (neighbours to
+      be linked).
+      The Netsukuku project, which started by considering the idea of
+      adopting wireless links for building autonomous MANETs (Metropolitan
+      Area Networks), if to be developed further should consider the idea
+      of researching scalable routing protocols optimized for a physical
+      layer of choice, e.g. wireless. An example of optimizing a network
+      protocol for wireless is tcp/ip designed with network coding[23].
+
+      [23] Network coding meets TCP, Jay Kumar Sundararajan, Devavrat Shah, Muriel Medard, Michael Mitzenmacher, Joao Barros, http://arXiv.org/abs/0809.5022v1
+
+
+    . A suggested line of action is to incorporate the core of the
+      NDN/CCNx protocol in one netsukuku prototype, while preserving
+      the compatibility with the NDN/CCNx protocol (see for example
+      CCNxLite[24], a light-weight implementation of CCNx, compatible
+      with CCNx), and developing the netsukuku routing protocols (and
+      other protocols like, for example, Viphilama[25-26], Carciofo[27])
+      on this core.
+      This will allow to collaborate with the NDN research community
+      and gain traction from the inertia that NDN research and
+      ICN (Information Centric Networking) more in general has
+      gained. Moreover, the NDN protocol is defined independently
+      from (almost) any particular choice of routing protocol. Thus,
+      the current routing protocols developed for Netsukuku are not
+      excluded from this line of action and can be further developed if
+      it is seen that they are appropriate or seem to be promising to
+      be researched further.
+
+      [24] CCNxLite http://www.ccn-lite.net/CCNlite-Nice2012-Poster.pdf
+      [25] Ntk_RFC Viphilama http://netsukuku.freaknet.org/index.php?pag=documentation&file=/main_documentation/ntk_rfc/Ntk_viphilama
+      [26] Ntk_RFC Viphilama Static http://netsukuku.freaknet.org/index.php?pag=documentation&file=/main_documentation/ntk_rfc/Ntk_viphilama_static 
+      [27] Ntk_RFC Carciofo http://netsukuku.freaknet.org/index.php?pag=documentation&file=/main_documentation/ntk_rfc/Ntk_carciofo
+
+
+
+
+}}}

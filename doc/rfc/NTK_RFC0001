@@ -11,7 +11,7 @@ But if you want to change the system here described, please contact us first.
 = The real problems =
 
 A collision of IPs happens when two gnodes with the same ID are born separately,
-so when they meet each trough a direct link or trough other nodes many
+so when they meet each through a direct link or through other nodes many
 problems arise since there are some ambiguities:
 
  * In the first case there can be nodes which have the same IP.
@@ -194,5 +194,3 @@ updated, therefore the update request must be accepted.
 That's all folks.
 
 Alpt, Katolaz, Mancausoft, Uscinziatu
-----
-related: [Netsukuku_RFC]

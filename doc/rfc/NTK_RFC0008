@@ -3,9 +3,9 @@
 Subject: Private IP classes in restricted mode
 
 ----
-This text describes a change to the Npv7.
-It will be included in the final documentation, so feel free to correct it.
-But if you want to change the system here described, please contact us first.
+                    * WARNING *
+This RFC has been deprecated by the NTK_RFC 0012
+                    * WARNING *
 ----
 
 The user can decide to use, in restricted mode, a different private IP
@@ -31,7 +31,7 @@ allow the creation of private LANs which are connected to Netsukuku with just
 one node.
 
 The default Netsukuku private class is 192.168.x.x.
-The random IPs choosen by the nodes will be never one of that class.
+The random IPs choosen by the nodes will never be one of that class.
 The default private class is valid both in normal and restricted mode.
 
 Only in normal mode the "172.16.0.0 - 172.31.255.255" class becomes private.

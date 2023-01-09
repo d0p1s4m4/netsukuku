@@ -42,7 +42,7 @@ The browser will resolve "depausceve" and will finally contact the server.
 When the ftp client of Y will try to resolve "angelica", it will get the
 "11.22.33.44" IP.
 If Y tries to resolve a service which hasn't been associated to anything, it
-will get the mainip 1.2.3.4.
+will get the mainip 1.2.3.4
 
 The node associated to a SNSD record is called "SNSD node". In this example
 "depausceve" and 11.22.33.44 are SNSD nodes.
@@ -101,7 +101,7 @@ The weight number has to be less than 128.
 The registration method of a SNSD record is similar to that described in the
 NTK_RFC 0004.
 
-It is possible to associate up to 16 records to a single service.
+It is possible to associate up to 16 records to a single hostname.
 The maximum number of total records which can be registered is 256.
 
 The registration of the SNSD records is performed by the same register_node.
@@ -147,7 +147,7 @@ register_node# scp frenzu:/usr/share/andna_lcl_keyring snsd/frenzu.pubk
 }}}
  * Send a SIGHUP to the NetsukukuD of the register node:
 {{{
-register_node# killall -HUP ntkd
+register_node# killall -SIGHUP ntkd
 # or, alternatively
 register_node# rc.ntk reload
 }}}
@@ -173,7 +173,7 @@ The string used to change the priority and weight value of the main IP is:
 hostname:hostname:0:priority:weight
 
 # For example:
-register_node# echo depausceve:depausceve:0:23:12 >> /etc/netsukuku/snsd_nodes
+register_node# echo depausceve:depausceve:0:23:12 &gt;&gt; /etc/netsukuku/snsd_nodes
 }}}
 
 
@@ -184,15 +184,15 @@ record, there is the possibility to create a SNSD chain.
 For example:
 
 {{{
-depausceve registers: depausceve:80 --> pippo
-pippo registers:      pippo:0  --> frenzu
-frenzu registers:     frenzu:0 --> angelica
+depausceve registers: depausceve:80 --&gt; pippo
+pippo registers:      pippo:0  --&gt; frenzu
+frenzu registers:     frenzu:0 --&gt; angelica
 }}}
 
 However the SNSD chains are ignored, only the first resolution is considered
 valid. Since in the zero service there's always the main IP, the resolution is
 always performed.
-In this case ("depausceve:80 --> pippo:0") the resolution will return the main
+In this case ("depausceve:80 --&gt; pippo:0") the resolution will return the main
 IP of "pippo:0".
 
 The reply to a resolution request of service zero, returns always IPs and not
@@ -200,4 +200,4 @@ hostnames.
 
 ----
 
-related: ["Netsukuku RFC"]
+related: [[Netsukuku_RFC]]
