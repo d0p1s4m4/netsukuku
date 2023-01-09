@@ -5,7 +5,7 @@ AC_INIT([Netsukuku], m4_esyscmd([build-aux/git-version-gen .tarball-version]),
 AC_CONFIG_SRCDIR(src/ntkd/main.c)
 AC_CONFIG_AUX_DIR([build-aux])
 
-AC_CONFIG_HEADERS([include/netsukuku/config.h])
+AC_CONFIG_HEADERS([ntk_config.h])
 AC_CONFIG_FILES([
 	Makefile
 	src/Makefile

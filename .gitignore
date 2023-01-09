@@ -40,7 +40,7 @@ Makefile.in
 configure
 aclocal.m4
 *.cache
-config.h.in
+ntk_config.h.in
 
 build/
 build-aux/compile
