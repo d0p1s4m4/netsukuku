@@ -17,6 +17,8 @@
  *
  */
 
+#include "ntk_config.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,8 +26,12 @@
 #include <readline/history.h>
 #include <netsukuku/console.h>
 #include <time.h>
+#include <locale.h>
 
 #include "ntkconsole.h"
+#include "gettext.h"
+
+#define _(x) gettext(x)
 
 static int
 parse_and_execute_commands(ConsoleContext *ctx, char const *buffer)
@@ -70,12 +76,16 @@ main(int argc, char *const argv[])
 	char *buffer;
 	ConsoleContext ctx;
 
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+
 	if (console_context_initialize(&ctx, argc, argv) != 0)
 	{
 		return (EXIT_FAILURE);
 	}
 
-	puts("This is the Netsukuku Console. Please type 'help' for more information.");
+	puts(_("This is the Netsukuku Console. Please type 'help' for more information."));
 	while ((buffer = readline("> ")) != NULL)
 	{
 		if (strlen(buffer) > 0)
@@ -83,7 +93,7 @@ main(int argc, char *const argv[])
 			add_history(buffer);
 			if (parse_and_execute_commands(&ctx, buffer) != 0)
 			{
-				printf("Error: Unknown command: '%s'\n", buffer);
+				printf(_("Error: Unknown command: '%s'\n"), buffer);
 			}
 		}
 		free(buffer);

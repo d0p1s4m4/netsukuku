@@ -5,6 +5,10 @@ AC_INIT([Netsukuku], m4_esyscmd([build-aux/git-version-gen .tarball-version]),
 AC_CONFIG_SRCDIR(src/ntkd/main.c)
 AC_CONFIG_AUX_DIR([build-aux])
 
+AC_CANONICAL_BUILD
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
 AC_CONFIG_HEADERS([ntk_config.h])
 AC_CONFIG_FILES([
 	Makefile
@@ -16,6 +20,7 @@ AC_CONFIG_FILES([
 	man/Makefile
 	conf/Makefile
 	test/Makefile
+	po/Makefile.in
 ])
 AC_CONFIG_FILES([
 	conf/netsukuku.conf
@@ -24,6 +29,14 @@ AC_CONFIG_FILES([
 
 AM_INIT_AUTOMAKE([foreign subdir-objects -Werror -Wall])
 
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.21])
+
+# -----------------------------------------------------------------------------
+#  Compiler and tools
+# -----------------------------------------------------------------------------
+
+AC_LANG([C])
 AC_PROG_CC
 AC_PROG_CPP
 AC_CHECK_PROGS([pod2man], [pod2man])
@@ -31,10 +44,11 @@ AM_PROG_AR
 AC_PROG_SED
 AC_PROG_RANLIB
 AC_PROG_INSTALL
-
 AM_PROG_CC_C_O
 
-AC_CANONICAL_HOST
+# -----------------------------------------------------------------------------
+# 
+# -----------------------------------------------------------------------------
 
 AC_ARG_ENABLE(debug,
 	AS_HELP_STRING(--enable-debug, [whether to include debug symbols (default is no)]))
@@ -48,6 +62,15 @@ AC_ARG_ENABLE(asan,
 	AS_HELP_STRING(--enable-asan, [enable address sanitizer]))
 AC_ARG_ENABLE(msan,
 	AS_HELP_STRING(--enable-msan, [enable memory sanitizer]))
+
+# -----------------------------------------------------------------------------
+#  Check keywords and standard types
+# -----------------------------------------------------------------------------
+AC_C_CONST
+
+AC_CHECK_SIZEOF(pid_t)
+
+AC_CHECK_HEADERS([ifaddrs.h])
 
 # -----------------------------------------------------------------------------
 #  Debug build
@@ -84,33 +107,35 @@ if test "x$enable_msan" = "xyes"; then
 fi
 
 # -----------------------------------------------------------------------------
-#  Syscheck
-# -----------------------------------------------------------------------------
-AC_CHECK_SIZEOF(pid_t)
-
-AC_CHECK_HEADERS([ifaddrs.h])
-
-# -----------------------------------------------------------------------------
 #  External libs
 # -----------------------------------------------------------------------------
 PKG_CHECK_MODULES([JSON_C], [json-c])
 PKG_CHECK_MODULES([READLINE], [readline])
+PKG_CHECK_MODULES([SODIUM], [libsodium])
 
 # -----------------------------------------------------------------------------
 #
 # -----------------------------------------------------------------------------
 LOCALSTATEDIR=`eval echo $localstatedir`
 AC_SUBST(LOCALSTATEDIR)
-CONFDIR=`eval echo $sysconfdir/netsukuku`
+CONFDIR=`eval echo \`echo ${sysconfdir}\`/netsukuku`
 AC_SUBST(CONFDIR)
 
 AC_OUTPUT
+
 AC_MSG_RESULT([
-	$PACKAGE_NAME $VERSION
+	Netsukuku version:   $PACKAGE_NAME $VERSION
+	Host OS:             ${host_os}
 
 	C Compiler:          $CC
-	Debug:               ${enable_debug}
-	Address Sanitizer:   ${enable_asan}
-	Undefined Sanitizer: ${enable_ubsan}
-	Memory Sanitizer:    ${enable_msan}
+	Debug:               ${enable_debug:-no}
+	Address Sanitizer:   ${enable_asan:-no}
+	Undefined Sanitizer: ${enable_ubsan:-no}
+	Memory Sanitizer:    ${enable_msan:-no}
+
+	State Directory:     
+	Config Directory:    ${CONFDIR}
+
+	Compiler Flags:      ${CFLAGS}
+	Linker Flags:        ${LDFLAGS} ${LIBS}
 ])

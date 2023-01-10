@@ -20,14 +20,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "ntk_config.h"
 #include <netsukuku/log.h>
 #include "net/interface.h"
 #include "opt.h"
+#include <locale.h>
+#include "gettext.h"
 
 int
 main(int argc, char *const *argv)
 {
 	Opt opt;
+
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
 
 	log_initialize(argv[0]);
 	log_set_output_fd(stdout);

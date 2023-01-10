@@ -2,3 +2,5 @@
 -Wextra
 -Iinclude
 -Ibuild
+-Isrc
+-DLOCALEDIR=""

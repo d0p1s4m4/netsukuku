@@ -5,7 +5,7 @@
 [🌐Website (archive)](https://web.archive.org/web/20170602105941/http://netsukuku.freaknet.org/)
 [📖Documentation](https://doc.netsukuku.net/)
 [![License](https://img.shields.io/github/license/d0p1s4m4/Netsukuku?logo=gnu&style=flat-square)](./LICENSE)
-[![Build](https://img.shields.io/github/actions/workflow/status/d0p1s4m4/netsukuku/ci.yml?branch=master?style=flat-square)](https://github.com/d0p1s4m4/netsukuku/actions/workflows/ci.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/d0p1s4m4/netsukuku/ci.yml?style=flat-square)](https://github.com/d0p1s4m4/netsukuku/actions/workflows/ci.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/d0p1s4m4/netsukuku?logo=codecov&style=flat-square)](https://app.codecov.io/gh/d0p1s4m4/netsukuku)
 [![Reddit](https://img.shields.io/reddit/subreddit-subscribers/netsukuku?color=orange&label=r%2Fnetsukuku&logo=reddit&logoColor=white&style=flat-square)](https://www.reddit.com/r/netsukuku/)
 
@@ -34,7 +34,7 @@ another routing protocol.
 The Domain Name System is also replaced by a decentralised and distributed
 system, Being the ANDNA system. (A Netsukuku Domain Name Architecture)
 
-The complete features list of Netsukuku is [here](doc/misc/Ntk_features_list)
+The complete features list of Netsukuku is [here](doc/old/misc/Ntk_features_list)
 
 In order to join to Netsukuku, Just install it and run it! Connect as many
 nodes together as you want!
@@ -48,7 +48,8 @@ nodes together as you want!
 The dependencies of netsukuku can be installed by running this command
 for debian-based distros.
 
-    sudo apt-get install zlibc libgmp-dev openssl libssl-dev libpth-dev perl git libjson-c-dev
+    sudo apt install build-essential git gettext \
+		libjson-c-dev libreadline-dev libsodium-dev
 
 To compile the code you can do this:
    
@@ -72,23 +73,7 @@ However, There are more options, Such as:
 This will run netsukuku in restricted mode(Internet compatibility mode) and 
 share your internet connection.
 
-(Netsukuku should be able to use any network interface you have, Even VPNs that 
-emulate ethernet such as tinc.)
-
-## Manual Dependencies
-
-You can manually download the dependencies of netsukuku if you want, 
-Or use them for development. 
-
-Here they are!
-
-- for the libgmp: https://gmplib.org/
-- the openssl library here: http://openssl.org
-- the zlibs: http://zlib.net
-- gawk: http://www.gnu.org/software/gawk/
-- libgcrypt: https://www.gnu.org/software/libgcrypt/
-- libpth: http://www.gnu.org/software/pth/
-- libgee: https://wiki.gnome.org/Projects/Libgee
+(Netsukuku should be able to use any network interface you have, Even VPNs that emulate ethernet such as tinc.)
 
 # How to use it
 
