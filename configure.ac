@@ -1,6 +1,7 @@
 AC_PREREQ([2.71])
 AC_INIT([Netsukuku], m4_esyscmd([build-aux/git-version-gen .tarball-version]),
 	[https://github.com/d0p1s4m4/netsukuku], [netsukuku])
+AC_COPYRIGHT([Copyright (C) 2023 d0p1])
 
 AC_CONFIG_SRCDIR(ntkd/main.c)
 AC_CONFIG_AUX_DIR([build-aux])
@@ -34,7 +35,6 @@ AM_GNU_GETTEXT_VERSION([0.21])
 # -----------------------------------------------------------------------------
 #  Compiler and tools
 # -----------------------------------------------------------------------------
-
 AC_LANG([C])
 AC_PROG_CC
 AC_PROG_CPP
@@ -115,10 +115,17 @@ PKG_CHECK_MODULES([SODIUM], [libsodium])
 # -----------------------------------------------------------------------------
 #
 # -----------------------------------------------------------------------------
+if test "$prefix" == NONE
+then
+	prefix=""
+fi
+
 LOCALSTATEDIR=`eval echo $localstatedir`
 AC_SUBST(LOCALSTATEDIR)
 CONFDIR=`eval echo \`echo ${sysconfdir}\`/netsukuku`
 AC_SUBST(CONFDIR)
+AH_TEMPLATE([CONFDIR],[netskuku's configuration directory])
+AC_DEFINE_UNQUOTED(CONFDIR,"$CONFDIR")
 
 AC_OUTPUT
 

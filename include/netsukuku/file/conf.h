@@ -17,46 +17,12 @@
  * along with Netsukuku. If not, see <https://www.gnu.org/licenses/>
  *
  */
-#include "netsukuku/file/conf.h"
-#include "ntk_config.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <locale.h>
+#ifndef NETSUKUKU_FILE_CONF_H
+# define NETSUKUKU_FILE_CONF_H 1
 
-#include <netsukuku/log.h>
-#include "net/interface.h"
-#include "daemon.h"
-#include "opt.h"
-#include "gettext.h"
+void config_parse_file(const char *file);
+char *config_get(const char *key);
+void config_cleanup(void);
 
-int
-main(int argc, char *const *argv)
-{
-	Opt opt;
-
-	setlocale(LC_ALL, "");
-	bindtextdomain(PACKAGE, LOCALEDIR);
-	textdomain(PACKAGE);
-
-	log_initialize(argv[0]);
-	log_set_output_fd(stdout);
-#ifndef NDEBUG
-	log_set_level(LOG_DEBUG);
-#endif
-
-	opt_fill_default(&opt);
-	interface_scan();
-
-	opt_parse(&opt, argc, argv);
-
-	log_set_level(opt.log_level);
-
-	if (opt.daemonize)
-	{
-		daemonize();
-	}
-
-	config_cleanup();
-	return (EXIT_SUCCESS);
-}
+#endif /* !NETSUKUKU_FILE_CONF_H */

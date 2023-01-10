@@ -23,7 +23,6 @@
 
 # include <stdint.h>
 
-# define OPT_DEFAULT_CONFIG_FILE "netsukuku.conf"
 # define OPT_DEFAULT_PID_FILE    "ntkd.pid"
 
 typedef struct

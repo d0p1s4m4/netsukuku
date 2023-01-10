@@ -20,18 +20,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <libgen.h>
 #include <netsukuku/log.h>
 #include <netsukuku/opt.h>
+#include <sys/syslog.h>
+#include <netsukuku/file/conf.h>
 #include "net/interface.h"
 #include "opt.h"
 #include "ntk_config.h"
+
+#define DEFAULT_CONFIG_FILE CONFDIR "/netsukuku.conf"
+
+void
+opt_fill_from_config(Opt *opt, const char *file)
+{
+	char *tmp;
+
+	tmp = config_get("pid_file");
+	if (tmp)
+	{
+		opt->pid_file = tmp;
+	}
+	config_parse_file(file);
+}
 
 void
 opt_fill_default(Opt *opt)
 {
 	memset(opt, 0, sizeof(Opt));
 
-	opt->config_file = OPT_DEFAULT_CONFIG_FILE;
 	opt->pid_file = OPT_DEFAULT_PID_FILE;
 
 #ifndef NDEBUG
@@ -41,6 +58,8 @@ opt_fill_default(Opt *opt)
 	opt->log_level = LOG_WARNING;
 	opt->daemonize = 1; /* daemonize by default */
 #endif
+
+	opt_fill_from_config(opt, DEFAULT_CONFIG_FILE);
 }
 
 static void
@@ -54,8 +73,10 @@ opt_show_help(char const *prg_name)
 	printf("\t-i,--interface\tNetwork card\n");
 	printf("\t-v\tVerbose\n");
 	printf("Options:\n");
-	printf("\t-c,--config <file>\tSpecify a config file (default: %s)\n", OPT_DEFAULT_CONFIG_FILE);
-	printf("\t--pid\tSpecify a pid file (default: %s)\n", OPT_DEFAULT_PID_FILE);
+	printf("\t-c,--config <file>\tSpecify a config file (default: %s)\n",
+				DEFAULT_CONFIG_FILE);
+	printf("\t--pid\tSpecify a pid file (default: %s)\n",
+				OPT_DEFAULT_PID_FILE);
 }
 
 static char *
@@ -93,20 +114,39 @@ opt_parse(Opt *opt, int argc, char *const *argv)
 		}
 		else if (OPT_IS_ARG('V', "version"))
 		{
-			printf("%s %s\n", argv[0], VERSION);
+			printf ("%s version %s\n", basename(argv[0]), VERSION);
 			exit(EXIT_SUCCESS);
 		}
 		else if (OPT_IS_ARG('D', "no-daemon"))
 		{
 			opt->daemonize = 0;
 		}
+		else if (OPT_IS_ARG('v', "verbose"))
+		{
+			opt->log_level++;
+			if (opt->log_level > LOG_DEBUG)
+			{
+				opt->log_level = LOG_DEBUG;
+			}
+		}
 		else if (OPT_IS_ARG('i', "interface"))
 		{
 			tmp = OPT_GET_VALUE();
 			if (!interface_exist(tmp))
 			{
-				error$("Interface %s not found", tmp);
+				fatal$("Interface %s not found", tmp);
 			}
+		}
+		else if (OPT_IS_ARG('c', "config"))
+		{
+			tmp = OPT_GET_VALUE();
+			if (tmp == NULL)
+			{
+				opt_show_help(argv[0]);
+				exit(EXIT_FAILURE);
+			}
+
+			opt_fill_from_config(opt, tmp);
 		}
 	}
 }

@@ -158,26 +158,26 @@ internet_ping_hosts	= google.com:cisco.com:sourceforge.net:dyne.org
 #
 # ntkd will save its process id in this file
 #
-#pid_file 		= /tmp/ntkd.pid
+pid_file 		= /tmp/ntkd.pid
 
 # 
 # The paths of the Netsukuku maps saved by the daemon
 #
-#ntk_ext_map_file	= @LOCALSTATEDIR@/netsukuku/ext_map_file
-#ntk_int_map_file	= @LOCALSTATEDIR@/netsukuku/int_map_file
-#ntk_bnode_map_file	= @LOCALSTATEDIR@/netsukuku/bnode_map_file
+ntk_ext_map_file	= @LOCALSTATEDIR@/netsukuku/ext_map_file
+ntk_int_map_file	= @LOCALSTATEDIR@/netsukuku/int_map_file
+ntk_bnode_map_file	= @LOCALSTATEDIR@/netsukuku/bnode_map_file
 
 #
 # The hostnames that will be registered in ANDNA are kept, one per line, in
 # this file.
 #
-#andna_hnames_file	= @CONFDIR@andna_hostnames
+andna_hnames_file	= @CONFDIR@andna_hostnames
 
 #
 # The snsd_nodes_file keeps the list of the SNSD records which will be
 # register in ANDNA.
 #
-#snsd_nodes_file	= @CONFDIR@/snsd_nodes
+snsd_nodes_file	= @CONFDIR@/snsd_nodes
 
 #
 # Caches used by the ANDNA daemon
