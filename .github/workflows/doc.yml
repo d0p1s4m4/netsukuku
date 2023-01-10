@@ -18,7 +18,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update 
-          sudo apt-get install build-essential
+          sudo apt-get install build-essential libcmocka-dev git gettext autopoint
+          sudo apt-get install libjson-c-dev libreadline-dev libsodium-dev
 
       - name: Generate files
         run: |

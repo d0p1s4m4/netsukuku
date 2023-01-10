@@ -48,7 +48,7 @@ nodes together as you want!
 The dependencies of netsukuku can be installed by running this command
 for debian-based distros.
 
-    sudo apt install build-essential git gettext \
+    sudo apt install build-essential git gettext autopoint \
 		libjson-c-dev libreadline-dev libsodium-dev
 
 To compile the code you can do this:
