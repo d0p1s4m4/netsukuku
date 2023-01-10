@@ -2,7 +2,7 @@ AC_PREREQ([2.71])
 AC_INIT([Netsukuku], m4_esyscmd([build-aux/git-version-gen .tarball-version]),
 	[https://github.com/d0p1s4m4/netsukuku], [netsukuku])
 
-AC_CONFIG_SRCDIR(src/ntkd/main.c)
+AC_CONFIG_SRCDIR(ntkd/main.c)
 AC_CONFIG_AUX_DIR([build-aux])
 
 AC_CANONICAL_BUILD
@@ -12,11 +12,10 @@ AC_CANONICAL_TARGET
 AC_CONFIG_HEADERS([ntk_config.h])
 AC_CONFIG_FILES([
 	Makefile
-	src/Makefile
-	src/libntk/Makefile
-	src/ntkconsole/Makefile
-	src/ntkd/Makefile
-	src/ntkresolv/Makefile
+	lib/Makefile
+	ntk-console/Makefile
+	ntkd/Makefile
+	ntk-resolv/Makefile
 	man/Makefile
 	conf/Makefile
 	test/Makefile

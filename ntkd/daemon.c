@@ -15,22 +15,47 @@
  *
  * You should have received a copy of the GNU Affero General Public License 
  * along with Netsukuku. If not, see <https://www.gnu.org/licenses/>
+ *
  */
-#ifndef NETSUKUKU_OPT_H
-# define NETSUKUKU_OPT_H 1
+#include "ntk_config.h"
 
-#define OPT_IS_ARG(s, l) argv[_ntk_opt_index][1] == s || \
-					 strcmp(argv[_ntk_opt_index] + 1, "-" l) == 0
+#include <stdlib.h>
 
-#define OPT_IS_LONGARG(l) strcmp(argv[_ntk_opt_index] + 1, "-" l) == 0
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif /* HAVE_UNISTD_H */
 
-#define OPT_GET_VALUE() impl_opt_get_value(argc, argv, &_ntk_opt_index)
+#ifdef HAVE_SYS_TYPES_H
+# include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
 
-#define OPT_GET_VALUE_OR_DEFAULT(x) impl_opt_get_value_or_default(argc, argv, &_ntk_opt_index, x)
+#include <netsukuku/log.h>
 
-#define OPT_INIT int _ntk_opt_index
+void
+daemonize(void)
+{
+	pid_t pid;
 
-#define OPT_LOOP() for (_ntk_opt_index = 1; _ntk_opt_index < argc; _ntk_opt_index++)
+	pid = fork();
+	if (pid < 0)
+	{
+		error$("fork() failed...");
+		exit(EXIT_FAILURE);
+	}
 
+	if (pid != 0)
+	{
+		/* parent */
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		/* child */
+		setsid();
 
-#endif /* !NETSUKUKU_OPT_H */
+		if (fork() != 0)
+		{
+			exit(EXIT_SUCCESS);
+		}
+	}
+}

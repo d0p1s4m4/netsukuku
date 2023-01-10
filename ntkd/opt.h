@@ -15,22 +15,28 @@
  *
  * You should have received a copy of the GNU Affero General Public License 
  * along with Netsukuku. If not, see <https://www.gnu.org/licenses/>
+ *
  */
-#ifndef NETSUKUKU_OPT_H
-# define NETSUKUKU_OPT_H 1
 
-#define OPT_IS_ARG(s, l) argv[_ntk_opt_index][1] == s || \
-					 strcmp(argv[_ntk_opt_index] + 1, "-" l) == 0
+#ifndef NTKD_OPT_H
+# define NTKD_OPT_H 1
 
-#define OPT_IS_LONGARG(l) strcmp(argv[_ntk_opt_index] + 1, "-" l) == 0
+# include <stdint.h>
 
-#define OPT_GET_VALUE() impl_opt_get_value(argc, argv, &_ntk_opt_index)
+# define OPT_DEFAULT_CONFIG_FILE "netsukuku.conf"
+# define OPT_DEFAULT_PID_FILE    "ntkd.pid"
 
-#define OPT_GET_VALUE_OR_DEFAULT(x) impl_opt_get_value_or_default(argc, argv, &_ntk_opt_index, x)
+typedef struct
+{
+	char *config_file;
+	char *pid_file;
 
-#define OPT_INIT int _ntk_opt_index
+	int log_level;
 
-#define OPT_LOOP() for (_ntk_opt_index = 1; _ntk_opt_index < argc; _ntk_opt_index++)
+	int8_t daemonize;
+} Opt;
 
+void opt_fill_default(Opt *opt);
+void opt_parse(Opt *opt, int argc, char *const *argv);
 
-#endif /* !NETSUKUKU_OPT_H */
+#endif /* !NTKD_OPT_H */

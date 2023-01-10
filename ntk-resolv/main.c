@@ -16,21 +16,16 @@
  * You should have received a copy of the GNU Affero General Public License 
  * along with Netsukuku. If not, see <https://www.gnu.org/licenses/>
  */
-#ifndef NETSUKUKU_OPT_H
-# define NETSUKUKU_OPT_H 1
 
-#define OPT_IS_ARG(s, l) argv[_ntk_opt_index][1] == s || \
-					 strcmp(argv[_ntk_opt_index] + 1, "-" l) == 0
+#include "opt.h"
+#include <stdlib.h>
 
-#define OPT_IS_LONGARG(l) strcmp(argv[_ntk_opt_index] + 1, "-" l) == 0
+int
+main(int argc, char *const *argv)
+{
+	Opt opt;
 
-#define OPT_GET_VALUE() impl_opt_get_value(argc, argv, &_ntk_opt_index)
-
-#define OPT_GET_VALUE_OR_DEFAULT(x) impl_opt_get_value_or_default(argc, argv, &_ntk_opt_index, x)
-
-#define OPT_INIT int _ntk_opt_index
-
-#define OPT_LOOP() for (_ntk_opt_index = 1; _ntk_opt_index < argc; _ntk_opt_index++)
-
-
-#endif /* !NETSUKUKU_OPT_H */
+	opt_fill_default(&opt);
+	opt_parse(&opt, argc, argv);
+	return (EXIT_SUCCESS);
+}

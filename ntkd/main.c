@@ -15,22 +15,40 @@
  *
  * You should have received a copy of the GNU Affero General Public License 
  * along with Netsukuku. If not, see <https://www.gnu.org/licenses/>
+ *
  */
-#ifndef NETSUKUKU_OPT_H
-# define NETSUKUKU_OPT_H 1
 
-#define OPT_IS_ARG(s, l) argv[_ntk_opt_index][1] == s || \
-					 strcmp(argv[_ntk_opt_index] + 1, "-" l) == 0
+#include <stdlib.h>
+#include <stdio.h>
 
-#define OPT_IS_LONGARG(l) strcmp(argv[_ntk_opt_index] + 1, "-" l) == 0
+#include "ntk_config.h"
+#include <netsukuku/log.h>
+#include "net/interface.h"
+#include "opt.h"
+#include <locale.h>
+#include "gettext.h"
 
-#define OPT_GET_VALUE() impl_opt_get_value(argc, argv, &_ntk_opt_index)
+int
+main(int argc, char *const *argv)
+{
+	Opt opt;
 
-#define OPT_GET_VALUE_OR_DEFAULT(x) impl_opt_get_value_or_default(argc, argv, &_ntk_opt_index, x)
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
 
-#define OPT_INIT int _ntk_opt_index
+	log_initialize(argv[0]);
+	log_set_output_fd(stdout);
+#ifndef NDEBUG
+	log_set_level(LOG_DEBUG);
+#endif
 
-#define OPT_LOOP() for (_ntk_opt_index = 1; _ntk_opt_index < argc; _ntk_opt_index++)
+	opt_fill_default(&opt);
+	interface_scan();
 
+	opt_parse(&opt, argc, argv);
 
-#endif /* !NETSUKUKU_OPT_H */
+	log_set_level(opt.log_level);
+
+	return (EXIT_SUCCESS);
+}

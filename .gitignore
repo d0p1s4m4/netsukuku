@@ -69,9 +69,9 @@ doc/html
 /ntk_config.h
 /stamp-h1
 
-/src/ntkconsole/ntk-console
-/src/ntkd/ntkd
-/src/ntkresolv/ntk-resolv
+/ntk-console/ntk-console
+/ntkd/ntkd
+/ntk-resolv/ntk-resolv
 
 /po/Makefile.in.in
 /po/Makevars.template
@@ -85,3 +85,5 @@ doc/html
 /po/remove-potcdate.sed
 /po/remove-potcdate.sin
 /po/stamp-po
+
+/__old

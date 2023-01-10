@@ -103,11 +103,10 @@ _{ Don't panic! }_
 If you encounter any bug, please report it and explain what the problem is and 
 if possible a way to reproduce it.
 
-# License and that kind of stuff...
+# License
+<a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
+  <img align="right" height="96" alt="AGPL3 License" src="https://www.gnu.org/graphics/agplv3-with-text-162x68.png" />
+</a>
+Netsukuku is licensed under the <b>GNU Affero General Public License v3.0 or later</b>.
 
-All the Netsukuku code is released under the GPL-2, please see the COPYING
-file for more information.
-
-The authors of Netsukuku and NetsukukuD are listed in the file AUTHORS.
-
-This should be ammended in the future, As more authors come on-board.
+The full text of the license can be accessed via [this link](https://www.gnu.org/licenses/agpl-3.0-standalone.html) and is also included in the [license](COPYING) file of this software package.
