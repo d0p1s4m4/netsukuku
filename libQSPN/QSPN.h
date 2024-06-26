@@ -1,0 +1,6 @@
+#ifndef NETSUKUKU_QSPN_H
+# define NETSUKUKU_QSPN_H 1
+
+
+
+#endif /* NETSUKUKU_QSPN_H */

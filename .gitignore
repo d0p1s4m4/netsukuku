@@ -43,6 +43,7 @@ aclocal.m4
 ntk_config.h.in
 
 build/
+build-aux/ar-lib
 build-aux/compile
 build-aux/depcomp
 build-aux/install-sh
@@ -51,6 +52,7 @@ build-aux/ar-lib
 build-aux/config.guess
 build-aux/config.rpath
 build-aux/config.sub
+build-aux/test-driver
 
 doc/html
 
@@ -87,3 +89,4 @@ doc/html
 /po/stamp-po
 
 /__old
+config.h.in

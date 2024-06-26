@@ -4,3 +4,5 @@
 -Ibuild
 -Ilib
 -DLOCALEDIR=""
+-Intkd
+-DHAVE_CONFIG_H

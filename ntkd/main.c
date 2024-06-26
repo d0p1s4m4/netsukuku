@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 d0p1
+ * Copyright (c) 2024 d0p1
  *
  * This file is part of Netsukuku.
  *
@@ -17,46 +17,130 @@
  * along with Netsukuku. If not, see <https://www.gnu.org/licenses/>
  *
  */
-#include "netsukuku/file/conf.h"
-#include "ntk_config.h"
-
-#include <stdlib.h>
+#include "config/opt.h"
+#include <io.h>
 #include <stdio.h>
-#include <locale.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif /* HAVE_CONFIG_H */
+#ifdef HAVE_GETOPT_H
+# include <getopt.h>
+#endif /* HAVE_GETOPT_H */
+#ifdef HAVE_LIBGEN_H
+# include <libgen.h>
+#endif /* HAVE_LIBGEN_H */
+#include "logger.h"
+#include "utils.h"
+#include "network/server.h"
+#include "webui/webui.h"
+#include "config/cfg.h"
 
-#include <netsukuku/log.h>
-#include "net/interface.h"
-#include "daemon.h"
-#include "opt.h"
-#include "gettext.h"
+static const char *prg_name;
+
+#ifdef HAVE_STRUCT_OPTION
+static struct option long_options[] = {
+	{"help", no_argument, 0, 'h'},
+	{"version", no_argument, 0, 'V'},
+	{"config", required_argument, 0, 'c'},
+	{"foreground", no_argument, 0, 'F'},
+	{0, 0, 0, 0}
+};
+#endif /* HAVE_STRUCT_OPTION */
+
+static void
+version(void)
+{
+	printf("%s (%s) %s\n", prg_name, PACKAGE_NAME, PACKAGE_VERSION);
+	exit(0);
+}
+
+static void
+usage(int retval)
+{
+	if (retval == EXIT_FAILURE)
+	{
+		fprintf(stderr, "Try '%s -h' for more information.\n", prg_name);
+	}
+	else
+	{
+		printf("Usage: %s [-hV]\n", prg_name);
+	}
+	exit(retval);
+}
+
+static void
+sighandler(int sig)
+{
+	LOG_DEBUG("signal: %d", sig);
+}
 
 int
-main(int argc, char *const *argv)
+main(int argc, char **argv)
 {
-	Opt opt;
-
-	setlocale(LC_ALL, "");
-	bindtextdomain(PACKAGE, LOCALEDIR);
-	textdomain(PACKAGE);
-
-	log_initialize(argv[0]);
-	log_set_output_fd(stdout);
-#ifndef NDEBUG
-	log_set_level(LOG_DEBUG);
+#if defined(HAVE_GETOPT_LONG) && defined(HAVE_STRUCT_OPTION) 
+	int idx;
 #endif
+	int c;
 
-	opt_fill_default(&opt);
-	interface_scan();
+	prg_name = basename(argv[0]);
 
-	opt_parse(&opt, argc, argv);
+	logger_init_default();
 
-	log_set_level(opt.log_level);
+	/* load config */
 
-	if (opt.daemonize)
+
+	/* parse args */
+#if defined(HAVE_GETOPT_LONG) && defined(HAVE_STRUCT_OPTION) 
+	while ((c = getopt_long(argc, argv, "hVc:F", long_options, &idx)) != EOF)
+#else
+	while ((c = getopt(argc, argv, "hVc:F")) != EOF)
+#endif /* HAVE_GETOPT_LONG && HAVE_STRUCT_OPTION */
 	{
-		daemonize();
+		switch(c)
+		{
+			case 'h':
+				usage(EXIT_SUCCESS);
+				break;
+			case 'V':
+				version();
+				break;
+			case 'c':
+				if (cfg_load_from(optarg) != 0)
+				{
+					return (EXIT_FAILURE);
+				}
+				break;
+			case 'F':
+				g_opt_daemonize = 0;
+				break;
+			default:
+				usage(EXIT_FAILURE);
+				break;
+		}
 	}
 
-	config_cleanup();
+	/* */
+#ifdef SIGINT
+	signal(SIGINT, sighandler);
+#endif
+#ifdef SIGTERM
+	signal(SIGTERM, sighandler);
+#endif
+#ifdef SIGQUIT
+	signal(SIGQUIT, sighandler);
+#endif
+
+	/* run */
+
+	server_start();
+	webui_start();
+
+	/*getchar();*/
+
+	webui_stop();
+	server_stop();
 	return (EXIT_SUCCESS);
 }

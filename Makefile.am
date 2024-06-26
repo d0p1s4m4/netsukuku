@@ -1,3 +1,3 @@
-SUBDIRS	= lib ntkd ntk-console ntk-resolv man conf po
+SUBDIRS	= lib libQSPN ntkd
 
 ACLOCAL_AMFLAGS = -I m4
