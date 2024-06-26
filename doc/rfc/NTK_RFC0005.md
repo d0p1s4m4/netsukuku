@@ -1,11 +1,12 @@
-== NTK_RFC 0005 ==
+NTK_RFC 0005
+============
 
-Subject: Life probability 
+**Subject: Life probability**
 
-----
-This text describes a change to the Npv7.
+*This text describes a change to the Npv7.
 It will be included in the final documentation, so feel free to correct it.
-But if you want to change the system here described, please contact us first.
+But if you want to change the system here described, please contact us first.*
+
 ----
 
 Statistically the probability of a node to continue to stay up is related to
@@ -16,18 +17,18 @@ up.
 For this reason we give higher credits to older nodes/gnodes, this means that
 in a multipath route we prefer to don't use very young nodes as main gateways.
 
-{{{
+```
 		A
 	       / \
 	      L   K
 	       \ /
                 N
-}}}
+```
 
 Let's say K has an uptime of 600 seconds and L of 200.
 The node N, to reach A, will prefer the node K.
 
-=== Implementation ===
+## Implementation
 
 In order to implement this we penalize the new nodes/gnodes by increasing
 their rtt, in this way they will be considered as slow links.
@@ -43,4 +44,4 @@ in.
 If it has only partecipated in < 3 rounds it is considered young.
 
 ----
-related: [Netsukuku_RFC]
+related: [Netsukuku_RFC](README.md)

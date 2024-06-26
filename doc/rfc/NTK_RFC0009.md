@@ -1,19 +1,21 @@
-== NTK_RFC 0009 ==
+NTK_RFC 0009
+=============
 
-Subject: Scattered Name Service Disgregation
+**Subject: Scattered Name Service Disgregation**
 
-----
-This text describes the Scattered Name Service Disgregation, an extension of
+*This text describes the Scattered Name Service Disgregation, an extension of
 the ANDNA protocol.
 It will be included in the final documentation, so feel free to correct it.
-But if you want to change the system here described, please contact us first.
+But if you want to change the system here described, please contact us first.*
+
 ----
 
-== SNSD ==
+## SNSD 
 
 The Scattered Name Service Disgregation is the ANDNA equivalent of the
 SRV Record of the Internet Domain Name System, which is defined here:
 http://www.ietf.org/rfc/rfc2782.txt
+
 For a brief explanation you can read:
 http://en.wikipedia.org/wiki/SRV_record
 
@@ -29,10 +31,13 @@ therefore it will get the record of the specified service number which is
 associated to the hostname. Example:
 
 The node X has registered the hostname "angelica".
+
 The default IP of "angelica" is 1.2.3.4.
-X associates the "depausceve" hostname to the `http' service number (80) of
+
+X associates the "depausceve" hostname to the `http` service number (80) of
 "angelica".
-X associates the "11.22.33.44" IP to the `ftp' service number (21) of
+
+X associates the "11.22.33.44" IP to the `ftp` service number (21) of
 "angelica".
 
 When the node Y resolves normally "angelica", it gets 1.2.3.4, but when
@@ -41,6 +46,7 @@ the `http' service, therefore the resolution will return "depausceve".
 The browser will resolve "depausceve" and will finally contact the server.
 When the ftp client of Y will try to resolve "angelica", it will get the
 "11.22.33.44" IP.
+
 If Y tries to resolve a service which hasn't been associated to anything, it
 will get the mainip 1.2.3.4
 
@@ -54,9 +60,9 @@ number 0.
 
 Note that with the SNSD, the NTK_RFC 0004 will be completely deprecated.
 
-== Service, priority and weight number ==
+## Service, priority and weight number
 
-==== Service number ====
+### Service number
 
 The service number specifies the scope of a SNSD record. The IP associated to 
 the service number `x' will be returned only to a resolution request which has
@@ -68,7 +74,7 @@ service can be retrieved from /etc/services.
 The service number 0 corresponds to a normal ANDNA record. The relative IP
 will be returned to a general resolution request.
 
-==== Priority ====
+### Priority
 
 The SNSD record has also a priority number. This number specifies the priority
 of the record inside its service array.
@@ -76,7 +82,7 @@ The client will contact first the SNSD nodes which have the higher priority,
 and only if they are unreachable, it will try to contact the other nodes
 which have a lower priority.
 
-==== Weight ===
+### Weight
 
 The weight number, associated to each SNSD record, is used when there are
 more than one records which have the same priority number.
@@ -96,10 +102,10 @@ It is also possible to use a weight equal to zero to disable a record.
 
 The weight number has to be less than 128.
 
-== SNSD Registration ==
+## SNSD Registration
 
 The registration method of a SNSD record is similar to that described in the
-NTK_RFC 0004.
+[NTK_RFC 0004](NTK_RFC0004.md).
 
 It is possible to associate up to 16 records to a single hostname.
 The maximum number of total records which can be registered is 256.
@@ -121,7 +127,7 @@ andna_queue is discarded.
 
 Practically, the steps necessary to register a SNSD record are:
  * Modify the /etc/netsukuku/snsd_nodes file.
-{{{
+```
 register_node# cd /etc/netsukuku/ 
 register_node# cat snsd_nodes
 #
@@ -144,23 +150,23 @@ angelica:frenzu:ssh:1:/etc/netsukuku/snsd/frenzu.pubk
 
 register_node#
 register_node# scp frenzu:/usr/share/andna_lcl_keyring snsd/frenzu.pubk
-}}}
+```
  * Send a SIGHUP to the NetsukukuD of the register node:
-{{{
+```
 register_node# killall -SIGHUP ntkd
 # or, alternatively
 register_node# rc.ntk reload
-}}}
+```
 
-==== Zero SNSD IP ====
+### Zero SNSD IP
 
 The main IP associated to a normal hostname has these default values:
-{{{
+```
 IP	 = register_node IP	# This value can't be changed
 service  = 0
 priority = 16
 weight   = 1
-}}}
+```
 
 It is possible to associate other SNSD records in the service 0, but it isn't
 allowed to change the main IP. The main IP can only be the IP of the
@@ -169,25 +175,25 @@ Although it isn't possible to set a different association for the main IP, it
 can be disabled by setting its weight number to 0.
 
 The string used to change the priority and weight value of the main IP is:
-{{{
+```
 hostname:hostname:0:priority:weight
 
 # For example:
 register_node# echo depausceve:depausceve:0:23:12 &gt;&gt; /etc/netsukuku/snsd_nodes
-}}}
+```
 
 
-==== SNSD chain ====
+### SNSD chain
 
 Since it is possible to assign different aliases and backup IPs to the zero
 record, there is the possibility to create a SNSD chain.
 For example:
 
-{{{
-depausceve registers: depausceve:80 --&gt; pippo
-pippo registers:      pippo:0  --&gt; frenzu
-frenzu registers:     frenzu:0 --&gt; angelica
-}}}
+```
+depausceve registers: depausceve:80 --> pippo
+pippo registers:      pippo:0  --> frenzu
+frenzu registers:     frenzu:0 --> angelica
+```
 
 However the SNSD chains are ignored, only the first resolution is considered
 valid. Since in the zero service there's always the main IP, the resolution is
@@ -200,4 +206,4 @@ hostnames.
 
 ----
 
-related: [[Netsukuku_RFC]]
+related: [Netsukuku_RFC](README.md)

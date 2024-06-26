@@ -1,14 +1,14 @@
-== NTK_RFC 0007 ==
+NTK_RFC 0007
+============
 
-Subject: ANDNA counter system based on public key
+**Subject: ANDNA counter system based on public key**
 
-----
-This text describes a change to the counter_gnode system in ANDNA.
+*This text describes a change to the counter_gnode system in ANDNA.
 It will be included in the final documentation, so feel free to correct it.
-But if you want to change the system here described, please contact us first.
+But if you want to change the system here described, please contact us first.*
+
 ----
 
-{{{
 The counter_gnode is used to prevent massive registrations of hnames by a
 single node, however there is a bug in the actual protocol.
  
@@ -31,7 +31,6 @@ counter_gnode. The new counter_gnode cannot know how many hnames the
 register_node registered before so it will accept all the new requests, but in
 reality, this is not a problem, in fact, the new counter_gnode can accept only
 256 hnames, thus the limit is maintained.
-}}}
 
 ----
-related: [[Netsukuku_RFC]]
+related: [Netsukuku_RFC](README.md)

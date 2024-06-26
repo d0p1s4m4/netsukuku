@@ -1,6 +1,4 @@
-    
-{{{
-
+```
                 * ANDNS PROTOCOL *
 
 
@@ -337,5 +335,4 @@
   If a packet is compressed, then Z=1.
 
 
-
-}}}
+```

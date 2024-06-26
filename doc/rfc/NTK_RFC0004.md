@@ -1,13 +1,13 @@
-== NTK_RFC 0004 ==
+NTK_RFC 0004
+============
 
-Subject: Mail Exchange request
+**Subject: Mail Exchange request**
 
-----
-This text describes how the MX DNS query are resolved by ANDNA.
+*This text describes how the MX DNS query are resolved by ANDNA.*
 
-		    * WARNING *
-This RFC has been deprecated by the NTK_RFC 0009
-		    * WARNING *
+> [!WARNING]  
+> This RFC has been deprecated by the [NTK_RFC 0009](NTK_RFC0009.md)
+
 ----
 
 In the DNS the resolution of the MX field is handled directly by the DNS
@@ -15,14 +15,14 @@ servers, in ANDNA, instead, the resolution of an MX hostname is a redirect
 request. In short it means that the request, instead of being sent to a
 hash_node, is sent to the register_node itself,
 
-== hname MX resolution ==
+# hname MX resolution
 
 The resolution of a MX hostnames in ANDNA works in this way:
  * We are trying to resolve the MX of the "pippo" hname.
  * "pippo" is resolved normally and the IP of the register_node is gained.
  * We ask to the register_node the IP of its MX.
 
-== hname MX registration ==
+# hname MX registration
 
 Since the IP of the MX node can change during the time, the register_node must
 be aware of its current IP.
@@ -40,17 +40,18 @@ Moreover this system prevents the spoofing of the MX node.
 
 The steps necessary to register a hname MX are:
  * Copy the ANDNA private key of the register node, which is saved in its lcl_cache, to the MX node:
-{{{
+```
 register_node# scp /usr/share/netsukuku/andna_lcl_keyring mx_node:/etc/netsukuku/mx/<HNAME_MX>
 # <HNAME_MX> is the hname relative to the MX node
-}}}
+```
  * Send a SIGHUP to the MX NetsukukuD:
-{{{
+```
 register_node# ssh mx_node "killall -HUP ntkd"
-}}}
+```
 
 
 If no MX is associated to an hostname, the register_node will use its own IP
 as the default MX IP.
+
 ----
-related: [Netsukuku_RFC]
+related: [Netsukuku_RFC](README.md)

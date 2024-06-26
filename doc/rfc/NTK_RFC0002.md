@@ -1,14 +1,13 @@
-== NTK_RFC 0002 ==
+NTK_RFC 0002
+============
 
-Subject: bandwidth measurement
+**Subject: bandwidth measurement**
 
-----
-This text describes a change to the Npv7.
+*This text describes a change to the Npv7.
 It will be included in the final documentation, so feel free to correct it.
-But if you want to change the system here described, please contact us first.
-----
+But if you want to change the system here described, please contact us first.*
 
-== Link measurement issues ==
+# Link measurement issues
 
 In the current version of the Npv7, the Radar measures the link quality using
 only the rtt (round-trip time) and packets losses.
@@ -16,14 +15,14 @@ This isn't optimal, because the bandwidth capacity is ignored, thus a link
 having a poor bandwidth, f.e 20Kbps, but a good latency, will be preferred
 over a link with a big bandwidth but a medium latency.
 
-== Improvement ==
+# Improvement
 
 A node must include in the Tracer Packets, not only the rtt of the traversed
 link, but also the current bandwidth capacity.
 In this way it will be possible to have a traffic shaping based also on the
 real bandwidth of the links.
 
-== Bandwidth measurement ==
+# Bandwidth measurement
 
 There are two phases of measurement. In the first the total bandwidth capacity
 of the new links is measured by the hooking node and the destination nodes, in
@@ -31,11 +30,11 @@ the second the bandwidth of the links is constantly monitored.
 
 The utilised bandwidth will be monitored with the libpcap library.
 
-==== Total available bandwidth ====
+### Total available bandwidth
 
-{{{
+```
 	A <--> B <--> C
-}}}
+```
 
 The node B is hooking to A and C. At the end of the hook, B measures the
 total available bandwidth of the links B-->C and B-->A.
@@ -59,23 +58,23 @@ and C-->B.
 
 In the end, we have the measurement of: A->B, B->A, C->B, B->C.
 
-==== Realtime bandwidth monitoring ====
+### Realtime bandwidth monitoring
 
 With the use of the libpcap library, B can monitor the bandwidth usage of its
 links.
 
-{{{
+```
 Max_link_bw	= Total available bandwidth of the link
 
-nflows		= number of current flows on the link.
+nflows = number of current flows on the link.
 		  A flow is the stream of packets associated to a specific
 		  connection.
-}}}
+```
 
 The current available bandwidth of the link is approximated as:
-{{{
-link_avail_bw   = Max_link_bw/(nflows+1)
-}}}
+```
+link_avail_bw = Max_link_bw/(nflows+1)
+```
 
 We choose this approximation because the TCP traffic allocation method is
 similar to a max-min allocation algorithm, thus when there are many flows
@@ -84,7 +83,7 @@ similar to a max-min allocation algorithm, thus when there are many flows
 If the radar will notice a big variation of the link's current available
 bandwidth, it will send a new QSPN.
 
-==== Rtt delay ====
+### Rtt delay
 
 Each node of the network will delay the forwarding of a received Tracer Packet
 by a time inversely proportional to `link_avail_bw'. In this way, the TPs will
@@ -98,14 +97,14 @@ For more information about the order of efficiency of the Tracer Packets you
 can read the document on the QSPN v2:
 http://netsukuku.freaknet.org/doc/main_doc/qspn.pdf
 
-==== Route bandwidth ====
+### Route bandwidth
 
 The bandwidth capacity of the route S -> D is denoted with bw(S -> D) and is
 equal to the bandwidth of the worst link in the route.
 For example:
-{{{
+```
 S --64Mb/s--> R --64Mb/s--> T --32Mb/s--> O --100Mb/s--> I --100Mb/s--> D
-}}}
+```
 the route bandwidth of this segment is bw(S -> D)=32Mb/s.
 
 A TP needs to memorized only _one_ bw capacity value, and that
@@ -115,23 +114,23 @@ memorised in the packet will be bw(S->R->T)=64, but when it will reach O, it
 will change to bw(S->R->T->O)=32.
 
 Note that each bw capacity value corresponds to the approximated available
-bandwidth of the relative link (`link_avail_bw'). 
-For example, by writing ``S --64Mb/s--> R'' we indicate that the current
+bandwidth of the relative link (`link_avail_bw`). 
+For example, by writing `S --64Mb/s--> R` we indicate that the current
 approximated bw capacity of the S-->R link is 64Mb/s.
 
-== Asymmetric routes ==
+# Asymmetric routes
 
 The QSPN v1 gives to each node the best download route to reach all the other
 node. 
 
 Let's consider the node S and D:
-{{{
+```
        1:   ,--<-<-<---.
            /            \
          S                D
            \            / 
        2:   `-->->->---'
-}}}
+```
 The routes of type 1 are the best upload routes from D to S,
 while the routes of type 2 are the opposite.
 
@@ -154,7 +153,7 @@ necessary.
 Note that in the QSPN v2 there's a builtin support for the asymmetric routing.
 See http://netsukuku.freaknet.org/doc/main_doc/qspn.pdf
 
-== Latency VS bandwidth ==
+# Latency VS bandwidth 
 
 It may also happens that a link has a good bandwidth but a high latency.
 A low latency is needed by semi-realtime applications: for a ssh connection
@@ -177,7 +176,7 @@ utilization. For example, when bittorrent will start the download from the
 nodes A,B,C, the ntkd monitor will add in the kernel the "best bandwidth"
 routes for A,B,C.
 
-== IGS ==
+# IGS
 
 The inet-gw which share their Internet connection measure also the utilised
 bandwidth of the Internet connection.
@@ -186,7 +185,7 @@ by the user in the netsukuku.conf config file. In this way, monitoring the
 device used by the Internet default route, it's trivial to known the
 available bandwidth.
 
-== Load balancing ==
+# Load balancing
 
 The load balancing will be always used, because the routes are added in the
 kernel using the multipath option. The packets sent to a node will use
@@ -197,4 +196,4 @@ load balancing. Indeed, the ntk nodes are consistent between themselves, i.e.
 a ntk node doesn't use NAT to reach another ntk node.
 
 ----
-related: [Netsukuku_RFC]
+related: [Netsukuku_RFC](README.md)

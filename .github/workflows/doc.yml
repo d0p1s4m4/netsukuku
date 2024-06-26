@@ -18,8 +18,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update 
-          sudo apt-get install build-essential libcmocka-dev git gettext autopoint
-          sudo apt-get install libjson-c-dev libreadline-dev libsodium-dev autoconf-archive
+          sudo apt-get install build-essential libcmocka-dev git gettext autopoint libmicrohttpd-dev
+          sudo apt-get install libconfig-dev libreadline-dev libsodium-dev autoconf-archive
 
       - name: Generate files
         run: |

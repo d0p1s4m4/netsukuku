@@ -13,8 +13,8 @@ jobs:
     - name: Install build dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install build-essential libcmocka-dev git gettext autopoint
-        sudo apt-get install libjson-c-dev libreadline-dev libsodium-dev autoconf-archive
+        sudo apt-get install build-essential libcmocka-dev git gettext autopoint libmicrohttpd-dev 
+        sudo apt-get install libconfig-dev libreadline-dev libsodium-dev autoconf-archive
         sudo apt-get install clang
     - name: Build with ${{ matrix.cc }}
       run: |
@@ -29,8 +29,8 @@ jobs:
       - name: Install test dependencies
         run: |
           sudo apt-get update 
-          sudo apt-get install build-essential libcmocka-dev git gettext autopoint
-          sudo apt-get install libjson-c-dev libreadline-dev libsodium-dev autoconf-archive
+          sudo apt-get install build-essential libcmocka-dev git gettext autopoint libmicrohttpd-dev
+          sudo apt-get install libconfig-dev libreadline-dev libsodium-dev autoconf-archive
       - name: Build and run tests
         run: |
           autoreconf -i -f
