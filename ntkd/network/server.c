@@ -1,15 +1,30 @@
 #ifdef WIN32
 # include <winsock2.h>
 #endif
-
+#include <pthread.h>
 #include "logger.h"
 
 #define NTKD_PORT 269
+
+static pthread_t udp_thread;
+static pthread_t tcp_thread;
+
+static void *
+server_udp(void *argv)
+{
+	for (;;)
+	{
+
+	}
+	return (NULL);
+}
 
 static int
 server_udp_start(void)
 {
 	LOG_INFO("Starting udp listener on port: %d", NTKD_PORT);
+
+	pthread_create(&udp_thread, NULL, server_udp, NULL);
 
 	return (0);
 }
@@ -20,13 +35,23 @@ server_udp_stop(void)
 {
 	LOG_INFO("Stopping udp listener...");
 
+	/*pthread_join(udp_thread, NULL);*/
+
 	return (0);
+}
+
+static void *
+server_tcp(void *argv)
+{
+	return (NULL);
 }
 
 static int
 server_tcp_start(void)
 {
 	LOG_INFO("Starting tcp listener on port: %d\n", NTKD_PORT);
+
+	pthread_create(&tcp_thread, NULL, server_tcp, NULL);
 
 	return (0);
 }

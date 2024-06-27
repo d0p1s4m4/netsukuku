@@ -18,14 +18,16 @@
  *
  */
 #include "config/opt.h"
-#include <io.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
 #include <signal.h>
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif /* HAVE_CONFIG_H */
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
 #ifdef HAVE_GETOPT_H
 # include <getopt.h>
 #endif /* HAVE_GETOPT_H */
@@ -35,7 +37,9 @@
 #include "logger.h"
 #include "utils.h"
 #include "network/server.h"
+#ifdef ENABLE_WEBUI
 #include "webui/webui.h"
+#endif
 #include "config/cfg.h"
 
 static const char *prg_name;
@@ -46,6 +50,7 @@ static struct option long_options[] = {
 	{"version", no_argument, 0, 'V'},
 	{"config", required_argument, 0, 'c'},
 	{"foreground", no_argument, 0, 'F'},
+	{"verbose", no_argument, 0, 'v'},
 	{0, 0, 0, 0}
 };
 #endif /* HAVE_STRUCT_OPTION */
@@ -94,9 +99,9 @@ main(int argc, char **argv)
 
 	/* parse args */
 #if defined(HAVE_GETOPT_LONG) && defined(HAVE_STRUCT_OPTION) 
-	while ((c = getopt_long(argc, argv, "hVc:F", long_options, &idx)) != EOF)
+	while ((c = getopt_long(argc, argv, "hVc:Fv", long_options, &idx)) != EOF)
 #else
-	while ((c = getopt(argc, argv, "hVc:F")) != EOF)
+	while ((c = getopt(argc, argv, "hVc:Fv")) != EOF)
 #endif /* HAVE_GETOPT_LONG && HAVE_STRUCT_OPTION */
 	{
 		switch(c)
@@ -115,6 +120,9 @@ main(int argc, char **argv)
 				break;
 			case 'F':
 				g_opt_daemonize = 0;
+				break;
+			case 'v':
+				/* increase log level */
 				break;
 			default:
 				usage(EXIT_FAILURE);
@@ -136,11 +144,15 @@ main(int argc, char **argv)
 	/* run */
 
 	server_start();
+#ifdef ENABLE_WEBUI
 	webui_start();
+#endif /* ENABLE_WEBUI */
 
 	/*getchar();*/
 
+#ifdef ENABLE_WEBUI
 	webui_stop();
+#endif /* ENABLE_WEBUI */
 	server_stop();
 	return (EXIT_SUCCESS);
 }

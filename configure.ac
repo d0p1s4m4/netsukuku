@@ -32,7 +32,16 @@ AC_HEADER_ASSERT
 AC_C_CONST
 AC_C_INLINE
 
-PKG_CHECK_MODULES([MICROHTTPD], [libmicrohttpd])
+AC_ARG_ENABLE([webui],
+    AS_HELP_STRING([--disable-webui], [Disable webui]))
+
+AS_IF([test "x$enable_webui" != "xno"], [
+	PKG_CHECK_MODULES([MICROHTTPD], [libmicrohttpd])
+	AC_DEFINE([ENABLE_WEBUI], [1], [enable webui])
+])
+AM_CONDITIONAL([ENABLE_WEBUI], [test "x$enable_webui" != "xno"])
+
+
 PKG_CHECK_MODULES([SODIUM], [libsodium])
 PKG_CHECK_MODULES([CONFIG], [libconfig])
 

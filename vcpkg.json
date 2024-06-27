@@ -1,0 +1,9 @@
+{
+  "dependencies": [
+    "cmocka",
+    "getopt-win32",
+    "libconfig",
+    "libmicrohttpd",
+    "pthreads"
+  ]
+}

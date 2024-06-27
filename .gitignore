@@ -90,3 +90,7 @@ doc/html
 
 /__old
 config.h.in
+/out
+/CMakeSettings.json
+/CMakeUserPresets.json
+/vcpkg-configuration.json

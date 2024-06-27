@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <string.h>
 #include <microhttpd.h>
 #include <stdint.h>
 #include "config/opt.h"
