@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         cc: [gcc, clang]
@@ -13,12 +13,13 @@ jobs:
     - name: Install build dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install build-essential zlibc libgmp-dev openssl libssl-dev
-        sudo apt-get install libpth-dev perl
+        sudo apt-get install build-essential libcmocka-dev git gettext autopoint libmicrohttpd-dev 
+        sudo apt-get install libconfig-dev libreadline-dev libsodium-dev autoconf-archive
         sudo apt-get install clang
     - name: Build with ${{ matrix.cc }}
       run: |
-        ./configure
+        autoreconf -i -f
+        CC=${{ matrix.cc }} ./configure
         CC=${{ matrix.cc }} make
 
   test:
@@ -28,26 +29,14 @@ jobs:
       - name: Install test dependencies
         run: |
           sudo apt-get update 
-          sudo apt-get install build-essential libcmocka-dev zlibc libgmp-dev
-          sudo apt-get install openssl libssl-dev libpth-dev perl
+          sudo apt-get install build-essential libcmocka-dev git gettext autopoint libmicrohttpd-dev
+          sudo apt-get install libconfig-dev libreadline-dev libsodium-dev autoconf-archive
       - name: Build and run tests
         run: |
-          ./configure
-          make test
+          autoreconf -i -f
+          ./configure --enable-debug --enable-asan --enable-ubsan
+          make
+          make check
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
 
-  qspn-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Install test dependencies
-        run: |
-          sudo apt-get update 
-          sudo apt-get install build-essential libcmocka-dev zlibc libgmp-dev
-          sudo apt-get install openssl libssl-dev libpth-dev perl
-      - name: Build and run qspn-empiric
-        run: |
-          ./configure --debug
-          make qspn-empiric
-          ./qspn-empiric
