@@ -62,6 +62,7 @@ AC_CONFIG_FILES([
 	libQSPN/Makefile
 	libQSPN/tests/Makefile
 	ntkd/Makefile
+	ntk-cli/Makefile
 	doc/Doxyfile
 ])
 

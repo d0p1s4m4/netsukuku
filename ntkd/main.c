@@ -20,7 +20,6 @@
 #include "config/opt.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <signal.h>
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -33,9 +32,10 @@
 #endif /* HAVE_GETOPT_H */
 #ifdef HAVE_LIBGEN_H
 # include <libgen.h>
+#else
+# include "utils.h"
 #endif /* HAVE_LIBGEN_H */
 #include "logger.h"
-#include "utils.h"
 #include "network/server.h"
 #ifdef ENABLE_WEBUI
 #include "webui/webui.h"

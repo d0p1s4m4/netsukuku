@@ -12,6 +12,8 @@ static pthread_t tcp_thread;
 static void *
 server_udp(void *argv)
 {
+	(void)argv;
+
 	for (;;)
 	{
 
@@ -43,6 +45,7 @@ server_udp_stop(void)
 static void *
 server_tcp(void *argv)
 {
+	(void)argv;
 	return (NULL);
 }
 

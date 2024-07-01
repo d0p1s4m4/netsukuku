@@ -8,12 +8,14 @@
 #endif /* HAVE_CONFIG_H */
 #ifdef HAVE_LIBGEN_H
 # include <libgen.h>
+# else
+# include "utils.h"
 #endif /* HAVE_LIBGEN_H */
 #ifdef HAVE_PTHREAD
 #include <pthread.h>
 #endif /* HAVE_PTHREAD */
 #include "logger.h"
-#include "utils.h"
+
 
 
 static struct logger logger = {
@@ -70,7 +72,11 @@ logger_log_meta(enum logger_level level, const char *file, int line)
 	}
 
 	t = time(NULL);
+#ifdef _WIN32
 	localtime_s(&tm, &t);
+#else
+	localtime_r(&t, &tm);
+#endif /* _WIN32 */
 	strftime(buffer, 128, "%x %X", &tm);
 	bname = basename((char *)file);
 	fprintf(logger.out, "%s %10s:%d: [\033[1;1m%s%s", buffer, bname,
@@ -124,7 +130,6 @@ logger_log_hexdump(enum logger_level level, const char *file, int line,
 			const uint8_t *data, size_t size)
 {
 	size_t i;
-	size_t j;
 	uint32_t addr;
 
 #ifdef HAVE_PTHREAD

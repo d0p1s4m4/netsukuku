@@ -3,13 +3,6 @@ project(ntkd)
 option(${PROJECT_NAME}_ENABLE_WEBUI "" OFF)
 
 find_package(libconfig CONFIG REQUIRED)
-if(MSVC)
-	find_package(PThreads4W CONFIG REQUIRED)
-	find_package(unofficial-getopt-win32 CONFIG REQUIRED)
-	add_compile_definitions(-DHAVE_GETOPT_H)
-endif()
-
-CHECK_INCLUDE_FILE(getopt.h HAVE_GETOPT_H)
 
 add_executable(${PROJECT_NAME}
 	main.c
@@ -36,3 +29,5 @@ if(${PROJECT_NAME}_ENABLE_WEBUI)
 	target_compile_definitions(${PROJECT_NAME}
 		-DENABLE_WEBUI)
 endif()
+
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)

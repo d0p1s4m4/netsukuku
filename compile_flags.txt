@@ -6,3 +6,4 @@
 -DLOCALEDIR=""
 -Intkd
 -DHAVE_CONFIG_H
+-I.
